@@ -1,0 +1,48 @@
+@import "blueprint/grid"
+@import "compass/css3"
+
+// Page layout can be done using mixins applied to your semantic classes and IDs:
+body 
+  margin: 20px 0
+  background-image: url('/images/graphy.png') !important
+  font-size: 14px !important
+  line-height: 21px
+  #container 
+    @include container
+  header, #ooter 
+    @include column($blueprint-grid-columns)
+  #main
+    @include column($blueprint-grid-columns)
+  
+  
+header
+  .logo
+    font-family: 'Slackey', cursive
+    font-size: 4em
+    margin: 5px 20px
+    a
+      color: black
+      text-decoration: none !important
+    @include text-shadow(rgba(#ccc, 1) 5px 5px 0,rgba(#ccc, 1) -5px -5px 0)
+      
+
+#main
+  @include border-radius(25px)
+  background-color: #fff
+  padding: 30px 0
+  #wrapper
+    @include append(1)
+    @include column(22)
+    @include prepend(1)
+
+.highlight
+  background: #eee url('/images/tab_grey.gif') no-repeat !important
+  padding: 6px 15px
+  margin: 5px 5px 1.5em
+  min-height: 40px
+  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important
+  line-height: 1.2em
+  font-size: 1.1em
+  
+  pre
+    margin: 5px !important
