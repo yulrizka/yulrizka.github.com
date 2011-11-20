@@ -509,6 +509,8 @@ header .logo a {
   border-radius: 25px;
   background-color: white;
   padding: 30px 0;
+  border: 1px solid #aaaaab;
+  width: 948px !important;
 }
 #main #wrapper {
   padding-right: 40px;
