@@ -496,7 +496,7 @@ header .logo {
   text-shadow: #cccccc 5px 5px 0, #cccccc -5px -5px 0;
 }
 header .logo a {
-  color: black;
+  color: black !important;
   text-decoration: none !important;
 }
 
