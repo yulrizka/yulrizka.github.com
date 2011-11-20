@@ -491,13 +491,16 @@ body #main {
 
 header .logo {
   font-family: "Slackey", cursive;
-  font-size: 4em;
+  font-size: 5.4em;
   margin: 5px 20px;
   text-shadow: #cccccc 5px 5px 0, #cccccc -5px -5px 0;
 }
 header .logo a {
   color: black !important;
   text-decoration: none !important;
+}
+header .logo:hover {
+  text-shadow: #aaaaaa 5px 5px 0, #aaaaaa -5px -5px 0;
 }
 
 #main {
