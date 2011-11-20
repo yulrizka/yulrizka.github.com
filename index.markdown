@@ -9,7 +9,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
     puts "Hello World!"
     
     Class Foo < Bar
-      
+      test = "true"
     end
 {% endhighlight %}    
 
