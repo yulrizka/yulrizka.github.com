@@ -38,8 +38,8 @@ body #main {
 /* line 19, ../../sass/site.sass */
 header .logo {
   font-family: "Slackey", cursive;
-  font-size: 5.4em;
-  margin: 5px 20px;
+  font-size: 5em;
+  margin: 2px 20px;
   text-shadow: #cccccc 5px 5px 0, #cccccc -5px -5px 0;
 }
 /* line 23, ../../sass/site.sass */
