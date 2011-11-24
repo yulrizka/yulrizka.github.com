@@ -78,8 +78,13 @@ header .logo:hover {
 * html #main #wrapper {
   overflow-x: hidden;
 }
+/* line 41, ../../sass/site.sass */
+#main p {
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
 
-/* line 42, ../../sass/site.sass */
+/* line 44, ../../sass/site.sass */
 .highlight {
   background: #eeeeee url("/images/pygments/tab_grey.gif") no-repeat !important;
   padding: 0px 0px;
@@ -89,27 +94,32 @@ header .logo:hover {
   line-height: 1.2em;
   font-size: 1.1em;
 }
-/* line 50, ../../sass/site.sass */
+/* line 52, ../../sass/site.sass */
 .highlight pre {
-  margin: 0 5px 5px !important;
+  margin: 0 5px 5px 0 !important;
   padding-top: 10px;
 }
-/* line 53, ../../sass/site.sass */
+/* line 55, ../../sass/site.sass */
 .highlight .gutter {
   width: 2px;
-  padding-left: 40px;
+  padding: 4px 10px 4px 40px;
 }
-/* line 56, ../../sass/site.sass */
+/* line 58, ../../sass/site.sass */
 .highlight table {
   margin: 0 !important;
 }
-/* line 58, ../../sass/site.sass */
+/* line 60, ../../sass/site.sass */
 .highlight .code {
   padding: 4px 10px 4px 0px;
-  background-color: #aaaaaa;
+  background-color: #fffffa;
 }
 
-/* line 61, ../../sass/site.sass */
+/* line 64, ../../sass/site.sass */
+.mono, pre, code, tt, p code, li code {
+  font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace !important;
+}
+
+/* line 67, ../../sass/site.sass */
 .highlight.ruby {
   background: #eeeeee url("/images/pygments/tab_grey_ruby.png") no-repeat !important;
 }

@@ -38,7 +38,9 @@ header
     @include append(1)
     @include column(22)
     @include prepend(1)
-
+  p
+    font-size: 1.20em
+    line-height: 1.5em
 .highlight
   background: #eee url('/images/pygments/tab_grey.gif') no-repeat !important
   padding: 0px 0px
@@ -48,15 +50,19 @@ header
   line-height: 1.2em
   font-size: 1.1em
   pre
-    margin: 0 5px 5px !important
+    margin: 0 5px 5px 0 !important
     padding-top: 10px
   .gutter
     width: 2px
-    padding-left: 40px
+    padding: 4px 10px 4px 40px    
   table
     margin: 0 !important
   .code
     padding: 4px 10px 4px 0px
-    background-color: #aaa
+    background-color: #fffffa
+
+.mono, pre, code, tt, p code, li code 
+  font-family: Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace !important
+  
 .highlight.ruby
   background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important
