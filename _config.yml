@@ -3,15 +3,15 @@ auto:        true
 server:      false
 server_port: 4000
 baseurl:    /
-exclude: [config.rb, Gemfile, Gemfile.lock, Guardfile, _app, Procfile]
+exclude: []
 
-source:      .
+source:      ./source
 destination: ./_site
 plugins:     ./_plugins
 
 future:      true
 lsi:         false
-pygments:    true
+pygments:    false
 markdown:    rdiscount
 permalink:   /:categories/:year/:month/:title.html
 

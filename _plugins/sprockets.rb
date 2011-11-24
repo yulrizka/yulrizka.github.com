@@ -7,9 +7,9 @@ require 'coffee-script'
 module Jekyll
   class SprocketsGenerator < Generator
     ROOT = Pathname(File.dirname(__FILE__)).join("../")
-    SOURCE_DIR  = ROOT.join("_app")
-    BUILD_DIR   = ROOT    
-    BUNDLES     = %w( application.css application.js )
+    SOURCE_DIR  = ROOT
+    BUILD_DIR   = ROOT.join("source/")    
+    BUNDLES     = %w( application.js )
     
     safe true
     
@@ -19,7 +19,7 @@ module Jekyll
       end
       
       sprockets.append_path(SOURCE_DIR.join('javascripts').to_s)
-      sprockets.append_path(SOURCE_DIR.join('stylesheets').to_s)
+      #sprockets.append_path(SOURCE_DIR.join('stylesheets').to_s)
       
       BUNDLES.each do |bundle|
           assets = sprockets.find_asset(bundle)
