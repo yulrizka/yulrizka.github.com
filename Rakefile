@@ -6,16 +6,23 @@ desc "deploy public directory to github pages"
 multitask :push do
   puts "## Deploying branch to Github Pages "
   Rake::Task[:copy].invoke
+  message = "Site updated at #{Time.now.utc}"
   cd "#{deploy_dir}" do
     system "git add ."
     system "git add -u"
-    puts "\n## Commiting: Site updated at #{Time.now.utc}"
-    message = "Site updated at #{Time.now.utc}"
+    puts "\n## Commiting: Site updated at #{Time.now.utc}"    
     system "git commit -m \"#{message}\""
     puts "\n## Pushing generated #{deploy_dir} website"
-    system "git push origin #{deploy_branch} --force"
+    system "git push origin #{deploy_branch}"
     puts "\n## Github Pages deploy complete"
   end
+    system "git add ."
+    system "git add -u"
+    puts "\n## Commiting Source: Site updated at #{Time.now.utc}"    
+    system "git commit -m \"Source #{message}\""
+    puts "\n## Pushing source"
+    system "git push origin #{deploy_branch}"
+    puts "\n## Github Pages deploy complete"
 end
 
 desc "Copy public directory to deploy"
