@@ -14,3 +14,4 @@ gem "guard-livereload"
 gem "foreman"
 gem 'rake'
 gem 'pygments.rb'
+gem 'stringex'

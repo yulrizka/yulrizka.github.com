@@ -1,46 +1,24 @@
-@import "blueprint/grid"
+@import "partials/_base"
 @import "compass/css3"
 
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 body 
-  margin: 20px 0
   background-image: url('/images/graphy.png') !important
-  font-size: 14px !important
-  line-height: 21px
-  #container 
-    @include container
-  header, #ooter 
-    @include column($blueprint-grid-columns)
-  #main
-    @include column($blueprint-grid-columns)
-  
+  padding-top: 40px
   
 header
-  .logo
+  .topbar .brand
     font-family: 'Slackey', cursive
-    font-size: 5em
-    margin: 2px 20px
-    a
-      color: #000 !important
-      text-decoration: none !important
-    &:hover
-      @include text-shadow(rgba(#aaa, 1) 5px 5px 0,rgba(#aaa, 1) -5px -5px 0) 
-    @include text-shadow(rgba(#ccc, 1) 5px 5px 0,rgba(#ccc, 1) -5px -5px 0)
-      
+    font-size: 1.8em
 
-#main
-  @include border-radius(25px)
+.container > .content 
   background-color: #fff
-  padding: 30px 0
-  border: 1px solid #aaaaab
-  width: 948px !important
-  #wrapper
-    @include append(1)
-    @include column(22)
-    @include prepend(1)
-  p
-    font-size: 1.20em
-    line-height: 1.5em
+  padding: 20px
+  margin: 0 -20px
+  @include border-bottom-radius(6px)
+  @include box-shadow(rgba(0,0,0,.3) 0 1px 2px)
+
+      
 .highlight
   background: #eee url('/images/pygments/tab_grey.gif') no-repeat !important
   padding: 0px 0px
@@ -52,17 +30,31 @@ header
   pre
     margin: 0 5px 5px 0 !important
     padding-top: 10px
+    border: none
+    background-color: $code-background-color
   .gutter
     width: 2px
-    padding: 4px 10px 4px 40px    
+    padding: 4px 0 4px 40px    
+    pre
+      background-color: $gutter-background-color
+      color: #888      
   table
     margin: 0 !important
   .code
     padding: 4px 10px 4px 0px
-    background-color: #fffffa
+    background-color: $code-background-color
+    border: 1px solid #dfdfdf
+    border-top: 1px solid #eeeeee
+    @include box-shadow(rgba(0,0,0,.3) 1px 1px 2px)
+  td
+    border: none
+  code
+    background-color: $code-background-color
+  .ruby
+  background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important
 
 .mono, pre, code, tt, p code, li code 
   font-family: Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace !important
   
-.highlight.ruby
-  background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important
+footer p
+  text-align: center

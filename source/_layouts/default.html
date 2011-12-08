@@ -9,27 +9,40 @@
 
 <!-- Framework CSS -->
 <link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
-<link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
-<!--[if lt IE 8]>
-    <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
 <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
 
 
 </head>
-<body class="bp">
+<body>
 <div id="container" class="">
   <header>
     <div class="logo">
-      <a href="http://labs.yulrizka.com">Labs.Yulrizka.com</a>
+    </div>
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Labs.Yulrizka.com</a>
+          <ul class="nav">
+            <li class="active"><a href="/">Home</a></li>
+            </ul>
+        </div>
+      </div>
     </div>
   </header>
-  <div id="main">
-    <div id="wrapper">
+
+  <div class="container">
+    <div class="content">
       {{ content }}
     </div>
   </div>
+      
   <footer>
+     <p>&copy; Ahmy Yulrizka 2011</p>
   </footer>
 </div> <!-- end of #container-->
 
