@@ -1,2 +1,4 @@
 .sass-cache/
 .pygments-cache/
+._site
+._deploy
