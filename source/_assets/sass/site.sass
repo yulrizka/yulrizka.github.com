@@ -10,14 +10,32 @@ header
   .topbar .brand
     font-family: 'Slackey', cursive
     font-size: 1.8em
+    width: 240px
 
-.container > .content 
+.container > .row > .content 
   background-color: #fff
   padding: 20px
   margin: 0 -20px
   @include border-bottom-radius(6px)
   @include box-shadow(rgba(0,0,0,.3) 0 1px 2px)
 
+#drop-pane  
+  width: 280px
+  @include box-shadow(rgba(0,0,0,.1) 0 1px 2px)
+  height: 550px
+  position: absolute
+  top: 42px
+  margin-left: -22px
+  background-color: #999
+  display: none
+  .wrapper
+    width: 270px
+    height: 530px
+    padding: 10px 5px
+    overflow-y: auto
+    font-size: 1.2em
+    line-height: 1.5em
+    
 p
   font-size: 14px
   line-height: 21px

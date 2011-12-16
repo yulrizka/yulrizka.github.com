@@ -7,7 +7,7 @@ require 'coffee-script'
 module Jekyll
   class SprocketsGenerator < Generator
     ROOT = Pathname(File.dirname(__FILE__)).join("../")
-    SOURCE_DIR  = ROOT
+    SOURCE_DIR  = ROOT.join("source/_assets")
     BUILD_DIR   = ROOT.join("source/")    
     BUNDLES     = %w( application.js )
     
