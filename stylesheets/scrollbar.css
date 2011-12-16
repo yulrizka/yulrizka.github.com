@@ -1,0 +1,66 @@
+/* line 1, ../_assets/sass/scrollbar.scss */
+#scrollbar1 {
+  width: 520px;
+  clear: both;
+  margin: 20px 0 10px;
+}
+
+/* line 2, ../_assets/sass/scrollbar.scss */
+#scrollbar1 .viewport {
+  width: 500px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* line 3, ../_assets/sass/scrollbar.scss */
+#scrollbar1 .overview {
+  list-style: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* line 5, ../_assets/sass/scrollbar.scss */
+#scrollbar1 .thumb .end,
+#scrollbar1 .thumb {
+  background-color: #003D5D;
+}
+
+/* line 6, ../_assets/sass/scrollbar.scss */
+#scrollbar1 .scrollbar {
+  position: relative;
+  float: right;
+  width: 15px;
+}
+
+/* line 7, ../_assets/sass/scrollbar.scss */
+#scrollbar1 .track {
+  background-color: #D8EEFD;
+  height: 100%;
+  width: 13px;
+  position: relative;
+  padding: 0 1px;
+}
+
+/* line 8, ../_assets/sass/scrollbar.scss */
+#scrollbar1 .thumb {
+  height: 20px;
+  width: 13px;
+  cursor: pointer;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+}
+
+/* line 9, ../_assets/sass/scrollbar.scss */
+#scrollbar1 .thumb .end {
+  overflow: hidden;
+  height: 5px;
+  width: 13px;
+}
+
+/* line 10, ../_assets/sass/scrollbar.scss */
+#scrollbar1 .disable {
+  display: none;
+}
