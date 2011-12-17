@@ -1,1 +1,2 @@
 //= require site
+//= require banner

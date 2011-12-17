@@ -27,3 +27,30 @@
       return false;
     });
   });
+
+  $(function() {
+    var changeHeader;
+    changeHeader = function(i) {
+      var current, to;
+      current = $('#banner li.active');
+      to = $('#banner li').eq(i);
+      console.log(current);
+      console.log(to);
+      if (current.index() !== to.index()) {
+        $('.nav li').removeClass('banner');
+        $('.nav li').eq(i).addClass('banner');
+        current.stop(true, true).fadeOut('fast', function() {
+          current.removeClass('active');
+          return to.fadeIn('fast', function() {
+            return to.addClass('active');
+          });
+        });
+        return console.log('change');
+      }
+    };
+    return $('.nav li').mouseenter(function() {
+      return changeHeader($(this).index());
+    });
+  });
+
+

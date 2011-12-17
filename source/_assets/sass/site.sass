@@ -4,13 +4,22 @@
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 body 
   background-image: url('/images/graphy.png') !important
-  padding-top: 40px
   
 header
-  .topbar .brand
-    font-family: 'Slackey', cursive
-    font-size: 1.8em
-    width: 240px
+  height: 190px
+  .topbar 
+    .brand
+      font-family: 'Slackey', cursive
+      font-size: 20px
+      width: 240px
+    ul.nav
+      li
+        border-top: 2px solid #323232
+      li:hover, li.banner
+        border-color: #E82517 !important
+      li.active
+        border-color: #222
+    
 
 .container > .row > .content 
   background-color: #fff
@@ -18,6 +27,47 @@ header
   margin: 0 -20px
   @include border-bottom-radius(6px)
   @include box-shadow(rgba(0,0,0,.3) 0 1px 2px)
+
+.topbar.relative
+  position: relative
+
+#banner
+  height: 150px
+  @include box-shadow(rgba(0,0,0,.3) 0px 10px 30px inset)
+  @include background-image(linear-gradient(#0069D6, #006FE3))
+  .wrapper
+    background: url("/images/grid-18px.png") repeat scroll center top transparent
+    height: 150px    
+  ul
+    list-style: none outside none
+    max-height: 124px
+    overflow: hidden
+  li
+    color: white
+    display: none
+    &.active
+      display: block
+  .excerpt
+    width: 960px
+    margin-left: auto
+    margin-right: auto
+    color: white
+    padding: 20px
+    float: none
+    .text
+      .title
+        font-size: 2em
+        font-weight: bold
+        line-height: 1.5em
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
+      font-size: 1.4em
+      @include text-shadow(rgba(0,0,0,.5) 0 1px 2px)
+  .text p
+    line-height: 20px
+    font-size: 15px
+    
+    
+    
 
 #drop-pane  
   width: 280px
