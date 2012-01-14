@@ -1,12 +1,6 @@
+(function() {
 
   $(function() {
-    var tag, tagObj, _i, _len, _ref;
-    _ref = $('.highlight pre code');
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      tag = _ref[_i];
-      tagObj = $(tag);
-      if (tagObj.hasClass('ruby')) tagObj.parents('.highlight').addClass('ruby');
-    }
     this.sidebar = false;
     return $('a.brand').click(function() {
       var content, drop_pane, sidebar;
@@ -27,6 +21,9 @@
       return false;
     });
   });
+
+}).call(this);
+(function() {
 
   $(function() {
     var changeHeader;
@@ -52,5 +49,7 @@
       return changeHeader($(this).index());
     });
   });
+
+}).call(this);
 
 
