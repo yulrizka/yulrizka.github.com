@@ -154,14 +154,13 @@ p {
   font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
   line-height: 1.2em;
   font-size: 1.1em;
-  background: #eeeeee url("/images/pygments/tab_grey_ruby.png") no-repeat !important;
 }
 /* line 101, ../_assets/sass/site.sass */
 .highlight pre {
   margin: 0 5px 5px 0 !important;
   padding-top: 10px;
   border: none;
-  background-color: #fffffb;
+  background-color: #141414;
 }
 /* line 106, ../_assets/sass/site.sass */
 .highlight .gutter {
@@ -180,7 +179,7 @@ p {
 /* line 114, ../_assets/sass/site.sass */
 .highlight .code {
   padding: 4px 10px 4px 0px;
-  background-color: #fffffb;
+  background-color: #141414;
   border: 1px solid #dfdfdf;
   border-top: 1px solid #eeeeee;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 2px;
@@ -194,15 +193,37 @@ p {
 }
 /* line 122, ../_assets/sass/site.sass */
 .highlight code {
-  background-color: #fffffb;
+  background-color: #141414;
+  padding-left: 0;
+  color: #f8f8f8;
 }
 
 /* line 127, ../_assets/sass/site.sass */
+.highlight.ruby {
+  background: #eeeeee url("/images/pygments/tab_grey_ruby.png") no-repeat !important;
+}
+
+/* line 129, ../_assets/sass/site.sass */
+.highlight.bash {
+  background: #eeeeee url("/images/pygments/tab_grey_bash.png") no-repeat !important;
+}
+
+/* line 133, ../_assets/sass/site.sass */
+.bogus-wrapper figure {
+  margin: 0 10px;
+}
+
+/* line 136, ../_assets/sass/site.sass */
+code {
+  background-color: #dddddd;
+}
+
+/* line 139, ../_assets/sass/site.sass */
 .mono, pre, code, tt, p code, li code {
   font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace !important;
 }
 
-/* line 130, ../_assets/sass/site.sass */
+/* line 142, ../_assets/sass/site.sass */
 footer p {
   text-align: center;
 }

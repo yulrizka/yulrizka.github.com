@@ -1,0 +1,6 @@
+---
+layout: default
+title: Let each man exercise the art he knows
+---
+
+this is just a test

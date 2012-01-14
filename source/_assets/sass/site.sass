@@ -121,9 +121,21 @@ p
     border: none
   code
     background-color: $code-background-color
-  .ruby
-  background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important
+    padding-left: 0
+    color: $code-foreground-color
 
+.highlight.ruby
+  background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important
+.highlight.bash
+  background: #eee url('/images/pygments/tab_grey_bash.png') no-repeat !important
+  
+  
+.bogus-wrapper figure
+  margin: 0 10px
+
+code
+  background-color: #ddd
+    
 .mono, pre, code, tt, p code, li code 
   font-family: Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace !important
   

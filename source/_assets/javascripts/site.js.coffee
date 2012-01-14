@@ -1,9 +1,4 @@
 $ ->
-  for tag in $('.highlight pre code')
-    tagObj = $(tag)
-    if tagObj.hasClass('ruby')
-      tagObj.parents('.highlight').addClass('ruby')
-  
   @sidebar = false
   $('a.brand').click ->
     sidebar =  $('.container > .row > .sidebar')
