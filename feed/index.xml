@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Recursive</title>
+ <link href="http://recursive-design.com/feed/" rel="self"/>
+ <link href="http://recursive-design.com/"/>
+ <updated>2012-01-14T21:00:45+07:00</updated>
+ <id>http://recursive-design.com/</id>
+ <author>
+   <name>Recursive</name>
+   <email>mail@recursive-design.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Jekyll error utf-8 caracter</title>
+   <link href="http://recursive-design.com/en/2012/01/jekyll-error-utf-8-caracter.html"/>
+   <updated>2012-01-14T17:31:00+07:00</updated>
+   <id>http://recursive-design.com/en/2012/01/jekyll-error-utf-8-caracter</id>
+   <content type="html">&lt;p&gt;If you having a problem in jekyll when it didn't generate a post and there is no error in the log file.
+you might want to check the content if there is any UTF-8 character encoding such as this &lt;strong&gt;±&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
+it actually got &lt;code&gt;invalid multibyte char (US-ASCII) error message&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;to solve this. I added this line to &lt;code&gt;.bashrc&lt;/code&gt; or &lt;code&gt;zshrc&lt;/code&gt; if you are using zsh&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LC_ALL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LANG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It should fix the problem now.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Testing ruby code with benchmark_suite</title>
+   <link href="http://recursive-design.com/en/2012/01/testing-ruby-code-with-benchmark-suite.html"/>
+   <updated>2012-01-14T12:04:00+07:00</updated>
+   <id>http://recursive-design.com/en/2012/01/testing-ruby-code-with-benchmark-suite</id>
+   <content type="html">&lt;p&gt;Just a couple days ago I found out &lt;a href=&quot;http://www.therubygame.com&quot; title=&quot;The Ruby Game&quot;&gt;therubygame.com&lt;/a&gt; which challenge us to
+solve a problem with ruby. The result were measured by the &lt;strong&gt;fastest&lt;/strong&gt;, &lt;strong&gt;slowest&lt;/strong&gt;, &lt;strong&gt;shortest&lt;/strong&gt;, &lt;strong&gt;longest&lt;/strong&gt;,
+&lt;strong&gt;cheaters&lt;/strong&gt; (yup there are also some rule).&lt;/p&gt;
+
+&lt;p&gt;And also I was listening to an episode of ruby rouge on &lt;a href=&quot;http://rubyrogues.com/034-rr-benchmarking-and-profiling/&quot; title=&quot;034 RR Benchmarking and Profiling&quot;&gt;Benchmarking&lt;/a&gt;. And there is one tools called &lt;a href=&quot;http://rubygems.org/gems/benchmark_suite&quot; title=&quot;benchmark_suite&quot;&gt;benchmark_suite&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;So there is this &lt;a href=&quot;http://www.therubygame.com/challenges/3/submissions&quot; title=&quot;Challenge #3&quot;&gt;challenge&lt;/a&gt; to capitalize first letter of every word. I want to compare my code to the fastest solution there.
+so i installed the gem, also the &lt;a href=&quot;http://rubygems.org/gems/ffi&quot; title=&quot;ffi gem&quot;&gt;ruby-ffi&lt;/a&gt; gem that somewhat fix an error while I tried to run the benchmark.&lt;/p&gt;
+
+&lt;p&gt;so this is the code to benchmark it&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight ruby'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;benchmark/ips&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;The small brown &amp;amp; ginger fox JUMPED OVER the gate&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;no&quot;&gt;Benchmark&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ips&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;first&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/\w+/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;capitalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;second&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:capitalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And here is the result&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The first code run &lt;strong&gt;55.609,3&lt;/strong&gt; times per second and the latter is &lt;strong&gt;77.996,4&lt;/strong&gt; times per second.
+So the second code run more than the first code in one second. Which mean the second code is faster.&lt;/p&gt;
+
+&lt;p&gt;Also the first code run &lt;strong&gt;277.202&lt;/strong&gt; times in &lt;strong&gt;5.048175&lt;/strong&gt; sec while the second code run &lt;strong&gt;389.844&lt;/strong&gt; times in &lt;strong&gt;5.05&lt;/strong&gt; sec&lt;/p&gt;
+
+&lt;p&gt;So this mean, that &lt;strong&gt;regex is more slower&lt;/strong&gt; then calling capitalized on each element on array&lt;/p&gt;
+</content>
+ </entry>
+ 
+ 
+</feed>
