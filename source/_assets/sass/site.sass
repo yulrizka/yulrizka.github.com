@@ -66,8 +66,15 @@ header
     line-height: 20px
     font-size: 15px
     
-    
-    
+#social-icon 
+  float: right
+  a
+    @include opacity(0.3)
+    &:hover
+      @include opacity(1)
+      
+.popover
+  z-index: 20000
 
 #drop-pane  
   width: 280px

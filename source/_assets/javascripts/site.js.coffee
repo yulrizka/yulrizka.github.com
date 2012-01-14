@@ -1,4 +1,5 @@
 $ ->
+  $('#social-icon a').popover()
   @sidebar = false
   $('a.brand').click ->
     sidebar =  $('.container > .row > .sidebar')

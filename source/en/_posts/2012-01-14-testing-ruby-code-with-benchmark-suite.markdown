@@ -45,6 +45,8 @@ So the second code run more than the first code in one second. Which mean the se
 
 Also the first code run **277.202** times in **5.048175** sec while the second code run **389.844** times in **5.05** sec
 
+So this mean, that **regex is more slower** then calling capitalized on each element on array
+
 [1]: http://www.therubygame.com "The Ruby Game"
 [2]: http://rubyrogues.com/034-rr-benchmarking-and-profiling/ "034 RR Benchmarking and Profiling"
 [3]: http://rubygems.org/gems/benchmark_suite "benchmark_suite"
