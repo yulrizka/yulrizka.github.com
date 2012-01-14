@@ -121,8 +121,8 @@ header .topbar ul.nav li.active {
 }
 /* line 71, ../_assets/sass/site.sass */
 #social-icon a {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
-  opacity: 0.3;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+  opacity: 0.2;
 }
 /* line 73, ../_assets/sass/site.sass */
 #social-icon a:hover {
