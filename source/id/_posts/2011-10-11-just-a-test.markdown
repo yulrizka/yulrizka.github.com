@@ -2,6 +2,7 @@
 layout: default
 excerpt: Just a test
 title: Let each man exercise the art he knows
+language: id
 categories: 
  - test
  - test 1

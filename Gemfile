@@ -1,7 +1,6 @@
 source "http://rubygems.org"
 
-gem 'liquid', '= 2.2.2'
-gem "jekyll", :git  => "https://github.com/mojombo/jekyll.git"
+gem "jekyll", "~> 0.11.2"
 gem "rdiscount"
 
 gem "compass"

@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Hello Wold
+title: Hello Wold (en)
 date: 2011-12-08 08:27
+language: en
 ---
 
 this is just a test of hello world
