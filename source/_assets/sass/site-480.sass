@@ -1,0 +1,52 @@
+@media (max-width: 480px)
+  .content h2
+    font-size: 1.4em
+  #banner
+    height: 0
+    overflow: hidden
+  .navbar 
+    margin-bottom: 0
+    .nav
+      clear: both
+      margin-bottom: 0
+    .nav-collapse
+      clear: both
+  header
+    height: auto
+      
+// Landscape phone to portrait tablet
+@media (max-width: 768px)
+  .navbar 
+    margin-bottom: 0
+    .nav
+      clear: both
+      margin-bottom: 0
+    .nav-collapse
+      clear: both
+  header
+    height: auto
+  .excerpt 
+    p.title
+      display: block
+      font-size: 1.3em !important
+    p
+      height: 40px
+  #banner ul 
+    max-height: 100px
+
+// Portrait tablet to landscape and desktop
+@media (min-width: 768px) and (max-width: 980px)
+  .navbar 
+    .nav-collapse
+      clear: none !important
+      height: auto !important
+    .nav
+      display: block
+      left: 0
+      margin: 0 10px 0 0
+      position: relative
+      &> li
+        float: left
+  #banner .excerpt .text .title
+    font-size: 1.5em
+    letter-spacing: 0

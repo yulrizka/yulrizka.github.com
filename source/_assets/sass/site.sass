@@ -4,10 +4,12 @@
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 body 
   background-image: url('/images/graphy.png') !important
+#container
+  min-width: 480px
   
 header
   height: 190px
-  .topbar 
+  .navbar 
     .brand
       font-family: 'Slackey', cursive
       font-size: 20px
@@ -21,14 +23,16 @@ header
         border-color: #222
     
 
-.container > .row > .content 
+.container > .row 
+  margin-left: auto
+  margin-right: auto
+  &> .content 
   background-color: #fff
   padding: 20px
-  margin: 0 -20px
   @include border-bottom-radius(6px)
   @include box-shadow(rgba(0,0,0,.3) 0 1px 2px)
 
-.topbar.relative
+.navbar.relative
   position: relative
 
 #banner
@@ -45,10 +49,11 @@ header
   li
     color: white
     display: none
+    .image
+      text-align: right
     &.active
       display: block
   .excerpt
-    width: 960px
     margin-left: auto
     margin-right: auto
     color: white
@@ -59,10 +64,14 @@ header
         font-size: 2em
         font-weight: bold
         line-height: 1.5em
+        letter-spacing: -1px
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
       font-size: 1.4em
       @include text-shadow(rgba(0,0,0,.5) 0 1px 2px)
+    img
+      float: left
   .text p
+    overflow: hidden
     line-height: 20px
     font-size: 15px
     
@@ -115,7 +124,8 @@ p
     padding: 4px 0 4px 40px    
     pre
       background-color: $gutter-background-color
-      color: #888      
+      color: #888
+      width: 16px 
   table
     margin: 0 !important
   .code
@@ -124,12 +134,14 @@ p
     border: 1px solid #dfdfdf
     border-top: 1px solid #eeeeee
     @include box-shadow(rgba(0,0,0,.3) 1px 1px 2px)
+    width: 100%
   td
     border: none
   code
     background-color: $code-background-color
     padding-left: 0
     color: $code-foreground-color
+    border: none
 
 .highlight.ruby
   background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important
@@ -142,6 +154,7 @@ p
 
 code
   background-color: #ddd
+  color: #333
     
 .mono, pre, code, tt, p code, li code 
   font-family: Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace !important

@@ -34,11 +34,12 @@ so this is the code to benchmark it
   end
 {% endcodeblock %}
 
-And here is the result
+And here are the result
 
-`first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471)`
-
-`second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)`
+<div class="well">
+  <p>first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471) </p>
+  <p>second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)</p>
+</div>
 
 The first code run **55.609,3** times per second and the latter is **77.996,4** times per second. 
 So the second code run more than the first code in one second. Which mean the second code is faster.

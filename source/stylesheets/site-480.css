@@ -1,0 +1,90 @@
+@media (max-width: 480px) {
+  /* line 2, ../_assets/sass/site-480.sass */
+  .content h2 {
+    font-size: 1.4em;
+  }
+
+  /* line 4, ../_assets/sass/site-480.sass */
+  #banner {
+    height: 0;
+    overflow: hidden;
+  }
+
+  /* line 7, ../_assets/sass/site-480.sass */
+  .navbar {
+    margin-bottom: 0;
+  }
+  /* line 9, ../_assets/sass/site-480.sass */
+  .navbar .nav {
+    clear: both;
+    margin-bottom: 0;
+  }
+  /* line 12, ../_assets/sass/site-480.sass */
+  .navbar .nav-collapse {
+    clear: both;
+  }
+
+  /* line 14, ../_assets/sass/site-480.sass */
+  header {
+    height: auto;
+  }
+}
+@media (max-width: 768px) {
+  /* line 19, ../_assets/sass/site-480.sass */
+  .navbar {
+    margin-bottom: 0;
+  }
+  /* line 21, ../_assets/sass/site-480.sass */
+  .navbar .nav {
+    clear: both;
+    margin-bottom: 0;
+  }
+  /* line 24, ../_assets/sass/site-480.sass */
+  .navbar .nav-collapse {
+    clear: both;
+  }
+
+  /* line 26, ../_assets/sass/site-480.sass */
+  header {
+    height: auto;
+  }
+
+  /* line 29, ../_assets/sass/site-480.sass */
+  .excerpt p.title {
+    display: block;
+    font-size: 1.3em !important;
+  }
+  /* line 32, ../_assets/sass/site-480.sass */
+  .excerpt p {
+    height: 40px;
+  }
+
+  /* line 34, ../_assets/sass/site-480.sass */
+  #banner ul {
+    max-height: 100px;
+  }
+}
+@media (min-width: 768px) and (max-width: 980px) {
+  /* line 40, ../_assets/sass/site-480.sass */
+  .navbar .nav-collapse {
+    clear: none !important;
+    height: auto !important;
+  }
+  /* line 43, ../_assets/sass/site-480.sass */
+  .navbar .nav {
+    display: block;
+    left: 0;
+    margin: 0 10px 0 0;
+    position: relative;
+  }
+  /* line 48, ../_assets/sass/site-480.sass */
+  .navbar .nav > li {
+    float: left;
+  }
+
+  /* line 50, ../_assets/sass/site-480.sass */
+  #banner .excerpt .text .title {
+    font-size: 1.5em;
+    letter-spacing: 0;
+  }
+}

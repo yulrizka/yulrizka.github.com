@@ -1,4 +1,3 @@
-//= require lib/bootstrap/bootstrap-twipsy
-//= require lib/bootstrap/bootstrap-popover
+//= require lib/bootstrap/bootstrap-min
 //= require site
 //= require banner
