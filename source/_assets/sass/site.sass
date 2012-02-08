@@ -26,14 +26,10 @@ header
   padding: 0 !important
 
 #container > .container-fluid .row-fluid .content
-  margin-left: auto
-  margin-right: auto
   padding: 20px
-  &> .content 
   background-color: #fff
-  @include border-bottom-radius(6px)
-  @include box-shadow(rgba(0,0,0,.3) 0 1px 2px)
-
+  border-bottom: 1px solid #eee
+  
 .navbar.relative
   position: relative
 
@@ -51,24 +47,18 @@ header
   li
     color: white
     display: none
-    .image
-      text-align: right
     &.active
       display: block
   .excerpt
-    margin-left: auto
-    margin-right: auto
     color: white
     padding: 20px
-    float: none
     .text
       .title
         font-size: 2em
         font-weight: bold
         line-height: 1.5em
         letter-spacing: -1px
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
-      font-size: 1.4em
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
       @include text-shadow(rgba(0,0,0,.5) 0 1px 2px)
     img
       float: left
@@ -86,23 +76,6 @@ header
       
 .popover
   z-index: 20000
-
-#drop-pane  
-  width: 280px
-  @include box-shadow(rgba(0,0,0,.1) 0 1px 2px)
-  height: 550px
-  position: absolute
-  top: 42px
-  margin-left: -22px
-  background-color: #999
-  display: none
-  .wrapper
-    width: 270px
-    height: 530px
-    padding: 10px 5px
-    overflow-y: auto
-    font-size: 1.2em
-    line-height: 1.5em
     
 p
   font-size: 14px
@@ -110,7 +83,7 @@ p
       
 .highlight
   background: #eee url('/images/pygments/tab_grey.gif') no-repeat !important
-  padding: 0px 0px
+  padding: 0
   margin: 0px 5px 1.5em
   min-height: 40px
   font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important
@@ -161,5 +134,14 @@ code
 .mono, pre, code, tt, p code, li code 
   font-family: Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace !important
   
-footer p
-  text-align: center
+footer 
+  p
+    text-align: center
+    margin: 5px 0
+  .footer
+    position: relative
+    background-color: #eee
+    padding: 5px
+    @include border-bottom-radius(6px)
+    @include box-shadow(rgba(0,0,0,.3) 0 1px 2px)
+    margin-bottom: 15px
