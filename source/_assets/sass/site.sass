@@ -13,7 +13,6 @@ header
     .brand
       font-family: 'Slackey', cursive
       font-size: 20px
-      width: 240px
     ul.nav
       li
         border-top: 2px solid #323232
@@ -21,14 +20,17 @@ header
         border-color: #E82517 !important
       li.active
         border-color: #222
-    
+    .btn-navbar
+      float: left
+.navbar-fixed-top .navbar-inner
+  padding: 0 !important
 
-.container > .row 
+#container > .container-fluid .row-fluid .content
   margin-left: auto
   margin-right: auto
+  padding: 20px
   &> .content 
   background-color: #fff
-  padding: 20px
   @include border-bottom-radius(6px)
   @include box-shadow(rgba(0,0,0,.3) 0 1px 2px)
 

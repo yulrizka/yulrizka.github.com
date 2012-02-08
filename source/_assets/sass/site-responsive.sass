@@ -4,27 +4,11 @@
   #banner
     height: 0
     overflow: hidden
-  .navbar 
-    margin-bottom: 0
-    .nav
-      clear: both
-      margin-bottom: 0
-    .nav-collapse
-      clear: both
-  header
-    height: auto
+  @import "partials/navbar"
       
 // Landscape phone to portrait tablet
 @media (max-width: 768px)
-  .navbar 
-    margin-bottom: 0
-    .nav
-      clear: both
-      margin-bottom: 0
-    .nav-collapse
-      clear: both
-  header
-    height: auto
+  @import "partials/navbar"
   .excerpt 
     p.title
       display: block
@@ -33,6 +17,7 @@
       height: 40px
   #banner ul 
     max-height: 100px
+  
 
 // Portrait tablet to landscape and desktop
 @media (min-width: 768px) and (max-width: 980px)
@@ -50,3 +35,5 @@
   #banner .excerpt .text .title
     font-size: 1.5em
     letter-spacing: 0
+  .btn-navbar
+    display: none
