@@ -4,7 +4,7 @@
  <title>Recursive</title>
  <link href="http://recursive-design.com/feed/" rel="self"/>
  <link href="http://recursive-design.com/"/>
- <updated>2012-01-14T21:10:11+07:00</updated>
+ <updated>2012-02-08T08:06:29+07:00</updated>
  <id>http://recursive-design.com/</id>
  <author>
    <name>Recursive</name>
@@ -81,11 +81,13 @@ so i installed the gem, also the &lt;a href=&quot;http://rubygems.org/gems/ffi&q
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
-&lt;p&gt;And here is the result&lt;/p&gt;
+&lt;p&gt;And here are the result&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471)&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;well&quot;&gt;
+  &lt;p&gt;first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471) &lt;/p&gt;
+  &lt;p&gt;second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)&lt;/p&gt;
+&lt;/div&gt;
 
-&lt;p&gt;&lt;code&gt;second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;The first code run &lt;strong&gt;55.609,3&lt;/strong&gt; times per second and the latter is &lt;strong&gt;77.996,4&lt;/strong&gt; times per second.
 So the second code run more than the first code in one second. Which mean the second code is faster.&lt;/p&gt;
