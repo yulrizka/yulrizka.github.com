@@ -63,33 +63,43 @@
   #banner ul {
     max-height: 100px;
   }
+
+  /* line 20, ../_assets/sass/site-responsive.sass */
+  #page-view {
+    display: none;
+  }
 }
 @media (min-width: 768px) and (max-width: 980px) {
-  /* line 25, ../_assets/sass/site-responsive.sass */
+  /* line 26, ../_assets/sass/site-responsive.sass */
   .navbar .nav-collapse {
     clear: none !important;
     height: auto !important;
   }
-  /* line 28, ../_assets/sass/site-responsive.sass */
+  /* line 29, ../_assets/sass/site-responsive.sass */
   .navbar .nav {
     display: block;
     left: 0;
     margin: 0 10px 0 0;
     position: relative;
   }
-  /* line 33, ../_assets/sass/site-responsive.sass */
+  /* line 34, ../_assets/sass/site-responsive.sass */
   .navbar .nav > li {
     float: left;
   }
 
-  /* line 35, ../_assets/sass/site-responsive.sass */
+  /* line 36, ../_assets/sass/site-responsive.sass */
   #banner .excerpt .text .title {
     font-size: 1.5em;
     letter-spacing: 0;
   }
 
-  /* line 38, ../_assets/sass/site-responsive.sass */
+  /* line 39, ../_assets/sass/site-responsive.sass */
   .btn-navbar {
+    display: none;
+  }
+
+  /* line 41, ../_assets/sass/site-responsive.sass */
+  #page-view {
     display: none;
   }
 }

@@ -13,7 +13,7 @@ header
     .brand
       font-family: 'Slackey', cursive
       font-size: 20px
-    ul.nav
+    .nav-link ul.nav
       li
         border-top: 2px solid #323232
       li:hover, li.banner
@@ -32,6 +32,8 @@ header
   
 .navbar.relative
   position: relative
+  ul
+    margin-top: 3px
 
 #banner
   height: 150px
@@ -73,6 +75,9 @@ header
     @include opacity(0.2)
     &:hover
       @include opacity(1)
+
+#page-view
+  float: right
       
 .popover
   z-index: 20000
