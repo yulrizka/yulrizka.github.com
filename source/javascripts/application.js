@@ -10,6 +10,8 @@
 (function() {
 
   $(function() {
+    $('.content').css('min-height', $('#sidebar-wrapper').height() + 40);
+    $('#sidebar-wrapper').show();
     return $('#social-icon a').popover();
   });
 
