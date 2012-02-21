@@ -30,6 +30,14 @@ header
   background-color: #fff
   border-bottom: 1px solid #eee
   @include box-shadow(rgba(0,0,0,.3) 0px 1px 2px)
+
+#container #content-wrapper.sidebar-left
+  float: right
+  .content
+    @include box-shadow(rgba(0,0,0,.3) -1px 1px 2px)
+
+#footer-wrapper.sidebar-left
+  float: right
   
 #sidebar-wrapper
   position: relative
@@ -48,7 +56,7 @@ header
     @include border-bottom-right-radius(15px)
 
 #sidebar-wrapper.sidebar-left
-  margin: 20px 0 0 !important
+  margin: 20px 0 0 32px !important
   .sidebar
     border-right: 0
     @include border-top-left-radius(15px)
