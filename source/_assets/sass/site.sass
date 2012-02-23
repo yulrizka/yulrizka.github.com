@@ -31,14 +31,36 @@ header
   border-bottom: 1px solid #eee
   @include box-shadow(rgba(0,0,0,.3) 0px 1px 2px)
 
-#container #content-wrapper.sidebar-left
-  float: right
-  .content
-    @include box-shadow(rgba(0,0,0,.3) -1px 1px 2px)
+.sidebar-left 
+  #footer-wrapper
+    float: right
+  #sidebar-wrapper
+    margin: 20px 0 0 25px !important
+    .sidebar
+      border-right: 0
+      @include border-top-left-radius(15px)
+      @include border-bottom-left-radius(15px)
+  #content-wrapper
+    float: right
+    .content
+      @include box-shadow(rgba(0,0,0,.3) -1px 1px 2px)
 
-#footer-wrapper.sidebar-left
-  float: right
-  
+.sidebar-right
+  #sidebar-wrapper
+    margin: 20px 0 0 !important
+    .sidebar
+      border-left: 0
+      @include border-top-right-radius(15px)
+      @include border-bottom-right-radius(15px)
+
+.sidebar-none
+  #sidebar-wrapper
+    display: none !important
+  #content-wrapper
+    width: 99.99999998999999%
+  #footer-wrapper
+    width: 99.99999998999999%
+
 #sidebar-wrapper
   position: relative
   z-index: -100
@@ -47,20 +69,6 @@ header
     background-color: #eee
     padding: 10px
     border: 5px solid #ddd
-
-#sidebar-wrapper.sidebar-right
-  margin: 20px 0 0 !important
-  .sidebar
-    border-left: 0
-    @include border-top-right-radius(15px)
-    @include border-bottom-right-radius(15px)
-
-#sidebar-wrapper.sidebar-left
-  margin: 20px 0 0 22px !important
-  .sidebar
-    border-right: 0
-    @include border-top-left-radius(15px)
-    @include border-bottom-left-radius(15px)
       
 .navbar.relative
   position: relative

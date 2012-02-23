@@ -97,9 +97,4 @@
   .btn-navbar {
     display: none;
   }
-
-  /* line 41, ../_assets/sass/site-responsive.sass */
-  #page-view {
-    display: none;
-  }
 }
