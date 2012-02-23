@@ -5479,7 +5479,7 @@ header .navbar .btn-navbar {
 }
 /* line 37, ../_assets/sass/site.sass */
 .sidebar-left #sidebar-wrapper {
-  margin: 20px 0 0 25px !important;
+  margin-top: 20px;
 }
 /* line 39, ../_assets/sass/site.sass */
 .sidebar-left #sidebar-wrapper .sidebar {
@@ -5857,14 +5857,27 @@ footer .footer {
   .navbar .nav > li {
     float: left;
   }
-
   /* line 36, ../_assets/sass/site-responsive.sass */
+  .navbar .dropdown-menu {
+    position: absolute;
+    display: none;
+    margin: 0;
+    padding: 4px 0;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+    -o-box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+  }
+
+  /* line 44, ../_assets/sass/site-responsive.sass */
   #banner .excerpt .text .title {
     font-size: 1.5em;
     letter-spacing: 0;
   }
 
-  /* line 39, ../_assets/sass/site-responsive.sass */
+  /* line 47, ../_assets/sass/site-responsive.sass */
   .btn-navbar {
     display: none;
   }

@@ -33,8 +33,17 @@
       position: relative
       &> li
         float: left
+    .dropdown-menu
+      position: absolute
+      display: none
+      margin: 0
+      padding: 4px 0
+      background-color: white
+      border: 1px solid rgba(0,0,0,0.2)
+      @include box-shadow(rgba(0,0,0,.3) 0px 5px 10px)
   #banner .excerpt .text .title
     font-size: 1.5em
     letter-spacing: 0
   .btn-navbar
     display: none
+    

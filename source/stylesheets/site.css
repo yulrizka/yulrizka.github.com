@@ -56,7 +56,7 @@ header .navbar .btn-navbar {
 }
 /* line 37, ../_assets/sass/site.sass */
 .sidebar-left #sidebar-wrapper {
-  margin: 20px 0 0 25px !important;
+  margin-top: 20px;
 }
 /* line 39, ../_assets/sass/site.sass */
 .sidebar-left #sidebar-wrapper .sidebar {
