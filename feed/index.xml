@@ -4,13 +4,78 @@
  <title>Recursive</title>
  <link href="http://recursive-design.com/feed/" rel="self"/>
  <link href="http://recursive-design.com/"/>
- <updated>2012-02-08T18:25:24+07:00</updated>
+ <updated>2012-02-24T03:03:11+07:00</updated>
  <id>http://recursive-design.com/</id>
  <author>
    <name>Recursive</name>
    <email>mail@recursive-design.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Responsive Design</title>
+   <link href="http://recursive-design.com/en/2012/02/responsive-design.html"/>
+   <updated>2012-02-24T01:47:00+07:00</updated>
+   <id>http://recursive-design.com/en/2012/02/responsive-design</id>
+   <content type="html">&lt;p&gt;I've been playing around with &lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;twitter bootstrap&lt;/a&gt;. It's like a css framework to help designer or developer create a nice and clean site.
+It's offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for
+prototyping.&lt;/p&gt;
+
+&lt;p&gt;I've been using it to build this blog since it was version 1. Recently i had a chance to upgrade it to version 2.
+The new version offer a lot of functionalities, one the feature that I play a lot is the responsive design.&lt;/p&gt;
+
+&lt;p&gt;Basically &lt;a href=&quot;http://en.wikipedia.org/wiki/Responsive_Web_Design&quot;&gt;Responsive Web Design&lt;/a&gt; (RWD) means the ability of the web site to adapt to the user screen size. So the page should look different
+in a way that it suited for specific screen. Like this website will look different if it's open with mobile phone, portrait mode on tablet,
+landscape mode on tablet, net book or even in a large desktop. This actually achieved by using W3C CSS3 media query. It means that it uses
+different stylesheet for each of the screen size. More info on RWD in twitter bootstrap can be found &lt;a href=&quot;http://twitter.github.com/bootstrap/scaffolding.html#responsive&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can test this functionality by resizing your browser window. Try to drag it slowly and watch the page banner slightly change.
+here are the screen shoot of the design.&lt;/p&gt;
+
+&lt;ul class=&quot;thumbnails&quot; style=&quot;text-align: center&quot;&gt;
+  &lt;li class=&quot;span5&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836336/&quot; title=&quot;Desktop View by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7188/6777836336_cfc30a387d.jpg&quot; width=&quot;500&quot; height=&quot;328&quot; alt=&quot;Desktop View&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Desktop View (1210px and up)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span5&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836342/&quot; title=&quot;Tablet Landscape by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7177/6777836342_2bae8d18f9.jpg&quot; width=&quot;500&quot; height=&quot;403&quot; alt=&quot;Tablet Landscape&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Tablet Landscape (768px to 979px)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span4&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836344/&quot; title=&quot;Tablet View by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7068/6777836344_04a80d610b_m.jpg&quot; width=&quot;240&quot; height=&quot;237&quot; alt=&quot;Tablet View&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Tablet Portrait (480px to 768px)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span4&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836350/&quot; title=&quot;Tablet with menu by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7050/6777836350_3a8e661196_m.jpg&quot; width=&quot;240&quot; height=&quot;237&quot; alt=&quot;Tablet with menu&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Tablet Portrait with menu (480px to 768px)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span4&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836354/&quot; title=&quot;Mobile Phone by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7191/6777836354_aec27fd376_m.jpg&quot; width=&quot;164&quot; height=&quot;240&quot; alt=&quot;Mobile Phone&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Mobile Phone (480px and below)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span4&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836358/&quot; title=&quot;Mobile Phone with menu by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7205/6777836358_d06448c5da_m.jpg&quot; width=&quot;164&quot; height=&quot;240&quot; alt=&quot;Mobile Phone with menu&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Mobile Phone with Menu(480px and below)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  
+&lt;/ul&gt;
+
+
+
+</content>
+ </entry>
  
  <entry>
    <title>Jekyll error utf-8 caracter</title>

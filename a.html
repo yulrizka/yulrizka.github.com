@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<div id="container">
+<div id="container" class="sidebar-left">
   <header>
     <div id="banner">
       <div class="wrapper">
@@ -56,12 +56,27 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </a>
-            <div id="social-icon">
+            <div id="page-view">
+              <ul class="nav pull-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                  data-original-title="Sidebar position" data-placement="left">
+                    <i class="icon-th-list icon-white"></i><b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" id="sidebar-left-link"><i class="icon-th-list"></i> Left Panel</a></li>
+                    <li><a href="#" id="sidebar-none-link"><i class="icon-th-list"></i> No Panel</a></li>
+                    <li><a href="#" id="sidebar-right-link"><i class="icon-th-list"></i> Right Panel</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>            
+            <div id="social-icon" class="pull-right">
               <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png"></a>  
               <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png"></a>  
               <a href="http://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png"></a>  
             </div>
-            <div class="nav-collapse">
+            <div class="nav-link nav-collapse">
               <ul class="nav">
                 <li class="active banner"><a href="/">Home</a></li>
                 <li class=""><a href="/">Ruby (and Rails)</a></li>
@@ -77,9 +92,15 @@
 
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span12">
+      <div id="content-wrapper" class="span9 <!-- sidebar-right -->">
         <div class="content">
           <p>this is just a test</p>
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3 <!-- sidebar-right -->">
+        <div class="sidebar">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
       </div>
     </div>
@@ -88,7 +109,7 @@
   <footer>
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span12">
+        <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
           <div class="footer">
             <p>
               &copy; Ahmy Yulrizka 2012. This site is made with <a href="http://jekyllrb.com/">Jekyll</a> 
