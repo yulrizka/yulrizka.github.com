@@ -11,17 +11,24 @@
   var pageView;
 
   pageView = function(pane) {
-    var container;
+    var button, container;
     container = $('#container');
+    button = $('#icon-panel');
     if (!(pane != null) || pane === "none") {
       container.removeClass('sidebar-left sidebar-right');
-      return container.addClass('sidebar-none');
+      container.addClass('sidebar-none');
+      button.removeClass('icon-left-panel icon-right-panel');
+      return button.addClass('icon-no-panel');
     } else if (pane === "left") {
       container.removeClass('sidebar-right sidebar-none');
-      return container.addClass('sidebar-left');
+      container.addClass('sidebar-left');
+      button.removeClass('icon-no-panel icon-right-panel');
+      return button.addClass('icon-left-panel');
     } else if (pane === "right") {
       container.removeClass('sidebar-left sidebar-none');
-      return container.addClass('sidebar-right');
+      container.addClass('sidebar-right');
+      button.removeClass('icon-no-panel icon-left-panel');
+      return button.addClass('icon-right-panel');
     }
   };
 
@@ -44,27 +51,15 @@
 (function() {
 
   $(function() {
-    var changeHeader;
-    changeHeader = function(i) {
-      var current, to;
-      current = $('#banner li.active');
-      to = $('#banner li').eq(i);
-      console.log(current);
-      console.log(to);
-      if (current.index() !== to.index()) {
-        $('.nav li').removeClass('banner');
-        $('.nav li').eq(i).addClass('banner');
-        current.stop(true, true).fadeOut('fast', function() {
-          current.removeClass('active');
-          return to.fadeIn('fast', function() {
-            return to.addClass('active');
-          });
-        });
-        return console.log('change');
-      }
-    };
-    return $('.nav li').mouseenter(function() {
-      return changeHeader($(this).index());
+    var banner;
+    banner = $('#carousel-banner');
+    banner.carousel({
+      interval: 100000
+    });
+    banner.carousel('pause');
+    return $('.nav-link .nav li').mouseenter(function() {
+      banner.carousel($(this).index());
+      return banner.carousel('pause');
     });
   });
 

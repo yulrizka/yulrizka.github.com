@@ -82,18 +82,10 @@ header
   .wrapper
     background: url("/images/grid-18px.png") repeat scroll center top transparent
     height: 150px    
-  ul
-    list-style: none outside none
-    max-height: 124px
-    overflow: hidden
-  li
-    color: white
-    display: none
-    &.active
-      display: block
   .excerpt
     color: white
-    padding: 20px
+    .item
+      padding: 20px
     .text
       .title
         font-size: 2em
@@ -108,7 +100,28 @@ header
     overflow: hidden
     line-height: 20px
     font-size: 15px
-    
+  .item 
+    .image
+      width: 120px
+      height: 120px
+      float: left
+      background: transparent url("/images/icon/banner.png") no-repeat
+      &.android
+        background-position: -120px 0
+      &.ruby
+        background-position: -240px 0
+
+#page-view 
+  [class^="icon-"]
+    background-image: url(/images/icon/panel.png)
+  .icon-white
+    background-position-y: -14px !important
+  .icon-left-panel
+    background-position: 0 0
+  .icon-right-panel
+    background-position: -14px 0
+  .icon-no-panel
+    background-position: -28px 0
 #social-icon 
   float: right
   a
