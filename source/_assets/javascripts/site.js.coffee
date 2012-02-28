@@ -1,6 +1,7 @@
 pageView = (pane) ->
   container = $('#container')
   button = $('#icon-panel')
+  $.cookie 'sidebar-preferences', pane
   if !pane? or pane == "none"
     container.removeClass 'sidebar-left sidebar-right'
     container.addClass 'sidebar-none'
@@ -16,6 +17,8 @@ pageView = (pane) ->
     container.addClass 'sidebar-right'
     button.removeClass 'icon-no-panel icon-left-panel'
     button.addClass 'icon-right-panel'
+  else
+    $.cookie 'sidebar-preferences', null
     
 $ ->
   $('.content').css('min-height', $('#sidebar-wrapper').height() + 40)
@@ -24,4 +27,7 @@ $ ->
   $('a#sidebar-left-link').click -> pageView 'left'
   $('a#sidebar-none-link').click -> pageView 'none'
   $('a#sidebar-right-link').click -> pageView 'right'
+  sidebar_preference = $.cookie 'sidebar-preferences'
+  if sidebar_preference?
+    pageView sidebar_preference
   
