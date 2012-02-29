@@ -58,9 +58,7 @@ here are the screen shoot of the design.
       <div class="caption">Mobile Phone with Menu(480px and below)</div>
     </div>
   </li>
-  
 </ul>
-
 
 [1]: http://twitter.github.com/bootstrap/
 [2]: http://en.wikipedia.org/wiki/Responsive_Web_Design

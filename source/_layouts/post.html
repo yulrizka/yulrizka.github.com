@@ -17,33 +17,33 @@
 
 </head>
 <body>
-<div id="container" class="sidebar-left">
+<div id="container" class="sidebar-right">
   <header>
     <div id="banner">
-      <div class="wrapper">
-        <ul class="excerpt">
-          <li class="active">
-            <div class="image"><img src="/images/icon/labs.png" alt=""/></div>
+      <div id="carousel-banner" class="wrapper carousel">
+        <div class="carousel-inner excerpt">
+          <div class="item active">
+            <div class="image labs"></div>
             <div class="text">
               <p class="title">Let each man exercise the art he knows</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore e Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut </p>
             </div>
-          </li>
-          <li>
-            <div class="image"><img src="/images/icon/labs.png" alt=""/></div>
+          </div>
+          <div class="item">
+            <div class="image ruby"></div>
             <div class="text">
               <p class="title">Ruby (and Rails) </p>
               <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore e Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut </p>
             </div>
-          </li>
-          <li>
-            <div class="image"><img src="/images/icon/labs.png" alt=""/></div>
+          </div>
+          <div class="item">
+            <div class="image android"></div>
             <div class="text">
               <p class="title">Android</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore e Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut </p>
             </div>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div> 
     </div>
     <div class="navbar navbar-fixed-top relative">  
@@ -61,12 +61,12 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
                   data-original-title="Sidebar position" data-placement="left">
-                    <i class="icon-th-list icon-white"></i><b class="caret"></b>
+                    <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a href="#" id="sidebar-left-link"><i class="icon-th-list"></i> Left Panel</a></li>
-                    <li><a href="#" id="sidebar-none-link"><i class="icon-th-list"></i> No Panel</a></li>
-                    <li><a href="#" id="sidebar-right-link"><i class="icon-th-list"></i> Right Panel</a></li>
+                    <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                    <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                    <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
                   </ul>
                 </li>
               </ul>
@@ -89,15 +89,33 @@
     </div>
   </header>
 
-
   <div class="container-fluid">
     <div class="row-fluid">
-      <div id="content-wrapper" class="span9 <!-- sidebar-right -->">
+      <div id="content-wrapper" class="span9 ">
         <div class="content">
           {{ content }}
-        </div>
+          
+          {% if page.comments %}
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              var disqus_developer = 1;
+              var disqus_shortname = 'labs-yulrizka'; 
+              var disqus_identifier = '{{ page.url }}';
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          {% else %}
+            No Comments
+          {% endif %}
+        </div>        
       </div>
-      <div id="sidebar-wrapper" class="span3 <!-- sidebar-right -->">
+      <div id="sidebar-wrapper" class="span3">
         <div class="sidebar">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
@@ -128,7 +146,6 @@
 <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
-
 <script src="/javascripts/application.js"></script>
 
 </body>
