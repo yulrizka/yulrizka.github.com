@@ -58,10 +58,9 @@ Berikut adalah implementasi dalam thread dan juga fiber:
   </div>
 </div><br/>
 
-Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms. pada gambar
-juga dapat kita lihat bahwa user yang memiliki kontrol terhadap eksekusi kode, bukan scheduler. 
+Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms.
 
-Dengan menggunakan fiber, program berjalan sekan-akan program berjalan sychronous (blocking). Oleh karena itu fiber 
+Dengan menggunakan fiber, program berjalan sekan-akan sychronous (blocking). Oleh karena itu fiber 
 merupakan kandidat yang cocok untuk diterapkan pada pemograman *Event-Driven* atau *Asynchronous programming* seperti
 pada *EventMachine* di ruby
 
