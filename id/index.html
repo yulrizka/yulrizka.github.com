@@ -96,6 +96,135 @@
         <div class="content">
           
 
+<h2>
+    <a href="/id/2012/02/ruby-fiber-apaan-sih.html" rel="bookmark" title="Permanent link to ">Ruby Fiber apaan sih ?</a>
+</h2>
+
+
+<p><span>February 29, 2012</span></p>
+
+<p>
+    <blockquote>
+  <p>
+    Fibers are light-weight (green) <a href="http://en.wikipedia.org/wiki/Thread_(computing)" alt="wiki Thread (Computing)">
+      threads</a> with manual, cooperative scheduling, rather than the preemptive scheduling 
+    of Ruby 1.8's threads. Since Ruby 1.9's threads exist at the system level, fibers are, in a way, 
+    Ruby 1.9's answer to Ruby 1.8's green threads, but lacking the pre-emptive scheduling
+  </p>
+  <small>
+    <a href="http://www.rubyinside.com/ruby-fibers-8-useful-reads-on-rubys-new-concurrency-feature-1769.html">
+      rubyinside.com
+    </a>
+  </small>
+</blockquote>
+
+
+
+
+<h2>Thread</h2>
+
+
+<p>Untuk dapat mengerti mengenai fiber, sebelumnya kita harus memahami thread. Suatu (<em>instance</em>) program yang sedang berjalan
+disebut dengan proses. thread adalah unit proses (potongan kode) yang dapat dijalankan secara simultan. Jadi sekan-akan
+program tersebut bercabang.</p>
+
+<p>Ambil contoh program Web Server yang diimplementasi menggunakan thread. Fungsi Web Server (WS) adalah menerima request dan
+memberikan response kepada web browser. Misalkan WS tersebut hanya memiliki 1 proses, maka apabila ada 10 user yang melakukan
+request, maka mereka harus mengantri untuk menerima response dari server. Hal ini bisa diatasi salah satunya dengan menggunakan
+thread. Apabila terdapat suatu request, maka proses utama membuat (<em>spawn</em>) suatu thread untuk menangani request tersebut.
+Misalkan ada 10 request disaat yang bersamaan, maka terdapat 10 thread yang jalan disaat yang bersamaan. Dalam kasus ini
+maka 10 user tersebut akan dilayani pada waktu yang bersamaan.</p>
+
+<p>Ruby 1.8.7 (MRI) memiliki tipe <em>green thread</em>, yaitu thread yang dikelola oleh <em>Virtual Machine</em> sedangkan normalnya thread
+dikelola oleh <em>Operating System</em> (OS) atau <em>native thread</em>. Namun implementasi threads untuk tiap interpreter berbeda. Misalkan
+pada JRuby dan Rubinius yang menggunakan native threads.</p>
+
+<p>Eksekusi setiap threads dikelola oleh program yang dinamakan <em>scheduler</em>. <em>preemptive scheduling</em> adalah suatu metode
+yang digunakan <em>scheduler</em> dengan memanfaatkan <em>interrupt</em>. Artinya scheduler mengirimkan <em>interrupt</em> kepada suatu thread
+untuk berhenti dan menjalankan thread lain. secara default MRI menggunakan <em>fair scheduler</em>. Artinya masing-masing thread
+akan dijadwalkan (dijalankan) dengan waktu yang sama.</p>
+
+<h2>Fiber</h2>
+
+
+<p>Fiber adalah fitur yang pertamakali diperkenalkan pada ruby 1.9 (Meskipun ada hack untuk ruby 1.8.{67}).
+Fiber mirip dengan thread. Namun pada fiber, user yang memiliki kontrol terhadap eksekusi kode, bukan <em>scheduler</em>.
+setiap fiber memiliki 4Kb memori sehingga cukup "murah" untuk dibuat. Berikut adalah contoh dari (igvita.com).</p>
+
+<p>Terdapat 2 thread: Thread pertama melakukan io-blocking selama 40ms dan komputasi 10ms. sedangkan
+thread kedua melakukan 50ms komputasi.</p>
+
+<p>Berikut adalah implementasi dalam thread dan juga fiber:</p>
+
+<div class="thumbnail">
+  <img src="http://www.igvita.com/posts/09/fibers-vs-threads.png"></img>
+  <div class="caption">
+    Komparasi kode yang dijalankan menggunakan thread & fiber. 
+    <a href="http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/</a>
+  </div>
+</div>
+
+
+<br/>
+
+
+<p>Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms. pada gambar
+juga dapat kita lihat bahwa user yang memiliki kontrol terhadap eksekusi kode, bukan scheduler.</p>
+
+<p>Dengan menggunakan fiber, program berjalan sekan-akan program berjalan sychronous (blocking). Oleh karena itu fiber
+merupakan kandidat yang cocok untuk diterapkan pada pemograman <em>Event-Driven</em> atau <em>Asynchronous programming</em> seperti
+pada <em>EventMachine</em> di ruby</p>
+
+<h2>Cara Menggunakan Fiber</h2>
+
+
+<p>Untuk dapat memahami fiber, kita ambil contoh seperti berikut. Program ini sebenarnya tidak berguna, tapi cukup untuk
+mendemonstrasikan alur penggunaan fiber</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight ruby'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">fiber</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Fiber: Beginning of fiber&quot;</span>
+</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 11)</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Fiber: Halo main, saya fiber&quot;</span>
+</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 13)</span>
+</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="s2">&quot;Fiber: Sekarang </span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Beginning main&quot;</span>
+</span><span class='line'>  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 2)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Hello saya main thread&quot;</span>
+</span><span class='line'>  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 4)</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Sekarang jam berapa ya ?&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 6) dan output hasil  </span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<pre><code> Main: Beginning main
+ Fiber: Beginning of fiber
+ Main: Hello saya main thread
+ Fiber: Halo main, saya fiber
+ Main: Sekarang jam berapa ya ?
+ Fiber: Sekarang 2012-02-29 22:45:08 +0700
+</code></pre>
+
+</p>
+
+
+
+
         </div>
       </div>
       <div id="sidebar-wrapper" class="span3">
