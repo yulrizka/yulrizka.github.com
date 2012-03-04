@@ -4,7 +4,8 @@ title: "Benchmark cramp, node.js dan rails"
 date: 2012-03-01 15:01
 language: id
 comments: true
-categories: ruby
+tags : [ruby]
+description: Benchmark API yang diimplementasi dalam Cramp, Node.js dan Rails
 ---
 Bagi yang sering men-*develop* aplikasi rails, terkadang muncul kebutuhan untuk mengimplementasi API untuk memberikan akses terhadap data
 pada aplikasi tersebut. Ada yang mengimplementasi API dengan framework yang sama (rails), namun ada juga yang menggunakan platform yang 

@@ -4,7 +4,9 @@ title: "Responsive Design"
 date: 2012-02-24 01:47
 language: en
 comments: true
-categories: web
+tags: [web]
+description: Responsive website design with twitter bootstrap
+keywords: responsive design, twitter bootstrap
 ---
 I've been playing around with [twitter bootstrap][1]. It's like a css framework to help designer or developer create a nice and clean site. 
 It's offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for 

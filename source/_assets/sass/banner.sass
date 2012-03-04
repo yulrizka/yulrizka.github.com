@@ -1,0 +1,39 @@
+@import "compass/css3"
+
+#banner
+  height: 150px
+  @include box-shadow(rgba(0,0,0,.3) 0px 10px 30px inset)
+  @include background-image(linear-gradient(#0069D6, #006FE3))
+  .wrapper
+    background: url("/images/grid-18px.png") repeat scroll center top transparent
+    height: 150px    
+  .excerpt
+    color: white
+    .item
+      padding: 20px
+    .text
+      .title
+        font-size: 2em
+        font-weight: bold
+        line-height: 1.5em
+        letter-spacing: -1px
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
+      @include text-shadow(rgba(0,0,0,.5) 0 1px 2px)
+    img
+      float: left
+  .text p
+    overflow: hidden
+    line-height: 20px
+    font-size: 15px
+  .item 
+    .image
+      width: 120px
+      height: 120px
+      float: left
+      background: transparent url("/images/icon/banner.png") no-repeat
+      &.android
+        background-position: -120px 0
+      &.ruby
+        background-position: -240px 0
+      &.web
+        background-position: -360px 0

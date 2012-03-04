@@ -4,7 +4,9 @@ title: "Jekyll error utf-8 caracter"
 date: 2012-01-14 17:31
 language: en
 comments: true
-categories: web
+tags: [ruby, web]
+description: jekyll invalid multibyte char (US-ASCII)
+keywords: jekyll, invalid multibyte char, error
 ---
 
 If you having a problem in jekyll when it didn't generate a post and there is no error in the log file. 

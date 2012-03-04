@@ -63,7 +63,9 @@ task :new_post, :title, :lang do |t, args|
     post.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
     post.puts "language: #{lang}"
     post.puts "comments: true"
-    post.puts "categories: "
+    post.puts "tags: "
+    post.puts "description: "
+    post.puts "keywords: "
     post.puts "---"
   end
 end

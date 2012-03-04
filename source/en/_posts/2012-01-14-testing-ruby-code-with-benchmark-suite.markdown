@@ -4,7 +4,8 @@ title: "Testing ruby code with benchmark_suite"
 date: 2012-01-14 12:04
 language: en
 comments: true
-categories: ruby
+tags: [ruby]
+keywords: ruby, benchmark, benchmark suite
 ---
 
 Just a couple days ago I found out [therubygame.com][1] which challenge us to
