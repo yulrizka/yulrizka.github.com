@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>labs.yulrizka.com - Let each man exercise the art he knows</title>
-<meta name="description" content="Technical blog of Ahmy Yulrizka">
+<title>labs.yulrizka.com - Benchmark cramp, node.js dan rails</title>
+<meta name="description" content="Benchmark API yang diimplementasi dalam Cramp, Node.js dan Rails">
 <meta name="author" content="Ahmy Yulrizka">
-<meta name="category" content="">
+<meta http-equiv="Content-Language" Content="id">
+<meta name="keywords" content="" />
+
 <!-- Framework CSS -->
 <link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
@@ -101,87 +103,56 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-          <h1>Welcome to dev blog of Ahmy Yulrizka</h1>
+          <article>
+            <h1>Benchmark cramp, node.js dan rails</h1>
+            <div class="posted_at">01 Mar 2012</div>
+            
+            <p>Bagi yang sering men-<em>develop</em> aplikasi rails, terkadang muncul kebutuhan untuk mengimplementasi API untuk memberikan akses terhadap data
+pada aplikasi tersebut. Ada yang mengimplementasi API dengan framework yang sama (rails), namun ada juga yang menggunakan platform yang
+berbeda untuk mengimplementasi API tersebut. Ada yang menggunakan node.js, sinatra, cramp dlll.</p>
 
+<p>Baru-baru ini ada diskusi yang menarik pada milis <a href="http://id-ruby.org/">#id-ruby</a> mengenai cramp. Nah untuk mencari tahu bagaimana performa masing-masing
+aplikasi tersebut saya kepikiran untuk melakukan benchmark (pengukuran) mengenai kinerja dan performa dari masing-masing framework. Aspek yang
+ingin saya ukur terutama adalah kecepatan response yang dihasilkan masing-masing framework. Baik saat tanpa proses IO, dengan proses IO maupun
+dengan melakukan operasi terhadap database (Select, Insert, update Dan delete).</p>
 
-<p>Hi, my name is Ahmy, I've been developing software application for about 12 years now. Im interested in many aspect of technologies. Including
-web development, mobile application, linux etc. To me programming is a form of arts. Because you can implement a software with so many different
-approach. Just like an artist who responsible for every line, color and shape; To me a programmer should hold the responsibility of every line,
-method, and architecture that he choses. So this is blog is my canvas. the place where I explore my idea and finding.</p>
+<p>Masing-masing implementasi akan saya buat di posting yang berbeda. Sedangkan untuk melakukan pengujian, saya akan mempush masing-masing aplikasi
+ke [heroku.com][heroku] dan melakukan pengujian dengan <a href="http://blitz.io">blitz.io</a>. Heroku adalah Platform yang bisa menjalankan aplikasi berbasis Ruby,
+Php java dll. Sedangkan blitz.io adalah service yang melakukan load testing &amp; benchmark terhadap aplikasi web.
+Keduanya berjalan pada infrastruktur Amazon AWS sehingga seharusnya tidak delay network yang berarti.</p>
 
-<p>As you can see, the site is still on development (and should always be). But I don't wait for perfection to pour my idea into it. You are very
-welcome to enjoy, read or give some comment about it. By the way this blog are also open sourced, you can find the source link at the footer
-section of every page.</p>
-
-<p>Ok then, Now which post do you want to read ?</p>
-
-<h2><a href="/id">Recent Post written in Bahasa Indonesia</a></h2>
+<p>Aplikasi yang akan dibuat sebenarnya cukup sederhana. Sebuah aplikasi yang melakukan pencatatan terhadap <em>expense</em>. Aplikasi ini hanya melakukan
+operasi CRUD seperti biasa. Setelah masing-masing aplikasi ini dibuat, barulah akan dilakukan pengujian. Masing-masing pengerjaan pada aplikasi
+tersebut nanti akan buat dalam 3 artikel yang berbeda :</p>
 
 <ul>
-
-
-  
-  
-    <li>
-      <a href="/id/2012/03/benchmark-cramp-node-dot-js-dan-rails.html" rel="bookmark" title="Permanent link to ">Benchmark cramp, node.js dan rails</a> 
-      <span>March  1, 2012</span>
-    </li>
-  
-
-  
-  
-    <li>
-      <a href="/id/2012/02/ruby-fiber-apaan-sih.html" rel="bookmark" title="Permanent link to ">Ruby Fiber apaan sih ?</a> 
-      <span>February 29, 2012</span>
-    </li>
-  
-
-  
-
-  
-
-  
-
+<li>Aplikasi Benchmark dalam Cramp</li>
+<li>Aplikasi Benchmark dalam Node.js</li>
+<li>Aplikasi Benchmark dalam Rails</li>
 </ul>
 
 
-<h2><a href="/en">Recent Post written in English</a></h2>
+<p>Setelah dilakukan pengukuran, maka saya akan mengupdate artikel ini.</p>
 
-<ul>
+          </article>
+          
+          
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              //var disqus_developer = 1;
+              var disqus_shortname = 'labs-yulrizka'; 
+              var disqus_identifier = '/id/2012/03/benchmark-cramp-node-dot-js-dan-rails.html';
 
-
-  
-
-  
-
-  
-  
-    <li>
-      <a href="/en/2012/02/responsive-design.html" rel="bookmark" title="Permanent link to ">Responsive Design</a> 
-      <span>February 24, 2012</span>
-    </li>
-  
-
-  
-  
-    <li>
-      <a href="/en/2012/01/jekyll-error-utf-8-caracter.html" rel="bookmark" title="Permanent link to ">Jekyll error utf-8 caracter</a> 
-      <span>January 14, 2012</span>
-    </li>
-  
-
-  
-  
-    <li>
-      <a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html" rel="bookmark" title="Permanent link to ">Testing ruby code with benchmark_suite</a> 
-      <span>January 14, 2012</span>
-    </li>
-  
-
-</ul>
-
-
-        </div>
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          
+        </div>        
       </div>
       <div id="sidebar-wrapper" class="span3">
         <div class="sidebar">

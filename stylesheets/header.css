@@ -1,0 +1,30 @@
+/* line 1, ../_assets/sass/header.sass */
+header {
+  height: 190px;
+}
+/* line 4, ../_assets/sass/header.sass */
+header .navbar .brand {
+  font-family: "Slackey", cursive;
+  font-size: 20px;
+}
+/* line 8, ../_assets/sass/header.sass */
+header .navbar .nav-link ul.nav li {
+  border-top: 2px solid #323232;
+}
+/* line 10, ../_assets/sass/header.sass */
+header .navbar .nav-link ul.nav li:hover, header .navbar .nav-link ul.nav li.banner {
+  border-color: #e82517 !important;
+}
+/* line 12, ../_assets/sass/header.sass */
+header .navbar .nav-link ul.nav li.active {
+  border-color: #222222;
+}
+/* line 14, ../_assets/sass/header.sass */
+header .navbar .btn-navbar {
+  float: left;
+}
+
+/* line 16, ../_assets/sass/header.sass */
+.navbar-fixed-top .navbar-inner {
+  padding: 0 !important;
+}

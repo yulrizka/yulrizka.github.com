@@ -4,13 +4,47 @@
  <title>Recursive</title>
  <link href="http://recursive-design.com/feed/" rel="self"/>
  <link href="http://recursive-design.com/"/>
- <updated>2012-02-29T23:05:48+07:00</updated>
+ <updated>2012-03-04T22:15:30+07:00</updated>
  <id>http://recursive-design.com/</id>
  <author>
    <name>Recursive</name>
    <email>mail@recursive-design.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Benchmark cramp, node.js dan rails</title>
+   <link href="http://recursive-design.com/id/2012/03/benchmark-cramp-node-dot-js-dan-rails.html"/>
+   <updated>2012-03-01T15:01:00+07:00</updated>
+   <id>http://recursive-design.com/id/2012/03/benchmark-cramp-node-dot-js-dan-rails</id>
+   <content type="html">&lt;p&gt;Bagi yang sering men-&lt;em&gt;develop&lt;/em&gt; aplikasi rails, terkadang muncul kebutuhan untuk mengimplementasi API untuk memberikan akses terhadap data
+pada aplikasi tersebut. Ada yang mengimplementasi API dengan framework yang sama (rails), namun ada juga yang menggunakan platform yang
+berbeda untuk mengimplementasi API tersebut. Ada yang menggunakan node.js, sinatra, cramp dlll.&lt;/p&gt;
+
+&lt;p&gt;Baru-baru ini ada diskusi yang menarik pada milis &lt;a href=&quot;http://id-ruby.org/&quot;&gt;#id-ruby&lt;/a&gt; mengenai cramp. Nah untuk mencari tahu bagaimana performa masing-masing
+aplikasi tersebut saya kepikiran untuk melakukan benchmark (pengukuran) mengenai kinerja dan performa dari masing-masing framework. Aspek yang
+ingin saya ukur terutama adalah kecepatan response yang dihasilkan masing-masing framework. Baik saat tanpa proses IO, dengan proses IO maupun
+dengan melakukan operasi terhadap database (Select, Insert, update Dan delete).&lt;/p&gt;
+
+&lt;p&gt;Masing-masing implementasi akan saya buat di posting yang berbeda. Sedangkan untuk melakukan pengujian, saya akan mempush masing-masing aplikasi
+ke [heroku.com][heroku] dan melakukan pengujian dengan &lt;a href=&quot;http://blitz.io&quot;&gt;blitz.io&lt;/a&gt;. Heroku adalah Platform yang bisa menjalankan aplikasi berbasis Ruby,
+Php java dll. Sedangkan blitz.io adalah service yang melakukan load testing &amp;amp; benchmark terhadap aplikasi web.
+Keduanya berjalan pada infrastruktur Amazon AWS sehingga seharusnya tidak delay network yang berarti.&lt;/p&gt;
+
+&lt;p&gt;Aplikasi yang akan dibuat sebenarnya cukup sederhana. Sebuah aplikasi yang melakukan pencatatan terhadap &lt;em&gt;expense&lt;/em&gt;. Aplikasi ini hanya melakukan
+operasi CRUD seperti biasa. Setelah masing-masing aplikasi ini dibuat, barulah akan dilakukan pengujian. Masing-masing pengerjaan pada aplikasi
+tersebut nanti akan buat dalam 3 artikel yang berbeda :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Aplikasi Benchmark dalam Cramp&lt;/li&gt;
+&lt;li&gt;Aplikasi Benchmark dalam Node.js&lt;/li&gt;
+&lt;li&gt;Aplikasi Benchmark dalam Rails&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Setelah dilakukan pengukuran, maka saya akan mengupdate artikel ini.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Ruby Fiber apaan sih ?</title>
@@ -81,10 +115,9 @@ thread kedua melakukan 50ms komputasi.&lt;/p&gt;
 &lt;br/&gt;
 
 
-&lt;p&gt;Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms. pada gambar
-juga dapat kita lihat bahwa user yang memiliki kontrol terhadap eksekusi kode, bukan scheduler.&lt;/p&gt;
+&lt;p&gt;Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms.&lt;/p&gt;
 
-&lt;p&gt;Dengan menggunakan fiber, program berjalan sekan-akan program berjalan sychronous (blocking). Oleh karena itu fiber
+&lt;p&gt;Dengan menggunakan fiber, program berjalan sekan-akan sychronous (blocking). Oleh karena itu fiber
 merupakan kandidat yang cocok untuk diterapkan pada pemograman &lt;em&gt;Event-Driven&lt;/em&gt; atau &lt;em&gt;Asynchronous programming&lt;/em&gt; seperti
 pada &lt;em&gt;EventMachine&lt;/em&gt; di ruby&lt;/p&gt;
 
