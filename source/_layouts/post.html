@@ -7,6 +7,7 @@
 <meta name="author" content="Ahmy Yulrizka">
 <meta http-equiv="Content-Language" Content="{{ page.language }}">
 <meta name="keywords" content="{{ page.keywords }}" />
+<meta http-equiv="date" content="{{ page.date | date_to_xmlschema }}" />
 
 {% include stylesheets.html %}
 </head>
@@ -47,8 +48,25 @@
       </div>
       <div id="sidebar-wrapper" class="span3">
         <div class="sidebar">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <aside>
+          <h2>Archives</h2>
+          <ul>
+            {% for post in site.posts %}
+
+              {% unless post.next %}
+                <h3>{{ post.date | date: '%Y' }}</h3>
+              {% else %}
+                {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+                {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+                {% if year != nyear %}
+                  <h3>{{ post.date | date: '%Y' }}</h3>
+                {% endif %}
+              {% endunless %}
+
+              <li>{{ post.date | date:"%b" }} <a href="{{ post.url }}">{{ post.title }}</a></li>
+            {% endfor %}
+          </ul>
+          </aside>
         </div>
       </div>
     </div>

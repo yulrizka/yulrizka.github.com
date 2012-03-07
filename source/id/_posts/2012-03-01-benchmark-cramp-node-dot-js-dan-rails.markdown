@@ -25,7 +25,7 @@ Aplikasi yang akan dibuat sebenarnya cukup sederhana. Sebuah aplikasi yang melak
 operasi CRUD seperti biasa. Setelah masing-masing aplikasi ini dibuat, barulah akan dilakukan pengujian. Masing-masing pengerjaan pada aplikasi
 tersebut nanti akan buat dalam 3 artikel yang berbeda :
 
-* Aplikasi Benchmark dalam Cramp
+* [Aplikasi Benchmark dalam Cramp][benchmark_cramp]
 * Aplikasi Benchmark dalam Node.js
 * Aplikasi Benchmark dalam Rails
 
@@ -33,3 +33,4 @@ Setelah dilakukan pengukuran, maka saya akan mengupdate artikel ini.
 
 [idruby]: http://id-ruby.org/
 [blitz.io]: http://blitz.io
+[benchmark_cramp]: /id/2012/03/aplikasi-benchmark-dalam-cramp.html
