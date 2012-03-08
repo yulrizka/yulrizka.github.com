@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>labs.yulrizka.com - Let each man exercise the art he knows</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="Technical blog of Ahmy Yulrizka">
+<title>labs.yulrizka.com - Scale MongoDB dengan Sharding</title>
+<meta name="description" content="Introduksi, pengertian dan explorasi s-0t5caling MongoDB instance dengan melakukan partisi secara horizontal atau yang lebih dikenal dengan sharding.">
 <meta name="author" content="Ahmy Yulrizka">
+<meta http-equiv="Content-Language" Content="id">
+<meta name="keywords" content="mongodb, sharding, horizontal partitioning" />
+<meta http-equiv="date" content="2012-03-07T12:15:00+07:00" />
 
 <!-- Framework CSS -->
 <link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
@@ -101,16 +104,11 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-          
-
-<div class="articles">
-  <article>
-    <h1 class="">
-        <a href="/id/2012/03/scale-mongodb-dengan-sharding.html" rel="bookmark" title="Permanent link to ">Scale MongoDB dengan Sharding</a>
-    </h1>
-    <span>March  7, 2012</span>
-    <p>
-        <div class="alert alert-success">
+          <article>
+            <h1>Scale MongoDB dengan Sharding</h1>
+            <div class="posted_at">07 Mar 2012</div>
+            
+            <div class="alert alert-success">
   <span class="label label-success" >TL;DR</span>
   Proses <em>Horizontal Partitioning</em> pada MongoDB melibatkan suatu konsep <em>Chunk</em> dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
   <em>shard key</em>. Artikel ini membahas bagaimana melakukan sharding pada mongodb
@@ -753,242 +751,25 @@ dapat dilakukan dengan perintah berikut</p>
 
 <p>Dari data diatas kita bisa melihat bahwa chunk tersebut sudah pindah dari shard0000 ke sahrd00001</p>
 
-    </p>
-  </article>
-</div>
+          </article>
+          
+          
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              //var disqus_developer = 1;
+              var disqus_shortname = 'labs-yulrizka'; 
+              var disqus_identifier = '/id/2012/03/scale-mongodb-dengan-sharding.html';
 
-
-
-
-<div class="articles">
-  <article>
-    <h1 class="">
-        <a href="/id/2012/03/aplikasi-benchmark-dalam-cramp.html" rel="bookmark" title="Permanent link to ">Aplikasi Benchmark dalam Cramp</a>
-    </h1>
-    <span>March  5, 2012</span>
-    <p>
-        <p><a href="http://cramp.in">Cramp</a> adalah web framework dalam bahasa ruby yang dibuat diatas library <a href="http://rubyeventmachine.com/">EventMachine</a>(EM). EM adalah event-processing library
-dalam bahasa pemrograman ruby. Lebih lanjut mengenai event-processing dalam ruby dapat dilihat dalam <a href="http://www.engineyard.com/blog/2011/what-are-events-why-might-you-care-and-how-can-eventmachine-help/">artikel ini</a>.</p>
-
-<p>dalam artikel ini, saya akan mencoba melakukan explorasi untuk membuat aplikasi sederhana dalam cramp. Aplikasi yang akan dibuat adalah
-aplikasi yang mencatat pengeluaran. Data yang disimpan cukup deskripsi dan jumlah pengeluaran tersebut.</p>
-
-<p>Dokumentasi cramp yang lebih lengkap dapat dilihat <a href="http://cramp.in/documentation">disini</a></p>
-
-<h2>Instalasi Cramp</h2>
-
-<p>Untuk melakukan instalasi kita cukup menambahkan gem cramp.</p>
-
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  gem install cramp
-</span><span class='line'>  cramp new expense_cramp
-</span><span class='line'>  bundle install
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-
-<pre><code>  create  
-  create  config.ru
-  create  Gemfile
-  create  application.rb
-  create  public
-  create  public/javascripts
-  create  config
-  create  config/routes.rb
-  create  app/actions
-  create  app/actions/home_action.rb
-</code></pre>
-
-<p>Perintah tersebut akan membuat suatu direktori berisikan file-file default dalam program cramp</p>
-
-<h2>3..2..1 Action</h2>
-
-<p>Pada Ruby on Rails, kita mengenal model MVC (Model, Viewer, Controller). Dalam suatu controller berisi beberapa action CRUD. Cramp tidak mengenal
-controller. yang ada hanya action. Tiap action dibuat dengan meng-inherit Cramp::Action. Tiap request dari user akan di mapping (ditangani) oleh
-Action ini.</p>
-
-<p>Tiap response yang ditangani oleh action melewati beberapa tahapan (lifecycle). Kita dapat menyisipkan kode pada tiap tahapan tersebut dengan
-callback yang disedikan. Tahapan tersebut adalah</p>
-
-    </p>
-  </article>
-</div>
-
-
-
-
-<div class="articles">
-  <article>
-    <h1 class="">
-        <a href="/id/2012/03/benchmark-cramp-node-dot-js-dan-rails.html" rel="bookmark" title="Permanent link to ">Benchmark cramp, node.js dan rails</a>
-    </h1>
-    <span>March  1, 2012</span>
-    <p>
-        <p>Bagi yang sering men-<em>develop</em> aplikasi rails, terkadang muncul kebutuhan untuk mengimplementasi API untuk memberikan akses terhadap data
-pada aplikasi tersebut. Ada yang mengimplementasi API dengan framework yang sama (rails), namun ada juga yang menggunakan platform yang
-berbeda untuk mengimplementasi API tersebut. Ada yang menggunakan node.js, sinatra, cramp dlll.</p>
-
-<p>Baru-baru ini ada diskusi yang menarik pada milis <a href="http://id-ruby.org/">#id-ruby</a> mengenai cramp. Nah untuk mencari tahu bagaimana performa masing-masing
-aplikasi tersebut saya kepikiran untuk melakukan benchmark (pengukuran) mengenai kinerja dan performa dari masing-masing framework. Aspek yang
-ingin saya ukur terutama adalah kecepatan response yang dihasilkan masing-masing framework. Baik saat tanpa proses IO, dengan proses IO maupun
-dengan melakukan operasi terhadap database (Select, Insert, update Dan delete).</p>
-
-<p>Masing-masing implementasi akan saya buat di posting yang berbeda. Sedangkan untuk melakukan pengujian, saya akan mempush masing-masing aplikasi
-ke [heroku.com][heroku] dan melakukan pengujian dengan <a href="http://blitz.io">blitz.io</a>. Heroku adalah Platform yang bisa menjalankan aplikasi berbasis Ruby,
-Php java dll. Sedangkan blitz.io adalah service yang melakukan load testing &amp; benchmark terhadap aplikasi web.
-Keduanya berjalan pada infrastruktur Amazon AWS sehingga seharusnya tidak delay network yang berarti.</p>
-
-<p>Aplikasi yang akan dibuat sebenarnya cukup sederhana. Sebuah aplikasi yang melakukan pencatatan terhadap <em>expense</em>. Aplikasi ini hanya melakukan
-operasi CRUD seperti biasa. Setelah masing-masing aplikasi ini dibuat, barulah akan dilakukan pengujian. Masing-masing pengerjaan pada aplikasi
-tersebut nanti akan buat dalam 3 artikel yang berbeda :</p>
-
-<ul>
-<li><a href="/id/2012/03/aplikasi-benchmark-dalam-cramp.html">Aplikasi Benchmark dalam Cramp</a></li>
-<li>Aplikasi Benchmark dalam Node.js</li>
-<li>Aplikasi Benchmark dalam Rails</li>
-</ul>
-
-
-<p>Setelah dilakukan pengukuran, maka saya akan mengupdate artikel ini.</p>
-
-    </p>
-  </article>
-</div>
-
-
-
-
-<div class="articles">
-  <article>
-    <h1 class="">
-        <a href="/id/2012/02/ruby-fiber-apaan-sih.html" rel="bookmark" title="Permanent link to ">Ruby Fiber apaan sih ?</a>
-    </h1>
-    <span>February 29, 2012</span>
-    <p>
-        <blockquote>
-  <p>
-    Fibers are light-weight (green) <a href="http://en.wikipedia.org/wiki/Thread_(computing)" alt="wiki Thread (Computing)">
-      threads</a> with manual, cooperative scheduling, rather than the preemptive scheduling 
-    of Ruby 1.8's threads. Since Ruby 1.9's threads exist at the system level, fibers are, in a way, 
-    Ruby 1.9's answer to Ruby 1.8's green threads, but lacking the pre-emptive scheduling
-  </p>
-  <small>
-    <a href="http://www.rubyinside.com/ruby-fibers-8-useful-reads-on-rubys-new-concurrency-feature-1769.html">
-      rubyinside.com
-    </a>
-  </small>
-</blockquote>
-
-
-
-
-<h2>Thread</h2>
-
-
-<p>Untuk dapat mengerti mengenai fiber, sebelumnya kita harus memahami thread. Suatu (<em>instance</em>) program yang sedang berjalan
-disebut dengan proses. thread adalah unit proses (potongan kode) yang dapat dijalankan secara simultan. Jadi sekan-akan
-program tersebut bercabang.</p>
-
-<p>Ambil contoh program Web Server yang diimplementasi menggunakan thread. Fungsi Web Server (WS) adalah menerima request dan
-memberikan response kepada web browser. Misalkan WS tersebut hanya memiliki 1 proses, maka apabila ada 10 user yang melakukan
-request, maka mereka harus mengantri untuk menerima response dari server. Hal ini bisa diatasi salah satunya dengan menggunakan
-thread. Apabila terdapat suatu request, maka proses utama membuat (<em>spawn</em>) suatu thread untuk menangani request tersebut.
-Misalkan ada 10 request disaat yang bersamaan, maka terdapat 10 thread yang jalan disaat yang bersamaan. Dalam kasus ini
-maka 10 user tersebut akan dilayani pada waktu yang bersamaan.</p>
-
-<p>Ruby 1.8.7 (MRI) memiliki tipe <em>green thread</em>, yaitu thread yang dikelola oleh <em>Virtual Machine</em> sedangkan normalnya thread
-dikelola oleh <em>Operating System</em> (OS) atau <em>native thread</em>. Namun implementasi threads untuk tiap interpreter berbeda. Misalkan
-pada JRuby dan Rubinius yang menggunakan native threads.</p>
-
-<p>Eksekusi setiap threads dikelola oleh program yang dinamakan <em>scheduler</em>. <em>preemptive scheduling</em> adalah suatu metode
-yang digunakan <em>scheduler</em> dengan memanfaatkan <em>interrupt</em>. Artinya scheduler mengirimkan <em>interrupt</em> kepada suatu thread
-untuk berhenti dan menjalankan thread lain. secara default MRI menggunakan <em>fair scheduler</em>. Artinya masing-masing thread
-akan dijadwalkan (dijalankan) dengan waktu yang sama.</p>
-
-<h2>Fiber</h2>
-
-
-<p>Fiber adalah fitur yang pertamakali diperkenalkan pada ruby 1.9 (Meskipun ada hack untuk ruby 1.8.{67}).
-Fiber mirip dengan thread. Namun pada fiber, user yang memiliki kontrol terhadap eksekusi kode, bukan <em>scheduler</em>.
-setiap fiber memiliki 4Kb memori sehingga cukup "murah" untuk dibuat. Berikut adalah contoh dari (igvita.com).</p>
-
-<p>Terdapat 2 thread: Thread pertama melakukan io-blocking selama 40ms dan komputasi 10ms. sedangkan
-thread kedua melakukan 50ms komputasi.</p>
-
-<p>Berikut adalah implementasi dalam thread dan juga fiber:</p>
-
-<div class="thumbnail">
-  <img src="http://www.igvita.com/posts/09/fibers-vs-threads.png"></img>
-  <div class="caption">
-    Komparasi kode yang dijalankan menggunakan thread & fiber. 
-    <a href="http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/</a>
-  </div>
-</div>
-
-
-<br/>
-
-
-<p>Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms.</p>
-
-<p>Dengan menggunakan fiber, program berjalan sekan-akan sychronous (blocking). Oleh karena itu fiber
-merupakan kandidat yang cocok untuk diterapkan pada pemograman <em>Event-Driven</em> atau <em>Asynchronous programming</em> seperti
-pada <em>EventMachine</em> di ruby</p>
-
-<h2>Cara Menggunakan Fiber</h2>
-
-
-<p>Untuk dapat memahami fiber, kita ambil contoh seperti berikut. Program ini sebenarnya tidak berguna, tapi cukup untuk
-mendemonstrasikan alur penggunaan fiber</p>
-
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight ruby'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">fiber</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
-</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Fiber: Beginning of fiber&quot;</span>
-</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 11)</span>
-</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Fiber: Halo main, saya fiber&quot;</span>
-</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 13)</span>
-</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="s2">&quot;Fiber: Sekarang </span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Beginning main&quot;</span>
-</span><span class='line'>  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 2)</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Hello saya main thread&quot;</span>
-</span><span class='line'>  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 4)</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Sekarang jam berapa ya ?&quot;</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 6) dan output hasil  </span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-
-<pre><code> Main: Beginning main
- Fiber: Beginning of fiber
- Main: Hello saya main thread
- Fiber: Halo main, saya fiber
- Main: Sekarang jam berapa ya ?
- Fiber: Sekarang 2012-02-29 22:45:08 +0700
-</code></pre>
-
-    </p>
-  </article>
-</div>
-
-
-
-
-        </div>
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          
+        </div>        
       </div>
       <div id="sidebar-wrapper" class="span3">
         <div class="sidebar">
