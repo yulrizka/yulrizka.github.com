@@ -7,6 +7,7 @@ comments: true
 tags: ruby
 description: Pengembangan aplikasi benchmark dengan cramp
 keywords: benchmark, cramp
+published: false
 ---
 [Cramp][cramp] adalah web framework dalam bahasa ruby yang dibuat diatas library [EventMachine][em](EM). EM adalah event-processing library
 dalam bahasa pemrograman ruby. Lebih lanjut mengenai event-processing dalam ruby dapat dilihat dalam [artikel ini][em-info].
