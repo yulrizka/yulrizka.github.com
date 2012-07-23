@@ -1,9 +1,8 @@
 /* line 3, ../_assets/sass/banner.sass */
 #banner {
   height: 150px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px inset;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px inset;
-  -o-box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px inset;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px inset;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px inset;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #0069d6), color-stop(100%, #006fe3));
   background-image: -webkit-linear-gradient(#0069d6, #006fe3);

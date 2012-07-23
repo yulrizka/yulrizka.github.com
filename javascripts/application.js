@@ -98,7 +98,9 @@
       return pageView('right');
     });
     sidebar_preference = $.cookie('sidebar-preferences');
-    if (sidebar_preference != null) return pageView(sidebar_preference);
+    if (sidebar_preference != null) {
+      return pageView(sidebar_preference);
+    }
   });
 
 }).call(this);
