@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Ruby Fiber apaan sih ?"
-date: 2012-02-29 15:16
+date: 2012-02-29 15:17
 language: id
 comments: true
 tags: [ruby]

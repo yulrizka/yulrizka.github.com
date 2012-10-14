@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Responsive Design"
-date: 2012-02-24 01:47
+date: 2012-02-24 01:48
 language: en
 comments: true
 tags: [web]

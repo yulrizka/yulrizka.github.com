@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Aplikasi Benchmark dalam Cramp"
-date: 2012-03-05 19:55
+date: 2012-03-05 19:56
 language: id
 comments: true
 tags: ruby

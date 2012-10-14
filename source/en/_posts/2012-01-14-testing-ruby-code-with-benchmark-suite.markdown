@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Testing ruby code with benchmark_suite"
-date: 2012-01-14 12:04
+date: 2012-01-14 12:05
 language: en
 comments: true
 tags: [ruby]

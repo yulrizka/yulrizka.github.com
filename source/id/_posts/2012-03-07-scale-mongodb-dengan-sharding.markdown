@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Scale MongoDB dengan Sharding"
-date: 2012-03-07 12:15
+date: 2012-03-07 12:16
 language: id
 comments: true
 tags: ruby, web

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Jekyll error utf-8 caracter"
-date: 2012-01-14 17:31
+date: 2012-01-14 17:32
 language: en
 comments: true
 tags: [ruby, web]
