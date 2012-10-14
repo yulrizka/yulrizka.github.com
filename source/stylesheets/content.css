@@ -8,7 +8,12 @@ body {
   min-width: 480px;
 }
 
-/* line 9, ../_assets/sass/content.sass */
+/* line 8, ../_assets/sass/content.sass */
+#main {
+  margin-top: 190px;
+}
+
+/* line 11, ../_assets/sass/content.sass */
 #container > .container-fluid .row-fluid .content {
   padding: 20px;
   background-color: white;
@@ -18,15 +23,15 @@ body {
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px;
 }
 
-/* line 16, ../_assets/sass/content.sass */
+/* line 18, ../_assets/sass/content.sass */
 .content h1 {
   margin-bottom: 10px;
 }
-/* line 18, ../_assets/sass/content.sass */
+/* line 20, ../_assets/sass/content.sass */
 .content .posted_at {
   margin-bottom: 10px;
 }
-/* line 20, ../_assets/sass/content.sass */
+/* line 22, ../_assets/sass/content.sass */
 .content .articles h1 {
   font-size: 22px;
 }

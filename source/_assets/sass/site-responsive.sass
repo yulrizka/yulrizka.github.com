@@ -4,6 +4,8 @@
   #banner
     height: 0
     overflow: hidden
+  #main
+    margin-top: 41px
   @import "partials/navbar"
       
 // Landscape phone to portrait tablet
@@ -19,7 +21,9 @@
     max-height: 100px
   #page-view
     display: none
-
+  #sidebar-wrapper
+    z-index: -100
+    
 // Portrait tablet to landscape and desktop
 @media (min-width: 768px) and (max-width: 980px)
   .navbar 
