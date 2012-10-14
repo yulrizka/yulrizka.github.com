@@ -42,13 +42,9 @@ header .navbar .btn-navbar {
   border-right: 0;
   -moz-border-radius-topleft: 15px;
   -webkit-border-top-left-radius: 15px;
-  -ms-border-top-left-radius: 15px;
-  -o-border-top-left-radius: 15px;
   border-top-left-radius: 15px;
   -moz-border-radius-bottomleft: 15px;
   -webkit-border-bottom-left-radius: 15px;
-  -ms-border-bottom-left-radius: 15px;
-  -o-border-bottom-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
 /* line 10, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
@@ -71,13 +67,9 @@ header .navbar .btn-navbar {
   border-left: 0;
   -moz-border-radius-topright: 15px;
   -webkit-border-top-right-radius: 15px;
-  -ms-border-top-right-radius: 15px;
-  -o-border-top-right-radius: 15px;
   border-top-right-radius: 15px;
   -moz-border-radius-bottomright: 15px;
   -webkit-border-bottom-right-radius: 15px;
-  -ms-border-bottom-right-radius: 15px;
-  -o-border-bottom-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
 
@@ -97,72 +89,71 @@ header .navbar .btn-navbar {
 /* line 31, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #sidebar-wrapper {
   position: relative;
-  z-index: -100;
   display: none;
 }
-/* line 35, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 34, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #sidebar-wrapper .sidebar {
   background-color: #eeeeee;
   padding: 10px;
   border: 5px solid #dddddd;
 }
 
-/* line 40, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 39, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 .navbar.relative {
   position: relative;
 }
-/* line 42, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 41, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 .navbar.relative ul {
   margin-top: 3px;
 }
 
-/* line 48, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 47, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #page-view [class^="icon-"] {
   background-image: url(/images/icon/panel.png);
 }
-/* line 50, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 49, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #page-view .icon-white {
   background-position-y: -14px !important;
 }
-/* line 52, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 51, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #page-view .icon-left-panel {
   background-position: 0 0;
 }
-/* line 54, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 53, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #page-view .icon-right-panel {
   background-position: -14px 0;
 }
-/* line 56, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 55, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #page-view .icon-no-panel {
   background-position: -28px 0;
 }
 
-/* line 58, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 57, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #social-icon {
   float: right;
 }
-/* line 60, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 59, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #social-icon a {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
   opacity: 0.2;
 }
-/* line 62, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 61, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #social-icon a:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   opacity: 1;
 }
 
-/* line 65, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 64, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 #page-view {
   float: right;
 }
 
-/* line 68, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 67, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 .popover {
   z-index: 20000;
 }
 
-/* line 71, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
+/* line 70, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/sidebar.sass */
 p {
   font-size: 14px;
   line-height: 21px;
@@ -178,7 +169,6 @@ p {
   background-image: -webkit-linear-gradient(#0069d6, #006fe3);
   background-image: -moz-linear-gradient(#0069d6, #006fe3);
   background-image: -o-linear-gradient(#0069d6, #006fe3);
-  background-image: -ms-linear-gradient(#0069d6, #006fe3);
   background-image: linear-gradient(#0069d6, #006fe3);
 }
 /* line 7, /Users/yulrizka/Documents/Work/personal/labs/source/_assets/sass/banner.sass */
@@ -367,13 +357,9 @@ footer .footer {
   padding: 5px;
   -moz-border-radius-bottomleft: 6px;
   -webkit-border-bottom-left-radius: 6px;
-  -ms-border-bottom-left-radius: 6px;
-  -o-border-bottom-left-radius: 6px;
   border-bottom-left-radius: 6px;
   -moz-border-radius-bottomright: 6px;
   -webkit-border-bottom-right-radius: 6px;
-  -ms-border-bottom-right-radius: 6px;
-  -o-border-bottom-right-radius: 6px;
   border-bottom-right-radius: 6px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px;

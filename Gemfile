@@ -14,3 +14,4 @@ gem "foreman"
 gem 'rake'
 gem 'pygments.rb'
 gem 'stringex'
+gem 'rb-fsevent', '~> 0.9.1'
