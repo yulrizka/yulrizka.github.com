@@ -22,7 +22,7 @@ pageView = (pane) ->
     
 $ ->
   $('.content').css('min-height', $('#sidebar-wrapper').height() + 40)
-  $('#sidebar-wrapper').show();
+  $('#sidebar-wrapper').show()
   $("a[rel='popover']").popover()
   $('a#sidebar-left-link').click -> pageView 'left'
   $('a#sidebar-none-link').click -> pageView 'none'
