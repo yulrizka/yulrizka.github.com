@@ -5876,27 +5876,28 @@ footer .footer {
 
   /* line 24, ../_assets/sass/site-responsive.sass */
   #sidebar-wrapper {
+    display: none !important;
     z-index: -100;
   }
 }
 @media (min-width: 768px) and (max-width: 980px) {
-  /* line 30, ../_assets/sass/site-responsive.sass */
+  /* line 31, ../_assets/sass/site-responsive.sass */
   .navbar .nav-collapse {
     clear: none !important;
     height: auto !important;
   }
-  /* line 33, ../_assets/sass/site-responsive.sass */
+  /* line 34, ../_assets/sass/site-responsive.sass */
   .navbar .nav {
     display: block;
     left: 0;
     margin: 0 10px 0 0;
     position: relative;
   }
-  /* line 38, ../_assets/sass/site-responsive.sass */
+  /* line 39, ../_assets/sass/site-responsive.sass */
   .navbar .nav > li {
     float: left;
   }
-  /* line 40, ../_assets/sass/site-responsive.sass */
+  /* line 41, ../_assets/sass/site-responsive.sass */
   .navbar .dropdown-menu {
     position: absolute;
     display: none;
@@ -5909,13 +5910,13 @@ footer .footer {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
   }
 
-  /* line 48, ../_assets/sass/site-responsive.sass */
+  /* line 49, ../_assets/sass/site-responsive.sass */
   #banner .excerpt .text .title {
     font-size: 1.5em;
     letter-spacing: 0;
   }
 
-  /* line 51, ../_assets/sass/site-responsive.sass */
+  /* line 52, ../_assets/sass/site-responsive.sass */
   .btn-navbar {
     display: none;
   }
