@@ -2,31 +2,32 @@
 header {
   height: 190px;
   position: absolute;
+  width: 100%;
   top: 0;
 }
-/* line 6, ../_assets/sass/header.sass */
+/* line 7, ../_assets/sass/header.sass */
 header .navbar .brand {
   font-family: "Slackey", cursive;
   font-size: 20px;
 }
-/* line 10, ../_assets/sass/header.sass */
+/* line 11, ../_assets/sass/header.sass */
 header .navbar .nav-link ul.nav li {
   border-top: 2px solid #323232;
 }
-/* line 12, ../_assets/sass/header.sass */
+/* line 13, ../_assets/sass/header.sass */
 header .navbar .nav-link ul.nav li:hover, header .navbar .nav-link ul.nav li.banner {
   border-color: #e82517 !important;
 }
-/* line 14, ../_assets/sass/header.sass */
+/* line 15, ../_assets/sass/header.sass */
 header .navbar .nav-link ul.nav li.active {
   border-color: #222222;
 }
-/* line 16, ../_assets/sass/header.sass */
+/* line 17, ../_assets/sass/header.sass */
 header .navbar .btn-navbar {
   float: left;
 }
 
-/* line 18, ../_assets/sass/header.sass */
+/* line 19, ../_assets/sass/header.sass */
 .navbar-fixed-top .navbar-inner {
   padding: 0 !important;
 }
