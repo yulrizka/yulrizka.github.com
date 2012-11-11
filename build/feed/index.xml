@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>Recursive</title>
+ <link href="http://recursive-design.com/feed/" rel="self"/>
+ <link href="http://recursive-design.com/"/>
+ <updated>2012-11-11T20:15:05+01:00</updated>
+ <id>http://recursive-design.com/</id>
+ <author>
+   <name>Recursive</name>
+   <email>mail@recursive-design.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Scale MongoDB dengan Sharding</title>
+   <link href="http://recursive-design.com/id/2012/03/scale-mongodb-dengan-sharding.html"/>
+   <updated>2012-03-07T12:16:00+01:00</updated>
+   <id>http://recursive-design.com/id/2012/03/scale-mongodb-dengan-sharding</id>
+   <content type="html">&lt;div class=&quot;alert alert-success&quot;&gt;
+  &lt;span class=&quot;label label-success&quot; &gt;TL;DR&lt;/span&gt;
+  Proses &lt;em&gt;Horizontal Partitioning&lt;/em&gt; pada MongoDB melibatkan suatu konsep &lt;em&gt;Chunk&lt;/em&gt; dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
+  &lt;em&gt;shard key&lt;/em&gt;. Artikel ini membahas bagaimana melakukan sharding pada mongodb
+&lt;/div&gt;
+
+
+&lt;h2&gt;Introduksi&lt;/h2&gt;
+
+&lt;p&gt;MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format
+BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database,
+kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis&lt;/p&gt;
+
+&lt;p&gt;Sebelum mengeksplorasi mongodb, ada beberapa konsep yang harus kita pahami tentang mongo. yaitu:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Mongod&lt;/li&gt;
+&lt;li&gt;Replicas&lt;/li&gt;
+&lt;li&gt;Shards&lt;/li&gt;
+&lt;li&gt;Shard Keys&lt;/li&gt;
+&lt;li&gt;Chunks&lt;/li&gt;
+&lt;li&gt;Config DB Process (config server)&lt;/li&gt;
+&lt;li&gt;Routing Process (mongos)&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;a href=&quot;http://www.mongodb.org/display/DOCS/Sharding+Introduction&quot; class=&quot;thumbnail span7 offset2&quot;&gt;
+    &lt;img src=&quot;http://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&amp;modificationDate=1267724627656&quot;/&gt;
+    &lt;h5&gt;Skema Sharding - MongoDB Sharding Introduction&lt;/h5&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+
+&lt;h3&gt;mongod&lt;/h3&gt;
+
+&lt;p&gt;mongod adalah core dari mongoDB. mongod adalah satu instance server mongo. Saya sendiri tidak tau kepanjangan dari mongod tapi kalau menebak,
+mungkin yang dimaksud adalah mongo daemon. Kalau di analogikan, 1 mongod adalah 1 server database (misalkan sama dengan 1 server mysql). Sehingga
+satu aplikasi sedehana cukup dibuat dengan 1 application server yang berkomunikasi dengan 1 mongod&lt;/p&gt;
+
+&lt;h3&gt;Replica&lt;/h3&gt;
+
+&lt;p&gt;Replica set adalah suatu bentuk Master/slave database. 1 replika terdiri dari 2 atau lebih proses mongod yang memiliki data yang sama.
+Replica bertujuan untuk &lt;em&gt;failover&lt;/em&gt;, &lt;em&gt;reducancy&lt;/em&gt; juga sebagai &lt;em&gt;distribution read load&lt;/em&gt;
+. Artinya apabila terdapat beberapa request read terhadap data yang sama, maka request tersebut bisa di handle oleh lebih dari satu server&lt;/p&gt;
+
+&lt;p&gt;Contoh, misalkan kita mempunyai 3 data center: Jakarta, Bandung dan Surabaya. maka kita dapat membentuk replika sebagai berikut.&lt;/p&gt;
+
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div style=&quot;text-align: center&quot;&gt;
+    &lt;table class=&quot;table table-striped table-bordered table-condensed span5&quot;&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;td&gt;&lt;/td&gt;&lt;td&gt;Replica-1&lt;/td&gt;&lt;td&gt;Replica-2&lt;/td&gt;&lt;td&gt;Replica-3&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Jakarta&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Bandung&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Surabaya&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+          &lt;td&gt;mongod&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h3&gt;Shards&lt;/h3&gt;
+
+&lt;p&gt;Dalam database kita dapat melakukan partisi terhadap data. Partisi tersebut bisa dilakukan dalam dua arah: Vertikal dan Horizontal. Vertical
+dilakukan dengan membagi data berdasarkan kolom, misalkan melalui proses denormalisasi. Sedangkan &lt;em&gt;horizontal partitioning&lt;/em&gt; dilakukan dengan
+membagi data secara horizontal.&lt;/p&gt;
+
+&lt;p&gt;Contoh horizontal partitioning misalkan kita memiliki data center seperti diatas. Maka kita dapat menyimpan semua data user jakarta ke data
+center jakarta, bandung ke bandung dan lainya ke surabaya. Apabila terdapat request terhadap data bandung maka cukup server bandung yang melayani
+data tersebut.&lt;/p&gt;
+
+&lt;p&gt;Shard dalam mongoDB teridiri dari beberapa server (mongod). Beberapa server tersebut dalam shard membentuk replika set. sehingga dapat kita katakan
+suatu replika set berada pada suatu sharding.&lt;/p&gt;
+
+&lt;h3&gt;shard key&lt;/h3&gt;
+
+&lt;p&gt;Untuk membagi-bagi suatu data, maka dibutuhkan suatu &lt;em&gt;key&lt;/em&gt; yang menentukan data tersebut akan masuk ke shard yang mana. Key tersebut disebut dengan
+&lt;strong&gt;shard key&lt;/strong&gt;. untuk contoh diatas &lt;em&gt;shard key&lt;/em&gt; adalah lokasi. Pada contoh lain kita dapat membuat email sebagai &lt;em&gt;shard key&lt;/em&gt;. sehingga data suatu
+user akan dikelompokkan pada suatu shard yang sama.&lt;/p&gt;
+
+&lt;p&gt;Pemilihan &lt;em&gt;shard key&lt;/em&gt; sangat bergantung dengan bagaimana cara aplikasi berintarksi untuk mengakses data. Sehingga pemilihan &lt;em&gt;shard key&lt;/em&gt; dapat
+mempengaruhi performa dari sistem. Pemilihan &lt;em&gt;shard key&lt;/em&gt; yang salah dapat menyebabkan database beroperasi lebih lambat dari &lt;em&gt;single instance&lt;/em&gt;
+database.&lt;/p&gt;
+
+&lt;p&gt;Untuk kriteria pemilihan &lt;em&gt;shard key&lt;/em&gt; dapat dilihat pada artikel &lt;a href=&quot;http://www.mongodb.org/display/DOCS/Choosing+a+Shard+Key&quot;&gt;&lt;em&gt;Choosing a shard key&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;Chunks&lt;/h3&gt;
+
+&lt;p&gt;&lt;em&gt;Chunk&lt;/em&gt; adalah &lt;em&gt;continuous range of data for a particular collection&lt;/em&gt;. Misalkan kita melakukan partisi data berdasarkan ID. dan ID tersebut
+merupakan bilangan integer antara 1..1000. Kita dapat membagi data tersebut dalam beberapa bagian (chunk) dengan ukuran yang sama. Secara
+default ukuran 1 &lt;em&gt;chunk&lt;/em&gt; dalam mongoDB adalah 64MB (meskipun bisa dikonfigurasi). Untuk contoh kasus data tersebut bisa dibagi menjadi 10 chunk.
+dengan:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;chunk-1: 1..100&lt;/li&gt;
+&lt;li&gt;chunk-2: 101..200&lt;/li&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;li&gt;chunk-10: 901..1000&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Suatu Chunk disimpan pada suatu shard tertentu. Keistimewaan mongoDB salah satunya adalah auto sharding. Artinya suatu chunk dapat di transfer
+dari suatu shard ke shard yang lain.&lt;/p&gt;
+
+&lt;p&gt;Misalkan contoh diatas, 3 shard. Pada shard pertama terdapat 10 chunk. MongoDB akan melakukan balancing dengan melakukan transfer ke 2 shard
+yang lain sampai ukuran chunk pada tiap shard menjadi seimbang. Hal ini dilakukan secara automatis, meskipun kita juga dapat melakukannya secara
+manual.&lt;/p&gt;
+
+&lt;h3&gt;Config DB Process (Config server)&lt;/h3&gt;
+
+&lt;p&gt;Selain mongod, dalam proses sharding dibutuhkan suatu prosess (program) yang bertugas untuk menyimpan informasi mengenai shard-server dan chunk
+didalam shard tersebut. informasi tersebut dikenal dengan meta-data. Kita dapat menjalankan 1 atau 3 &lt;em&gt;Config Server&lt;/em&gt;. Tentu pada production
+dibutuhkan 3 config server. Ketika satu mati maka masih tersisa 2 cadangan &lt;em&gt;Config server&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Tidak seperti mongod, &lt;em&gt;Config Server&lt;/em&gt; tidak berkomunikasi antara satu dengan yang lain. Ketika satu proses mati, biasanya dihidupkan dengan
+melakukan restore terhadap dump dari server yang lain. Ketika server ini mati.&lt;/p&gt;
+
+&lt;h3&gt;Routing Process (mongos)&lt;/h3&gt;
+
+&lt;p&gt;Selain mongod dan &lt;em&gt;config server&lt;/em&gt;, element lain yang penting adalah &lt;strong&gt;mongos&lt;/strong&gt;. Fungsi utama dari mongos adalah melakukan routing terhadap
+request ke shard yang memiliki data tersebut. Pada saat aplikasi ini dijalankan. ia akan mengambil data dari &lt;em&gt;config server&lt;/em&gt;. Aplikasi yang
+kita miliki berkomunikasi layaknya dengan server database biasa. Misalkan sebelumnya aplikasi kita setup ke url mongod, sekarang setelah
+kita melakukan konfigurasi pada sharding, kita cukup mengarahkan url ke proses mongos.&lt;/p&gt;
+
+&lt;p&gt;Proses mongos ini relativ lebih kecil. Kadang kita dapat menjalankan mongos pada server aplikasi kita. Ada juga yang menjalankan proses mongos
+di mesin yang sama dengan mongod.&lt;/p&gt;
+
+&lt;h2&gt;Implementasi&lt;/h2&gt;
+
+&lt;p&gt;Ok, setelah kita mengerti beberapa konsep mengenai sharding, mari kita membuat suatu contoh kasus bagaimana melakukan implementasi terhadap
+sharding berikut. Untuk kemudahan, maka semua &lt;em&gt;instance&lt;/em&gt; server ktia letakkan pada server yang sama (localhost). Hal ini berlaku untuk
+mongod, Config Server, mongos dan server aplikasi.&lt;/p&gt;
+
+&lt;p&gt;Pada contoh kasus ini kita akan menjalankan beberpa server sebagai berikut&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;2 Monogod. port 10000 &amp;amp; 10001&lt;/li&gt;
+&lt;li&gt;1 Config Server. port 20000&lt;/li&gt;
+&lt;li&gt;1 Mongos&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;Mongod&lt;/h3&gt;
+
+&lt;p&gt;Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo server. Untuk menjalankan 2 proses mongod, jalankan perintah berikut&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir a b
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;c&quot;&gt;# jalankan instance pertama&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --shardsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/a --port 10000 &amp;gt; /tmp/sharda.log &amp;amp;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/sharda.log &lt;span class=&quot;c&quot;&gt;# pastikan process tersebut berjalan&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;c&quot;&gt;# jalankan instance kedua&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --shardsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/b --port 10001 &amp;gt; /tmp/shardb.log &amp;amp;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/shardb.log &lt;span class=&quot;c&quot;&gt;# pastikan process tersebut berjalan&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Configuration Server &amp;amp; Mongos&lt;/h3&gt;
+
+&lt;p&gt;Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos dengan perintah berikut&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir config
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;c&quot;&gt;# start config server&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --configsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/config --port 20000 &amp;gt; /tmp/configdb.log &amp;amp;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/configdb.log &lt;span class=&quot;c&quot;&gt;# pastikan server berjalan&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;c&quot;&gt;# start mongos&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongos --configdb localhost:20000 --chunkSize 1 &amp;gt; /tmp/mongos.log &amp;amp;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/mongos.log &lt;span class=&quot;c&quot;&gt;# pastikan server tersebut berjalan&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;pada contoh diatas, mongos tidak membutuhkan &lt;code&gt;--dbpath&lt;/code&gt;, karena mongo tidak memerlukan &lt;em&gt;persistance&lt;/em&gt; (penyimpanan data). Perintah &lt;code&gt;mongos&lt;/code&gt; diatas
+akan menjalankan mongos pada port default (sama serperti port default mongod) yaitu 27017&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;--chinkSize 1&lt;/code&gt; merupakan opsi untuk menentukan ukuran chunk 1MB (defaultnya 64MB). Hal ini bertujuan untuk explorasi saja. sehingga kita tidak
+perlu memassukkan data berukuran 64MB untuk membuat satu chuck baru.&lt;/p&gt;
+
+&lt;h2&gt;Setup Cluster&lt;/h2&gt;
+
+&lt;p&gt;Sampai tahap ini yang telah kita lakukan adalah mejalankan 2 &lt;em&gt;process&lt;/em&gt; mongod, 1 &lt;em&gt;process config server&lt;/em&gt; dan 1 &lt;em&gt;process&lt;/em&gt; mongos. Berikutnya
+yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berkomunikasi.&lt;/p&gt;
+
+&lt;h3&gt;Konfigurasi Shard Server pada mongos&lt;/h3&gt;
+
+&lt;p&gt;Berikutnya yang kita lakukan adalah setup mongos agar menambahkan 2 shard server yang berjalan pada port 10000 &amp;amp; 10001.&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongo
+&lt;/span&gt;&lt;span class='line'&gt;MongoDB shell version: 1.8.2
+&lt;/span&gt;&lt;span class='line'&gt;connecting to: &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&amp;gt; use admin
+&lt;/span&gt;&lt;span class='line'&gt;switched to db admin
+&lt;/span&gt;&lt;span class='line'&gt;&amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; addshard: &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10000&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;shardAdded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; addshard: &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10001&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;shardAdded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Berikutnya, kita set agar server tersebut dalam mode sharding pada database test. Setelah itu kita akan menambahkan sharding pada &lt;em&gt;collection&lt;/em&gt; &lt;em&gt;people&lt;/em&gt; dengan
+&lt;em&gt;shard key&lt;/em&gt; &lt;em&gt;email&lt;/em&gt;. Meskipun pada tahap ini kita belum memiliki &lt;em&gt;people Collection&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; enablesharding: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; shardcollection: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, key: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;email: 1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;collectionsharded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; use &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; show collections
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjadi 1 MB&lt;/p&gt;
+
+&lt;div class=&quot;alert alert-info&quot;&gt;
+  Entah mengapa parameter --chunkSize 1 tidak mengubah ukuran chunk, oleh karena itu kita ubah dari database
+&lt;/div&gt;
+
+
+
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;span class='line-number'&gt;14&lt;/span&gt;
+&lt;span class='line-number'&gt;15&lt;/span&gt;
+&lt;span class='line-number'&gt;16&lt;/span&gt;
+&lt;span class='line-number'&gt;17&lt;/span&gt;
+&lt;span class='line-number'&gt;18&lt;/span&gt;
+&lt;span class='line-number'&gt;19&lt;/span&gt;
+&lt;span class='line-number'&gt;20&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; use config
+&lt;/span&gt;&lt;span class='line'&gt;  switched to db config
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; show collections
+&lt;/span&gt;&lt;span class='line'&gt;  changelog
+&lt;/span&gt;&lt;span class='line'&gt;  chunks
+&lt;/span&gt;&lt;span class='line'&gt;  collections
+&lt;/span&gt;&lt;span class='line'&gt;  databases
+&lt;/span&gt;&lt;span class='line'&gt;  lockpings
+&lt;/span&gt;&lt;span class='line'&gt;  locks
+&lt;/span&gt;&lt;span class='line'&gt;  mongos
+&lt;/span&gt;&lt;span class='line'&gt;  settings
+&lt;/span&gt;&lt;span class='line'&gt;  shards
+&lt;/span&gt;&lt;span class='line'&gt;  system.indexes
+&lt;/span&gt;&lt;span class='line'&gt;  version
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.settings.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt; : 64 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.settings.save&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;_id:&lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, value: 1&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.settings.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.&lt;/p&gt;
+
+&lt;p&gt;Ok, sampai tahap ini kita telah selesai melakukan shard terhadap server tersebut&lt;/p&gt;
+
+&lt;h2&gt;Let's Play&lt;/h2&gt;
+
+&lt;p&gt;Sekarang saatnya kita melakukan percobaan dengan shard dan chunk.&lt;/p&gt;
+
+&lt;h3&gt;Tambahkan data pada collection&lt;/h3&gt;
+
+&lt;p&gt;Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collection tersebut.&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; use &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nb&quot;&gt;  &lt;/span&gt;switched to db &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.save&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; name: &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person test&amp;quot;&lt;/span&gt;, email: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test@foo.com&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : ObjectId&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;4f5742cc580bd77a9d9ec6d6&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;test@foo.com&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person test&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.dataSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  68
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.totalSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  24576
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Dapat dilihat pada hasil diatas bahwa kita telah memasukkan 1 dokumen pada &lt;em&gt;collection&lt;/em&gt; people dan untuk 1 dokumen kita memerlukan 68 byte.
+Ingat bahwa pada contoh diatas, kita menetapkan ukuran 1 chunk adalah 1MB (1024 byte). Skarang kita coba untuk memasukan data sehingga ukuran
+data menjadi 3 chuck&lt;/p&gt;
+
+&lt;p&gt;Mari kita tambahkan record (dokumen) sebanyak 20000.&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;var &lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1; i &amp;lt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 20000; i++&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  ...   var &lt;span class=&quot;nv&quot;&gt;person_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person #&amp;quot;&lt;/span&gt; + i;
+&lt;/span&gt;&lt;span class='line'&gt;  ...   var &lt;span class=&quot;nv&quot;&gt;person_email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;email-&amp;quot;&lt;/span&gt; + i + &lt;span class=&quot;s2&quot;&gt;&amp;quot;@foo.com&amp;quot;&lt;/span&gt;;
+&lt;/span&gt;&lt;span class='line'&gt;  ...   db.people.save &lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; name: person_name, email: person_email &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;;
+&lt;/span&gt;&lt;span class='line'&gt;  ... &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.totalSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  6776064
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.dataSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  1559608
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Melihat informasi jumlah shard&lt;/h3&gt;
+
+&lt;p&gt;untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;span class='line-number'&gt;14&lt;/span&gt;
+&lt;span class='line-number'&gt;15&lt;/span&gt;
+&lt;span class='line-number'&gt;16&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; use admin
+&lt;/span&gt;&lt;span class='line'&gt;  switched to db admin
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; listshards: 1&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;shards&amp;quot;&lt;/span&gt; : &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;          &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;host&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10000&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;          &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;          &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;host&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10001&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;          &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Melihat informasi Chunk&lt;/h3&gt;
+
+&lt;p&gt;Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;span class='line-number'&gt;14&lt;/span&gt;
+&lt;span class='line-number'&gt;15&lt;/span&gt;
+&lt;span class='line-number'&gt;16&lt;/span&gt;
+&lt;span class='line-number'&gt;17&lt;/span&gt;
+&lt;span class='line-number'&gt;18&lt;/span&gt;
+&lt;span class='line-number'&gt;19&lt;/span&gt;
+&lt;span class='line-number'&gt;20&lt;/span&gt;
+&lt;span class='line-number'&gt;21&lt;/span&gt;
+&lt;span class='line-number'&gt;22&lt;/span&gt;
+&lt;span class='line-number'&gt;23&lt;/span&gt;
+&lt;span class='line-number'&gt;24&lt;/span&gt;
+&lt;span class='line-number'&gt;25&lt;/span&gt;
+&lt;span class='line-number'&gt;26&lt;/span&gt;
+&lt;span class='line-number'&gt;27&lt;/span&gt;
+&lt;span class='line-number'&gt;28&lt;/span&gt;
+&lt;span class='line-number'&gt;29&lt;/span&gt;
+&lt;span class='line-number'&gt;30&lt;/span&gt;
+&lt;span class='line-number'&gt;31&lt;/span&gt;
+&lt;span class='line-number'&gt;32&lt;/span&gt;
+&lt;span class='line-number'&gt;33&lt;/span&gt;
+&lt;span class='line-number'&gt;34&lt;/span&gt;
+&lt;span class='line-number'&gt;35&lt;/span&gt;
+&lt;span class='line-number'&gt;36&lt;/span&gt;
+&lt;span class='line-number'&gt;37&lt;/span&gt;
+&lt;span class='line-number'&gt;38&lt;/span&gt;
+&lt;span class='line-number'&gt;39&lt;/span&gt;
+&lt;span class='line-number'&gt;40&lt;/span&gt;
+&lt;span class='line-number'&gt;41&lt;/span&gt;
+&lt;span class='line-number'&gt;42&lt;/span&gt;
+&lt;span class='line-number'&gt;43&lt;/span&gt;
+&lt;span class='line-number'&gt;44&lt;/span&gt;
+&lt;span class='line-number'&gt;45&lt;/span&gt;
+&lt;span class='line-number'&gt;46&lt;/span&gt;
+&lt;span class='line-number'&gt;47&lt;/span&gt;
+&lt;span class='line-number'&gt;48&lt;/span&gt;
+&lt;span class='line-number'&gt;49&lt;/span&gt;
+&lt;span class='line-number'&gt;50&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; use config
+&lt;/span&gt;&lt;span class='line'&gt;  switched to db config
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.chunks.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_MinKey&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;           &lt;span class=&quot;nv&quot;&gt;$minKey&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-10000@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:2
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-9@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:3
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;           &lt;span class=&quot;nv&quot;&gt;$maxKey&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;dari data diatas kita dapat melihat bahwa terdapat 3 chunk:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;test.people-email_MinKey berada pada shard0001&lt;/li&gt;
+&lt;li&gt;test.people-email_\&quot;email-10000@foo.com\&quot; berada pada shard0000&lt;/li&gt;
+&lt;li&gt;test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;MongoDB ternyata melakukan partisi terhadap &lt;em&gt;shard key&lt;/em&gt; dengan memperlakukan key tersebut sebagai string.&lt;/p&gt;
+
+&lt;h3&gt;Memindahkan Chunk ke shard lain&lt;/h3&gt;
+
+&lt;p&gt;Misalkan pada contoh diatas kita ingin memindahkan chunk &lt;code&gt;test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000&lt;/code&gt; dari shard0000 je shard0001. Hal tersebut
+dapat dilakukan dengan perintah berikut&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;span class='line-number'&gt;14&lt;/span&gt;
+&lt;span class='line-number'&gt;15&lt;/span&gt;
+&lt;span class='line-number'&gt;16&lt;/span&gt;
+&lt;span class='line-number'&gt;17&lt;/span&gt;
+&lt;span class='line-number'&gt;18&lt;/span&gt;
+&lt;span class='line-number'&gt;19&lt;/span&gt;
+&lt;span class='line-number'&gt;20&lt;/span&gt;
+&lt;span class='line-number'&gt;21&lt;/span&gt;
+&lt;span class='line-number'&gt;22&lt;/span&gt;
+&lt;span class='line-number'&gt;23&lt;/span&gt;
+&lt;span class='line-number'&gt;24&lt;/span&gt;
+&lt;span class='line-number'&gt;25&lt;/span&gt;
+&lt;span class='line-number'&gt;26&lt;/span&gt;
+&lt;span class='line-number'&gt;27&lt;/span&gt;
+&lt;span class='line-number'&gt;28&lt;/span&gt;
+&lt;span class='line-number'&gt;29&lt;/span&gt;
+&lt;span class='line-number'&gt;30&lt;/span&gt;
+&lt;span class='line-number'&gt;31&lt;/span&gt;
+&lt;span class='line-number'&gt;32&lt;/span&gt;
+&lt;span class='line-number'&gt;33&lt;/span&gt;
+&lt;span class='line-number'&gt;34&lt;/span&gt;
+&lt;span class='line-number'&gt;35&lt;/span&gt;
+&lt;span class='line-number'&gt;36&lt;/span&gt;
+&lt;span class='line-number'&gt;37&lt;/span&gt;
+&lt;span class='line-number'&gt;38&lt;/span&gt;
+&lt;span class='line-number'&gt;39&lt;/span&gt;
+&lt;span class='line-number'&gt;40&lt;/span&gt;
+&lt;span class='line-number'&gt;41&lt;/span&gt;
+&lt;span class='line-number'&gt;42&lt;/span&gt;
+&lt;span class='line-number'&gt;43&lt;/span&gt;
+&lt;span class='line-number'&gt;44&lt;/span&gt;
+&lt;span class='line-number'&gt;45&lt;/span&gt;
+&lt;span class='line-number'&gt;46&lt;/span&gt;
+&lt;span class='line-number'&gt;47&lt;/span&gt;
+&lt;span class='line-number'&gt;48&lt;/span&gt;
+&lt;span class='line-number'&gt;49&lt;/span&gt;
+&lt;span class='line-number'&gt;50&lt;/span&gt;
+&lt;span class='line-number'&gt;51&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; db.adminCommand&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; moveChunk: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, find: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;email: &lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;, to: &lt;span class=&quot;s1&quot;&gt;&amp;#39;shard0001&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;millis&amp;quot;&lt;/span&gt; : 1038, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.chunks.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_MinKey&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;           &lt;span class=&quot;nv&quot;&gt;$minKey&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-10000@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:3000,
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-9@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:3000,
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;           &lt;span class=&quot;nv&quot;&gt;$maxKey&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Dari data diatas kita bisa melihat bahwa chunk tersebut sudah pindah dari shard0000 ke sahrd00001&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Ruby Fiber apaan sih ?</title>
+   <link href="http://recursive-design.com/id/2012/02/ruby-fiber-apaan-sih.html"/>
+   <updated>2012-02-29T15:17:00+01:00</updated>
+   <id>http://recursive-design.com/id/2012/02/ruby-fiber-apaan-sih</id>
+   <content type="html">&lt;blockquote&gt;
+  &lt;p&gt;
+    Fibers are light-weight (green) &lt;a href=&quot;http://en.wikipedia.org/wiki/Thread_(computing)&quot; alt=&quot;wiki Thread (Computing)&quot;&gt;
+      threads&lt;/a&gt; with manual, cooperative scheduling, rather than the preemptive scheduling 
+    of Ruby 1.8's threads. Since Ruby 1.9's threads exist at the system level, fibers are, in a way, 
+    Ruby 1.9's answer to Ruby 1.8's green threads, but lacking the pre-emptive scheduling
+  &lt;/p&gt;
+  &lt;small&gt;
+    &lt;a href=&quot;http://www.rubyinside.com/ruby-fibers-8-useful-reads-on-rubys-new-concurrency-feature-1769.html&quot;&gt;
+      rubyinside.com
+    &lt;/a&gt;
+  &lt;/small&gt;
+&lt;/blockquote&gt;
+
+
+
+
+&lt;h2&gt;Thread&lt;/h2&gt;
+
+
+&lt;p&gt;Untuk dapat mengerti mengenai fiber, sebelumnya kita harus memahami thread. Suatu (&lt;em&gt;instance&lt;/em&gt;) program yang sedang berjalan
+disebut dengan proses. thread adalah unit proses (potongan kode) yang dapat dijalankan secara simultan. Jadi sekan-akan
+program tersebut bercabang.&lt;/p&gt;
+
+&lt;p&gt;Ambil contoh program Web Server yang diimplementasi menggunakan thread. Fungsi Web Server (WS) adalah menerima request dan
+memberikan response kepada web browser. Misalkan WS tersebut hanya memiliki 1 proses, maka apabila ada 10 user yang melakukan
+request, maka mereka harus mengantri untuk menerima response dari server. Hal ini bisa diatasi salah satunya dengan menggunakan
+thread. Apabila terdapat suatu request, maka proses utama membuat (&lt;em&gt;spawn&lt;/em&gt;) suatu thread untuk menangani request tersebut.
+Misalkan ada 10 request disaat yang bersamaan, maka terdapat 10 thread yang jalan disaat yang bersamaan. Dalam kasus ini
+maka 10 user tersebut akan dilayani pada waktu yang bersamaan.&lt;/p&gt;
+
+&lt;p&gt;Ruby 1.8.7 (MRI) memiliki tipe &lt;em&gt;green thread&lt;/em&gt;, yaitu thread yang dikelola oleh &lt;em&gt;Virtual Machine&lt;/em&gt; sedangkan normalnya thread
+dikelola oleh &lt;em&gt;Operating System&lt;/em&gt; (OS) atau &lt;em&gt;native thread&lt;/em&gt;. Namun implementasi threads untuk tiap interpreter berbeda. Misalkan
+pada JRuby dan Rubinius yang menggunakan native threads.&lt;/p&gt;
+
+&lt;p&gt;Eksekusi setiap threads dikelola oleh program yang dinamakan &lt;em&gt;scheduler&lt;/em&gt;. &lt;em&gt;preemptive scheduling&lt;/em&gt; adalah suatu metode
+yang digunakan &lt;em&gt;scheduler&lt;/em&gt; dengan memanfaatkan &lt;em&gt;interrupt&lt;/em&gt;. Artinya scheduler mengirimkan &lt;em&gt;interrupt&lt;/em&gt; kepada suatu thread
+untuk berhenti dan menjalankan thread lain. secara default MRI menggunakan &lt;em&gt;fair scheduler&lt;/em&gt;. Artinya masing-masing thread
+akan dijadwalkan (dijalankan) dengan waktu yang sama.&lt;/p&gt;
+
+&lt;h2&gt;Fiber&lt;/h2&gt;
+
+
+&lt;p&gt;Fiber adalah fitur yang pertamakali diperkenalkan pada ruby 1.9 (Meskipun ada hack untuk ruby 1.8.{67}).
+Fiber mirip dengan thread. Namun pada fiber, user yang memiliki kontrol terhadap eksekusi kode, bukan &lt;em&gt;scheduler&lt;/em&gt;.
+setiap fiber memiliki 4Kb memori sehingga cukup &quot;murah&quot; untuk dibuat. Berikut adalah contoh dari (igvita.com).&lt;/p&gt;
+
+&lt;p&gt;Terdapat 2 thread: Thread pertama melakukan io-blocking selama 40ms dan komputasi 10ms. sedangkan
+thread kedua melakukan 50ms komputasi.&lt;/p&gt;
+
+&lt;p&gt;Berikut adalah implementasi dalam thread dan juga fiber:&lt;/p&gt;
+
+&lt;div class=&quot;thumbnail&quot;&gt;
+  &lt;img src=&quot;http://www.igvita.com/posts/09/fibers-vs-threads.png&quot;&gt;&lt;/img&gt;
+  &lt;div class=&quot;caption&quot;&gt;
+    Komparasi kode yang dijalankan menggunakan thread &amp; fiber. 
+    &lt;a href=&quot;http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/&quot;&gt;http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;br/&gt;
+
+
+&lt;p&gt;Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms.&lt;/p&gt;
+
+&lt;p&gt;Dengan menggunakan fiber, program berjalan sekan-akan sychronous (blocking). Oleh karena itu fiber
+merupakan kandidat yang cocok untuk diterapkan pada pemograman &lt;em&gt;Event-Driven&lt;/em&gt; atau &lt;em&gt;Asynchronous programming&lt;/em&gt; seperti
+pada &lt;em&gt;EventMachine&lt;/em&gt; di ruby&lt;/p&gt;
+
+&lt;h2&gt;Cara Menggunakan Fiber&lt;/h2&gt;
+
+
+&lt;p&gt;Untuk dapat memahami fiber, kita ambil contoh seperti berikut. Program ini sebenarnya tidak berguna, tapi cukup untuk
+mendemonstrasikan alur penggunaan fiber&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight ruby'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;span class='line-number'&gt;14&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Beginning of fiber&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# kembalikan eksekusi ke main (line 11)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Halo main, saya fiber&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# kembalikan eksekusi ke main (line 13)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Sekarang &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Beginning main&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 2)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Hello saya main thread&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 4)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Sekarang jam berapa ya ?&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 6) dan output hasil  &lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;pre&gt;&lt;code&gt; Main: Beginning main
+ Fiber: Beginning of fiber
+ Main: Hello saya main thread
+ Fiber: Halo main, saya fiber
+ Main: Sekarang jam berapa ya ?
+ Fiber: Sekarang 2012-02-29 22:45:08 +0700
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Responsive Design</title>
+   <link href="http://recursive-design.com/en/2012/02/responsive-design.html"/>
+   <updated>2012-02-24T01:48:00+01:00</updated>
+   <id>http://recursive-design.com/en/2012/02/responsive-design</id>
+   <content type="html">&lt;p&gt;I've been playing around with &lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;twitter bootstrap&lt;/a&gt;. It's like a css framework to help designer or developer create a nice and clean site.
+It's offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for
+prototyping.&lt;/p&gt;
+
+&lt;p&gt;I've been using it to build this blog since it was version 1. Recently i had a chance to upgrade it to version 2.
+The new version offer a lot of functionalities, one the feature that I play a lot is the responsive design.&lt;/p&gt;
+
+&lt;p&gt;Basically &lt;a href=&quot;http://en.wikipedia.org/wiki/Responsive_Web_Design&quot;&gt;Responsive Web Design&lt;/a&gt; (RWD) means the ability of the web site to adapt to the user screen size. So the page should look different
+in a way that it suited for specific screen. Like this website will look different if it's open with mobile phone, portrait mode on tablet,
+landscape mode on tablet, net book or even in a large desktop. This actually achieved by using W3C CSS3 media query. It means that it uses
+different stylesheet for each of the screen size. More info on RWD in twitter bootstrap can be found &lt;a href=&quot;http://twitter.github.com/bootstrap/scaffolding.html#responsive&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can test this functionality by resizing your browser window. Try to drag it slowly and watch the page banner slightly change.
+here are the screen shoot of the design.&lt;/p&gt;
+
+&lt;ul class=&quot;thumbnails&quot; style=&quot;text-align: center&quot;&gt;
+  &lt;li class=&quot;span5&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836336/&quot; title=&quot;Desktop View by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7188/6777836336_cfc30a387d.jpg&quot; width=&quot;500&quot; height=&quot;328&quot; alt=&quot;Desktop View&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Desktop View (1210px and up)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span5&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836342/&quot; title=&quot;Tablet Landscape by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7177/6777836342_2bae8d18f9.jpg&quot; width=&quot;500&quot; height=&quot;403&quot; alt=&quot;Tablet Landscape&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Tablet Landscape (768px to 979px)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span4&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836344/&quot; title=&quot;Tablet View by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7068/6777836344_04a80d610b_m.jpg&quot; width=&quot;240&quot; height=&quot;237&quot; alt=&quot;Tablet View&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Tablet Portrait (480px to 768px)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span4&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836350/&quot; title=&quot;Tablet with menu by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7050/6777836350_3a8e661196_m.jpg&quot; width=&quot;240&quot; height=&quot;237&quot; alt=&quot;Tablet with menu&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Tablet Portrait with menu (480px to 768px)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span4&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836354/&quot; title=&quot;Mobile Phone by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7191/6777836354_aec27fd376_m.jpg&quot; width=&quot;164&quot; height=&quot;240&quot; alt=&quot;Mobile Phone&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Mobile Phone (480px and below)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;span4&quot;&gt;
+    &lt;div class=&quot;thumbnail&quot;&gt;
+      &lt;a href=&quot;http://www.flickr.com/photos/77240053@N02/6777836358/&quot; title=&quot;Mobile Phone with menu by yulrizka, on Flickr&quot;&gt;&lt;img src=&quot;http://farm8.staticflickr.com/7205/6777836358_d06448c5da_m.jpg&quot; width=&quot;164&quot; height=&quot;240&quot; alt=&quot;Mobile Phone with menu&quot;&gt;&lt;/a&gt;
+      &lt;div class=&quot;caption&quot;&gt;Mobile Phone with Menu(480px and below)&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Jekyll error utf-8 caracter</title>
+   <link href="http://recursive-design.com/en/2012/01/jekyll-error-utf-8-caracter.html"/>
+   <updated>2012-01-14T17:32:00+01:00</updated>
+   <id>http://recursive-design.com/en/2012/01/jekyll-error-utf-8-caracter</id>
+   <content type="html">&lt;p&gt;If you having a problem in jekyll when it didn't generate a post and there is no error in the log file.
+you might want to check the content if there is any UTF-8 character encoding such as this &lt;strong&gt;±&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
+it actually got &lt;code&gt;invalid multibyte char (US-ASCII) error message&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;to solve this. I added this line to &lt;code&gt;.bashrc&lt;/code&gt; or &lt;code&gt;zshrc&lt;/code&gt; if you are using zsh&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LC_ALL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LANG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It should fix the problem now.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Testing ruby code with benchmark_suite</title>
+   <link href="http://recursive-design.com/en/2012/01/testing-ruby-code-with-benchmark-suite.html"/>
+   <updated>2012-01-14T12:05:00+01:00</updated>
+   <id>http://recursive-design.com/en/2012/01/testing-ruby-code-with-benchmark-suite</id>
+   <content type="html">&lt;p&gt;Just a couple days ago I found out &lt;a href=&quot;http://www.therubygame.com&quot; title=&quot;The Ruby Game&quot;&gt;therubygame.com&lt;/a&gt; which challenge us to
+solve a problem with ruby. The result were measured by the &lt;strong&gt;fastest&lt;/strong&gt;, &lt;strong&gt;slowest&lt;/strong&gt;, &lt;strong&gt;shortest&lt;/strong&gt;, &lt;strong&gt;longest&lt;/strong&gt;,
+&lt;strong&gt;cheaters&lt;/strong&gt; (yup there are also some rule).&lt;/p&gt;
+
+&lt;p&gt;And also I was listening to an episode of ruby rouge on &lt;a href=&quot;http://rubyrogues.com/034-rr-benchmarking-and-profiling/&quot; title=&quot;034 RR Benchmarking and Profiling&quot;&gt;Benchmarking&lt;/a&gt;. And there is one tools called &lt;a href=&quot;http://rubygems.org/gems/benchmark_suite&quot; title=&quot;benchmark_suite&quot;&gt;benchmark_suite&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;So there is this &lt;a href=&quot;http://www.therubygame.com/challenges/3/submissions&quot; title=&quot;Challenge #3&quot;&gt;challenge&lt;/a&gt; to capitalize first letter of every word. I want to compare my code to the fastest solution there.
+so i installed the gem, also the &lt;a href=&quot;http://rubygems.org/gems/ffi&quot; title=&quot;ffi gem&quot;&gt;ruby-ffi&lt;/a&gt; gem that somewhat fix an error while I tried to run the benchmark.&lt;/p&gt;
+
+&lt;p&gt;so this is the code to benchmark it&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight ruby'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;span class='line-number'&gt;11&lt;/span&gt;
+&lt;span class='line-number'&gt;12&lt;/span&gt;
+&lt;span class='line-number'&gt;13&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;benchmark/ips&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;The small brown &amp;amp; ginger fox JUMPED OVER the gate&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;no&quot;&gt;Benchmark&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ips&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;first&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/\w+/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;capitalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;second&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:capitalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And here are the result&lt;/p&gt;
+
+&lt;div class=&quot;well&quot;&gt;
+  &lt;p&gt;first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471) &lt;/p&gt;
+  &lt;p&gt;second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The first code run &lt;strong&gt;55.609,3&lt;/strong&gt; times per second and the latter is &lt;strong&gt;77.996,4&lt;/strong&gt; times per second.
+So the second code run more than the first code in one second. Which mean the second code is faster.&lt;/p&gt;
+
+&lt;p&gt;Also the first code run &lt;strong&gt;277.202&lt;/strong&gt; times in &lt;strong&gt;5.048175&lt;/strong&gt; sec while the second code run &lt;strong&gt;389.844&lt;/strong&gt; times in &lt;strong&gt;5.05&lt;/strong&gt; sec&lt;/p&gt;
+
+&lt;p&gt;So this mean, that &lt;strong&gt;regex is more slower&lt;/strong&gt; then calling capitalized on each element on array&lt;/p&gt;
+</content>
+ </entry>
+ 
+ 
+</feed>
