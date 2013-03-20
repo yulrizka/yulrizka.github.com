@@ -4,7 +4,7 @@
  <title>Recursive</title>
  <link href="http://recursive-design.com/feed/" rel="self"/>
  <link href="http://recursive-design.com/"/>
- <updated>2013-03-20T18:35:25+01:00</updated>
+ <updated>2013-03-20T18:42:41+01:00</updated>
  <id>http://recursive-design.com/</id>
  <author>
    <name>Recursive</name>
@@ -19,11 +19,7 @@
    <id>http://recursive-design.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense</id>
    <content type="html">&lt;div class=&quot;row&quot;&gt;
   &lt;div class=&quot;span8 offset1&quot;&gt;
-    &lt;div class=&quot;thumbnail&quot;&gt;
-    &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://www.youtube.com/embed/35ylS4IX_mc&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-      &lt;div class=&quot;caption&quot;&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+    &lt;iframe align=&quot;center&quot; width=&quot;628&quot; height=&quot;400&quot; src=&quot;http://www.youtube.com/embed/35ylS4IX_mc&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
