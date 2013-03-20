@@ -4,13 +4,63 @@
  <title>Recursive</title>
  <link href="http://recursive-design.com/feed/" rel="self"/>
  <link href="http://recursive-design.com/"/>
- <updated>2012-11-23T01:01:25+01:00</updated>
+ <updated>2013-03-18T00:32:26+01:00</updated>
  <id>http://recursive-design.com/</id>
  <author>
    <name>Recursive</name>
    <email>mail@recursive-design.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Homeward light indicator with RaspberryPi and CommonSense</title>
+   <link href="http://recursive-design.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html"/>
+   <updated>2013-02-26T20:33:00+01:00</updated>
+   <id>http://recursive-design.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense</id>
+   <content type="html">&lt;p&gt;I've been tinkering with my &lt;a href=&quot;http://www.raspberrypi.org/&quot;&gt;raspberry-pi&lt;/a&gt; for quite some time now. What I like about it because it is cheap ($25),
+it's run Linux (especially debian based) and most of all it's have General Purpose Input Output pin. Since I was a kid, I always
+wanted to control electronic appliance remotely. Luckily my friend &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;@pimnijdam&lt;/a&gt; thought me how to control a relay board.
+Basically it's just like an electric switch that connect/disconnect current when you supply a low voltage.&lt;/p&gt;
+
+&lt;p&gt;So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through
+my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi
+but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is
+quite awesome. So I could install a ruby/python and it only took a single command.&lt;/p&gt;
+
+&lt;p&gt;[picture of the pi-sinatra-gpio][picture of the pi-sinatra-gpio]&lt;/p&gt;
+
+&lt;p&gt;So I did create a project with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source
+on [pi-sinatra-gpio][github].&lt;/p&gt;
+
+&lt;p&gt;Now, turning a desk lamp with pi is something; But it's quite boring and not really useful. Now let us make something a bit
+interesting. Instead of controlling it manually, The light be trigger on my activity. In this case I the light to turn on
+when ever I came back from the office on every working day. So at home my wife know exactly when I leave the office. I already
+have it running a web server, so basically I can control it from my mobile phone. But I don't want to do this every single day.
+And this is where &lt;a href=&quot;http://www.sense-os.nl/commonsense&quot;&gt;ComonSense&lt;/a&gt; really makes thing easy for me.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.sense-os.nl/commonsense&quot;&gt;CommonSense&lt;/a&gt; is a platform to store, retrieve, analyze and interpret our sensory data. What is a sensor ? well anything could be a sensor. From physical sensor on our mobile phone like accelerometer, noise, position, cell network, light, ambience and more sophisticated sensor like sensor that tell your quality of sleep. By using one or more sensor, it could create more intelligent sensor. For example a sensor that tell wether you are standing or sitting by analyzing the accelerometer data. CommonSense is Awesome!, but for this experiment we will be using a simple location sensor. It will tell where is my current location by GPS or
+wifi-network.&lt;/p&gt;
+
+&lt;p&gt;What is make it easy is I don't have to create an application on my mobile phone. CommonSense already have a platform that run on
+&lt;a href=&quot;https://play.google.com/store/apps/details?id=nl.sense_os.app&quot;&gt;Android&lt;/a&gt; or &lt;a href=&quot;#&quot;&gt;iOs&lt;/a&gt;. The application act as an agent that collect and sample sensor data from the mobile phone. By it self it's not really doing much right now but combine with the &lt;a href=&quot;http://www.sense-os.nl/commonsense&quot;&gt;CommonSense&lt;/a&gt; make it really easy for a developer like me to
+easily experiment with my data. So with this sense app, the raspberry-pi could easily get data from my mobile phone through the
+&lt;a href=&quot;http://developer.sense-os.nl&quot;&gt;CommonSense API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Again, my awesome colleague &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;@pim&lt;/a&gt; create a prototype of &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;python framework&lt;/a&gt; that make it very easy for me to
+implement my project. You should definitely [python framework][chek it out!]. I've created the &lt;em&gt;homeward light indicator&lt;/em&gt; project
+using the early version of the framework. This is actually my first encounter with Python. Although I still prefer doing my
+project with Ruby, I'm really enjoying working with Python.&lt;/p&gt;
+
+&lt;p&gt;As a result, I create a script that do the following:&lt;/p&gt;
+
+&lt;blockquote&gt;&lt;p&gt;When ever it's after 17.00 and monday-friday, when I leave 200m from the office my phone will send data to the my raspberry-pi
+at home to turn on the light. And to save some energy, it turn off the light after 22.00. Awesome!&lt;/p&gt;&lt;/blockquote&gt;
+
+&lt;h2&gt;The Technical parts&lt;/h2&gt;
+
+&lt;p&gt;a&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Scale MongoDB dengan Sharding</title>

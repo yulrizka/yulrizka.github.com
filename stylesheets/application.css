@@ -563,7 +563,7 @@ hr {
   margin: 18px 0;
   border: 0;
   border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid white;
 }
 
 /* line 100, ../_assets/sass/screen.scss */
@@ -585,7 +585,7 @@ em {
 abbr {
   font-size: 90%;
   text-transform: uppercase;
-  border-bottom: 1px dotted #ddd;
+  border-bottom: 1px dotted #dddddd;
   cursor: help;
 }
 
@@ -680,7 +680,7 @@ pre {
   font-size: 12px;
   line-height: 18px;
   background-color: #f5f5f5;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -752,7 +752,7 @@ table {
   padding: 8px;
   line-height: 18px;
   text-align: left;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 
 /* line 122, ../_assets/sass/screen.scss */
@@ -773,7 +773,7 @@ table {
 
 /* line 125, ../_assets/sass/screen.scss */
 .table tbody + tbody {
-  border-top: 2px solid #ddd;
+  border-top: 2px solid #dddddd;
 }
 
 /* line 126, ../_assets/sass/screen.scss */
@@ -783,7 +783,7 @@ table {
 
 /* line 127, ../_assets/sass/screen.scss */
 .table-bordered {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-collapse: separate;
   *border-collapse: collapsed;
   -webkit-border-radius: 4px;
@@ -793,7 +793,7 @@ table {
 
 /* line 127, ../_assets/sass/screen.scss */
 .table-bordered th + th, .table-bordered td + td, .table-bordered th + td, .table-bordered td + th {
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #dddddd;
 }
 
 /* line 128, ../_assets/sass/screen.scss */
@@ -940,7 +940,7 @@ legend {
   line-height: 36px;
   color: #333333;
   border: 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
 }
 
 /* line 149, ../_assets/sass/screen.scss */
@@ -968,7 +968,7 @@ input, textarea, select, .uneditable-input {
   font-size: 13px;
   line-height: 18px;
   color: #555555;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -1091,11 +1091,11 @@ input, textarea {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border linear 0.2s,box-shadow linear 0.2s;
-  -moz-transition: border linear 0.2s,box-shadow linear 0.2s;
-  -ms-transition: border linear 0.2s,box-shadow linear 0.2s;
-  -o-transition: border linear 0.2s,box-shadow linear 0.2s;
-  transition: border linear 0.2s,box-shadow linear 0.2s;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 
 /* line 170, ../_assets/sass/screen.scss */
@@ -1319,7 +1319,7 @@ input:focus:required:invalid:focus, textarea:focus:required:invalid:focus, selec
   margin-top: 18px;
   margin-bottom: 18px;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 
 /* line 203, ../_assets/sass/screen.scss */
@@ -1408,9 +1408,9 @@ input:focus:required:invalid:focus, textarea:focus:required:invalid:focus, selec
   line-height: 18px;
   color: #999999;
   text-align: center;
-  text-shadow: 0 1px 0 #ffffff;
+  text-shadow: 0 1px 0 white;
   background-color: #f5f5f5;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   -webkit-border-radius: 3px 0 0 3px;
   -moz-border-radius: 3px 0 0 3px;
   border-radius: 3px 0 0 3px;
@@ -1549,7 +1549,7 @@ input:focus:required:invalid:focus, textarea:focus:required:invalid:focus, selec
   background-image: linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   border-bottom-color: #bbb;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -2675,7 +2675,7 @@ button.btn.small, input[type="submit"].btn.small {
 
 /* line 408, ../_assets/sass/screen.scss */
 .nav-tabs {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 /* line 409, ../_assets/sass/screen.scss */
@@ -2702,7 +2702,7 @@ button.btn.small, input[type="submit"].btn.small {
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
   color: #555555;
   background-color: #ffffff;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -2741,7 +2741,7 @@ button.btn.small, input[type="submit"].btn.small {
 
 /* line 417, ../_assets/sass/screen.scss */
 .nav-tabs.nav-stacked > li > a {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
@@ -2864,7 +2864,7 @@ button.btn.small, input[type="submit"].btn.small {
 
 /* line 437, ../_assets/sass/screen.scss */
 .tabs-below .nav-tabs {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
 }
 
 /* line 438, ../_assets/sass/screen.scss */
@@ -2888,7 +2888,7 @@ button.btn.small, input[type="submit"].btn.small {
 
 /* line 440, ../_assets/sass/screen.scss */
 .tabs-below .nav-tabs .active > a, .tabs-below .nav-tabs .active > a:hover {
-  border-color: transparent #ddd #ddd #ddd;
+  border-color: transparent #dddddd #dddddd #dddddd;
 }
 
 /* line 441, ../_assets/sass/screen.scss */
@@ -2907,7 +2907,7 @@ button.btn.small, input[type="submit"].btn.small {
 .tabs-left .nav-tabs {
   float: left;
   margin-right: 19px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #dddddd;
 }
 
 /* line 444, ../_assets/sass/screen.scss */
@@ -2925,7 +2925,7 @@ button.btn.small, input[type="submit"].btn.small {
 
 /* line 446, ../_assets/sass/screen.scss */
 .tabs-left .nav-tabs .active > a, .tabs-left .nav-tabs .active > a:hover {
-  border-color: #ddd transparent #ddd #ddd;
+  border-color: #dddddd transparent #dddddd #dddddd;
   *border-right-color: #ffffff;
 }
 
@@ -2933,7 +2933,7 @@ button.btn.small, input[type="submit"].btn.small {
 .tabs-right .nav-tabs {
   float: right;
   margin-left: 19px;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #dddddd;
 }
 
 /* line 448, ../_assets/sass/screen.scss */
@@ -2951,7 +2951,7 @@ button.btn.small, input[type="submit"].btn.small {
 
 /* line 450, ../_assets/sass/screen.scss */
 .tabs-right .nav-tabs .active > a, .tabs-right .nav-tabs .active > a:hover {
-  border-color: #ddd #ddd #ddd transparent;
+  border-color: #dddddd #dddddd #dddddd transparent;
   *border-left-color: #ffffff;
 }
 
@@ -2998,7 +2998,7 @@ button.btn.small, input[type="submit"].btn.small {
   background-image: linear-gradient(top, #333333, #222222);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
-  border-color: #222222 #222222 #000000;
+  border-color: #222222 #222222 black;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
@@ -3133,7 +3133,7 @@ button.btn.small, input[type="submit"].btn.small {
   color: rgba(255, 255, 255, 0.75);
   background: #666;
   background: rgba(255, 255, 255, 0.3);
-  border: 1px solid #111;
+  border: 1px solid #111111;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.15);
   -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.15);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.15);
@@ -3165,7 +3165,7 @@ button.btn.small, input[type="submit"].btn.small {
 .navbar-search .search-query:focus, .navbar-search .search-query.focused {
   padding: 5px 10px;
   color: #333333;
-  text-shadow: 0 1px 0 #ffffff;
+  text-shadow: 0 1px 0 white;
   background-color: #ffffff;
   border: 0;
   -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
@@ -3267,7 +3267,7 @@ button.btn.small, input[type="submit"].btn.small {
   display: inline-block;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid #ccc;
+  border-bottom: 7px solid #cccccc;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: -7px;
@@ -3280,7 +3280,7 @@ button.btn.small, input[type="submit"].btn.small {
   display: inline-block;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #ffffff;
+  border-bottom: 6px solid white;
   position: absolute;
   top: -6px;
   left: 10px;
@@ -3338,19 +3338,19 @@ button.btn.small, input[type="submit"].btn.small {
   background-image: linear-gradient(top, #ffffff, #f5f5f5);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=0);
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  -webkit-box-shadow: inset 0 1px 0 #ffffff;
-  -moz-box-shadow: inset 0 1px 0 #ffffff;
-  box-shadow: inset 0 1px 0 #ffffff;
+  -webkit-box-shadow: inset 0 1px 0 white;
+  -moz-box-shadow: inset 0 1px 0 white;
+  box-shadow: inset 0 1px 0 white;
 }
 
 /* line 490, ../_assets/sass/screen.scss */
 .breadcrumb li {
   display: inline;
-  text-shadow: 0 1px 0 #ffffff;
+  text-shadow: 0 1px 0 white;
 }
 
 /* line 491, ../_assets/sass/screen.scss */
@@ -3396,7 +3396,7 @@ button.btn.small, input[type="submit"].btn.small {
   padding: 0 14px;
   line-height: 34px;
   text-decoration: none;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-left-width: 0;
 }
 
@@ -3473,7 +3473,7 @@ button.btn.small, input[type="submit"].btn.small {
   display: inline-block;
   padding: 5px 14px;
   background-color: #fff;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
@@ -3524,7 +3524,7 @@ button.btn.small, input[type="submit"].btn.small {
   display: block;
   padding: 4px;
   line-height: 1;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -3880,7 +3880,7 @@ a.thumbnail:hover {
   margin-left: -5px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid #000000;
+  border-top: 5px solid black;
 }
 
 /* line 547, ../_assets/sass/screen.scss */
@@ -3890,7 +3890,7 @@ a.thumbnail:hover {
   margin-top: -5px;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-left: 5px solid #000000;
+  border-left: 5px solid black;
 }
 
 /* line 548, ../_assets/sass/screen.scss */
@@ -3900,7 +3900,7 @@ a.thumbnail:hover {
   margin-left: -5px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 5px solid #000000;
+  border-bottom: 5px solid black;
 }
 
 /* line 549, ../_assets/sass/screen.scss */
@@ -3910,7 +3910,7 @@ a.thumbnail:hover {
   margin-top: -5px;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-right: 5px solid #000000;
+  border-right: 5px solid black;
 }
 
 /* line 550, ../_assets/sass/screen.scss */
@@ -3970,7 +3970,7 @@ a.thumbnail:hover {
   margin-left: -5px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid #000000;
+  border-top: 5px solid black;
 }
 
 /* line 557, ../_assets/sass/screen.scss */
@@ -3980,7 +3980,7 @@ a.thumbnail:hover {
   margin-top: -5px;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-right: 5px solid #000000;
+  border-right: 5px solid black;
 }
 
 /* line 558, ../_assets/sass/screen.scss */
@@ -3990,7 +3990,7 @@ a.thumbnail:hover {
   margin-left: -5px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 5px solid #000000;
+  border-bottom: 5px solid black;
 }
 
 /* line 559, ../_assets/sass/screen.scss */
@@ -4000,7 +4000,7 @@ a.thumbnail:hover {
   margin-top: -5px;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-left: 5px solid #000000;
+  border-left: 5px solid black;
 }
 
 /* line 560, ../_assets/sass/screen.scss */
@@ -4030,7 +4030,7 @@ a.thumbnail:hover {
   padding: 9px 15px;
   line-height: 1;
   background-color: #f5f5f5;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
   -webkit-border-radius: 3px 3px 0 0;
   -moz-border-radius: 3px 3px 0 0;
   border-radius: 3px 3px 0 0;
@@ -4106,9 +4106,9 @@ a.thumbnail:hover {
   width: 560px;
   margin: -250px 0 0 -280px;
   background-color: #ffffff;
-  border: 1px solid #999;
+  border: 1px solid #999999;
   border: 1px solid rgba(0, 0, 0, 0.3);
-  *border: 1px solid #999;
+  *border: 1px solid #999999;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -4122,11 +4122,11 @@ a.thumbnail:hover {
 
 /* line 570, ../_assets/sass/screen.scss */
 .modal.fade {
-  -webkit-transition: opacity .3s linear, top .3s ease-out;
-  -moz-transition: opacity .3s linear, top .3s ease-out;
-  -ms-transition: opacity .3s linear, top .3s ease-out;
-  -o-transition: opacity .3s linear, top .3s ease-out;
-  transition: opacity .3s linear, top .3s ease-out;
+  -webkit-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -moz-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -ms-transition: opacity 0.3s linear, top 0.3s ease-out;
+  -o-transition: opacity 0.3s linear, top 0.3s ease-out;
+  transition: opacity 0.3s linear, top 0.3s ease-out;
   top: -25%;
 }
 
@@ -4138,7 +4138,7 @@ a.thumbnail:hover {
 /* line 572, ../_assets/sass/screen.scss */
 .modal-header {
   padding: 9px 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eeeeee;
 }
 
 /* line 572, ../_assets/sass/screen.scss */
@@ -4156,13 +4156,13 @@ a.thumbnail:hover {
   padding: 14px 15px 15px;
   margin-bottom: 0;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #dddddd;
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
-  -webkit-box-shadow: inset 0 1px 0 #ffffff;
-  -moz-box-shadow: inset 0 1px 0 #ffffff;
-  box-shadow: inset 0 1px 0 #ffffff;
+  -webkit-box-shadow: inset 0 1px 0 white;
+  -moz-box-shadow: inset 0 1px 0 white;
+  box-shadow: inset 0 1px 0 white;
   *zoom: 1;
 }
 
@@ -4209,7 +4209,7 @@ a.thumbnail:hover {
   vertical-align: top;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 4px solid #000000;
+  border-top: 4px solid black;
   opacity: 0.3;
   filter: alpha(opacity=30);
   content: "\2193";
@@ -4272,7 +4272,7 @@ a.thumbnail:hover {
   margin: 5px 1px;
   overflow: hidden;
   background-color: #e5e5e5;
-  border-bottom: 1px solid #ffffff;
+  border-bottom: 1px solid white;
   *width: 100%;
   *margin: -5px 0 5px;
 }
@@ -4438,7 +4438,7 @@ a.thumbnail:hover {
   color: #ffffff;
   text-align: center;
   background: #222222;
-  border: 3px solid #ffffff;
+  border: 3px solid white;
   -webkit-border-radius: 23px;
   -moz-border-radius: 23px;
   border-radius: 23px;
@@ -4482,7 +4482,7 @@ a.thumbnail:hover {
   padding: 19px;
   margin-bottom: 20px;
   background-color: #f5f5f5;
-  border: 1px solid #eee;
+  border: 1px solid #eeeeee;
   border: 1px solid rgba(0, 0, 0, 0.05);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -4505,7 +4505,7 @@ a.thumbnail:hover {
   font-weight: bold;
   line-height: 18px;
   color: #000000;
-  text-shadow: 0 1px 0 #ffffff;
+  text-shadow: 0 1px 0 white;
   opacity: 0.2;
   filter: alpha(opacity=20);
 }
@@ -4612,7 +4612,7 @@ a.thumbnail:hover {
 
   /* line 621, ../_assets/sass/screen.scss */
   input[type="checkbox"], input[type="radio"] {
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
   }
 
   /* line 621, ../_assets/sass/screen.scss */
@@ -5928,61 +5928,61 @@ footer .footer {
 
 /* line 2, ../_assets/sass/pygments.scss */
 .highlight .c {
-  color: #5F5A60;
+  color: #5f5a60;
 }
 
 /* Comment */
 /* line 3, ../_assets/sass/pygments.scss */
 .highlight .err {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Error */
 /* line 4, ../_assets/sass/pygments.scss */
 .highlight .g {
-  color: #F8F8F8;
+  color: #f8f8f8;
 }
 
 /* Generic */
 /* line 5, ../_assets/sass/pygments.scss */
 .highlight .k {
-  color: #CDA869;
+  color: #cda869;
 }
 
 /* Keyword */
 /* line 6, ../_assets/sass/pygments.scss */
 .highlight .l {
-  color: #DDF2A4;
+  color: #ddf2a4;
 }
 
 /* Literal */
 /* line 7, ../_assets/sass/pygments.scss */
 .highlight .n {
-  color: #F8F8F8;
+  color: #f8f8f8;
 }
 
 /* Name */
 /* line 8, ../_assets/sass/pygments.scss */
 .highlight .o {
-  color: #CDA869;
+  color: #cda869;
 }
 
 /* Operator */
 /* line 9, ../_assets/sass/pygments.scss */
 .highlight .x {
-  color: #CDA869;
+  color: #cda869;
 }
 
 /* Other */
 /* line 10, ../_assets/sass/pygments.scss */
 .highlight .p {
-  color: #F8F8F8;
+  color: #f8f8f8;
 }
 
 /* Punctuation */
 /* line 11, ../_assets/sass/pygments.scss */
 .highlight .cm {
-  color: #5F5A60;
+  color: #5f5a60;
 }
 
 /* Comment.Multiline */
@@ -5994,7 +5994,7 @@ footer .footer {
 /* Comment.Preproc */
 /* line 13, ../_assets/sass/pygments.scss */
 .highlight .c1 {
-  color: #586E75;
+  color: #586e75;
 }
 
 /* Comment.Single */
@@ -6006,7 +6006,7 @@ footer .footer {
 /* Comment.Special */
 /* line 15, ../_assets/sass/pygments.scss */
 .highlight .gd {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Generic.Deleted */
@@ -6019,13 +6019,13 @@ footer .footer {
 /* Generic.Emph */
 /* line 17, ../_assets/sass/pygments.scss */
 .highlight .gr {
-  color: #DC322F;
+  color: #dc322f;
 }
 
 /* Generic.Error */
 /* line 18, ../_assets/sass/pygments.scss */
 .highlight .gh {
-  color: #CB4B16;
+  color: #cb4b16;
 }
 
 /* Generic.Heading */
@@ -6037,13 +6037,13 @@ footer .footer {
 /* Generic.Inserted */
 /* line 20, ../_assets/sass/pygments.scss */
 .highlight .go {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Generic.Output */
 /* line 21, ../_assets/sass/pygments.scss */
 .highlight .gp {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Generic.Prompt */
@@ -6056,25 +6056,25 @@ footer .footer {
 /* Generic.Strong */
 /* line 23, ../_assets/sass/pygments.scss */
 .highlight .gu {
-  color: #CB4B16;
+  color: #cb4b16;
 }
 
 /* Generic.Subheading */
 /* line 24, ../_assets/sass/pygments.scss */
 .highlight .gt {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Generic.Traceback */
 /* line 25, ../_assets/sass/pygments.scss */
 .highlight .kc {
-  color: #CB4B16;
+  color: #cb4b16;
 }
 
 /* Keyword.Constant */
 /* line 26, ../_assets/sass/pygments.scss */
 .highlight .kd {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Keyword.Declaration */
@@ -6092,115 +6092,115 @@ footer .footer {
 /* Keyword.Pseudo */
 /* line 29, ../_assets/sass/pygments.scss */
 .highlight .kr {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Keyword.Reserved */
 /* line 30, ../_assets/sass/pygments.scss */
 .highlight .kt {
-  color: #DC322F;
+  color: #dc322f;
 }
 
 /* Keyword.Type */
 /* line 31, ../_assets/sass/pygments.scss */
 .highlight .ld {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Literal.Date */
 /* line 32, ../_assets/sass/pygments.scss */
 .highlight .m {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.Number */
 /* line 33, ../_assets/sass/pygments.scss */
 .highlight .s {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.String */
 /* line 34, ../_assets/sass/pygments.scss */
 .highlight .na {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Name.Attribute */
 /* line 35, ../_assets/sass/pygments.scss */
 .highlight .nb {
-  color: #CDA869;
+  color: #cda869;
 }
 
 /* Name.Builtin */
 /* line 36, ../_assets/sass/pygments.scss */
 .highlight .nc {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Class */
 /* line 37, ../_assets/sass/pygments.scss */
 .highlight .no {
-  color: #9B859D;
+  color: #9b859d;
 }
 
 /* Name.Constant */
 /* line 38, ../_assets/sass/pygments.scss */
 .highlight .nd {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Decorator */
 /* line 39, ../_assets/sass/pygments.scss */
 .highlight .ni {
-  color: #CB4B16;
+  color: #cb4b16;
 }
 
 /* Name.Entity */
 /* line 40, ../_assets/sass/pygments.scss */
 .highlight .ne {
-  color: #CB4B16;
+  color: #cb4b16;
 }
 
 /* Name.Exception */
 /* line 41, ../_assets/sass/pygments.scss */
 .highlight .nf {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Function */
 /* line 42, ../_assets/sass/pygments.scss */
 .highlight .nl {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Name.Label */
 /* line 43, ../_assets/sass/pygments.scss */
 .highlight .nn {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Name.Namespace */
 /* line 44, ../_assets/sass/pygments.scss */
 .highlight .nx {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Name.Other */
 /* line 45, ../_assets/sass/pygments.scss */
 .highlight .py {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Name.Property */
 /* line 46, ../_assets/sass/pygments.scss */
 .highlight .nt {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Tag */
 /* line 47, ../_assets/sass/pygments.scss */
 .highlight .nv {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Variable */
@@ -6212,127 +6212,127 @@ footer .footer {
 /* Operator.Word */
 /* line 49, ../_assets/sass/pygments.scss */
 .highlight .w {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Text.Whitespace */
 /* line 50, ../_assets/sass/pygments.scss */
 .highlight .mf {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.Number.Float */
 /* line 51, ../_assets/sass/pygments.scss */
 .highlight .mh {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.Number.Hex */
 /* line 52, ../_assets/sass/pygments.scss */
 .highlight .mi {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.Number.Integer */
 /* line 53, ../_assets/sass/pygments.scss */
 .highlight .mo {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.Number.Oct */
 /* line 54, ../_assets/sass/pygments.scss */
 .highlight .sb {
-  color: #586E75;
+  color: #586e75;
 }
 
 /* Literal.String.Backtick */
 /* line 55, ../_assets/sass/pygments.scss */
 .highlight .sc {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.String.Char */
 /* line 56, ../_assets/sass/pygments.scss */
 .highlight .sd {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Literal.String.Doc */
 /* line 57, ../_assets/sass/pygments.scss */
 .highlight .s2 {
-  color: #8F9D6A;
+  color: #8f9d6a;
 }
 
 /* Literal.String.Double */
 /* line 58, ../_assets/sass/pygments.scss */
 .highlight .se {
-  color: #CB4B16;
+  color: #cb4b16;
 }
 
 /* Literal.String.Escape */
 /* line 59, ../_assets/sass/pygments.scss */
 .highlight .sh {
-  color: #93A1A1;
+  color: #93a1a1;
 }
 
 /* Literal.String.Heredoc */
 /* line 60, ../_assets/sass/pygments.scss */
 .highlight .si {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.String.Interpol */
 /* line 61, ../_assets/sass/pygments.scss */
 .highlight .sx {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.String.Other */
 /* line 62, ../_assets/sass/pygments.scss */
 .highlight .sr {
-  color: #DC322F;
+  color: #dc322f;
 }
 
 /* Literal.String.Regex */
 /* line 63, ../_assets/sass/pygments.scss */
 .highlight .s1 {
-  color: #8F9D6A;
+  color: #8f9d6a;
 }
 
 /* Literal.String.Single */
 /* line 64, ../_assets/sass/pygments.scss */
 .highlight .ss {
-  color: #CF6A4C;
+  color: #cf6a4c;
 }
 
 /* Literal.String.Symbol */
 /* line 65, ../_assets/sass/pygments.scss */
 .highlight .bp {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Builtin.Pseudo */
 /* line 66, ../_assets/sass/pygments.scss */
 .highlight .vc {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Variable.Class */
 /* line 67, ../_assets/sass/pygments.scss */
 .highlight .vg {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Variable.Global */
 /* line 68, ../_assets/sass/pygments.scss */
 .highlight .vi {
-  color: #268BD2;
+  color: #268bd2;
 }
 
 /* Name.Variable.Instance */
 /* line 69, ../_assets/sass/pygments.scss */
 .highlight .il {
-  color: #2AA198;
+  color: #2aa198;
 }
 
 /* Literal.Number.Integer.Long */
