@@ -4,14 +4,10 @@ title: Let each man exercise the art he knows
 ---
 <h1>Welcome to dev blog of Ahmy Yulrizka</h1>
 
-Hi, my name is Ahmy, I've been developing software application for about 12 years now. Im interested in many aspect of technologies. Including
-web development, mobile application, linux etc. To me programming is a form of arts. Because you can implement a software with so many different
-approach. Just like an artist who responsible for every line, color and shape; To me a programmer should hold the responsibility of every line,
-method, and architecture that he choses. So this is blog is my canvas. the place where I explore my idea and finding.
+Hi, my name is Ahmy, I've been developing software application for quite some times now. I'm interested in many aspect of technologies. Including
+web development, mobile application, linux etc. To me programming is a form of arts. Because you can implement a software with so many ways. Just like an artist who responsible for every line, color and shape; as programmer one should held the responsibility on every line, method, and design that he/she choses. That's why I'm really happy and enjoy programming with Ruby
 
-As you can see, the site is still on development (and should always be). But I don't wait for perfection to pour my idea into it. You are very
-welcome to enjoy, read or give some comment about it. By the way this blog are also open sourced, you can find the source link at the footer 
-section of every page. 
+This this is my humble canvas. the place where I pour some idea and experiment. You are very welcome to enjoy, read and leave some comments.
 
 Ok then, Now which post do you want to read ?
 
