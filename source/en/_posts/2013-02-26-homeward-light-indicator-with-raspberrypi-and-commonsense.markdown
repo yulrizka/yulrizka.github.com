@@ -34,7 +34,7 @@ on [github][pi-sinatra-github].
 <div class="thumbnail">
   <img src="/images/post/2013/02/homeward-indicator-project.jpg">
   <div class="caption">
-    The light will turn on when ever I leave the office at noon.
+    The light will turn on whenever I leave the office at noon.
   </div>
 </div>
 </div>
@@ -78,7 +78,7 @@ easily experiment with my data. So with this sense app, the raspberry-pi could e
     <div class="thumbnail">
       <img src="/images/post/2013/02/sense-app.jpg">
       <div class="caption">
-        Sense Android App - Work as an aggent of CommonSense
+        Sense Android App - Works as an aggent of CommonSense
       </div>
     </div>
   </div>
