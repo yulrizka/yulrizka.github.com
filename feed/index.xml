@@ -4,7 +4,7 @@
  <title>Recursive</title>
  <link href="http://recursive-design.com/feed/" rel="self"/>
  <link href="http://recursive-design.com/"/>
- <updated>2013-03-20T21:36:33+01:00</updated>
+ <updated>2013-03-20T21:44:10+01:00</updated>
  <id>http://recursive-design.com/</id>
  <author>
    <name>Recursive</name>
@@ -37,10 +37,8 @@ my raspberry-pi by issuing a linux command. Had been successfully doing this, I 
 but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is
 quite awesome. So I could install a ruby/python and it only took a single command.&lt;/p&gt;
 
-&lt;p&gt;So I did create a &lt;a href=&quot;https://github.com/yulrizka/pi-sinatra-gpio/blob/master/app.rb&quot;&gt;project&lt;/a&gt;  with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source.
-This uses &lt;a href=&quot;https://github.com/jwhitehorn/pi_piper&quot;&gt;pi-piper&lt;/a&gt; a ruby library that wrap &lt;a href=&quot;https://projects.drogon.net/raspberry-pi/wiringpi/&quot;&gt;wiringPi&lt;/a&gt; a library that is used to control the GPIO pin.&lt;/p&gt;
-
-&lt;p&gt;on &lt;a href=&quot;https://github.com/yulrizka/pi-sinatra-gpio/blob/master/app.rb&quot;&gt;github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;So I did create a &lt;a href=&quot;https://github.com/yulrizka/pi-sinatra-gpio/blob/master/app.rb&quot;&gt;project&lt;/a&gt;  with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source on &lt;a href=&quot;https://github.com/yulrizka/pi-sinatra-gpio/blob/master/app.rb&quot;&gt;github&lt;/a&gt;.
+This project uses &lt;a href=&quot;https://github.com/jwhitehorn/pi_piper&quot;&gt;pi-piper&lt;/a&gt; a ruby library that wrap &lt;a href=&quot;https://projects.drogon.net/raspberry-pi/wiringpi/&quot;&gt;wiringPi&lt;/a&gt;, which is library that is used to control the GPIO pin.&lt;/p&gt;
 
 &lt;div class=&quot;row&quot;&gt;
 &lt;div class=&quot;span8 offset1&quot;&gt;
