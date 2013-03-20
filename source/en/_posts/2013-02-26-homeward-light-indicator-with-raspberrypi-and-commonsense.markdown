@@ -12,11 +12,7 @@ published: true
 
 <div class="row">
   <div class="span8 offset1">
-    <div class="thumbnail">
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/35ylS4IX_mc" frameborder="0" allowfullscreen></iframe>
-      <div class="caption">
-      </div>
-    </div>
+    <iframe align="center" width="628" height="400" src="http://www.youtube.com/embed/35ylS4IX_mc" frameborder="0" allowfullscreen></iframe>
   </div>
 </div><br/>
 I've been tinkering with my [raspberry-pi][raspberry-pi] for quite some time now. What I like about it because it is cheap ($25),
