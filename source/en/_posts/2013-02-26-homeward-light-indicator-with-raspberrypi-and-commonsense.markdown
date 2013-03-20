@@ -26,8 +26,8 @@ my raspberry-pi by issuing a linux command. Had been successfully doing this, I 
 but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is
 quite awesome. So I could install a ruby/python and it only took a single command.
 
-So I did create a [project][pi-sinatra-github]  with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source
-on [github][pi-sinatra-github].
+So I did create a [project][pi-sinatra-github]  with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source on [github][pi-sinatra-github].
+This project uses [pi-piper][pi-piper] a ruby library that wrap [wiringPi][wiringPi], which is library that is used to control the GPIO pin.
 
 <div class="row">
 <div class="span8 offset1">
@@ -104,3 +104,5 @@ project with Ruby, I'm really enjoying working with Python.
 [CommonSense-API]: http://developer.sense-os.nl
 [python framework]: https://github.com/pimnijdam/eventScripting
 [pimnijdam]: https://github.com/pimnijdam
+[pi-piper]: https://github.com/jwhitehorn/pi_piper
+[wiringPi]: https://projects.drogon.net/raspberry-pi/wiringpi/
