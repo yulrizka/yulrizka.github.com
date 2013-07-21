@@ -60,11 +60,10 @@
 
   pageView = function(pane) {
     var button, container;
-
     container = $('#container');
     button = $('#icon-panel');
     $.cookie('sidebar-preferences', pane);
-    if ((pane == null) || pane === "none") {
+    if (!(pane != null) || pane === "none") {
       container.removeClass('sidebar-left sidebar-right');
       container.addClass('sidebar-none');
       button.removeClass('icon-left-panel icon-right-panel');
@@ -86,7 +85,6 @@
 
   $(function() {
     var sidebar_preference;
-
     $('.content').css('min-height', $('#sidebar-wrapper').height() + 40);
     $('#sidebar-wrapper').show();
     $("a[rel='popover']").popover();
@@ -107,9 +105,9 @@
 
 }).call(this);
 (function() {
+
   $(function() {
     var banner;
-
     banner = $('#carousel-banner');
     banner.carousel({
       interval: 3600 * 24
