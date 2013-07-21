@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>labs.yulrizka.com - Jekyll error utf-8 caracter</title>
+<title>labs.yulrizka.com - berks upload core dump</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="jekyll invalid multibyte char (US-ASCII)">
+<meta name="description" content="Berks ruby core dump while doing berks upload">
 <meta name="author" content="Ahmy Yulrizka">
 <meta http-equiv="Content-Language" Content="en">
-<meta name="keywords" content="jekyll, invalid multibyte char, error" />
-<meta http-equiv="date" content="2012-01-14T17:32:00+01:00" />
+<meta name="keywords" content="berks upload ruby coredump" />
+<meta http-equiv="date" content="2013-07-21T23:26:00+02:00" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Framework CSS -->
@@ -26,25 +26,45 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
           <article>
-            <h1>Jekyll error utf-8 caracter</h1>
-            <div class="posted_at">14 Jan 2012</div>
+            <h1>berks upload core dump</h1>
+            <div class="posted_at">21 Jul 2013</div>
             
-            <p>If you having a problem in jekyll when it didn't generate a post and there is no error in the log file.
-you might want to check the content if there is any UTF-8 character encoding such as this <strong>±</strong></p>
-
-<p>The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
-it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
-
-<p>to solve this. I added this line to <code>.bashrc</code> or <code>zshrc</code> if you are using zsh</p>
+            <p>I face this core dump error while doing <code>berks upload</code></p>
 
 <div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  <span class="nb">export </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
-</span><span class='line'>  <span class="nb">export </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>berks upload
+</span><span class='line'>/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault
+</span><span class='line'>ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>-- Control frame information -----------------------------------------------
+</span><span class='line'>c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
+</span><span class='line'>c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11
+</span><span class='line'>c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH
+</span><span class='line'>c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
+</span><span class='line'>
+</span><span class='line'>-- Ruby level backtrace information ----------------------------------------
+</span><span class='line'>/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;</span>
+</span><span class='line'><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span>
+</span><span class='line'>
+</span><span class='line'>....
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
-<p>It should fix the problem now.</p>
+<p><em>upgrading</em> the ruby verison to 2.0 seems to resolve my issue.</p>
 
           </article>
           
@@ -53,7 +73,7 @@ it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
           <script type="text/javascript">
               //var disqus_developer = 1;
               var disqus_shortname = 'labs-yulrizka'; 
-              var disqus_identifier = '/en/2012/01/jekyll-error-utf-8-caracter.html';
+              var disqus_identifier = '/en/2013/07/berks-upload-ruby-core-dump.html';
 
               /* * * DON'T EDIT BELOW THIS LINE * * */
               (function() {

@@ -4,7 +4,7 @@
  <title>Recursive</title>
  <link href="http://labs.yulrizka.com/feed/" rel="self"/>
  <link href="http://labs.yulrizka.com/"/>
- <updated>2013-07-21T04:23:52+02:00</updated>
+ <updated>2013-07-22T00:28:56+02:00</updated>
  <id>http://labs.yulrizka.com/</id>
  <author>
    <name>labs.yulrizka.com</name>
@@ -13,24 +13,68 @@
 
  
  <entry>
+   <title>berks upload core dump</title>
+   <link href="http://labs.yulrizka.com/en/2013/07/berks-upload-ruby-core-dump.html"/>
+   <updated>2013-07-21T23:26:00+02:00</updated>
+   <id>http://labs.yulrizka.com/en/2013/07/berks-upload-ruby-core-dump</id>
+   <content type="html">&lt;p&gt;I face this core dump error while doing &lt;code&gt;berks upload&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;11&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;12&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;13&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;14&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;15&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;berks upload
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;BUG&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; Segmentation fault
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;ruby 1.9.3p362 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2012-12-25 revision 38607&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;x86_64-linux&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;-- Control frame information -----------------------------------------------
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;-- Ruby level backtrace information ----------------------------------------
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;block in create&lt;span class=&quot;s1&quot;&gt;&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;s1&quot;&gt;/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;....
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;em&gt;upgrading&lt;/em&gt; the ruby verison to 2.0 seems to resolve my issue.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Safely sharing credentials with PGP</title>
    <link href="http://labs.yulrizka.com/en/2013/07/safely-sharing-credentials-with-pgp.html"/>
    <updated>2013-07-08T16:24:00+02:00</updated>
    <id>http://labs.yulrizka.com/en/2013/07/safely-sharing-credentials-with-pgp</id>
    <content type="html">&lt;p&gt;When working in teams, we are sometimes required to share some password / keys with our team.
-The most common way for me is probably through email or some chat client. But even though its convenience it's not
+The most common way for me is probably through email or some chat client. But even though its convenience it&#39;s not
 actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.&lt;/p&gt;
 
 &lt;p&gt;Some simple approach would we communicating the password directly with a person through secure medium.
 One way to do it is both party ssh through a server and use talk client like &lt;a href=&quot;http://linux.die.net/man/1/write&quot;&gt;write&lt;/a&gt;.
-But for some cases it's quite impractical.&lt;/p&gt;
+But for some cases it&#39;s quite impractical.&lt;/p&gt;
 
 &lt;h2&gt;PGP&lt;/h2&gt;
 
-&lt;p&gt;Enter &lt;a href=&quot;http://en.wikipedia.org/wiki/Pretty_Good_Privacy&quot;&gt;PGP&lt;/a&gt;. It's basically a software that do a Public-key cryptography.
+&lt;p&gt;Enter &lt;a href=&quot;http://en.wikipedia.org/wiki/Pretty_Good_Privacy&quot;&gt;PGP&lt;/a&gt;. It&#39;s basically a software that do a Public-key cryptography.
 Public-key cryptography is basically encryption process which require 2 keys, one for encrypting and the other one
 for decrypting. Usually the &lt;strong&gt;public key&lt;/strong&gt; is used for encrypting and &lt;strong&gt;private key&lt;/strong&gt; is use for decrypting.
-I would not dive into the details about it since I've only have basic understanding about it.
+I would not dive into the details about it since I&#39;ve only have basic understanding about it.
 But for those people that is interested, you would read the nice article on &lt;a href=&quot;http://en.wikipedia.org/wiki/Public-key_cryptography&quot;&gt;wikipedia&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;There is a open source project called GPG (GNU Privacy Guard) and in this article I would like to show you how we could
@@ -38,17 +82,17 @@ share some password / key file with it.&lt;/p&gt;
 
 &lt;h3&gt;Instalation&lt;/h3&gt;
 
-&lt;p&gt;If you don't already have it on your system, you could installed it with:&lt;/p&gt;
+&lt;p&gt;If you don&#39;t already have it on your system, you could installed it with:&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install gpg
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install gpg
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
 &lt;p&gt;After installing we would start by creating a pair of keys&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --gen-key
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --gen-key
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -61,18 +105,18 @@ or doing some random IO disk by triggering for example &lt;code&gt;find /&lt;/co
 
 &lt;p&gt;After installing, you can see list of keys by using this command&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt; gpg --list-keys
-&lt;/span&gt;&lt;span class='line'&gt;/home/user/.gnupg/pubring.gpg
-&lt;/span&gt;&lt;span class='line'&gt;--------------------------------
-&lt;/span&gt;&lt;span class='line'&gt;pub   2048R/70280895 2013-07-09
-&lt;/span&gt;&lt;span class='line'&gt;uid                  Ahmy Yulrizka &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ahmy135@mail.com&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;ahmy135@mail.com&amp;gt;
-&lt;/span&gt;&lt;span class='line'&gt;sub   2048R/F7B2D44C 2013-07-09
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt; gpg --list-keys
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;/home/user/.gnupg/pubring.gpg
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;--------------------------------
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;pub   2048R/70280895 2013-07-09
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;uid                  Ahmy Yulrizka &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ahmy135@mail.com&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;ahmy135@mail.com&amp;gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;sub   2048R/F7B2D44C 2013-07-09
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -85,26 +129,26 @@ when submitting the key to a key server&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; that further in this article I will discus ways to easily distribute your public key.&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --armor --export &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;-----BEGIN PGP PUBLIC KEY BLOCK-----
-&lt;/span&gt;&lt;span class='line'&gt;Version: GnuPG v1.4.11 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GNU/Linux&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;mQENBFHcRTEBCAC056qG97iJAtb604x5Hr+3lIi3UXVOnGauoHSo5S8S3bSCD0Ib
-&lt;/span&gt;&lt;span class='line'&gt;DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF
-&lt;/span&gt;&lt;span class='line'&gt;...
-&lt;/span&gt;&lt;span class='line'&gt;-----END PGP PUBLIC KEY BLOCK-----
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --armor --export &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt; --output pubkey.txt &lt;span class=&quot;c&quot;&gt;# to output it to a file&lt;/span&gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --armor --export &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;-----BEGIN PGP PUBLIC KEY BLOCK-----
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;Version: GnuPG v1.4.11 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GNU/Linux&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;mQENBFHcRTEBCAC056qG97iJAtb604x5Hr+3lIi3UXVOnGauoHSo5S8S3bSCD0Ib
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;...
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;-----END PGP PUBLIC KEY BLOCK-----
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --armor --export &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt; --output pubkey.txt &lt;span class=&quot;c&quot;&gt;# to output it to a file&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -113,35 +157,35 @@ when submitting the key to a key server&lt;/p&gt;
 &lt;p&gt;With those generated keys, we could now do a personal encryption. That is if you want to encrypt a file and you are the only one
 who are able to decrypt it.&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;this message is secret&amp;quot;&lt;/span&gt; &amp;gt; message.txt
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --encrypt --recipient &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@gmail.com&amp;#39;&lt;/span&gt; message.txt
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;this message is secret&amp;quot;&lt;/span&gt; &amp;gt; message.txt
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --encrypt --recipient &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@gmail.com&amp;#39;&lt;/span&gt; message.txt
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Those code will create a file name &lt;code&gt;message.txt.gpg&lt;/code&gt; which is encrypted message of &lt;code&gt;message.txt&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --decrypt message.txt.gpg
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;You need a passphrase to unlock the secret key &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;user: &lt;span class=&quot;s2&quot;&gt;&amp;quot;Ahmy Yulrizka (ahmy135@mail.com) &amp;lt;ahmy135@mail.com&amp;gt;&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;2048-bit RSA key, ID F7B2D44C, created 2013-07-09 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;main key ID 70280895&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;gpg: gpg-agent is not available in this session
-&lt;/span&gt;&lt;span class='line'&gt;gpg: encrypted with 2048-bit RSA key, ID F7B2D44C, created 2013-07-09
-&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;Ahmy Yulrizka (ahmy135@mail.com) &amp;lt;ahmy135@mail.com&amp;gt;&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;this message is secret
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --decrypt message.txt.gpg
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;You need a passphrase to unlock the secret key &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;user: &lt;span class=&quot;s2&quot;&gt;&amp;quot;Ahmy Yulrizka (ahmy135@mail.com) &amp;lt;ahmy135@mail.com&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;2048-bit RSA key, ID F7B2D44C, created 2013-07-09 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;main key ID 70280895&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;gpg: gpg-agent is not available in this session
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;gpg: encrypted with 2048-bit RSA key, ID F7B2D44C, created 2013-07-09
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;Ahmy Yulrizka (ahmy135@mail.com) &amp;lt;ahmy135@mail.com&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;this message is secret
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -153,7 +197,7 @@ person &lt;strong&gt;public key&lt;/strong&gt;&lt;/p&gt;
 &lt;h3&gt;Distributing the key&lt;/h3&gt;
 
 &lt;p&gt;In order for any body to send you a encrypted message, you need to give your &lt;strong&gt;public key&lt;/strong&gt;.
-Since &lt;strong&gt;public key&lt;/strong&gt; only used for encryption, It's OK to publicly share your &lt;strong&gt;public key&lt;/strong&gt;.
+Since &lt;strong&gt;public key&lt;/strong&gt; only used for encryption, It&#39;s OK to publicly share your &lt;strong&gt;public key&lt;/strong&gt;.
 But never share your &lt;strong&gt;private key&lt;/strong&gt;. Once the other party have your &lt;strong&gt;public key&lt;/strong&gt; they could
 start send you an encrypted message using the command above.&lt;/p&gt;
 
@@ -164,10 +208,10 @@ and also ubuntu key server &lt;a href=&quot;http://keyserver.ubuntu.com&quot;&gt
 
 &lt;p&gt;To send our key to MIT server we could do&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --send-key --keyserver pgp.mit.edu 70280895
-&lt;/span&gt;&lt;span class='line'&gt;gpg: sending key 70280895 to hkp server pgp.mit.edu
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --send-key --keyserver pgp.mit.edu 70280895
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;gpg: sending key 70280895 to hkp server pgp.mit.edu
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -181,21 +225,21 @@ by searching a name or email or a person in the key server web interface. for ex
 
 &lt;p&gt;if the person give you a file which contain their public key (say &lt;code&gt;ahmy-pub.key&lt;/code&gt;). you could import it with&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --import ahmy-pub.key
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --import ahmy-pub.key
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Or if the person already publish his public key to a keyserver, we can search it with&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --search-keys &lt;span class=&quot;s1&quot;&gt;&amp;#39;Ahmy Yulrizka&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;c&quot;&gt;# or&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --search-keys &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --search-keys &lt;span class=&quot;s1&quot;&gt;&amp;#39;Ahmy Yulrizka&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;c&quot;&gt;# or&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --search-keys &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -203,8 +247,8 @@ by searching a name or email or a person in the key server web interface. for ex
 
 &lt;p&gt;after importing you can send an encrypted message to the person for example&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;This is also a secret&amp;quot;&lt;/span&gt; | gpg --encrypt --armor --recipient &lt;span class=&quot;s1&quot;&gt;&amp;#39;Ahmy Yulrizka&amp;#39;&lt;/span&gt; &amp;gt; output.txt.gpg
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;This is also a secret&amp;quot;&lt;/span&gt; | gpg --encrypt --armor --recipient &lt;span class=&quot;s1&quot;&gt;&amp;#39;Ahmy Yulrizka&amp;#39;&lt;/span&gt; &amp;gt; output.txt.gpg
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -234,10 +278,10 @@ how we could share some password / password key to other member of the team.&lt;
 &lt;br/&gt;
 
 
-&lt;p&gt;I've been tinkering with my &lt;a href=&quot;http://www.raspberrypi.org/&quot;&gt;raspberry-pi&lt;/a&gt; for quite some time now. What I like about it because it is cheap ($25),
-it's run Linux (especially debian based) and most of all it's have General Purpose Input Output pin. Since I was a kid, I always
+&lt;p&gt;I&#39;ve been tinkering with my &lt;a href=&quot;http://www.raspberrypi.org/&quot;&gt;raspberry-pi&lt;/a&gt; for quite some time now. What I like about it because it is cheap ($25),
+it&#39;s run Linux (especially debian based) and most of all it&#39;s have General Purpose Input Output pin. Since I was a kid, I always
 wanted to control electronic appliance remotely. Luckily my friend &lt;a href=&quot;https://github.com/pimnijdam&quot;&gt;@pimnijdam&lt;/a&gt; thought me how to control a relay board.
-Basically it's just like an electric switch that connect/disconnect current when you supply a low voltage.&lt;/p&gt;
+Basically it&#39;s just like an electric switch that connect/disconnect current when you supply a low voltage.&lt;/p&gt;
 
 &lt;p&gt;So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through
 my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi
@@ -287,17 +331,17 @@ This project uses &lt;a href=&quot;https://github.com/jwhitehorn/pi_piper&quot;&
 &lt;br/&gt;
 
 
-&lt;p&gt;Now, turning a desk lamp with pi is something; But it's quite boring and not really useful. Now let us make something a bit
+&lt;p&gt;Now, turning a desk lamp with pi is something; But it&#39;s quite boring and not really useful. Now let us make something a bit
 interesting. Instead of controlling it manually, The light be trigger on my activity. In this case I the light to turn on
 when ever I came back from the office on every working day. So at home my wife know exactly when I leave the office. I already
-have it running a web server, so basically I can control it from my mobile phone. But I don't want to do this every single day.
+have it running a web server, so basically I can control it from my mobile phone. But I don&#39;t want to do this every single day.
 And this is where &lt;a href=&quot;http://www.sense-os.nl/commonsense&quot;&gt;ComonSense&lt;/a&gt; really makes thing easy for me.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.sense-os.nl/commonsense&quot;&gt;CommonSense&lt;/a&gt; is a platform to store, retrieve, analyze and interpret our sensory data. What is a sensor ? well anything could be a sensor. From physical sensor on our mobile phone like accelerometer, noise, position, cell network, light, ambience and more sophisticated sensor like sensor that tell your quality of sleep. By using one or more sensor, it could create more intelligent sensor. For example a sensor that tell wether you are standing or sitting by analyzing the accelerometer data. CommonSense is Awesome!, but for this experiment we will be using a simple location sensor. It will tell where is my current location by GPS or
 wifi-network.&lt;/p&gt;
 
-&lt;p&gt;What is make it easy is I don't have to create an application on my mobile phone. CommonSense already have a platform that run on
-&lt;a href=&quot;https://play.google.com/store/apps/details?id=nl.sense_os.app&quot;&gt;Android&lt;/a&gt; or &lt;a href=&quot;https://itunes.apple.com/nl/app/senseplatform/id447552125?mt=8&amp;amp;uo=4&quot;&gt;iOs&lt;/a&gt;. The application act as an agent that collect and sample sensor data from the mobile phone. By it self it's not really doing much right now but combine with the &lt;a href=&quot;http://www.sense-os.nl/commonsense&quot;&gt;CommonSense&lt;/a&gt; make it really easy for a developer like me to
+&lt;p&gt;What is make it easy is I don&#39;t have to create an application on my mobile phone. CommonSense already have a platform that run on
+&lt;a href=&quot;https://play.google.com/store/apps/details?id=nl.sense_os.app&quot;&gt;Android&lt;/a&gt; or &lt;a href=&quot;https://itunes.apple.com/nl/app/senseplatform/id447552125?mt=8&amp;amp;uo=4&quot;&gt;iOs&lt;/a&gt;. The application act as an agent that collect and sample sensor data from the mobile phone. By it self it&#39;s not really doing much right now but combine with the &lt;a href=&quot;http://www.sense-os.nl/commonsense&quot;&gt;CommonSense&lt;/a&gt; make it really easy for a developer like me to
 easily experiment with my data. So with this sense app, the raspberry-pi could easily get data from my mobile phone through the
 &lt;a href=&quot;http://developer.sense-os.nl&quot;&gt;CommonSense API&lt;/a&gt;.&lt;/p&gt;
 
@@ -314,7 +358,7 @@ easily experiment with my data. So with this sense app, the raspberry-pi could e
     &lt;div class=&quot;thumbnail&quot;&gt;
       &lt;img src=&quot;/images/post/2013/02/biking-out-of-the-office.jpg&quot;&gt;
       &lt;div class=&quot;caption&quot;&gt;
-        The light will turn on when I'm 200m away from the office
+        The light will turn on when I&#39;m 200m away from the office
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
@@ -325,9 +369,9 @@ easily experiment with my data. So with this sense app, the raspberry-pi could e
 
 
 &lt;p&gt;Again, my awesome colleague &lt;a href=&quot;https://github.com/pimnijdam&quot;&gt;@pim&lt;/a&gt; create a prototype of &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;python framework&lt;/a&gt; that make it very easy for me to
-implement my project. You should definitely &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;chek it out!&lt;/a&gt;. I've created the &lt;em&gt;homeward light indicator&lt;/em&gt; project
+implement my project. You should definitely &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;chek it out!&lt;/a&gt;. I&#39;ve created the &lt;em&gt;homeward light indicator&lt;/em&gt; project
 using the early version of the framework. This is actually my first encounter with Python. Although I still prefer doing my
-project with Ruby, I'm really enjoying working with Python.&lt;/p&gt;
+project with Ruby, I&#39;m really enjoying working with Python.&lt;/p&gt;
 </content>
  </entry>
  
@@ -502,20 +546,20 @@ mongod, Config Server, mongos dan server aplikasi.&lt;/p&gt;
 
 &lt;p&gt;Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo server. Untuk menjalankan 2 proses mongod, jalankan perintah berikut&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir a b
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;c&quot;&gt;# jalankan instance pertama&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --shardsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/a --port 10000 &amp;gt; /tmp/sharda.log &amp;amp;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/sharda.log &lt;span class=&quot;c&quot;&gt;# pastikan process tersebut berjalan&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;c&quot;&gt;# jalankan instance kedua&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --shardsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/b --port 10001 &amp;gt; /tmp/shardb.log &amp;amp;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/shardb.log &lt;span class=&quot;c&quot;&gt;# pastikan process tersebut berjalan&lt;/span&gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir a b
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;c&quot;&gt;# jalankan instance pertama&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --shardsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/a --port 10000 &amp;gt; /tmp/sharda.log &amp;amp;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/sharda.log &lt;span class=&quot;c&quot;&gt;# pastikan process tersebut berjalan&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;c&quot;&gt;# jalankan instance kedua&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --shardsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/b --port 10001 &amp;gt; /tmp/shardb.log &amp;amp;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/shardb.log &lt;span class=&quot;c&quot;&gt;# pastikan process tersebut berjalan&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -523,20 +567,20 @@ mongod, Config Server, mongos dan server aplikasi.&lt;/p&gt;
 
 &lt;p&gt;Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos dengan perintah berikut&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir config
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;c&quot;&gt;# start config server&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --configsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/config --port 20000 &amp;gt; /tmp/configdb.log &amp;amp;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/configdb.log &lt;span class=&quot;c&quot;&gt;# pastikan server berjalan&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;c&quot;&gt;# start mongos&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongos --configdb localhost:20000 --chunkSize 1 &amp;gt; /tmp/mongos.log &amp;amp;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/mongos.log &lt;span class=&quot;c&quot;&gt;# pastikan server tersebut berjalan&lt;/span&gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir config
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;c&quot;&gt;# start config server&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongod --configsvr --dbpath &lt;span class=&quot;nv&quot;&gt;$PWD&lt;/span&gt;/config --port 20000 &amp;gt; /tmp/configdb.log &amp;amp;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/configdb.log &lt;span class=&quot;c&quot;&gt;# pastikan server berjalan&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;c&quot;&gt;# start mongos&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongos --configdb localhost:20000 --chunkSize 1 &amp;gt; /tmp/mongos.log &amp;amp;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cat /tmp/mongos.log &lt;span class=&quot;c&quot;&gt;# pastikan server tersebut berjalan&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -555,44 +599,44 @@ yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berko
 
 &lt;p&gt;Berikutnya yang kita lakukan adalah setup mongos agar menambahkan 2 shard server yang berjalan pada port 10000 &amp;amp; 10001.&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongo
-&lt;/span&gt;&lt;span class='line'&gt;MongoDB shell version: 1.8.2
-&lt;/span&gt;&lt;span class='line'&gt;connecting to: &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&amp;gt; use admin
-&lt;/span&gt;&lt;span class='line'&gt;switched to db admin
-&lt;/span&gt;&lt;span class='line'&gt;&amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; addshard: &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10000&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;shardAdded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; addshard: &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10001&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;shardAdded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&amp;gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mongo
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;MongoDB shell version: 1.8.2
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;connecting to: &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&amp;gt; use admin
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;switched to db admin
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; addshard: &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10000&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;shardAdded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; addshard: &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10001&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;shardAdded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&amp;gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Berikutnya, kita set agar server tersebut dalam mode sharding pada database test. Setelah itu kita akan menambahkan sharding pada &lt;em&gt;collection&lt;/em&gt; &lt;em&gt;people&lt;/em&gt; dengan
 &lt;em&gt;shard key&lt;/em&gt; &lt;em&gt;email&lt;/em&gt;. Meskipun pada tahap ini kita belum memiliki &lt;em&gt;people Collection&lt;/em&gt;&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; enablesharding: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; shardcollection: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, key: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;email: 1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;collectionsharded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; use &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; show collections
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; enablesharding: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; shardcollection: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, key: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;email: 1&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;collectionsharded&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; use &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; show collections
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -605,46 +649,46 @@ yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berko
 
 
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;span class='line-number'&gt;11&lt;/span&gt;
-&lt;span class='line-number'&gt;12&lt;/span&gt;
-&lt;span class='line-number'&gt;13&lt;/span&gt;
-&lt;span class='line-number'&gt;14&lt;/span&gt;
-&lt;span class='line-number'&gt;15&lt;/span&gt;
-&lt;span class='line-number'&gt;16&lt;/span&gt;
-&lt;span class='line-number'&gt;17&lt;/span&gt;
-&lt;span class='line-number'&gt;18&lt;/span&gt;
-&lt;span class='line-number'&gt;19&lt;/span&gt;
-&lt;span class='line-number'&gt;20&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; use config
-&lt;/span&gt;&lt;span class='line'&gt;  switched to db config
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; show collections
-&lt;/span&gt;&lt;span class='line'&gt;  changelog
-&lt;/span&gt;&lt;span class='line'&gt;  chunks
-&lt;/span&gt;&lt;span class='line'&gt;  collections
-&lt;/span&gt;&lt;span class='line'&gt;  databases
-&lt;/span&gt;&lt;span class='line'&gt;  lockpings
-&lt;/span&gt;&lt;span class='line'&gt;  locks
-&lt;/span&gt;&lt;span class='line'&gt;  mongos
-&lt;/span&gt;&lt;span class='line'&gt;  settings
-&lt;/span&gt;&lt;span class='line'&gt;  shards
-&lt;/span&gt;&lt;span class='line'&gt;  system.indexes
-&lt;/span&gt;&lt;span class='line'&gt;  version
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.settings.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt; : 64 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.settings.save&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;_id:&lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, value: 1&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.settings.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;11&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;12&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;13&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;14&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;15&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;16&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;17&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;18&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;19&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;20&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; use config
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  switched to db config
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; show collections
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  changelog
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  chunks
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  collections
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  databases
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  lockpings
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  locks
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  mongos
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  settings
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  shards
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  system.indexes
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  version
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.settings.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt; : 64 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.settings.save&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;_id:&lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, value: 1&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.settings.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;chunksize&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -652,7 +696,7 @@ yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berko
 
 &lt;p&gt;Ok, sampai tahap ini kita telah selesai melakukan shard terhadap server tersebut&lt;/p&gt;
 
-&lt;h2&gt;Let's Play&lt;/h2&gt;
+&lt;h2&gt;Let&#39;s Play&lt;/h2&gt;
 
 &lt;p&gt;Sekarang saatnya kita melakukan percobaan dengan shard dan chunk.&lt;/p&gt;
 
@@ -660,24 +704,24 @@ yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berko
 
 &lt;p&gt;Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collection tersebut.&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; use &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nb&quot;&gt;  &lt;/span&gt;switched to db &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.save&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; name: &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person test&amp;quot;&lt;/span&gt;, email: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test@foo.com&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : ObjectId&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;4f5742cc580bd77a9d9ec6d6&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;test@foo.com&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person test&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.dataSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  68
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.totalSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  24576
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; use &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;&lt;span class=&quot;nb&quot;&gt;  &lt;/span&gt;switched to db &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.people.save&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; name: &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person test&amp;quot;&lt;/span&gt;, email: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test@foo.com&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.people.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : ObjectId&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;4f5742cc580bd77a9d9ec6d6&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;test@foo.com&amp;quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&amp;quot;name&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person test&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.people.dataSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  68
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.people.totalSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  24576
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -687,26 +731,26 @@ data menjadi 3 chuck&lt;/p&gt;
 
 &lt;p&gt;Mari kita tambahkan record (dokumen) sebanyak 20000.&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;var &lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1; i &amp;lt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 20000; i++&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  ...   var &lt;span class=&quot;nv&quot;&gt;person_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person #&amp;quot;&lt;/span&gt; + i;
-&lt;/span&gt;&lt;span class='line'&gt;  ...   var &lt;span class=&quot;nv&quot;&gt;person_email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;email-&amp;quot;&lt;/span&gt; + i + &lt;span class=&quot;s2&quot;&gt;&amp;quot;@foo.com&amp;quot;&lt;/span&gt;;
-&lt;/span&gt;&lt;span class='line'&gt;  ...   db.people.save &lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; name: person_name, email: person_email &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;;
-&lt;/span&gt;&lt;span class='line'&gt;  ... &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.totalSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  6776064
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.people.dataSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  1559608
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;var &lt;span class=&quot;nv&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1; i &amp;lt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 20000; i++&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  ...   var &lt;span class=&quot;nv&quot;&gt;person_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Person #&amp;quot;&lt;/span&gt; + i;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  ...   var &lt;span class=&quot;nv&quot;&gt;person_email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;email-&amp;quot;&lt;/span&gt; + i + &lt;span class=&quot;s2&quot;&gt;&amp;quot;@foo.com&amp;quot;&lt;/span&gt;;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  ...   db.people.save &lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; name: person_name, email: person_email &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  ... &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.people.totalSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  6776064
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.people.dataSize&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  1559608
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -714,38 +758,38 @@ data menjadi 3 chuck&lt;/p&gt;
 
 &lt;p&gt;untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;span class='line-number'&gt;11&lt;/span&gt;
-&lt;span class='line-number'&gt;12&lt;/span&gt;
-&lt;span class='line-number'&gt;13&lt;/span&gt;
-&lt;span class='line-number'&gt;14&lt;/span&gt;
-&lt;span class='line-number'&gt;15&lt;/span&gt;
-&lt;span class='line-number'&gt;16&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; use admin
-&lt;/span&gt;&lt;span class='line'&gt;  switched to db admin
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; listshards: 1&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;shards&amp;quot;&lt;/span&gt; : &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;          &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;host&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10000&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;          &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;          &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;host&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10001&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;          &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;11&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;12&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;13&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;14&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;15&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;16&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; use admin
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  switched to db admin
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.runCommand&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; listshards: 1&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;shards&amp;quot;&lt;/span&gt; : &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;          &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;host&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10000&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;          &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;          &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;              &lt;span class=&quot;s2&quot;&gt;&amp;quot;host&amp;quot;&lt;/span&gt; : &lt;span class=&quot;s2&quot;&gt;&amp;quot;localhost:10001&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;          &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;      &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -753,106 +797,106 @@ data menjadi 3 chuck&lt;/p&gt;
 
 &lt;p&gt;Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;span class='line-number'&gt;11&lt;/span&gt;
-&lt;span class='line-number'&gt;12&lt;/span&gt;
-&lt;span class='line-number'&gt;13&lt;/span&gt;
-&lt;span class='line-number'&gt;14&lt;/span&gt;
-&lt;span class='line-number'&gt;15&lt;/span&gt;
-&lt;span class='line-number'&gt;16&lt;/span&gt;
-&lt;span class='line-number'&gt;17&lt;/span&gt;
-&lt;span class='line-number'&gt;18&lt;/span&gt;
-&lt;span class='line-number'&gt;19&lt;/span&gt;
-&lt;span class='line-number'&gt;20&lt;/span&gt;
-&lt;span class='line-number'&gt;21&lt;/span&gt;
-&lt;span class='line-number'&gt;22&lt;/span&gt;
-&lt;span class='line-number'&gt;23&lt;/span&gt;
-&lt;span class='line-number'&gt;24&lt;/span&gt;
-&lt;span class='line-number'&gt;25&lt;/span&gt;
-&lt;span class='line-number'&gt;26&lt;/span&gt;
-&lt;span class='line-number'&gt;27&lt;/span&gt;
-&lt;span class='line-number'&gt;28&lt;/span&gt;
-&lt;span class='line-number'&gt;29&lt;/span&gt;
-&lt;span class='line-number'&gt;30&lt;/span&gt;
-&lt;span class='line-number'&gt;31&lt;/span&gt;
-&lt;span class='line-number'&gt;32&lt;/span&gt;
-&lt;span class='line-number'&gt;33&lt;/span&gt;
-&lt;span class='line-number'&gt;34&lt;/span&gt;
-&lt;span class='line-number'&gt;35&lt;/span&gt;
-&lt;span class='line-number'&gt;36&lt;/span&gt;
-&lt;span class='line-number'&gt;37&lt;/span&gt;
-&lt;span class='line-number'&gt;38&lt;/span&gt;
-&lt;span class='line-number'&gt;39&lt;/span&gt;
-&lt;span class='line-number'&gt;40&lt;/span&gt;
-&lt;span class='line-number'&gt;41&lt;/span&gt;
-&lt;span class='line-number'&gt;42&lt;/span&gt;
-&lt;span class='line-number'&gt;43&lt;/span&gt;
-&lt;span class='line-number'&gt;44&lt;/span&gt;
-&lt;span class='line-number'&gt;45&lt;/span&gt;
-&lt;span class='line-number'&gt;46&lt;/span&gt;
-&lt;span class='line-number'&gt;47&lt;/span&gt;
-&lt;span class='line-number'&gt;48&lt;/span&gt;
-&lt;span class='line-number'&gt;49&lt;/span&gt;
-&lt;span class='line-number'&gt;50&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; use config
-&lt;/span&gt;&lt;span class='line'&gt;  switched to db config
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.chunks.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_MinKey&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;           &lt;span class=&quot;nv&quot;&gt;$minKey&lt;/span&gt;:1
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-10000@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:2
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-9@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:3
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;           &lt;span class=&quot;nv&quot;&gt;$maxKey&lt;/span&gt;:1
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;11&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;12&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;13&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;14&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;15&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;16&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;17&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;18&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;19&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;20&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;21&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;22&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;23&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;24&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;25&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;26&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;27&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;28&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;29&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;30&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;31&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;32&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;33&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;34&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;35&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;36&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;37&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;38&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;39&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;40&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;41&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;42&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;43&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;44&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;45&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;46&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;47&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;48&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;49&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;50&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; use config
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  switched to db config
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.chunks.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_MinKey&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;           &lt;span class=&quot;nv&quot;&gt;$minKey&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-10000@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:2
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-9@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:3
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;           &lt;span class=&quot;nv&quot;&gt;$maxKey&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -872,108 +916,108 @@ data menjadi 3 chuck&lt;/p&gt;
 &lt;p&gt;Misalkan pada contoh diatas kita ingin memindahkan chunk &lt;code&gt;test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000&lt;/code&gt; dari shard0000 je shard0001. Hal tersebut
 dapat dilakukan dengan perintah berikut&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;span class='line-number'&gt;11&lt;/span&gt;
-&lt;span class='line-number'&gt;12&lt;/span&gt;
-&lt;span class='line-number'&gt;13&lt;/span&gt;
-&lt;span class='line-number'&gt;14&lt;/span&gt;
-&lt;span class='line-number'&gt;15&lt;/span&gt;
-&lt;span class='line-number'&gt;16&lt;/span&gt;
-&lt;span class='line-number'&gt;17&lt;/span&gt;
-&lt;span class='line-number'&gt;18&lt;/span&gt;
-&lt;span class='line-number'&gt;19&lt;/span&gt;
-&lt;span class='line-number'&gt;20&lt;/span&gt;
-&lt;span class='line-number'&gt;21&lt;/span&gt;
-&lt;span class='line-number'&gt;22&lt;/span&gt;
-&lt;span class='line-number'&gt;23&lt;/span&gt;
-&lt;span class='line-number'&gt;24&lt;/span&gt;
-&lt;span class='line-number'&gt;25&lt;/span&gt;
-&lt;span class='line-number'&gt;26&lt;/span&gt;
-&lt;span class='line-number'&gt;27&lt;/span&gt;
-&lt;span class='line-number'&gt;28&lt;/span&gt;
-&lt;span class='line-number'&gt;29&lt;/span&gt;
-&lt;span class='line-number'&gt;30&lt;/span&gt;
-&lt;span class='line-number'&gt;31&lt;/span&gt;
-&lt;span class='line-number'&gt;32&lt;/span&gt;
-&lt;span class='line-number'&gt;33&lt;/span&gt;
-&lt;span class='line-number'&gt;34&lt;/span&gt;
-&lt;span class='line-number'&gt;35&lt;/span&gt;
-&lt;span class='line-number'&gt;36&lt;/span&gt;
-&lt;span class='line-number'&gt;37&lt;/span&gt;
-&lt;span class='line-number'&gt;38&lt;/span&gt;
-&lt;span class='line-number'&gt;39&lt;/span&gt;
-&lt;span class='line-number'&gt;40&lt;/span&gt;
-&lt;span class='line-number'&gt;41&lt;/span&gt;
-&lt;span class='line-number'&gt;42&lt;/span&gt;
-&lt;span class='line-number'&gt;43&lt;/span&gt;
-&lt;span class='line-number'&gt;44&lt;/span&gt;
-&lt;span class='line-number'&gt;45&lt;/span&gt;
-&lt;span class='line-number'&gt;46&lt;/span&gt;
-&lt;span class='line-number'&gt;47&lt;/span&gt;
-&lt;span class='line-number'&gt;48&lt;/span&gt;
-&lt;span class='line-number'&gt;49&lt;/span&gt;
-&lt;span class='line-number'&gt;50&lt;/span&gt;
-&lt;span class='line-number'&gt;51&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &amp;gt; db.adminCommand&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; moveChunk: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, find: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;email: &lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;, to: &lt;span class=&quot;s1&quot;&gt;&amp;#39;shard0001&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;millis&amp;quot;&lt;/span&gt; : 1038, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt; db.chunks.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_MinKey&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;           &lt;span class=&quot;nv&quot;&gt;$minKey&lt;/span&gt;:1
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-10000@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:3000,
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:1
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-9@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:3000,
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;           &lt;span class=&quot;nv&quot;&gt;$maxKey&lt;/span&gt;:1
-&lt;/span&gt;&lt;span class='line'&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-&lt;/span&gt;&lt;span class='line'&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &amp;gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;11&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;12&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;13&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;14&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;15&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;16&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;17&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;18&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;19&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;20&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;21&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;22&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;23&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;24&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;25&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;26&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;27&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;28&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;29&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;30&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;31&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;32&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;33&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;34&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;35&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;36&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;37&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;38&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;39&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;40&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;41&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;42&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;43&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;44&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;45&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;46&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;47&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;48&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;49&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;50&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;51&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.adminCommand&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; moveChunk: &lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;, find: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;email: &lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;, to: &lt;span class=&quot;s1&quot;&gt;&amp;#39;shard0001&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;millis&amp;quot;&lt;/span&gt; : 1038, &lt;span class=&quot;s2&quot;&gt;&amp;quot;ok&amp;quot;&lt;/span&gt; : 1 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt; db.chunks.find&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_MinKey&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:2000,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;           &lt;span class=&quot;nv&quot;&gt;$minKey&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-10000@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:3000,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-10000@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0000&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;_id&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people-email_\&amp;quot;email-9@foo.com\&amp;quot;&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;lastmod&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;t&amp;quot;&lt;/span&gt;:3000,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;i&amp;quot;&lt;/span&gt;:0
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;ns&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;test.people&amp;quot;&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;min&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;email-9@foo.com&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;max&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;s2&quot;&gt;&amp;quot;email&amp;quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;           &lt;span class=&quot;nv&quot;&gt;$maxKey&lt;/span&gt;:1
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;     &lt;span class=&quot;s2&quot;&gt;&amp;quot;shard&amp;quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&amp;quot;shard0001&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &amp;gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -990,8 +1034,8 @@ dapat dilakukan dengan perintah berikut&lt;/p&gt;
   &lt;p&gt;
     Fibers are light-weight (green) &lt;a href=&quot;http://en.wikipedia.org/wiki/Thread_(computing)&quot; alt=&quot;wiki Thread (Computing)&quot;&gt;
       threads&lt;/a&gt; with manual, cooperative scheduling, rather than the preemptive scheduling 
-    of Ruby 1.8's threads. Since Ruby 1.9's threads exist at the system level, fibers are, in a way, 
-    Ruby 1.9's answer to Ruby 1.8's green threads, but lacking the pre-emptive scheduling
+    of Ruby 1.8&#39;s threads. Since Ruby 1.9&#39;s threads exist at the system level, fibers are, in a way, 
+    Ruby 1.9&#39;s answer to Ruby 1.8&#39;s green threads, but lacking the pre-emptive scheduling
   &lt;/p&gt;
   &lt;small&gt;
     &lt;a href=&quot;http://www.rubyinside.com/ruby-fibers-8-useful-reads-on-rubys-new-concurrency-feature-1769.html&quot;&gt;
@@ -1062,34 +1106,34 @@ pada &lt;em&gt;EventMachine&lt;/em&gt; di ruby&lt;/p&gt;
 &lt;p&gt;Untuk dapat memahami fiber, kita ambil contoh seperti berikut. Program ini sebenarnya tidak berguna, tapi cukup untuk
 mendemonstrasikan alur penggunaan fiber&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight ruby'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;span class='line-number'&gt;11&lt;/span&gt;
-&lt;span class='line-number'&gt;12&lt;/span&gt;
-&lt;span class='line-number'&gt;13&lt;/span&gt;
-&lt;span class='line-number'&gt;14&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Beginning of fiber&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# kembalikan eksekusi ke main (line 11)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Halo main, saya fiber&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# kembalikan eksekusi ke main (line 13)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Sekarang &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Beginning main&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 2)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Hello saya main thread&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 4)&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Sekarang jam berapa ya ?&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 6) dan output hasil  &lt;/span&gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight ruby&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;11&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;12&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;13&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;14&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;ruby&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Beginning of fiber&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# kembalikan eksekusi ke main (line 11)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Halo main, saya fiber&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# kembalikan eksekusi ke main (line 13)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;no&quot;&gt;Fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yield&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Fiber: Sekarang &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_s&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Beginning main&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 2)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Hello saya main thread&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 4)&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Sekarang jam berapa ya ?&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 6) dan output hasil  &lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -1108,15 +1152,15 @@ mendemonstrasikan alur penggunaan fiber&lt;/p&gt;
    <link href="http://labs.yulrizka.com/en/2012/02/responsive-design.html"/>
    <updated>2012-02-24T01:48:00+01:00</updated>
    <id>http://labs.yulrizka.com/en/2012/02/responsive-design</id>
-   <content type="html">&lt;p&gt;I've been playing around with &lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;twitter bootstrap&lt;/a&gt;. It's like a css framework to help designer or developer create a nice and clean site.
-It's offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for
+   <content type="html">&lt;p&gt;I&#39;ve been playing around with &lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;twitter bootstrap&lt;/a&gt;. It&#39;s like a css framework to help designer or developer create a nice and clean site.
+It&#39;s offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for
 prototyping.&lt;/p&gt;
 
-&lt;p&gt;I've been using it to build this blog since it was version 1. Recently i had a chance to upgrade it to version 2.
+&lt;p&gt;I&#39;ve been using it to build this blog since it was version 1. Recently i had a chance to upgrade it to version 2.
 The new version offer a lot of functionalities, one the feature that I play a lot is the responsive design.&lt;/p&gt;
 
 &lt;p&gt;Basically &lt;a href=&quot;http://en.wikipedia.org/wiki/Responsive_Web_Design&quot;&gt;Responsive Web Design&lt;/a&gt; (RWD) means the ability of the web site to adapt to the user screen size. So the page should look different
-in a way that it suited for specific screen. Like this website will look different if it's open with mobile phone, portrait mode on tablet,
+in a way that it suited for specific screen. Like this website will look different if it&#39;s open with mobile phone, portrait mode on tablet,
 landscape mode on tablet, net book or even in a large desktop. This actually achieved by using W3C CSS3 media query. It means that it uses
 different stylesheet for each of the screen size. More info on RWD in twitter bootstrap can be found &lt;a href=&quot;http://twitter.github.com/bootstrap/scaffolding.html#responsive&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
@@ -1172,7 +1216,7 @@ here are the screen shoot of the design.&lt;/p&gt;
    <link href="http://labs.yulrizka.com/en/2012/01/jekyll-error-utf-8-caracter.html"/>
    <updated>2012-01-14T17:32:00+01:00</updated>
    <id>http://labs.yulrizka.com/en/2012/01/jekyll-error-utf-8-caracter</id>
-   <content type="html">&lt;p&gt;If you having a problem in jekyll when it didn't generate a post and there is no error in the log file.
+   <content type="html">&lt;p&gt;If you having a problem in jekyll when it didn&#39;t generate a post and there is no error in the log file.
 you might want to check the content if there is any UTF-8 character encoding such as this &lt;strong&gt;±&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
@@ -1180,10 +1224,10 @@ it actually got &lt;code&gt;invalid multibyte char (US-ASCII) error message&lt;/
 
 &lt;p&gt;to solve this. I added this line to &lt;code&gt;.bashrc&lt;/code&gt; or &lt;code&gt;zshrc&lt;/code&gt; if you are using zsh&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LC_ALL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LANG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;bash&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LC_ALL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LANG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -1207,32 +1251,32 @@ so i installed the gem, also the &lt;a href=&quot;http://rubygems.org/gems/ffi&q
 
 &lt;p&gt;so this is the code to benchmark it&lt;/p&gt;
 
-&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight ruby'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
-&lt;span class='line-number'&gt;2&lt;/span&gt;
-&lt;span class='line-number'&gt;3&lt;/span&gt;
-&lt;span class='line-number'&gt;4&lt;/span&gt;
-&lt;span class='line-number'&gt;5&lt;/span&gt;
-&lt;span class='line-number'&gt;6&lt;/span&gt;
-&lt;span class='line-number'&gt;7&lt;/span&gt;
-&lt;span class='line-number'&gt;8&lt;/span&gt;
-&lt;span class='line-number'&gt;9&lt;/span&gt;
-&lt;span class='line-number'&gt;10&lt;/span&gt;
-&lt;span class='line-number'&gt;11&lt;/span&gt;
-&lt;span class='line-number'&gt;12&lt;/span&gt;
-&lt;span class='line-number'&gt;13&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='ruby'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;benchmark/ips&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;The small brown &amp;amp; ginger fox JUMPED OVER the gate&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;no&quot;&gt;Benchmark&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ips&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;first&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/\w+/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;capitalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;second&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:capitalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight ruby&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;3&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;4&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;5&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;6&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;7&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;8&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;9&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;10&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;11&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;12&lt;/span&gt;
+&lt;span class=&#39;line-number&#39;&gt;13&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#39;code&#39;&gt;&lt;pre&gt;&lt;code class=&#39;ruby&#39;&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;benchmark/ips&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;The small brown &amp;amp; ginger fox JUMPED OVER the gate&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;no&quot;&gt;Benchmark&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ips&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;first&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;      &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gsub&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/\w+/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;capitalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;second&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;      &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:capitalize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 

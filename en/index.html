@@ -27,6 +27,55 @@
 
   <article>
     <h1 class="">
+        <a href="/en/2013/07/berks-upload-ruby-core-dump.html" rel="bookmark" title="Permanent link to ">berks upload core dump</a>
+    </h1>
+    <span>July 21, 2013</span>
+    <p>
+        <p>I face this core dump error while doing <code>berks upload</code></p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>berks upload
+</span><span class='line'>/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault
+</span><span class='line'>ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>-- Control frame information -----------------------------------------------
+</span><span class='line'>c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
+</span><span class='line'>c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11
+</span><span class='line'>c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH
+</span><span class='line'>c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
+</span><span class='line'>
+</span><span class='line'>-- Ruby level backtrace information ----------------------------------------
+</span><span class='line'>/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;</span>
+</span><span class='line'><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span>
+</span><span class='line'>
+</span><span class='line'>....
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p><em>upgrading</em> the ruby verison to 2.0 seems to resolve my issue.</p>
+
+    </p>
+  </article>
+  <hr/>
+
+
+
+  <article>
+    <h1 class="">
         <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html" rel="bookmark" title="Permanent link to ">Safely sharing credentials with PGP</a>
     </h1>
     <span>July  8, 2013</span>
@@ -536,6 +585,15 @@ So the second code run more than the first code in one second. Which mean the se
 
               
                 <h3>2013</h3>
+              
+
+              <li>Jul <a href="/en/2013/07/berks-upload-ruby-core-dump.html">berks upload core dump</a></li>
+            
+
+              
+                
+                
+                
               
 
               <li>Jul <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
