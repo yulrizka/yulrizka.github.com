@@ -2,21 +2,21 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Recursive</title>
- <link href="http://recursive-design.com/feed/" rel="self"/>
- <link href="http://recursive-design.com/"/>
- <updated>2013-07-21T03:53:40+02:00</updated>
- <id>http://recursive-design.com/</id>
+ <link href="http://labs.yulrizka.com/feed/" rel="self"/>
+ <link href="http://labs.yulrizka.com/"/>
+ <updated>2013-07-21T04:23:52+02:00</updated>
+ <id>http://labs.yulrizka.com/</id>
  <author>
-   <name>Recursive</name>
-   <email>mail@recursive-design.com</email>
+   <name>labs.yulrizka.com</name>
+   <email>ahmy@yulrizka.com</email>
  </author>
 
  
  <entry>
    <title>Safely sharing credentials with PGP</title>
-   <link href="http://recursive-design.com/en/2013/07/safely-sharing-credentials-with-pgp.html"/>
-   <updated>2013-07-08T16:23:00+02:00</updated>
-   <id>http://recursive-design.com/en/2013/07/safely-sharing-credentials-with-pgp</id>
+   <link href="http://labs.yulrizka.com/en/2013/07/safely-sharing-credentials-with-pgp.html"/>
+   <updated>2013-07-08T16:24:00+02:00</updated>
+   <id>http://labs.yulrizka.com/en/2013/07/safely-sharing-credentials-with-pgp</id>
    <content type="html">&lt;p&gt;When working in teams, we are sometimes required to share some password / keys with our team.
 The most common way for me is probably through email or some chat client. But even though its convenience it's not
 actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.&lt;/p&gt;
@@ -221,9 +221,9 @@ how we could share some password / password key to other member of the team.&lt;
  
  <entry>
    <title>Homeward light indicator with RaspberryPi and CommonSense</title>
-   <link href="http://recursive-design.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html"/>
+   <link href="http://labs.yulrizka.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html"/>
    <updated>2013-02-26T20:33:00+01:00</updated>
-   <id>http://recursive-design.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense</id>
+   <id>http://labs.yulrizka.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense</id>
    <content type="html">&lt;div class=&quot;row&quot;&gt;
   &lt;div class=&quot;span8 offset1&quot;&gt;
     &lt;iframe align=&quot;center&quot; width=&quot;628&quot; height=&quot;400&quot; src=&quot;http://www.youtube.com/embed/35ylS4IX_mc&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
@@ -333,9 +333,9 @@ project with Ruby, I'm really enjoying working with Python.&lt;/p&gt;
  
  <entry>
    <title>Scale MongoDB dengan Sharding</title>
-   <link href="http://recursive-design.com/id/2012/03/scale-mongodb-dengan-sharding.html"/>
+   <link href="http://labs.yulrizka.com/id/2012/03/scale-mongodb-dengan-sharding.html"/>
    <updated>2012-03-07T12:16:00+01:00</updated>
-   <id>http://recursive-design.com/id/2012/03/scale-mongodb-dengan-sharding</id>
+   <id>http://labs.yulrizka.com/id/2012/03/scale-mongodb-dengan-sharding</id>
    <content type="html">&lt;div class=&quot;alert alert-success&quot;&gt;
   &lt;span class=&quot;label label-success&quot; &gt;TL;DR&lt;/span&gt;
   Proses &lt;em&gt;Horizontal Partitioning&lt;/em&gt; pada MongoDB melibatkan suatu konsep &lt;em&gt;Chunk&lt;/em&gt; dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
@@ -983,9 +983,9 @@ dapat dilakukan dengan perintah berikut&lt;/p&gt;
  
  <entry>
    <title>Ruby Fiber apaan sih ?</title>
-   <link href="http://recursive-design.com/id/2012/02/ruby-fiber-apaan-sih.html"/>
+   <link href="http://labs.yulrizka.com/id/2012/02/ruby-fiber-apaan-sih.html"/>
    <updated>2012-02-29T15:17:00+01:00</updated>
-   <id>http://recursive-design.com/id/2012/02/ruby-fiber-apaan-sih</id>
+   <id>http://labs.yulrizka.com/id/2012/02/ruby-fiber-apaan-sih</id>
    <content type="html">&lt;blockquote&gt;
   &lt;p&gt;
     Fibers are light-weight (green) &lt;a href=&quot;http://en.wikipedia.org/wiki/Thread_(computing)&quot; alt=&quot;wiki Thread (Computing)&quot;&gt;
@@ -1105,9 +1105,9 @@ mendemonstrasikan alur penggunaan fiber&lt;/p&gt;
  
  <entry>
    <title>Responsive Design</title>
-   <link href="http://recursive-design.com/en/2012/02/responsive-design.html"/>
+   <link href="http://labs.yulrizka.com/en/2012/02/responsive-design.html"/>
    <updated>2012-02-24T01:48:00+01:00</updated>
-   <id>http://recursive-design.com/en/2012/02/responsive-design</id>
+   <id>http://labs.yulrizka.com/en/2012/02/responsive-design</id>
    <content type="html">&lt;p&gt;I've been playing around with &lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;twitter bootstrap&lt;/a&gt;. It's like a css framework to help designer or developer create a nice and clean site.
 It's offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for
 prototyping.&lt;/p&gt;
@@ -1169,9 +1169,9 @@ here are the screen shoot of the design.&lt;/p&gt;
  
  <entry>
    <title>Jekyll error utf-8 caracter</title>
-   <link href="http://recursive-design.com/en/2012/01/jekyll-error-utf-8-caracter.html"/>
+   <link href="http://labs.yulrizka.com/en/2012/01/jekyll-error-utf-8-caracter.html"/>
    <updated>2012-01-14T17:32:00+01:00</updated>
-   <id>http://recursive-design.com/en/2012/01/jekyll-error-utf-8-caracter</id>
+   <id>http://labs.yulrizka.com/en/2012/01/jekyll-error-utf-8-caracter</id>
    <content type="html">&lt;p&gt;If you having a problem in jekyll when it didn't generate a post and there is no error in the log file.
 you might want to check the content if there is any UTF-8 character encoding such as this &lt;strong&gt;±&lt;/strong&gt;&lt;/p&gt;
 
@@ -1193,9 +1193,9 @@ it actually got &lt;code&gt;invalid multibyte char (US-ASCII) error message&lt;/
  
  <entry>
    <title>Testing ruby code with benchmark_suite</title>
-   <link href="http://recursive-design.com/en/2012/01/testing-ruby-code-with-benchmark-suite.html"/>
+   <link href="http://labs.yulrizka.com/en/2012/01/testing-ruby-code-with-benchmark-suite.html"/>
    <updated>2012-01-14T12:05:00+01:00</updated>
-   <id>http://recursive-design.com/en/2012/01/testing-ruby-code-with-benchmark-suite</id>
+   <id>http://labs.yulrizka.com/en/2012/01/testing-ruby-code-with-benchmark-suite</id>
    <content type="html">&lt;p&gt;Just a couple days ago I found out &lt;a href=&quot;http://www.therubygame.com&quot; title=&quot;The Ruby Game&quot;&gt;therubygame.com&lt;/a&gt; which challenge us to
 solve a problem with ruby. The result were measured by the &lt;strong&gt;fastest&lt;/strong&gt;, &lt;strong&gt;slowest&lt;/strong&gt;, &lt;strong&gt;shortest&lt;/strong&gt;, &lt;strong&gt;longest&lt;/strong&gt;,
 &lt;strong&gt;cheaters&lt;/strong&gt; (yup there are also some rule).&lt;/p&gt;
