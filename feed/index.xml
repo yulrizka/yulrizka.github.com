@@ -4,13 +4,220 @@
  <title>Recursive</title>
  <link href="http://recursive-design.com/feed/" rel="self"/>
  <link href="http://recursive-design.com/"/>
- <updated>2013-03-20T21:44:10+01:00</updated>
+ <updated>2013-07-21T03:53:40+02:00</updated>
  <id>http://recursive-design.com/</id>
  <author>
    <name>Recursive</name>
    <email>mail@recursive-design.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Safely sharing credentials with PGP</title>
+   <link href="http://recursive-design.com/en/2013/07/safely-sharing-credentials-with-pgp.html"/>
+   <updated>2013-07-08T16:23:00+02:00</updated>
+   <id>http://recursive-design.com/en/2013/07/safely-sharing-credentials-with-pgp</id>
+   <content type="html">&lt;p&gt;When working in teams, we are sometimes required to share some password / keys with our team.
+The most common way for me is probably through email or some chat client. But even though its convenience it's not
+actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.&lt;/p&gt;
+
+&lt;p&gt;Some simple approach would we communicating the password directly with a person through secure medium.
+One way to do it is both party ssh through a server and use talk client like &lt;a href=&quot;http://linux.die.net/man/1/write&quot;&gt;write&lt;/a&gt;.
+But for some cases it's quite impractical.&lt;/p&gt;
+
+&lt;h2&gt;PGP&lt;/h2&gt;
+
+&lt;p&gt;Enter &lt;a href=&quot;http://en.wikipedia.org/wiki/Pretty_Good_Privacy&quot;&gt;PGP&lt;/a&gt;. It's basically a software that do a Public-key cryptography.
+Public-key cryptography is basically encryption process which require 2 keys, one for encrypting and the other one
+for decrypting. Usually the &lt;strong&gt;public key&lt;/strong&gt; is used for encrypting and &lt;strong&gt;private key&lt;/strong&gt; is use for decrypting.
+I would not dive into the details about it since I've only have basic understanding about it.
+But for those people that is interested, you would read the nice article on &lt;a href=&quot;http://en.wikipedia.org/wiki/Public-key_cryptography&quot;&gt;wikipedia&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;There is a open source project called GPG (GNU Privacy Guard) and in this article I would like to show you how we could
+share some password / key file with it.&lt;/p&gt;
+
+&lt;h3&gt;Instalation&lt;/h3&gt;
+
+&lt;p&gt;If you don't already have it on your system, you could installed it with:&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install gpg
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After installing we would start by creating a pair of keys&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --gen-key
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You will be asked with bunch of questions. Most of the answer you could leave it as a default but most important is fill in your &lt;strong&gt;email&lt;/strong&gt;
+address and also provide a &lt;strong&gt;Passphrase&lt;/strong&gt; to protect your key with password. When it finish gathering information, it will start
+creating a key pair by using system entropy. You can help the system to generate the entropy by clicking or moving your mouse randomly
+or doing some random IO disk by triggering for example &lt;code&gt;find /&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;Listing keys&lt;/h3&gt;
+
+&lt;p&gt;After installing, you can see list of keys by using this command&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt; gpg --list-keys
+&lt;/span&gt;&lt;span class='line'&gt;/home/user/.gnupg/pubring.gpg
+&lt;/span&gt;&lt;span class='line'&gt;--------------------------------
+&lt;/span&gt;&lt;span class='line'&gt;pub   2048R/70280895 2013-07-09
+&lt;/span&gt;&lt;span class='line'&gt;uid                  Ahmy Yulrizka &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;ahmy135@mail.com&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &amp;lt;ahmy135@mail.com&amp;gt;
+&lt;/span&gt;&lt;span class='line'&gt;sub   2048R/F7B2D44C 2013-07-09
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In above output you could see that we have created public key with id of &lt;code&gt;70280895&lt;/code&gt;. Note this one because we are going to use it later
+when submitting the key to a key server&lt;/p&gt;
+
+&lt;h3&gt;Exporting keys&lt;/h3&gt;
+
+&lt;p&gt;To share your public key, so other people could send you encrypted message.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt; that further in this article I will discus ways to easily distribute your public key.&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --armor --export &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;-----BEGIN PGP PUBLIC KEY BLOCK-----
+&lt;/span&gt;&lt;span class='line'&gt;Version: GnuPG v1.4.11 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GNU/Linux&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;mQENBFHcRTEBCAC056qG97iJAtb604x5Hr+3lIi3UXVOnGauoHSo5S8S3bSCD0Ib
+&lt;/span&gt;&lt;span class='line'&gt;DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF
+&lt;/span&gt;&lt;span class='line'&gt;...
+&lt;/span&gt;&lt;span class='line'&gt;-----END PGP PUBLIC KEY BLOCK-----
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --armor --export &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt; --output pubkey.txt &lt;span class=&quot;c&quot;&gt;# to output it to a file&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Encrypting and decrypting&lt;/h3&gt;
+
+&lt;p&gt;With those generated keys, we could now do a personal encryption. That is if you want to encrypt a file and you are the only one
+who are able to decrypt it.&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;this message is secret&amp;quot;&lt;/span&gt; &amp;gt; message.txt
+&lt;/span&gt;&lt;span class='line'&gt;  &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --encrypt --recipient &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@gmail.com&amp;#39;&lt;/span&gt; message.txt
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Those code will create a file name &lt;code&gt;message.txt.gpg&lt;/code&gt; which is encrypted message of &lt;code&gt;message.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;span class='line-number'&gt;5&lt;/span&gt;
+&lt;span class='line-number'&gt;6&lt;/span&gt;
+&lt;span class='line-number'&gt;7&lt;/span&gt;
+&lt;span class='line-number'&gt;8&lt;/span&gt;
+&lt;span class='line-number'&gt;9&lt;/span&gt;
+&lt;span class='line-number'&gt;10&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --decrypt message.txt.gpg
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;You need a passphrase to unlock the secret key &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;user: &lt;span class=&quot;s2&quot;&gt;&amp;quot;Ahmy Yulrizka (ahmy135@mail.com) &amp;lt;ahmy135@mail.com&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;2048-bit RSA key, ID F7B2D44C, created 2013-07-09 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;main key ID 70280895&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;gpg: gpg-agent is not available in this session
+&lt;/span&gt;&lt;span class='line'&gt;gpg: encrypted with 2048-bit RSA key, ID F7B2D44C, created 2013-07-09
+&lt;/span&gt;&lt;span class='line'&gt;      &lt;span class=&quot;s2&quot;&gt;&amp;quot;Ahmy Yulrizka (ahmy135@mail.com) &amp;lt;ahmy135@mail.com&amp;gt;&amp;quot;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;this message is secret
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see that we are successfully decrypted the message. This example you encrypt the message
+using your own public key. So this method only work if you want to archive or backup the file securely.
+In order to send someone else an encrypted message, you need to encrypt the message using the other
+person &lt;strong&gt;public key&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3&gt;Distributing the key&lt;/h3&gt;
+
+&lt;p&gt;In order for any body to send you a encrypted message, you need to give your &lt;strong&gt;public key&lt;/strong&gt;.
+Since &lt;strong&gt;public key&lt;/strong&gt; only used for encryption, It's OK to publicly share your &lt;strong&gt;public key&lt;/strong&gt;.
+But never share your &lt;strong&gt;private key&lt;/strong&gt;. Once the other party have your &lt;strong&gt;public key&lt;/strong&gt; they could
+start send you an encrypted message using the command above.&lt;/p&gt;
+
+&lt;p&gt;You could share your public key manually to some one (through usb / email etc) by exporting it first just like I mention before.
+But there are an easy way to distribute the key. There are some public GPG server that store your public key so that
+other people could easily find it and import it into their local machine. There are &lt;a href=&quot;http://pgp.mit.edu&quot;&gt;http://pgp.mit.edu&lt;/a&gt;
+and also ubuntu key server &lt;a href=&quot;http://keyserver.ubuntu.com&quot;&gt;http://keyserver.ubuntu.com&lt;/a&gt; that we can use.&lt;/p&gt;
+
+&lt;p&gt;To send our key to MIT server we could do&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --send-key --keyserver pgp.mit.edu 70280895
+&lt;/span&gt;&lt;span class='line'&gt;gpg: sending key 70280895 to hkp server pgp.mit.edu
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;the last number &lt;code&gt;70280895&lt;/code&gt; was the key id of the public file. You could find it with the output of &lt;code&gt;gpg --list-keys&lt;/code&gt; command.
+Now we have successfully send our public key any body could get your public key through that keyserver. You could test this
+by searching a name or email or a person in the key server web interface. for example try searching my name on &lt;a href=&quot;http://pgp.mit.edu/&quot;&gt;http://pgp.mit.edu/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3&gt;Importing Keys&lt;/h3&gt;
+
+&lt;p&gt;Now to import other people public key, we could also do that in two way.&lt;/p&gt;
+
+&lt;p&gt;if the person give you a file which contain their public key (say &lt;code&gt;ahmy-pub.key&lt;/code&gt;). you could import it with&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --import ahmy-pub.key
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Or if the person already publish his public key to a keyserver, we can search it with&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;span class='line-number'&gt;2&lt;/span&gt;
+&lt;span class='line-number'&gt;3&lt;/span&gt;
+&lt;span class='line-number'&gt;4&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --search-keys &lt;span class=&quot;s1&quot;&gt;&amp;#39;Ahmy Yulrizka&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;c&quot;&gt;# or&lt;/span&gt;
+&lt;/span&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gpg --search-keys &lt;span class=&quot;s1&quot;&gt;&amp;#39;ahmy135@mail.com&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It will generate a list of keys that found on the keyserver. Enter the number of the keys and it will be imported to your local machine.&lt;/p&gt;
+
+&lt;p&gt;after importing you can send an encrypted message to the person for example&lt;/p&gt;
+
+&lt;div class='bogus-wrapper'&gt;&lt;notextile&gt;&lt;figure class='code'&gt; &lt;div class='highlight bash'&gt;&lt;table&gt;&lt;tr&gt;&lt;td class='gutter'&gt;&lt;pre class='line-numbers'&gt;&lt;span class='line-number'&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class='code'&gt;&lt;pre&gt;&lt;code class='bash'&gt;&lt;span class='line'&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;This is also a secret&amp;quot;&lt;/span&gt; | gpg --encrypt --armor --recipient &lt;span class=&quot;s1&quot;&gt;&amp;#39;Ahmy Yulrizka&amp;#39;&lt;/span&gt; &amp;gt; output.txt.gpg
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You could provide a name or an email address as a recipient.
+THis command will encrypt the message using public key of a person name &lt;code&gt;Ahmy Yulrizka&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;At this point you are able to generate, export, distribute and import keys. More over you can already encrypt
+and decrypt file / message to a designated recipient. The the part two of this article I will share some idea
+how we could share some password / password key to other member of the team.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Homeward light indicator with RaspberryPi and CommonSense</title>
