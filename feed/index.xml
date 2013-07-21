@@ -4,7 +4,7 @@
  <title>Recursive</title>
  <link href="http://labs.yulrizka.com/feed/" rel="self"/>
  <link href="http://labs.yulrizka.com/"/>
- <updated>2013-07-22T00:28:56+02:00</updated>
+ <updated>2013-07-22T00:32:05+02:00</updated>
  <id>http://labs.yulrizka.com/</id>
  <author>
    <name>labs.yulrizka.com</name>
@@ -17,7 +17,11 @@
    <link href="http://labs.yulrizka.com/en/2013/07/berks-upload-ruby-core-dump.html"/>
    <updated>2013-07-21T23:26:00+02:00</updated>
    <id>http://labs.yulrizka.com/en/2013/07/berks-upload-ruby-core-dump</id>
-   <content type="html">&lt;p&gt;I face this core dump error while doing &lt;code&gt;berks upload&lt;/code&gt;&lt;/p&gt;
+   <content type="html">&lt;p&gt;Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
+think of it as a `&lt;em&gt;Bundler&lt;/em&gt; or &lt;em&gt;virtual environment&lt;/em&gt; for chef&lt;/p&gt;
+
+&lt;p&gt;I faced this core dump error while doing &lt;code&gt;berks upload&lt;/code&gt;. That command will actualy
+push some cookbook to a chef server.&lt;/p&gt;
 
 &lt;div class=&#39;bogus-wrapper&#39;&gt;&lt;notextile&gt;&lt;figure class=&#39;code&#39;&gt; &lt;div class=&#39;highlight bash&#39;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#39;gutter&#39;&gt;&lt;pre class=&#39;line-numbers&#39;&gt;&lt;span class=&#39;line-number&#39;&gt;1&lt;/span&gt;
 &lt;span class=&#39;line-number&#39;&gt;2&lt;/span&gt;
@@ -52,7 +56,7 @@
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
-&lt;p&gt;&lt;em&gt;upgrading&lt;/em&gt; the ruby verison to 2.0 seems to resolve my issue.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;upgrading&lt;/strong&gt; the ruby verison to 2.0 seems to resolve my issue.&lt;/p&gt;
 </content>
  </entry>
  
