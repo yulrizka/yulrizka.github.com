@@ -9,7 +9,11 @@ description: Berks ruby core dump while doing berks upload
 keywords: berks upload ruby coredump
 ---
 
-I face this core dump error while doing `berks upload`
+Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
+think of it as a *Bundler* or *virtual environment* for chef
+
+I faced this core dump error while doing `berks upload`. That command will actualy
+push some cookbook to a chef server.
 
 {% codeblock lang:bash %}
 $ berks upload
@@ -29,4 +33,4 @@ c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
 ....
 {% endcodeblock %}
 
-*upgrading* the ruby verison to 2.0 seems to resolve my issue.
+**upgrading** the ruby verison to 2.0 seems to resolve my issue.
