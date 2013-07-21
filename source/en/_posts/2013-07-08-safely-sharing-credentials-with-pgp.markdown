@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Safely sharing credentials with PGP"
-date: 2013-07-08 16:23
+date: 2013-07-08 16:24
 language: en
 comments: true
 tags: linux, web

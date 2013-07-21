@@ -5,21 +5,21 @@ layout: nil
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Recursive</title>
- <link href="http://recursive-design.com/feed/" rel="self"/>
- <link href="http://recursive-design.com/"/>
+ <link href="http://labs.yulrizka.com/feed/" rel="self"/>
+ <link href="http://labs.yulrizka.com/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://recursive-design.com/</id>
+ <id>http://labs.yulrizka.com/</id>
  <author>
-   <name>Recursive</name>
-   <email>mail@recursive-design.com</email>
+   <name>labs.yulrizka.com</name>
+   <email>ahmy@yulrizka.com</email>
  </author>
 
  {% for post in site.posts %}
  <entry>
    <title>{{ post.title }}</title>
-   <link href="http://recursive-design.com{{ post.url }}"/>
+   <link href="http://labs.yulrizka.com{{ post.url }}"/>
    <updated>{{ post.date | date_to_xmlschema }}</updated>
-   <id>http://recursive-design.com{{ post.id }}</id>
+   <id>http://labs.yulrizka.com{{ post.id }}</id>
    <content type="html">{{ post.content | xml_escape }}</content>
  </entry>
  {% endfor %}
