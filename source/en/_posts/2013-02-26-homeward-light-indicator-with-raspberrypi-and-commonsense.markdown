@@ -32,7 +32,7 @@ This project uses [pi-piper][pi-piper] a ruby library that wrap [wiringPi][wirin
 <div class="row">
 <div class="span8 offset1">
 <div class="thumbnail">
-  <img src="/images/post/2013/02/homeward-indicator-project.jpg">
+  <img src="/images/post/2013/02/homeward-indicator-project.jpg" alt="homeward indicator">
   <div class="caption">
     The light will turn on whenever I leave the office at noon.
   </div>
@@ -43,7 +43,7 @@ This project uses [pi-piper][pi-piper] a ruby library that wrap [wiringPi][wirin
 <div class="row">
   <div class="span4 offset1">
     <div class="thumbnail">
-      <img src="/images/post/2013/02/lamp-off.jpg">
+      <img src="/images/post/2013/02/lamp-off.jpg" alt="lamp off">
       <div class="caption">
         Controlling Lamp with Raspberry-pi + ruby/sinatra
       </div>
@@ -76,7 +76,7 @@ easily experiment with my data. So with this sense app, the raspberry-pi could e
 <div class="row">
   <div class="span3 offset1">
     <div class="thumbnail">
-      <img src="/images/post/2013/02/sense-app.jpg">
+      <img src="/images/post/2013/02/sense-app.jpg" alt="sense app">
       <div class="caption">
         Sense Android App - Works as an aggent of CommonSense
       </div>
@@ -84,7 +84,7 @@ easily experiment with my data. So with this sense app, the raspberry-pi could e
   </div>
   <div class="span7">
     <div class="thumbnail">
-      <img src="/images/post/2013/02/biking-out-of-the-office.jpg">
+      <img src="/images/post/2013/02/biking-out-of-the-office.jpg" alt="biking out of the office">
       <div class="caption">
         The light will turn on when I'm 200m away from the office
       </div>
