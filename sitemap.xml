@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>http://labs.yulrizka.com/en/2013/07/berks-upload-ruby-core-dump</loc>
+  <lastmod>2013-07-21T23:26:00+02:00</lastmod>
+</url>
+
+<url>
+  <loc>http://labs.yulrizka.com/en/2013/07/safely-sharing-credentials-with-pgp</loc>
+  <lastmod>2013-07-08T16:24:00+02:00</lastmod>
+</url>
+
+<url>
+  <loc>http://labs.yulrizka.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense</loc>
+  <lastmod>2013-02-26T20:33:00+01:00</lastmod>
+</url>
+
+<url>
+  <loc>http://labs.yulrizka.com/id/2012/03/scale-mongodb-dengan-sharding</loc>
+  <lastmod>2012-03-07T12:16:00+01:00</lastmod>
+</url>
+
+<url>
+  <loc>http://labs.yulrizka.com/id/2012/02/ruby-fiber-apaan-sih</loc>
+  <lastmod>2012-02-29T15:17:00+01:00</lastmod>
+</url>
+
+<url>
+  <loc>http://labs.yulrizka.com/en/2012/02/responsive-design</loc>
+  <lastmod>2012-02-24T01:48:00+01:00</lastmod>
+</url>
+
+<url>
+  <loc>http://labs.yulrizka.com/en/2012/01/jekyll-error-utf-8-caracter</loc>
+  <lastmod>2012-01-14T17:32:00+01:00</lastmod>
+</url>
+
+<url>
+  <loc>http://labs.yulrizka.com/en/2012/01/testing-ruby-code-with-benchmark-suite</loc>
+  <lastmod>2012-01-14T12:05:00+01:00</lastmod>
+</url>
+
+</urlset>
