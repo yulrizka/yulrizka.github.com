@@ -11,6 +11,20 @@ This this is my humble canvas. the place where I pour some idea and experiment. 
 
 Ok then, Now which post do you want to read ?
 
+## <a href="/en">Recent Post written in English</a>
+<ul>
+{% assign i = 10 %}
+{% for post in site.posts %}
+  {% if post.language == "en" and i > 0 %}
+  {% assign i = (i + 2) %}
+    <li>
+      <a href="{{ post.url}}" rel="bookmark" title="Permanent link to ">{{ post.title }}</a>
+      <span>{{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}</span>
+    </li>
+  {% endif %}
+{% endfor %}
+</ul>
+
 ## <a href="/id">Recent Post written in Bahasa Indonesia</a>
 <ul>
 {% assign i = 10 %}
@@ -25,16 +39,3 @@ Ok then, Now which post do you want to read ?
 {% endfor %}
 </ul>
 
-## <a href="/en">Recent Post written in English</a>
-<ul>
-{% assign i = 10 %}
-{% for post in site.posts %}
-  {% if post.language == "en" and i > 0 %}
-  {% assign i = (i + 2) %}
-    <li>
-      <a href="{{ post.url}}" rel="bookmark" title="Permanent link to ">{{ post.title }}</a>
-      <span>{{ post.date | date: '%B' }} {{ post.date | date: '%e' }}, {{ post.date | date: '%Y' }}</span>
-    </li>
-  {% endif %}
-{% endfor %}
-</ul>
