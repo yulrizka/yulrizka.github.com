@@ -4,7 +4,7 @@
  <title>Recursive</title>
  <link href="http://labs.yulrizka.com/feed/" rel="self"/>
  <link href="http://labs.yulrizka.com/"/>
- <updated>2013-07-22T20:17:01+02:00</updated>
+ <updated>2013-07-25T21:57:14+00:00</updated>
  <id>http://labs.yulrizka.com/</id>
  <author>
    <name>labs.yulrizka.com</name>
@@ -15,7 +15,7 @@
  <entry>
    <title>berks upload core dump</title>
    <link href="http://labs.yulrizka.com/en/2013/07/berks-upload-ruby-core-dump.html"/>
-   <updated>2013-07-21T23:26:00+02:00</updated>
+   <updated>2013-07-21T23:26:00+00:00</updated>
    <id>http://labs.yulrizka.com/en/2013/07/berks-upload-ruby-core-dump</id>
    <content type="html">&lt;p&gt;Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
 think of it as a &lt;em&gt;Bundler&lt;/em&gt; or &lt;em&gt;virtual environment&lt;/em&gt; for chef&lt;/p&gt;
@@ -63,7 +63,7 @@ push some cookbook to a chef server.&lt;/p&gt;
  <entry>
    <title>Safely sharing credentials with PGP</title>
    <link href="http://labs.yulrizka.com/en/2013/07/safely-sharing-credentials-with-pgp.html"/>
-   <updated>2013-07-08T16:24:00+02:00</updated>
+   <updated>2013-07-08T16:24:00+00:00</updated>
    <id>http://labs.yulrizka.com/en/2013/07/safely-sharing-credentials-with-pgp</id>
    <content type="html">&lt;p&gt;When working in teams, we are sometimes required to share some password / keys with our team.
 The most common way for me is probably through email or some chat client. But even though its convenience it&#39;s not
@@ -270,7 +270,7 @@ how we could share some password / password key to other member of the team.&lt;
  <entry>
    <title>Homeward light indicator with RaspberryPi and CommonSense</title>
    <link href="http://labs.yulrizka.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html"/>
-   <updated>2013-02-26T20:33:00+01:00</updated>
+   <updated>2013-02-26T20:33:00+00:00</updated>
    <id>http://labs.yulrizka.com/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense</id>
    <content type="html">&lt;div class=&quot;row&quot;&gt;
   &lt;div class=&quot;span8 offset1&quot;&gt;
@@ -279,10 +279,8 @@ how we could share some password / password key to other member of the team.&lt;
 &lt;/div&gt;
 
 
-&lt;br/&gt;
-
-
-&lt;p&gt;I&#39;ve been tinkering with my &lt;a href=&quot;http://www.raspberrypi.org/&quot;&gt;raspberry-pi&lt;/a&gt; for quite some time now. What I like about it because it is cheap ($25),
+&lt;p&gt;&lt;br/&gt;
+I&#39;ve been tinkering with my &lt;a href=&quot;http://www.raspberrypi.org/&quot;&gt;raspberry-pi&lt;/a&gt; for quite some time now. What I like about it because it is cheap ($25),
 it&#39;s run Linux (especially debian based) and most of all it&#39;s have General Purpose Input Output pin. Since I was a kid, I always
 wanted to control electronic appliance remotely. Luckily my friend &lt;a href=&quot;https://github.com/pimnijdam&quot;&gt;@pimnijdam&lt;/a&gt; thought me how to control a relay board.
 Basically it&#39;s just like an electric switch that connect/disconnect current when you supply a low voltage.&lt;/p&gt;
@@ -307,10 +305,7 @@ This project uses &lt;a href=&quot;https://github.com/jwhitehorn/pi_piper&quot;&
 &lt;/div&gt;
 
 
-&lt;br/&gt;
-
-
-
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 
 &lt;div class=&quot;row&quot;&gt;
   &lt;div class=&quot;span4 offset1&quot;&gt;
@@ -332,8 +327,7 @@ This project uses &lt;a href=&quot;https://github.com/jwhitehorn/pi_piper&quot;&
 &lt;/div&gt;
 
 
-&lt;br/&gt;
-
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 
 &lt;p&gt;Now, turning a desk lamp with pi is something; But it&#39;s quite boring and not really useful. Now let us make something a bit
 interesting. Instead of controlling it manually, The light be trigger on my activity. In this case I the light to turn on
@@ -369,10 +363,8 @@ easily experiment with my data. So with this sense app, the raspberry-pi could e
 &lt;/div&gt;
 
 
-&lt;br/&gt;
-
-
-&lt;p&gt;Again, my awesome colleague &lt;a href=&quot;https://github.com/pimnijdam&quot;&gt;@pim&lt;/a&gt; create a prototype of &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;python framework&lt;/a&gt; that make it very easy for me to
+&lt;p&gt;&lt;br/&gt;
+Again, my awesome colleague &lt;a href=&quot;https://github.com/pimnijdam&quot;&gt;@pim&lt;/a&gt; create a prototype of &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;python framework&lt;/a&gt; that make it very easy for me to
 implement my project. You should definitely &lt;a href=&quot;https://github.com/pimnijdam/eventScripting&quot;&gt;chek it out!&lt;/a&gt;. I&#39;ve created the &lt;em&gt;homeward light indicator&lt;/em&gt; project
 using the early version of the framework. This is actually my first encounter with Python. Although I still prefer doing my
 project with Ruby, I&#39;m really enjoying working with Python.&lt;/p&gt;
@@ -382,7 +374,7 @@ project with Ruby, I&#39;m really enjoying working with Python.&lt;/p&gt;
  <entry>
    <title>Scale MongoDB dengan Sharding</title>
    <link href="http://labs.yulrizka.com/id/2012/03/scale-mongodb-dengan-sharding.html"/>
-   <updated>2012-03-07T12:16:00+01:00</updated>
+   <updated>2012-03-07T12:16:00+00:00</updated>
    <id>http://labs.yulrizka.com/id/2012/03/scale-mongodb-dengan-sharding</id>
    <content type="html">&lt;div class=&quot;alert alert-success&quot;&gt;
   &lt;span class=&quot;label label-success&quot; &gt;TL;DR&lt;/span&gt;
@@ -412,7 +404,7 @@ kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan loa
 
 &lt;div class=&quot;row&quot;&gt;
   &lt;a href=&quot;http://www.mongodb.org/display/DOCS/Sharding+Introduction&quot; class=&quot;thumbnail span7 offset2&quot;&gt;
-    &lt;img src=&quot;http://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&amp;modificationDate=1267724627656&quot;/&gt;
+    &lt;img src=&quot;http://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&amp;nbsp;modificationDate=1267724627656&quot;/&gt;
     &lt;h5&gt;Skema Sharding - MongoDB Sharding Introduction&lt;/h5&gt;
   &lt;/a&gt;
 &lt;/div&gt;
@@ -1032,13 +1024,13 @@ dapat dilakukan dengan perintah berikut&lt;/p&gt;
  <entry>
    <title>Ruby Fiber apaan sih ?</title>
    <link href="http://labs.yulrizka.com/id/2012/02/ruby-fiber-apaan-sih.html"/>
-   <updated>2012-02-29T15:17:00+01:00</updated>
+   <updated>2012-02-29T15:17:00+00:00</updated>
    <id>http://labs.yulrizka.com/id/2012/02/ruby-fiber-apaan-sih</id>
    <content type="html">&lt;blockquote&gt;
   &lt;p&gt;
     Fibers are light-weight (green) &lt;a href=&quot;http://en.wikipedia.org/wiki/Thread_(computing)&quot; alt=&quot;wiki Thread (Computing)&quot;&gt;
-      threads&lt;/a&gt; with manual, cooperative scheduling, rather than the preemptive scheduling 
-    of Ruby 1.8&#39;s threads. Since Ruby 1.9&#39;s threads exist at the system level, fibers are, in a way, 
+      threads&lt;/a&gt; with manual, cooperative scheduling, rather than the preemptive scheduling
+    of Ruby 1.8&#39;s threads. Since Ruby 1.9&#39;s threads exist at the system level, fibers are, in a way,
     Ruby 1.9&#39;s answer to Ruby 1.8&#39;s green threads, but lacking the pre-emptive scheduling
   &lt;/p&gt;
   &lt;small&gt;
@@ -1089,14 +1081,13 @@ thread kedua melakukan 50ms komputasi.&lt;/p&gt;
 &lt;div class=&quot;thumbnail&quot;&gt;
   &lt;img src=&quot;http://www.igvita.com/posts/09/fibers-vs-threads.png&quot;&gt;&lt;/img&gt;
   &lt;div class=&quot;caption&quot;&gt;
-    Komparasi kode yang dijalankan menggunakan thread &amp; fiber. 
+    Komparasi kode yang dijalankan menggunakan thread &amp;nbsp; fiber.
     &lt;a href=&quot;http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/&quot;&gt;http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/&lt;/a&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
 
-&lt;br/&gt;
-
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 
 &lt;p&gt;Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms.&lt;/p&gt;
 
@@ -1137,7 +1128,7 @@ mendemonstrasikan alur penggunaan fiber&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Hello saya main thread&amp;quot;&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 4)&lt;/span&gt;
 &lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Main: Sekarang jam berapa ya ?&amp;quot;&lt;/span&gt;
-&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 6) dan output hasil  &lt;/span&gt;
+&lt;/span&gt;&lt;span class=&#39;line&#39;&gt;  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fiber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resume&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# jalankan fiber (line 6) dan output hasil&lt;/span&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/figure&gt;&lt;/notextile&gt;&lt;/div&gt;
 
 
@@ -1154,7 +1145,7 @@ mendemonstrasikan alur penggunaan fiber&lt;/p&gt;
  <entry>
    <title>Responsive Design</title>
    <link href="http://labs.yulrizka.com/en/2012/02/responsive-design.html"/>
-   <updated>2012-02-24T01:48:00+01:00</updated>
+   <updated>2012-02-24T01:48:00+00:00</updated>
    <id>http://labs.yulrizka.com/en/2012/02/responsive-design</id>
    <content type="html">&lt;p&gt;I&#39;ve been playing around with &lt;a href=&quot;http://twitter.github.com/bootstrap/&quot;&gt;twitter bootstrap&lt;/a&gt;. It&#39;s like a css framework to help designer or developer create a nice and clean site.
 It&#39;s offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for
@@ -1218,7 +1209,7 @@ here are the screen shoot of the design.&lt;/p&gt;
  <entry>
    <title>Jekyll error utf-8 caracter</title>
    <link href="http://labs.yulrizka.com/en/2012/01/jekyll-error-utf-8-caracter.html"/>
-   <updated>2012-01-14T17:32:00+01:00</updated>
+   <updated>2012-01-14T17:32:00+00:00</updated>
    <id>http://labs.yulrizka.com/en/2012/01/jekyll-error-utf-8-caracter</id>
    <content type="html">&lt;p&gt;If you having a problem in jekyll when it didn&#39;t generate a post and there is no error in the log file.
 you might want to check the content if there is any UTF-8 character encoding such as this &lt;strong&gt;±&lt;/strong&gt;&lt;/p&gt;
@@ -1242,7 +1233,7 @@ it actually got &lt;code&gt;invalid multibyte char (US-ASCII) error message&lt;/
  <entry>
    <title>Testing ruby code with benchmark_suite</title>
    <link href="http://labs.yulrizka.com/en/2012/01/testing-ruby-code-with-benchmark-suite.html"/>
-   <updated>2012-01-14T12:05:00+01:00</updated>
+   <updated>2012-01-14T12:05:00+00:00</updated>
    <id>http://labs.yulrizka.com/en/2012/01/testing-ruby-code-with-benchmark-suite</id>
    <content type="html">&lt;p&gt;Just a couple days ago I found out &lt;a href=&quot;http://www.therubygame.com&quot; title=&quot;The Ruby Game&quot;&gt;therubygame.com&lt;/a&gt; which challenge us to
 solve a problem with ruby. The result were measured by the &lt;strong&gt;fastest&lt;/strong&gt;, &lt;strong&gt;slowest&lt;/strong&gt;, &lt;strong&gt;shortest&lt;/strong&gt;, &lt;strong&gt;longest&lt;/strong&gt;,

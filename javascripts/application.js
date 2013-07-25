@@ -63,7 +63,7 @@
     container = $('#container');
     button = $('#icon-panel');
     $.cookie('sidebar-preferences', pane);
-    if (!(pane != null) || pane === "none") {
+    if ((pane == null) || pane === "none") {
       container.removeClass('sidebar-left sidebar-right');
       container.addClass('sidebar-none');
       button.removeClass('icon-left-panel icon-right-panel');
@@ -105,7 +105,6 @@
 
 }).call(this);
 (function() {
-
   $(function() {
     var banner;
     banner = $('#carousel-banner');

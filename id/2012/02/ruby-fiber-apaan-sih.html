@@ -7,7 +7,7 @@
 <meta name="author" content="Ahmy Yulrizka">
 <meta http-equiv="Content-Language" Content="id">
 <meta name="keywords" content="fiber, ruby, thread, green thread" />
-<meta http-equiv="date" content="2012-02-29T15:17:00+01:00" />
+<meta http-equiv="date" content="2012-02-29T15:17:00+00:00" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="canonical" href="http://ahmy.yulrizka.com/">
@@ -29,12 +29,12 @@
           <article>
             <h1>Ruby Fiber apaan sih ?</h1>
             <div class="posted_at">29 Feb 2012</div>
-            
+
             <blockquote>
   <p>
     Fibers are light-weight (green) <a href="http://en.wikipedia.org/wiki/Thread_(computing)" alt="wiki Thread (Computing)">
-      threads</a> with manual, cooperative scheduling, rather than the preemptive scheduling 
-    of Ruby 1.8's threads. Since Ruby 1.9's threads exist at the system level, fibers are, in a way, 
+      threads</a> with manual, cooperative scheduling, rather than the preemptive scheduling
+    of Ruby 1.8's threads. Since Ruby 1.9's threads exist at the system level, fibers are, in a way,
     Ruby 1.9's answer to Ruby 1.8's green threads, but lacking the pre-emptive scheduling
   </p>
   <small>
@@ -85,14 +85,13 @@ thread kedua melakukan 50ms komputasi.</p>
 <div class="thumbnail">
   <img src="http://www.igvita.com/posts/09/fibers-vs-threads.png"></img>
   <div class="caption">
-    Komparasi kode yang dijalankan menggunakan thread & fiber. 
+    Komparasi kode yang dijalankan menggunakan thread &nbsp; fiber.
     <a href="http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/</a>
   </div>
 </div>
 
 
-<br/>
-
+<p><br/></p>
 
 <p>Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms.</p>
 
@@ -133,7 +132,7 @@ mendemonstrasikan alur penggunaan fiber</p>
 </span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Hello saya main thread&quot;</span>
 </span><span class='line'>  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 4)</span>
 </span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Sekarang jam berapa ya ?&quot;</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 6) dan output hasil  </span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 6) dan output hasil</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
@@ -145,13 +144,37 @@ mendemonstrasikan alur penggunaan fiber</p>
  Fiber: Sekarang 2012-02-29 22:45:08 +0700
 </code></pre>
 
+
+            <hr>
+            <b>Site related post:</b>
+            
+            <ul>
+              <li><a href="/id/2012/03/scale-mongodb-dengan-sharding.html">Scale MongoDB dengan Sharding</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html">Homeward light indicator with RaspberryPi and CommonSense</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2012/02/responsive-design.html">Responsive Design</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2013/07/berks-upload-ruby-core-dump.html">berks upload core dump</a></li>
+            </ul>
+            
           </article>
-          
+
           
           <div id="disqus_thread"></div>
           <script type="text/javascript">
               //var disqus_developer = 1;
-              var disqus_shortname = 'labs-yulrizka'; 
+              var disqus_shortname = 'labs-yulrizka';
               var disqus_identifier = '/id/2012/02/ruby-fiber-apaan-sih.html';
 
               /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -163,7 +186,7 @@ mendemonstrasikan alur penggunaan fiber</p>
           </script>
           <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
           
-        </div>        
+        </div>
       </div>
       <div id="sidebar-wrapper" class="span3">
         <div class="sidebar">
@@ -250,6 +273,8 @@ mendemonstrasikan alur penggunaan fiber</p>
     </div>
   </div>
 
+
+
   <header>
   <div id="banner">
     <div id="carousel-banner" class="wrapper carousel">
@@ -330,15 +355,15 @@ mendemonstrasikan alur penggunaan fiber</p>
   </div>
 </header>
 
-      
+
   <footer>
   <div class="container-fluid">
     <div class="row-fluid">
       <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
         <div class="footer">
           <p>
-            &copy; Ahmy Yulrizka 2012. This site is made with <a href="http://jekyllrb.com/">Jekyll</a> 
-            using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> 
+            &copy; Ahmy Yulrizka 2012. This site is made with <a href="http://jekyllrb.com/">Jekyll</a>
+            using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>
             and hosted on <a href="http://pages.github.com/">Github pages</a>.
             All of the content is open and the source can be accessed
             <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">here</a>
@@ -348,6 +373,7 @@ mendemonstrasikan alur penggunaan fiber</p>
     </div>
  </div>
 </footer>
+
 </div> <!-- end of #container-->
 
 <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
