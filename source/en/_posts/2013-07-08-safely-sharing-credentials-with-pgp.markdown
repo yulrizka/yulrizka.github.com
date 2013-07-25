@@ -110,20 +110,20 @@ this message is secret
 {% endcodeblock %}
 
 As you can see that we are successfully decrypted the message. This example you encrypt the message
-using your own public key. So this method only work if you want to archive or backup the file securely. 
+using your own public key. So this method only work if you want to archive or backup the file securely.
 In order to send someone else an encrypted message, you need to encrypt the message using the other
 person __public key__
 
 ### Distributing the key
 
 In order for any body to send you a encrypted message, you need to give your __public key__.
-Since __public key__ only used for encryption, It's OK to publicly share your __public key__. 
+Since __public key__ only used for encryption, It's OK to publicly share your __public key__.
 But never share your __private key__. Once the other party have your __public key__ they could
 start send you an encrypted message using the command above.
 
 You could share your public key manually to some one (through usb / email etc) by exporting it first just like I mention before.
 But there are an easy way to distribute the key. There are some public GPG server that store your public key so that
-other people could easily find it and import it into their local machine. There are [http://pgp.mit.edu](http://pgp.mit.edu) 
+other people could easily find it and import it into their local machine. There are [http://pgp.mit.edu](http://pgp.mit.edu)
 and also ubuntu key server [http://keyserver.ubuntu.com](http://keyserver.ubuntu.com) that we can use.
 
 To send our key to MIT server we could do
@@ -139,7 +139,7 @@ by searching a name or email or a person in the key server web interface. for ex
 
 ### Importing Keys
 
-Now to import other people public key, we could also do that in two way. 
+Now to import other people public key, we could also do that in two way.
 
 if the person give you a file which contain their public key (say `ahmy-pub.key`). you could import it with
 

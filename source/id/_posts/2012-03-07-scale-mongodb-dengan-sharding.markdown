@@ -31,18 +31,18 @@ Sebelum mengeksplorasi mongodb, ada beberapa konsep yang harus kita pahami tenta
 
 <div class="row">
   <a href="http://www.mongodb.org/display/DOCS/Sharding+Introduction" class="thumbnail span7 offset2">
-    <img src="http://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&modificationDate=1267724627656"/>
+    <img src="http://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&nbsp;modificationDate=1267724627656"/>
     <h5>Skema Sharding - MongoDB Sharding Introduction</h5>
   </a>
 </div>
-  
+
 ### mongod ###
-mongod adalah core dari mongoDB. mongod adalah satu instance server mongo. Saya sendiri tidak tau kepanjangan dari mongod tapi kalau menebak, 
+mongod adalah core dari mongoDB. mongod adalah satu instance server mongo. Saya sendiri tidak tau kepanjangan dari mongod tapi kalau menebak,
 mungkin yang dimaksud adalah mongo daemon. Kalau di analogikan, 1 mongod adalah 1 server database (misalkan sama dengan 1 server mysql). Sehingga
 satu aplikasi sedehana cukup dibuat dengan 1 application server yang berkomunikasi dengan 1 mongod
 
 ### Replica ###
-Replica set adalah suatu bentuk Master/slave database. 1 replika terdiri dari 2 atau lebih proses mongod yang memiliki data yang sama. 
+Replica set adalah suatu bentuk Master/slave database. 1 replika terdiri dari 2 atau lebih proses mongod yang memiliki data yang sama.
 Replica bertujuan untuk *failover*, *reducancy* juga sebagai *distribution read load*
 . Artinya apabila terdapat beberapa request read terhadap data yang sama, maka request tersebut bisa di handle oleh lebih dari satu server
 
@@ -79,9 +79,9 @@ Contoh, misalkan kita mempunyai 3 data center: Jakarta, Bandung dan Surabaya. ma
   </div>
 </div>
 ### Shards ###
-Dalam database kita dapat melakukan partisi terhadap data. Partisi tersebut bisa dilakukan dalam dua arah: Vertikal dan Horizontal. Vertical 
+Dalam database kita dapat melakukan partisi terhadap data. Partisi tersebut bisa dilakukan dalam dua arah: Vertikal dan Horizontal. Vertical
 dilakukan dengan membagi data berdasarkan kolom, misalkan melalui proses denormalisasi. Sedangkan *horizontal partitioning* dilakukan dengan
-membagi data secara horizontal. 
+membagi data secara horizontal.
 
 Contoh horizontal partitioning misalkan kita memiliki data center seperti diatas. Maka kita dapat menyimpan semua data user jakarta ke data
 center jakarta, bandung ke bandung dan lainya ke surabaya. Apabila terdapat request terhadap data bandung maka cukup server bandung yang melayani
@@ -93,16 +93,16 @@ suatu replika set berada pada suatu sharding.
 ### shard key ###
 Untuk membagi-bagi suatu data, maka dibutuhkan suatu *key* yang menentukan data tersebut akan masuk ke shard yang mana. Key tersebut disebut dengan
 **shard key**. untuk contoh diatas *shard key* adalah lokasi. Pada contoh lain kita dapat membuat email sebagai *shard key*. sehingga data suatu
-user akan dikelompokkan pada suatu shard yang sama. 
+user akan dikelompokkan pada suatu shard yang sama.
 
-Pemilihan *shard key* sangat bergantung dengan bagaimana cara aplikasi berintarksi untuk mengakses data. Sehingga pemilihan *shard key* dapat 
-mempengaruhi performa dari sistem. Pemilihan *shard key* yang salah dapat menyebabkan database beroperasi lebih lambat dari *single instance* 
+Pemilihan *shard key* sangat bergantung dengan bagaimana cara aplikasi berintarksi untuk mengakses data. Sehingga pemilihan *shard key* dapat
+mempengaruhi performa dari sistem. Pemilihan *shard key* yang salah dapat menyebabkan database beroperasi lebih lambat dari *single instance*
 database.
 
 Untuk kriteria pemilihan *shard key* dapat dilihat pada artikel [*Choosing a shard key*][mongo-choose-shard]
 
 ### Chunks ###
-*Chunk* adalah *continuous range of data for a particular collection*. Misalkan kita melakukan partisi data berdasarkan ID. dan ID tersebut 
+*Chunk* adalah *continuous range of data for a particular collection*. Misalkan kita melakukan partisi data berdasarkan ID. dan ID tersebut
 merupakan bilangan integer antara 1..1000. Kita dapat membagi data tersebut dalam beberapa bagian (chunk) dengan ukuran yang sama. Secara
 default ukuran 1 *chunk* dalam mongoDB adalah 64MB (meskipun bisa dikonfigurasi). Untuk contoh kasus data tersebut bisa dibagi menjadi 10 chunk.
 dengan:
@@ -110,26 +110,26 @@ dengan:
 * chunk-1: 1..100
 * chunk-2: 101..200
 * ...
-* chunk-10: 901..1000 
+* chunk-10: 901..1000
 
 Suatu Chunk disimpan pada suatu shard tertentu. Keistimewaan mongoDB salah satunya adalah auto sharding. Artinya suatu chunk dapat di transfer
-dari suatu shard ke shard yang lain. 
+dari suatu shard ke shard yang lain.
 
 Misalkan contoh diatas, 3 shard. Pada shard pertama terdapat 10 chunk. MongoDB akan melakukan balancing dengan melakukan transfer ke 2 shard
-yang lain sampai ukuran chunk pada tiap shard menjadi seimbang. Hal ini dilakukan secara automatis, meskipun kita juga dapat melakukannya secara 
+yang lain sampai ukuran chunk pada tiap shard menjadi seimbang. Hal ini dilakukan secara automatis, meskipun kita juga dapat melakukannya secara
 manual.
 
 ### Config DB Process (Config server) ###
 Selain mongod, dalam proses sharding dibutuhkan suatu prosess (program) yang bertugas untuk menyimpan informasi mengenai shard-server dan chunk
 didalam shard tersebut. informasi tersebut dikenal dengan meta-data. Kita dapat menjalankan 1 atau 3 *Config Server*. Tentu pada production
-dibutuhkan 3 config server. Ketika satu mati maka masih tersisa 2 cadangan *Config server*. 
+dibutuhkan 3 config server. Ketika satu mati maka masih tersisa 2 cadangan *Config server*.
 
-Tidak seperti mongod, *Config Server* tidak berkomunikasi antara satu dengan yang lain. Ketika satu proses mati, biasanya dihidupkan dengan 
+Tidak seperti mongod, *Config Server* tidak berkomunikasi antara satu dengan yang lain. Ketika satu proses mati, biasanya dihidupkan dengan
 melakukan restore terhadap dump dari server yang lain. Ketika server ini mati.
 
 ### Routing Process (mongos) ###
-Selain mongod dan *config server*, element lain yang penting adalah **mongos**. Fungsi utama dari mongos adalah melakukan routing terhadap 
-request ke shard yang memiliki data tersebut. Pada saat aplikasi ini dijalankan. ia akan mengambil data dari *config server*. Aplikasi yang 
+Selain mongod dan *config server*, element lain yang penting adalah **mongos**. Fungsi utama dari mongos adalah melakukan routing terhadap
+request ke shard yang memiliki data tersebut. Pada saat aplikasi ini dijalankan. ia akan mengambil data dari *config server*. Aplikasi yang
 kita miliki berkomunikasi layaknya dengan server database biasa. Misalkan sebelumnya aplikasi kita setup ke url mongod, sekarang setelah
 kita melakukan konfigurasi pada sharding, kita cukup mengarahkan url ke proses mongos.
 
@@ -137,8 +137,8 @@ Proses mongos ini relativ lebih kecil. Kadang kita dapat menjalankan mongos pada
 di mesin yang sama dengan mongod.
 
 ## Implementasi ##
-Ok, setelah kita mengerti beberapa konsep mengenai sharding, mari kita membuat suatu contoh kasus bagaimana melakukan implementasi terhadap 
-sharding berikut. Untuk kemudahan, maka semua *instance* server ktia letakkan pada server yang sama (localhost). Hal ini berlaku untuk 
+Ok, setelah kita mengerti beberapa konsep mengenai sharding, mari kita membuat suatu contoh kasus bagaimana melakukan implementasi terhadap
+sharding berikut. Untuk kemudahan, maka semua *instance* server ktia letakkan pada server yang sama (localhost). Hal ini berlaku untuk
 mongod, Config Server, mongos dan server aplikasi.
 
 Pada contoh kasus ini kita akan menjalankan beberpa server sebagai berikut
@@ -194,7 +194,7 @@ switched to db admin
 { "shardAdded" : "shard0000", "ok" : 1 }
 > db.runCommand( { addshard: "localhost:10001"} )
 { "shardAdded" : "shard0001", "ok" : 1 }
-> 
+>
 {% endcodeblock %}
 
 Berikutnya, kita set agar server tersebut dalam mode sharding pada database test. Setelah itu kita akan menambahkan sharding pada *collection* *people* dengan
@@ -208,7 +208,7 @@ Berikutnya, kita set agar server tersebut dalam mode sharding pada database test
   > show collections
 {% endcodeblock %}
 
-Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjadi 1 MB 
+Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjadi 1 MB
 
 <div class="alert alert-info">
   Entah mengapa parameter --chunkSize 1 tidak mengubah ukuran chunk, oleh karena itu kita ubah dari database
@@ -232,9 +232,9 @@ Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjad
   > db.settings.find()
   { "_id" : "chunksize", "value" : 64 }
   > db.settings.save({_id:"chunksize", value: 1})
-  > db.settings.find()                           
+  > db.settings.find()
   { "_id" : "chunksize", "value" : 1 }
-  > 
+  >
 {% endcodeblock %}
 
 Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.
@@ -259,9 +259,9 @@ Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collect
   24576
 {% endcodeblock %}
 
-Dapat dilihat pada hasil diatas bahwa kita telah memasukkan 1 dokumen pada *collection* people dan untuk 1 dokumen kita memerlukan 68 byte. 
+Dapat dilihat pada hasil diatas bahwa kita telah memasukkan 1 dokumen pada *collection* people dan untuk 1 dokumen kita memerlukan 68 byte.
 Ingat bahwa pada contoh diatas, kita menetapkan ukuran 1 chunk adalah 1MB (1024 byte). Skarang kita coba untuk memasukan data sehingga ukuran
-data menjadi 3 chuck  
+data menjadi 3 chuck
 
 Mari kita tambahkan record (dokumen) sebanyak 20000.
 
@@ -271,9 +271,9 @@ Mari kita tambahkan record (dokumen) sebanyak 20000.
   ...   var person_email = "email-" + i + "@foo.com";
   ...   db.people.save ({ name: person_name, email: person_email });
   ... }
-  > db.people.totalSize()             
+  > db.people.totalSize()
   6776064
-  > db.people.dataSize()              
+  > db.people.dataSize()
   1559608
   >
 {% endcodeblock %}
@@ -355,7 +355,7 @@ Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan per
   }
 {% endcodeblock %}
 
-dari data diatas kita dapat melihat bahwa terdapat 3 chunk: 
+dari data diatas kita dapat melihat bahwa terdapat 3 chunk:
 
 * test.people-email_MinKey berada pada shard0001
 * test.people-email_\"email-10000@foo.com\" berada pada shard0000
@@ -368,7 +368,7 @@ Misalkan pada contoh diatas kita ingin memindahkan chunk `test.people-email_\"em
 dapat dilakukan dengan perintah berikut
 
 {% codeblock lang:bash %}
-  > db.adminCommand({ moveChunk: "test.people", find: {email: "email-9@foo.com"}, to: 'shard0001'})    
+  > db.adminCommand({ moveChunk: "test.people", find: {email: "email-9@foo.com"}, to: 'shard0001'})
   { "millis" : 1038, "ok" : 1 }
   > db.chunks.find()
   {

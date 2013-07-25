@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "jekyll", "~> 0.11.2"
+gem "jekyll", "~> 1.1.2"
 gem "rdiscount"
 
 gem "compass"
@@ -12,6 +12,6 @@ gem "guard"
 gem "guard-livereload"
 gem "foreman"
 gem 'rake'
-gem 'pygments.rb'
+gem 'pygments.rb', '~> 0.5.0'
 gem 'stringex'
 gem 'rb-fsevent', '~> 0.9.1'
