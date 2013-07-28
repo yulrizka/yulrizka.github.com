@@ -53,6 +53,6 @@ If you ever received / sent this email. I would suggest you to:
 2. Don't store or send sensitive information unencrypted with email like: password, keys, bank account info 
 3. If you need to send sensitive information, try encrypting it first. I go into details of doing that in [Safely sharing credentials with PGP](/en/2013/07/safely-sharing-credentials-with-pgp.html). I'm start doing this from now on.
 4. Use some secure password, and don't use the same password for all of your account.
-5. If you can try to change the password on a regular basis. or use service like [LastPass](https://lastpass.com/)
-6. When this is you work email that sometimes contain private information. Use service that offer *two factor authentication* like gmail does [you need to enable it(http://www.google.com/landing/2step/). 
+5. If you can, try to change the password on a regular basis. or use service like [LastPass](https://lastpass.com/)
+6. When this is you work email that sometimes contain private information. Use service that offer *two factor authentication* like gmail does [you need to enable it](http://www.google.com/landing/2step/). 
 7. Stay safe friend, internet is a dangerous place
