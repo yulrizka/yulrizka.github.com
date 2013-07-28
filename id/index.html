@@ -24,9 +24,7 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-          
-
-<div class="articles">
+          <div class="articles">
   <article>
     <h1 class="">
         <a href="/id/2012/03/scale-mongodb-dengan-sharding.html" rel="bookmark" title="Permanent link to ">Scale MongoDB dengan Sharding</a>
@@ -38,7 +36,6 @@
   Proses <em>Horizontal Partitioning</em> pada MongoDB melibatkan suatu konsep <em>Chunk</em> dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
   <em>shard key</em>. Artikel ini membahas bagaimana melakukan sharding pada mongodb
 </div>
-
 
 <h2>Introduksi</h2>
 
@@ -58,14 +55,12 @@ kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan loa
 <li>Routing Process (mongos)</li>
 </ul>
 
-
 <div class="row">
   <a href="http://www.mongodb.org/display/DOCS/Sharding+Introduction" class="thumbnail span7 offset2">
     <img src="http://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&nbsp;modificationDate=1267724627656"/>
     <h5>Skema Sharding - MongoDB Sharding Introduction</h5>
   </a>
 </div>
-
 
 <h3>mongod</h3>
 
@@ -79,8 +74,7 @@ satu aplikasi sedehana cukup dibuat dengan 1 application server yang berkomunika
 Replica bertujuan untuk <em>failover</em>, <em>reducancy</em> juga sebagai <em>distribution read load</em>
 . Artinya apabila terdapat beberapa request read terhadap data yang sama, maka request tersebut bisa di handle oleh lebih dari satu server</p>
 
-<p>Contoh, misalkan kita mempunyai 3 data center: Jakarta, Bandung dan Surabaya. maka kita dapat membentuk replika sebagai berikut.</p>
-
+<p>Contoh, misalkan kita mempunyai 3 data center: Jakarta, Bandung dan Surabaya. maka kita dapat membentuk replika sebagai berikut.
 <div class="row">
   <div style="text-align: center">
     <table class="table table-striped table-bordered table-condensed span5">
@@ -111,8 +105,7 @@ Replica bertujuan untuk <em>failover</em>, <em>reducancy</em> juga sebagai <em>d
       </tbody>
     </table>
   </div>
-</div>
-
+</div></p>
 
 <h3>Shards</h3>
 
@@ -152,7 +145,6 @@ dengan:</p>
 <li>...</li>
 <li>chunk-10: 901..1000</li>
 </ul>
-
 
 <p>Suatu Chunk disimpan pada suatu shard tertentu. Keistimewaan mongoDB salah satunya adalah auto sharding. Artinya suatu chunk dapat di transfer
 dari suatu shard ke shard yang lain.</p>
@@ -194,48 +186,17 @@ mongod, Config Server, mongos dan server aplikasi.</p>
 <li>1 Mongos</li>
 </ul>
 
-
 <h3>Mongod</h3>
 
 <p>Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo server. Untuk menjalankan 2 proses mongod, jalankan perintah berikut</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  <span class="nv">$ </span>mkdir a b
-</span><span class='line'>  <span class="c"># jalankan instance pertama</span>
-</span><span class='line'>  <span class="nv">$ </span>mongod --shardsvr --dbpath <span class="nv">$PWD</span>/a --port 10000 &gt; /tmp/sharda.log &amp;
-</span><span class='line'>  <span class="nv">$ </span>cat /tmp/sharda.log <span class="c"># pastikan process tersebut berjalan</span>
-</span><span class='line'>  <span class="c"># jalankan instance kedua</span>
-</span><span class='line'>  <span class="nv">$ </span>mongod --shardsvr --dbpath <span class="nv">$PWD</span>/b --port 10001 &gt; /tmp/shardb.log &amp;
-</span><span class='line'>  <span class="nv">$ </span>cat /tmp/shardb.log <span class="c"># pastikan process tersebut berjalan</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">  <span class="nv">$ </span>mkdir a b</div><div class="code-line" id="C1L2">  <span class="c"># jalankan instance pertama</span></div><div class="code-line" id="C1L3">  <span class="nv">$ </span>mongod --shardsvr --dbpath <span class="nv">$PWD</span>/a --port 10000 &gt; /tmp/sharda.log &amp;</div><div class="code-line" id="C1L4">  <span class="nv">$ </span>cat /tmp/sharda.log <span class="c"># pastikan process tersebut berjalan</span></div><div class="code-line" id="C1L5">  <span class="c"># jalankan instance kedua</span></div><div class="code-line" id="C1L6">  <span class="nv">$ </span>mongod --shardsvr --dbpath <span class="nv">$PWD</span>/b --port 10001 &gt; /tmp/shardb.log &amp;</div><div class="code-line" id="C1L7">  <span class="nv">$ </span>cat /tmp/shardb.log <span class="c"># pastikan process tersebut berjalan</span></div></pre></div></td></tr></table></div>
 
 <h3>Configuration Server &amp; Mongos</h3>
 
 <p>Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos dengan perintah berikut</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  <span class="nv">$ </span>mkdir config
-</span><span class='line'>  <span class="c"># start config server</span>
-</span><span class='line'>  <span class="nv">$ </span>mongod --configsvr --dbpath <span class="nv">$PWD</span>/config --port 20000 &gt; /tmp/configdb.log &amp;
-</span><span class='line'>  <span class="nv">$ </span>cat /tmp/configdb.log <span class="c"># pastikan server berjalan</span>
-</span><span class='line'>  <span class="c"># start mongos</span>
-</span><span class='line'>  <span class="nv">$ </span>mongos --configdb localhost:20000 --chunkSize 1 &gt; /tmp/mongos.log &amp;
-</span><span class='line'>  <span class="nv">$ </span>cat /tmp/mongos.log <span class="c"># pastikan server tersebut berjalan</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1">  <span class="nv">$ </span>mkdir config</div><div class="code-line" id="C2L2">  <span class="c"># start config server</span></div><div class="code-line" id="C2L3">  <span class="nv">$ </span>mongod --configsvr --dbpath <span class="nv">$PWD</span>/config --port 20000 &gt; /tmp/configdb.log &amp;</div><div class="code-line" id="C2L4">  <span class="nv">$ </span>cat /tmp/configdb.log <span class="c"># pastikan server berjalan</span></div><div class="code-line" id="C2L5">  <span class="c"># start mongos</span></div><div class="code-line" id="C2L6">  <span class="nv">$ </span>mongos --configdb localhost:20000 --chunkSize 1 &gt; /tmp/mongos.log &amp;</div><div class="code-line" id="C2L7">  <span class="nv">$ </span>cat /tmp/mongos.log <span class="c"># pastikan server tersebut berjalan</span></div></pre></div></td></tr></table></div>
 
 <p>pada contoh diatas, mongos tidak membutuhkan <code>--dbpath</code>, karena mongo tidak memerlukan <em>persistance</em> (penyimpanan data). Perintah <code>mongos</code> diatas
 akan menjalankan mongos pada port default (sama serperti port default mongod) yaitu 27017</p>
@@ -252,46 +213,21 @@ yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berko
 
 <p>Berikutnya yang kita lakukan adalah setup mongos agar menambahkan 2 shard server yang berjalan pada port 10000 &amp; 10001.</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>mongo
-</span><span class='line'>MongoDB shell version: 1.8.2
-</span><span class='line'>connecting to: <span class="nb">test</span>
-</span><span class='line'>&gt; use admin
-</span><span class='line'>switched to db admin
-</span><span class='line'>&gt; db.runCommand<span class="o">(</span> <span class="o">{</span> addshard: <span class="s2">&quot;localhost:10000&quot;</span><span class="o">}</span> <span class="o">)</span>
-</span><span class='line'><span class="o">{</span> <span class="s2">&quot;shardAdded&quot;</span> : <span class="s2">&quot;shard0000&quot;</span>, <span class="s2">&quot;ok&quot;</span> : 1 <span class="o">}</span>
-</span><span class='line'>&gt; db.runCommand<span class="o">(</span> <span class="o">{</span> addshard: <span class="s2">&quot;localhost:10001&quot;</span><span class="o">}</span> <span class="o">)</span>
-</span><span class='line'><span class="o">{</span> <span class="s2">&quot;shardAdded&quot;</span> : <span class="s2">&quot;shard0001&quot;</span>, <span class="s2">&quot;ok&quot;</span> : 1 <span class="o">}</span>
-</span><span class='line'>&gt;
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="nv">$ </span>mongo</div><div class="code-line" id="C3L2">MongoDB shell version: 1.8.2</div><div class="code-line" id="C3L3">connecting to: <span class="nb">test</span></div><div class="code-line" id="C3L4">&gt; use admin</div><div class="code-line" id="C3L5">switched to db admin</div><div class="code-line" id="C3L6">&gt; db.runCommand<span class="o">(</span> <span class="o">{</span> addshard: <span class="s2">&quot;localhost:10000&quot;</span><span class="o">}</span> <span class="o">)</span></div><div class="code-line" id="C3L7"><span class="o">{</span> <span class="s2">&quot;shardAdded&quot;</span> : <span class="s2">&quot;shard0000&quot;</span>, <span class="s2">&quot;ok&quot;</span> : 1 <span class="o">}</span></div><div class="code-line" id="C3L8">&gt; db.runCommand<span class="o">(</span> <span class="o">{</span> addshard: <span class="s2">&quot;localhost:10001&quot;</span><span class="o">}</span> <span class="o">)</span></div><div class="code-line" id="C3L9"><span class="o">{</span> <span class="s2">&quot;shardAdded&quot;</span> : <span class="s2">&quot;shard0001&quot;</span>, <span class="s2">&quot;ok&quot;</span> : 1 <span class="o">}</span></div><div class="code-line" id="C3L10">&gt;</div></pre></div></td></tr></table></div>
 
 <p>Berikutnya, kita set agar server tersebut dalam mode sharding pada database test. Setelah itu kita akan menambahkan sharding pada <em>collection</em> <em>people</em> dengan
-<em>shard key</em> <em>email</em>. Meskipun pada tahap ini kita belum memiliki <em>people Collection</em></p>
+<em>shard key</em> <em>email</em>. Meskipun pada tahap ini kita belum memiliki <em>people Collection</em>
+```bash</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  &gt; db.runCommand<span class="o">(</span> <span class="o">{</span> enablesharding: <span class="s2">&quot;test&quot;</span> <span class="o">}</span> <span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span> <span class="s2">&quot;ok&quot;</span> : 1 <span class="o">}</span>
-</span><span class='line'>  &gt; db.runCommand<span class="o">(</span> <span class="o">{</span> shardcollection: <span class="s2">&quot;test.people&quot;</span>, key: <span class="o">{</span>email: 1<span class="o">}</span> <span class="o">}</span> <span class="o">)</span>
-</span><span class='line'>  <span class="o">{</span> <span class="s2">&quot;collectionsharded&quot;</span> : <span class="s2">&quot;test.people&quot;</span>, <span class="s2">&quot;ok&quot;</span> : 1 <span class="o">}</span>
-</span><span class='line'>  &gt; use <span class="nb">test</span>
-</span><span class='line'>  &gt; show collections
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<blockquote>
+<p>db.runCommand( { enablesharding: &quot;test&quot; } )
+  { &quot;ok&quot; : 1 }
+db.runCommand( { shardcollection: &quot;test.people&quot;, key: {email: 1} } )
+  { &quot;collectionsharded&quot; : &quot;test.people&quot;, &quot;ok&quot; : 1 }
+use test
+show collections
+```</p>
+</blockquote>
 
 <p>Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjadi 1 MB</p>
 
@@ -299,57 +235,13 @@ yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berko
   Entah mengapa parameter --chunkSize 1 tidak mengubah ukuran chunk, oleh karena itu kita ubah dari database
 </div>
 
-
-
-
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  &gt; use config
-</span><span class='line'>  switched to db config
-</span><span class='line'>  &gt; show collections
-</span><span class='line'>  changelog
-</span><span class='line'>  chunks
-</span><span class='line'>  collections
-</span><span class='line'>  databases
-</span><span class='line'>  lockpings
-</span><span class='line'>  locks
-</span><span class='line'>  mongos
-</span><span class='line'>  settings
-</span><span class='line'>  shards
-</span><span class='line'>  system.indexes
-</span><span class='line'>  version
-</span><span class='line'>  &gt; db.settings.find<span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span> <span class="s2">&quot;_id&quot;</span> : <span class="s2">&quot;chunksize&quot;</span>, <span class="s2">&quot;value&quot;</span> : 64 <span class="o">}</span>
-</span><span class='line'>  &gt; db.settings.save<span class="o">({</span>_id:<span class="s2">&quot;chunksize&quot;</span>, value: 1<span class="o">})</span>
-</span><span class='line'>  &gt; db.settings.find<span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span> <span class="s2">&quot;_id&quot;</span> : <span class="s2">&quot;chunksize&quot;</span>, <span class="s2">&quot;value&quot;</span> : 1 <span class="o">}</span>
-</span><span class='line'>  &gt;
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">  &gt; use config</div><div class="code-line" id="C4L2">  switched to db config</div><div class="code-line" id="C4L3">  &gt; show collections</div><div class="code-line" id="C4L4">  changelog</div><div class="code-line" id="C4L5">  chunks</div><div class="code-line" id="C4L6">  collections</div><div class="code-line" id="C4L7">  databases</div><div class="code-line" id="C4L8">  lockpings</div><div class="code-line" id="C4L9">  locks</div><div class="code-line" id="C4L10">  mongos</div><div class="code-line" id="C4L11">  settings</div><div class="code-line" id="C4L12">  shards</div><div class="code-line" id="C4L13">  system.indexes</div><div class="code-line" id="C4L14">  version</div><div class="code-line" id="C4L15">  &gt; db.settings.find<span class="o">()</span></div><div class="code-line" id="C4L16">  <span class="o">{</span> <span class="s2">&quot;_id&quot;</span> : <span class="s2">&quot;chunksize&quot;</span>, <span class="s2">&quot;value&quot;</span> : 64 <span class="o">}</span></div><div class="code-line" id="C4L17">  &gt; db.settings.save<span class="o">({</span>_id:<span class="s2">&quot;chunksize&quot;</span>, value: 1<span class="o">})</span></div><div class="code-line" id="C4L18">  &gt; db.settings.find<span class="o">()</span></div><div class="code-line" id="C4L19">  <span class="o">{</span> <span class="s2">&quot;_id&quot;</span> : <span class="s2">&quot;chunksize&quot;</span>, <span class="s2">&quot;value&quot;</span> : 1 <span class="o">}</span></div><div class="code-line" id="C4L20">  &gt;</div></pre></div></td></tr></table></div>
 
 <p>Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.</p>
 
 <p>Ok, sampai tahap ini kita telah selesai melakukan shard terhadap server tersebut</p>
 
-<h2>Let's Play</h2>
+<h2>Let&#39;s Play</h2>
 
 <p>Sekarang saatnya kita melakukan percobaan dengan shard dan chunk.</p>
 
@@ -357,26 +249,7 @@ yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berko
 
 <p>Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collection tersebut.</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  &gt; use <span class="nb">test</span>
-</span><span class='line'><span class="nb">  </span>switched to db <span class="nb">test</span>
-</span><span class='line'>  &gt; db.people.save<span class="o">(</span> <span class="o">{</span> name: <span class="s2">&quot;Person test&quot;</span>, email: <span class="s2">&quot;test@foo.com&quot;</span> <span class="o">}</span> <span class="o">)</span>
-</span><span class='line'>  &gt; db.people.find<span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span> <span class="s2">&quot;_id&quot;</span> : ObjectId<span class="o">(</span><span class="s2">&quot;4f5742cc580bd77a9d9ec6d6&quot;</span><span class="o">)</span>, <span class="s2">&quot;email&quot;</span> : <span class="s2">&quot;test@foo.com&quot;</span>, <span class="s2">&quot;name&quot;</span> : <span class="s2">&quot;Person test&quot;</span> <span class="o">}</span>
-</span><span class='line'>  &gt; db.people.dataSize<span class="o">()</span>
-</span><span class='line'>  68
-</span><span class='line'>  &gt; db.people.totalSize<span class="o">()</span>
-</span><span class='line'>  24576
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span></td><td><div class="highlight"><pre><div class="code-line" id="C5L1">  &gt; use <span class="nb">test</span></div><div class="code-line" id="C5L2"><span class="nb">  </span>switched to db <span class="nb">test</span></div><div class="code-line" id="C5L3">  &gt; db.people.save<span class="o">(</span> <span class="o">{</span> name: <span class="s2">&quot;Person test&quot;</span>, email: <span class="s2">&quot;test@foo.com&quot;</span> <span class="o">}</span> <span class="o">)</span></div><div class="code-line" id="C5L4">  &gt; db.people.find<span class="o">()</span></div><div class="code-line" id="C5L5">  <span class="o">{</span> <span class="s2">&quot;_id&quot;</span> : ObjectId<span class="o">(</span><span class="s2">&quot;4f5742cc580bd77a9d9ec6d6&quot;</span><span class="o">)</span>, <span class="s2">&quot;email&quot;</span> : <span class="s2">&quot;test@foo.com&quot;</span>, <span class="s2">&quot;name&quot;</span> : <span class="s2">&quot;Person test&quot;</span> <span class="o">}</span></div><div class="code-line" id="C5L6">  &gt; db.people.dataSize<span class="o">()</span></div><div class="code-line" id="C5L7">  68</div><div class="code-line" id="C5L8">  &gt; db.people.totalSize<span class="o">()</span></div><div class="code-line" id="C5L9">  24576</div></pre></div></td></tr></table></div>
 
 <p>Dapat dilihat pada hasil diatas bahwa kita telah memasukkan 1 dokumen pada <em>collection</em> people dan untuk 1 dokumen kita memerlukan 68 byte.
 Ingat bahwa pada contoh diatas, kita menetapkan ukuran 1 chunk adalah 1MB (1024 byte). Skarang kita coba untuk memasukan data sehingga ukuran
@@ -384,304 +257,94 @@ data menjadi 3 chuck</p>
 
 <p>Mari kita tambahkan record (dokumen) sebanyak 20000.</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  &gt; <span class="k">for</span> <span class="o">(</span>var <span class="nv">i</span> <span class="o">=</span> 1; i &lt;<span class="o">=</span> 20000; i++<span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>  ...   var <span class="nv">person_name</span> <span class="o">=</span> <span class="s2">&quot;Person #&quot;</span> + i;
-</span><span class='line'>  ...   var <span class="nv">person_email</span> <span class="o">=</span> <span class="s2">&quot;email-&quot;</span> + i + <span class="s2">&quot;@foo.com&quot;</span>;
-</span><span class='line'>  ...   db.people.save <span class="o">({</span> name: person_name, email: person_email <span class="o">})</span>;
-</span><span class='line'>  ... <span class="o">}</span>
-</span><span class='line'>  &gt; db.people.totalSize<span class="o">()</span>
-</span><span class='line'>  6776064
-</span><span class='line'>  &gt; db.people.dataSize<span class="o">()</span>
-</span><span class='line'>  1559608
-</span><span class='line'>  &gt;
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span></td><td><div class="highlight"><pre><div class="code-line" id="C6L1">  &gt; <span class="k">for</span> <span class="o">(</span>var <span class="nv">i</span> <span class="o">=</span> 1; i &lt;<span class="o">=</span> 20000; i++<span class="o">)</span> <span class="o">{</span></div><div class="code-line" id="C6L2">  ...   var <span class="nv">person_name</span> <span class="o">=</span> <span class="s2">&quot;Person #&quot;</span> + i;</div><div class="code-line" id="C6L3">  ...   var <span class="nv">person_email</span> <span class="o">=</span> <span class="s2">&quot;email-&quot;</span> + i + <span class="s2">&quot;@foo.com&quot;</span>;</div><div class="code-line" id="C6L4">  ...   db.people.save <span class="o">({</span> name: person_name, email: person_email <span class="o">})</span>;</div><div class="code-line" id="C6L5">  ... <span class="o">}</span></div><div class="code-line" id="C6L6">  &gt; db.people.totalSize<span class="o">()</span></div><div class="code-line" id="C6L7">  6776064</div><div class="code-line" id="C6L8">  &gt; db.people.dataSize<span class="o">()</span></div><div class="code-line" id="C6L9">  1559608</div><div class="code-line" id="C6L10">  &gt;</div></pre></div></td></tr></table></div>
 
 <h3>Melihat informasi jumlah shard</h3>
 
 <p>untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  &gt; use admin
-</span><span class='line'>  switched to db admin
-</span><span class='line'>  &gt; db.runCommand<span class="o">({</span> listshards: 1<span class="o">})</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>      <span class="s2">&quot;shards&quot;</span> : <span class="o">[</span>
-</span><span class='line'>          <span class="o">{</span>
-</span><span class='line'>              <span class="s2">&quot;_id&quot;</span> : <span class="s2">&quot;shard0000&quot;</span>,
-</span><span class='line'>              <span class="s2">&quot;host&quot;</span> : <span class="s2">&quot;localhost:10000&quot;</span>
-</span><span class='line'>          <span class="o">}</span>,
-</span><span class='line'>          <span class="o">{</span>
-</span><span class='line'>              <span class="s2">&quot;_id&quot;</span> : <span class="s2">&quot;shard0001&quot;</span>,
-</span><span class='line'>              <span class="s2">&quot;host&quot;</span> : <span class="s2">&quot;localhost:10001&quot;</span>
-</span><span class='line'>          <span class="o">}</span>
-</span><span class='line'>      <span class="o">]</span>,
-</span><span class='line'>      <span class="s2">&quot;ok&quot;</span> : 1
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span></td><td><div class="highlight"><pre><div class="code-line" id="C7L1">  &gt; use admin</div><div class="code-line" id="C7L2">  switched to db admin</div><div class="code-line" id="C7L3">  &gt; db.runCommand<span class="o">({</span> listshards: 1<span class="o">})</span></div><div class="code-line" id="C7L4">  <span class="o">{</span></div><div class="code-line" id="C7L5">    <span class="s2">&quot;shards&quot;</span> : <span class="o">[</span></div><div class="code-line" id="C7L6">        <span class="o">{</span></div><div class="code-line" id="C7L7">            <span class="s2">&quot;_id&quot;</span> : <span class="s2">&quot;shard0000&quot;</span>,</div><div class="code-line" id="C7L8">            <span class="s2">&quot;host&quot;</span> : <span class="s2">&quot;localhost:10000&quot;</span></div><div class="code-line" id="C7L9">        <span class="o">}</span>,</div><div class="code-line" id="C7L10">        <span class="o">{</span></div><div class="code-line" id="C7L11">            <span class="s2">&quot;_id&quot;</span> : <span class="s2">&quot;shard0001&quot;</span>,</div><div class="code-line" id="C7L12">            <span class="s2">&quot;host&quot;</span> : <span class="s2">&quot;localhost:10001&quot;</span></div><div class="code-line" id="C7L13">        <span class="o">}</span></div><div class="code-line" id="C7L14">    <span class="o">]</span>,</div><div class="code-line" id="C7L15">    <span class="s2">&quot;ok&quot;</span> : 1</div><div class="code-line" id="C7L16">  <span class="o">}</span></div></pre></div></td></tr></table></div>
 
 <h3>Melihat informasi Chunk</h3>
 
-<p>Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut</p>
+<p>Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut
+```bash</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  &gt; use config
-</span><span class='line'>  switched to db config
-</span><span class='line'>  &gt; db.chunks.find<span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_MinKey&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;t&quot;</span>:2000,
-</span><span class='line'>        <span class="s2">&quot;i&quot;</span>:0
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="o">{</span>
-</span><span class='line'>           <span class="nv">$minKey</span>:1
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-10000@foo.com&quot;</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0001&quot;</span>
-</span><span class='line'>  <span class="o">}{</span>
-</span><span class='line'>     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_\&quot;email-10000@foo.com\&quot;&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;t&quot;</span>:2000,
-</span><span class='line'>        <span class="s2">&quot;i&quot;</span>:2
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-10000@foo.com&quot;</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-9@foo.com&quot;</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0000&quot;</span>
-</span><span class='line'>  <span class="o">}{</span>
-</span><span class='line'>     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_\&quot;email-9@foo.com\&quot;&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;t&quot;</span>:2000,
-</span><span class='line'>        <span class="s2">&quot;i&quot;</span>:3
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-9@foo.com&quot;</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="o">{</span>
-</span><span class='line'>           <span class="nv">$maxKey</span>:1
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0000&quot;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<blockquote>
+<p>use config
+  switched to db config
+db.chunks.find()
+  {
+     &quot;<em>id&quot;:&quot;test.people-email</em>MinKey&quot;,
+     &quot;lastmod&quot;:{
+        &quot;t&quot;:2000,
+        &quot;i&quot;:0
+     },
+     &quot;ns&quot;:&quot;test.people&quot;,
+     &quot;min&quot;:{
+        &quot;email&quot;:{
+           $minKey:1
+        }
+     },
+     &quot;max&quot;:{
+        &quot;email&quot;:&quot;email-10000@foo.com&quot;
+     },
+     &quot;shard&quot;:&quot;shard0001&quot;
+  }{
+     &quot;<em>id&quot;:&quot;test.people-email</em>\&quot;email-10000@foo.com\&quot;&quot;,
+     &quot;lastmod&quot;:{
+        &quot;t&quot;:2000,
+        &quot;i&quot;:2
+     },
+     &quot;ns&quot;:&quot;test.people&quot;,
+     &quot;min&quot;:{
+        &quot;email&quot;:&quot;email-10000@foo.com&quot;
+     },
+     &quot;max&quot;:{
+        &quot;email&quot;:&quot;email-9@foo.com&quot;
+     },
+     &quot;shard&quot;:&quot;shard0000&quot;
+  }{
+     &quot;<em>id&quot;:&quot;test.people-email</em>\&quot;email-9@foo.com\&quot;&quot;,
+     &quot;lastmod&quot;:{
+        &quot;t&quot;:2000,
+        &quot;i&quot;:3
+     },
+     &quot;ns&quot;:&quot;test.people&quot;,
+     &quot;min&quot;:{
+        &quot;email&quot;:&quot;email-9@foo.com&quot;
+     },
+     &quot;max&quot;:{
+        &quot;email&quot;:{
+           $maxKey:1
+        }
+     },
+     &quot;shard&quot;:&quot;shard0000&quot;
+  }
+```</p>
+</blockquote>
 
 <p>dari data diatas kita dapat melihat bahwa terdapat 3 chunk:</p>
 
 <ul>
 <li>test.people-email_MinKey berada pada shard0001</li>
-<li>test.people-email_\"email-10000@foo.com\" berada pada shard0000</li>
-<li>test.people-email_\"email-9@foo.com\" berada pada shard0000</li>
+<li>test.people-email_\&quot;email-10000@foo.com\&quot; berada pada shard0000</li>
+<li>test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000</li>
 </ul>
-
 
 <p>MongoDB ternyata melakukan partisi terhadap <em>shard key</em> dengan memperlakukan key tersebut sebagai string.</p>
 
 <h3>Memindahkan Chunk ke shard lain</h3>
 
-<p>Misalkan pada contoh diatas kita ingin memindahkan chunk <code>test.people-email_\"email-9@foo.com\" berada pada shard0000</code> dari shard0000 je shard0001. Hal tersebut
+<p>Misalkan pada contoh diatas kita ingin memindahkan chunk <code>test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000</code> dari shard0000 je shard0001. Hal tersebut
 dapat dilakukan dengan perintah berikut</p>
 
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>  &gt; db.adminCommand<span class="o">({</span> moveChunk: <span class="s2">&quot;test.people&quot;</span>, find: <span class="o">{</span>email: <span class="s2">&quot;email-9@foo.com&quot;</span><span class="o">}</span>, to: <span class="s1">&#39;shard0001&#39;</span><span class="o">})</span>
-</span><span class='line'>  <span class="o">{</span> <span class="s2">&quot;millis&quot;</span> : 1038, <span class="s2">&quot;ok&quot;</span> : 1 <span class="o">}</span>
-</span><span class='line'>  &gt; db.chunks.find<span class="o">()</span>
-</span><span class='line'>  <span class="o">{</span>
-</span><span class='line'>     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_MinKey&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;t&quot;</span>:2000,
-</span><span class='line'>        <span class="s2">&quot;i&quot;</span>:0
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="o">{</span>
-</span><span class='line'>           <span class="nv">$minKey</span>:1
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-10000@foo.com&quot;</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0001&quot;</span>
-</span><span class='line'>  <span class="o">}{</span>
-</span><span class='line'>     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_\&quot;email-10000@foo.com\&quot;&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;t&quot;</span>:3000,
-</span><span class='line'>        <span class="s2">&quot;i&quot;</span>:1
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-10000@foo.com&quot;</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-9@foo.com&quot;</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0000&quot;</span>
-</span><span class='line'>  <span class="o">}{</span>
-</span><span class='line'>     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_\&quot;email-9@foo.com\&quot;&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;t&quot;</span>:3000,
-</span><span class='line'>        <span class="s2">&quot;i&quot;</span>:0
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,
-</span><span class='line'>     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-9@foo.com&quot;</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span>
-</span><span class='line'>        <span class="s2">&quot;email&quot;</span>:<span class="o">{</span>
-</span><span class='line'>           <span class="nv">$maxKey</span>:1
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>     <span class="o">}</span>,
-</span><span class='line'>     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0001&quot;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>  &gt;
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span><span class="line-number">33</span><span class="line-number">34</span><span class="line-number">35</span><span class="line-number">36</span><span class="line-number">37</span><span class="line-number">38</span><span class="line-number">39</span><span class="line-number">40</span><span class="line-number">41</span><span class="line-number">42</span><span class="line-number">43</span><span class="line-number">44</span><span class="line-number">45</span><span class="line-number">46</span><span class="line-number">47</span><span class="line-number">48</span><span class="line-number">49</span><span class="line-number">50</span><span class="line-number">51</span></td><td><div class="highlight"><pre><div class="code-line" id="C8L1">  &gt; db.adminCommand<span class="o">({</span> moveChunk: <span class="s2">&quot;test.people&quot;</span>, find: <span class="o">{</span>email: <span class="s2">&quot;email-9@foo.com&quot;</span><span class="o">}</span>, to: <span class="s1">&#39;shard0001&#39;</span><span class="o">})</span></div><div class="code-line" id="C8L2">  <span class="o">{</span> <span class="s2">&quot;millis&quot;</span> : 1038, <span class="s2">&quot;ok&quot;</span> : 1 <span class="o">}</span></div><div class="code-line" id="C8L3">  &gt; db.chunks.find<span class="o">()</span></div><div class="code-line" id="C8L4">  <span class="o">{</span></div><div class="code-line" id="C8L5">     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_MinKey&quot;</span>,</div><div class="code-line" id="C8L6">     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L7">        <span class="s2">&quot;t&quot;</span>:2000,</div><div class="code-line" id="C8L8">        <span class="s2">&quot;i&quot;</span>:0</div><div class="code-line" id="C8L9">     <span class="o">}</span>,</div><div class="code-line" id="C8L10">     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,</div><div class="code-line" id="C8L11">     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L12">        <span class="s2">&quot;email&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L13">           <span class="nv">$minKey</span>:1</div><div class="code-line" id="C8L14">        <span class="o">}</span></div><div class="code-line" id="C8L15">     <span class="o">}</span>,</div><div class="code-line" id="C8L16">     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L17">        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-10000@foo.com&quot;</span></div><div class="code-line" id="C8L18">     <span class="o">}</span>,</div><div class="code-line" id="C8L19">     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0001&quot;</span></div><div class="code-line" id="C8L20">  <span class="o">}{</span></div><div class="code-line" id="C8L21">     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_\&quot;email-10000@foo.com\&quot;&quot;</span>,</div><div class="code-line" id="C8L22">     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L23">        <span class="s2">&quot;t&quot;</span>:3000,</div><div class="code-line" id="C8L24">        <span class="s2">&quot;i&quot;</span>:1</div><div class="code-line" id="C8L25">     <span class="o">}</span>,</div><div class="code-line" id="C8L26">     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,</div><div class="code-line" id="C8L27">     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L28">        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-10000@foo.com&quot;</span></div><div class="code-line" id="C8L29">     <span class="o">}</span>,</div><div class="code-line" id="C8L30">     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L31">        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-9@foo.com&quot;</span></div><div class="code-line" id="C8L32">     <span class="o">}</span>,</div><div class="code-line" id="C8L33">     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0000&quot;</span></div><div class="code-line" id="C8L34">  <span class="o">}{</span></div><div class="code-line" id="C8L35">     <span class="s2">&quot;_id&quot;</span>:<span class="s2">&quot;test.people-email_\&quot;email-9@foo.com\&quot;&quot;</span>,</div><div class="code-line" id="C8L36">     <span class="s2">&quot;lastmod&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L37">        <span class="s2">&quot;t&quot;</span>:3000,</div><div class="code-line" id="C8L38">        <span class="s2">&quot;i&quot;</span>:0</div><div class="code-line" id="C8L39">     <span class="o">}</span>,</div><div class="code-line" id="C8L40">     <span class="s2">&quot;ns&quot;</span>:<span class="s2">&quot;test.people&quot;</span>,</div><div class="code-line" id="C8L41">     <span class="s2">&quot;min&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L42">        <span class="s2">&quot;email&quot;</span>:<span class="s2">&quot;email-9@foo.com&quot;</span></div><div class="code-line" id="C8L43">     <span class="o">}</span>,</div><div class="code-line" id="C8L44">     <span class="s2">&quot;max&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L45">        <span class="s2">&quot;email&quot;</span>:<span class="o">{</span></div><div class="code-line" id="C8L46">           <span class="nv">$maxKey</span>:1</div><div class="code-line" id="C8L47">        <span class="o">}</span></div><div class="code-line" id="C8L48">     <span class="o">}</span>,</div><div class="code-line" id="C8L49">     <span class="s2">&quot;shard&quot;</span>:<span class="s2">&quot;shard0001&quot;</span></div><div class="code-line" id="C8L50">  <span class="o">}</span></div><div class="code-line" id="C8L51">  &gt;</div></pre></div></td></tr></table></div>
 
 <p>Dari data diatas kita bisa melihat bahwa chunk tersebut sudah pindah dari shard0000 ke sahrd00001</p>
-
-    </p>
-  </article>
-</div>
-
-
-
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<p></article>
+</div></p>
 
 <div class="articles">
   <article>
@@ -704,11 +367,7 @@ dapat dilakukan dengan perintah berikut</p>
   </small>
 </blockquote>
 
-
-
-
 <h2>Thread</h2>
-
 
 <p>Untuk dapat mengerti mengenai fiber, sebelumnya kita harus memahami thread. Suatu (<em>instance</em>) program yang sedang berjalan
 disebut dengan proses. thread adalah unit proses (potongan kode) yang dapat dijalankan secara simultan. Jadi sekan-akan
@@ -732,26 +391,21 @@ akan dijadwalkan (dijalankan) dengan waktu yang sama.</p>
 
 <h2>Fiber</h2>
 
-
 <p>Fiber adalah fitur yang pertamakali diperkenalkan pada ruby 1.9 (Meskipun ada hack untuk ruby 1.8.{67}).
 Fiber mirip dengan thread. Namun pada fiber, user yang memiliki kontrol terhadap eksekusi kode, bukan <em>scheduler</em>.
-setiap fiber memiliki 4Kb memori sehingga cukup "murah" untuk dibuat. Berikut adalah contoh dari (igvita.com).</p>
+setiap fiber memiliki 4Kb memori sehingga cukup &quot;murah&quot; untuk dibuat. Berikut adalah contoh dari (igvita.com).</p>
 
 <p>Terdapat 2 thread: Thread pertama melakukan io-blocking selama 40ms dan komputasi 10ms. sedangkan
 thread kedua melakukan 50ms komputasi.</p>
 
-<p>Berikut adalah implementasi dalam thread dan juga fiber:</p>
-
+<p>Berikut adalah implementasi dalam thread dan juga fiber:
 <div class="thumbnail">
   <img src="http://www.igvita.com/posts/09/fibers-vs-threads.png"></img>
   <div class="caption">
     Komparasi kode yang dijalankan menggunakan thread &nbsp; fiber.
     <a href="http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/</a>
   </div>
-</div>
-
-
-<p><br/></p>
+</div><br/></p>
 
 <p>Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms.</p>
 
@@ -761,55 +415,21 @@ pada <em>EventMachine</em> di ruby</p>
 
 <h2>Cara Menggunakan Fiber</h2>
 
-
 <p>Untuk dapat memahami fiber, kita ambil contoh seperti berikut. Program ini sebenarnya tidak berguna, tapi cukup untuk
 mendemonstrasikan alur penggunaan fiber</p>
-
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight ruby'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="n">fiber</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
-</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Fiber: Beginning of fiber&quot;</span>
-</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 11)</span>
-</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Fiber: Halo main, saya fiber&quot;</span>
-</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 13)</span>
-</span><span class='line'>    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="s2">&quot;Fiber: Sekarang </span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Beginning main&quot;</span>
-</span><span class='line'>  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 2)</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Hello saya main thread&quot;</span>
-</span><span class='line'>  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 4)</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Main: Sekarang jam berapa ya ?&quot;</span>
-</span><span class='line'>  <span class="nb">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 6) dan output hasil</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-
-<pre><code> Main: Beginning main
- Fiber: Beginning of fiber
- Main: Hello saya main thread
- Fiber: Halo main, saya fiber
- Main: Sekarang jam berapa ya ?
- Fiber: Sekarang 2012-02-29 22:45:08 +0700
-</code></pre>
+<div class="code-listing"><table><tr><td class="lines language-ruby"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">  <span class="n">fiber</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span></div><div class="code-line" id="C1L2">    <span class="nb">puts</span> <span class="s2">&quot;Fiber: Beginning of fiber&quot;</span></div><div class="code-line" id="C1L3">    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 11)</span></div><div class="code-line" id="C1L4">    <span class="nb">puts</span> <span class="s2">&quot;Fiber: Halo main, saya fiber&quot;</span></div><div class="code-line" id="C1L5">    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 13)</span></div><div class="code-line" id="C1L6">    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="s2">&quot;Fiber: Sekarang </span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2">&quot;</span></div><div class="code-line" id="C1L7">  <span class="k">end</span></div><div class="code-line" id="C1L8"><br></div><div class="code-line" id="C1L9">  <span class="nb">puts</span> <span class="s2">&quot;Main: Beginning main&quot;</span></div><div class="code-line" id="C1L10">  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 2)</span></div><div class="code-line" id="C1L11">  <span class="nb">puts</span> <span class="s2">&quot;Main: Hello saya main thread&quot;</span></div><div class="code-line" id="C1L12">  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 4)</span></div><div class="code-line" id="C1L13">  <span class="nb">puts</span> <span class="s2">&quot;Main: Sekarang jam berapa ya ?&quot;</span></div><div class="code-line" id="C1L14">  <span class="nb">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 6) dan output hasil</span></div></pre></div></td></tr></table></div>
+<pre>
+     Main: Beginning main
+     Fiber: Beginning of fiber
+     Main: Hello saya main thread
+     Fiber: Halo main, saya fiber
+     Main: Sekarang jam berapa ya ?
+     Fiber: Sekarang 2012-02-29 22:45:08 +0700
+</pre>
 
     </p>
   </article>
 </div>
-
-
-
 
         </div>
       </div>
@@ -916,13 +536,6 @@ mendemonstrasikan alur penggunaan fiber</p>
           </div>
         </div>
         <div class="item">
-          <div class="image android"></div>
-          <div class="text">
-            <p class="title">Android</p>
-            <p>Android are amazing mobile platform, it's open source and you can easily implement your idea of mobile application including tab with this platform. And this is my place to explore it</p>
-          </div>
-        </div>
-        <div class="item">
           <div class="image web"></div>
           <div class="text">
             <p class="title">Web</p>
@@ -967,7 +580,6 @@ mendemonstrasikan alur penggunaan fiber</p>
             <ul class="nav">
               <li class="active banner"><a href="/">Home</a></li>
               <li class=""><a href="/ruby/">Ruby (and Rails)</a></li>
-              <li class=""><a href="/android/">Android</a></li>
               <li class=""><a href="/web/">Web</a></li>
             </ul>
           </div>
@@ -1014,57 +626,6 @@ mendemonstrasikan alur penggunaan fiber</p>
   })();
 
 </script>
-<!-- AddThis Welcome BEGIN -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=yulrizka"></script>
-<script type='text/javascript'>
-  addthis.bar.initialize({'default':{
-      "backgroundColor": "#000000",
-      "buttonColor": "#098DF4",
-      "textColor": "#FFFFFF",
-      "buttonTextColor": "#FFFFFF"
-      },rules:[
-      {
-      "name": "Twitter",
-      "match": {
-      "referringService": "twitter"
-      },
-      "message": "If you find this page helpful:",
-      "action": {
-      "type": "button",
-      "text": "Tweet it!",
-      "verb": "share",
-      "service": "twitter"
-      }
-      },
-      {
-      "name": "Facebook",
-      "match": {
-        "referringService": "facebook"
-      },
-      "message": "Tell your friends about us:",
-      "action": {
-        "type": "button",
-        "text": "Share on Facebook",
-        "verb": "share",
-        "service": "facebook"
-      }
-      },
-      {
-        "name": "Google",
-        "match": {
-          "referrer": "google.com"
-        },
-        "message": "If you like this page, let Google know:",
-        "action": {
-          "type": "button",
-          "text": "+1",
-          "verb": "share",
-          "service": "google_plusone_share"
-        }
-      }
-  ]});
-</script>
-<!-- AddThis Welcome END -->
 
 
 </body>

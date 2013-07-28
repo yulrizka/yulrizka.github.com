@@ -40,43 +40,13 @@ solve a problem with ruby. The result were measured by the <strong>fastest</stro
 so i installed the gem, also the <a href="http://rubygems.org/gems/ffi" title="ffi gem">ruby-ffi</a> gem that somewhat fix an error while I tried to run the benchmark.</p>
 
 <p>so this is the code to benchmark it</p>
-
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight ruby'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;benchmark/ips&#39;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;The small brown &amp; ginger fox JUMPED OVER the gate&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="no">Benchmark</span><span class="o">.</span><span class="n">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-</span><span class='line'>    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;first&quot;</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">string</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\w+/</span><span class="p">){</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;second&quot;</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span> <span class="s1">&#39; &#39;</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-
+<div class="code-listing"><table><tr><td class="lines language-ruby"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">  <span class="nb">require</span> <span class="s1">&#39;benchmark/ips&#39;</span></div><div class="code-line" id="C1L2"><br></div><div class="code-line" id="C1L3">  <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;The small brown &amp; ginger fox JUMPED OVER the gate&quot;</span></div><div class="code-line" id="C1L4"><br></div><div class="code-line" id="C1L5">  <span class="no">Benchmark</span><span class="o">.</span><span class="n">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span></div><div class="code-line" id="C1L6">    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;first&quot;</span><span class="p">)</span> <span class="k">do</span></div><div class="code-line" id="C1L7">      <span class="n">string</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\w+/</span><span class="p">){</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span></div><div class="code-line" id="C1L8">    <span class="k">end</span></div><div class="code-line" id="C1L9"><br></div><div class="code-line" id="C1L10">    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;second&quot;</span><span class="p">)</span> <span class="k">do</span></div><div class="code-line" id="C1L11">      <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span> <span class="s1">&#39; &#39;</span></div><div class="code-line" id="C1L12">    <span class="k">end</span></div><div class="code-line" id="C1L13">  <span class="k">end</span></div></pre></div></td></tr></table></div>
 <p>And here are the result</p>
 
 <div class="well">
   <p>first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471) </p>
   <p>second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)</p>
 </div>
-
 
 <p>The first code run <strong>55.609,3</strong> times per second and the latter is <strong>77.996,4</strong> times per second.
 So the second code run more than the first code in one second. Which mean the second code is faster.</p>
@@ -118,7 +88,7 @@ So the second code run more than the first code in one second. Which mean the se
             </ul>
             
             <ul>
-              <li><a href="/en/2013/07/berks-upload-ruby-core-dump.html">berks upload core dump</a></li>
+              <li><a href="/en/2012/02/responsive-design.html">Responsive Design</a></li>
             </ul>
             
           </article>
@@ -247,13 +217,6 @@ So the second code run more than the first code in one second. Which mean the se
           </div>
         </div>
         <div class="item">
-          <div class="image android"></div>
-          <div class="text">
-            <p class="title">Android</p>
-            <p>Android are amazing mobile platform, it's open source and you can easily implement your idea of mobile application including tab with this platform. And this is my place to explore it</p>
-          </div>
-        </div>
-        <div class="item">
           <div class="image web"></div>
           <div class="text">
             <p class="title">Web</p>
@@ -298,7 +261,6 @@ So the second code run more than the first code in one second. Which mean the se
             <ul class="nav">
               <li class="active banner"><a href="/">Home</a></li>
               <li class=""><a href="/ruby/">Ruby (and Rails)</a></li>
-              <li class=""><a href="/android/">Android</a></li>
               <li class=""><a href="/web/">Web</a></li>
             </ul>
           </div>
@@ -346,57 +308,6 @@ So the second code run more than the first code in one second. Which mean the se
   })();
 
 </script>
-<!-- AddThis Welcome BEGIN -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=yulrizka"></script>
-<script type='text/javascript'>
-  addthis.bar.initialize({'default':{
-      "backgroundColor": "#000000",
-      "buttonColor": "#098DF4",
-      "textColor": "#FFFFFF",
-      "buttonTextColor": "#FFFFFF"
-      },rules:[
-      {
-      "name": "Twitter",
-      "match": {
-      "referringService": "twitter"
-      },
-      "message": "If you find this page helpful:",
-      "action": {
-      "type": "button",
-      "text": "Tweet it!",
-      "verb": "share",
-      "service": "twitter"
-      }
-      },
-      {
-      "name": "Facebook",
-      "match": {
-        "referringService": "facebook"
-      },
-      "message": "Tell your friends about us:",
-      "action": {
-        "type": "button",
-        "text": "Share on Facebook",
-        "verb": "share",
-        "service": "facebook"
-      }
-      },
-      {
-        "name": "Google",
-        "match": {
-          "referrer": "google.com"
-        },
-        "message": "If you like this page, let Google know:",
-        "action": {
-          "type": "button",
-          "text": "+1",
-          "verb": "share",
-          "service": "google_plusone_share"
-        }
-      }
-  ]});
-</script>
-<!-- AddThis Welcome END -->
 
 
 </body>

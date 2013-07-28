@@ -35,40 +35,7 @@ think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p>
 
 <p>I faced this core dump error while doing <code>berks upload</code>. That command will actualy
 push some cookbook to a chef server.</p>
-
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class='highlight bash'><table><tr><td class='gutter'><pre class='line-numbers'><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>berks upload
-</span><span class='line'>/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault
-</span><span class='line'>ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
-</span><span class='line'>
-</span><span class='line'>-- Control frame information -----------------------------------------------
-</span><span class='line'>c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
-</span><span class='line'>c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11
-</span><span class='line'>c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH
-</span><span class='line'>c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
-</span><span class='line'>
-</span><span class='line'>-- Ruby level backtrace information ----------------------------------------
-</span><span class='line'>/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;</span>
-</span><span class='line'><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span>
-</span><span class='line'>
-</span><span class='line'>....
-</span></code></pre></td></tr></table></div></figure></notextile></div>
-
-
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="nv">$ </span>berks upload</div><div class="code-line" id="C1L2">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault</div><div class="code-line" id="C1L3">ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span></div><div class="code-line" id="C1L4"><br></div><div class="code-line" id="C1L5">-- Control frame information -----------------------------------------------</div><div class="code-line" id="C1L6">c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47</div><div class="code-line" id="C1L7">c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11</div><div class="code-line" id="C1L8">c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH</div><div class="code-line" id="C1L9">c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------</div><div class="code-line" id="C1L10"><br></div><div class="code-line" id="C1L11">-- Ruby level backtrace information ----------------------------------------</div><div class="code-line" id="C1L12">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;</span></div><div class="code-line" id="C1L13"><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span></div><div class="code-line" id="C1L14"><br></div><div class="code-line" id="C1L15">....</div></pre></div></td></tr></table></div>
 <p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
 
 
@@ -100,11 +67,11 @@ push some cookbook to a chef server.</p>
             </ul>
             
             <ul>
-              <li><a href="/id/2012/03/scale-mongodb-dengan-sharding.html">Scale MongoDB dengan Sharding</a></li>
+              <li><a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html">Testing ruby code with benchmark_suite</a></li>
             </ul>
             
             <ul>
-              <li><a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html">Testing ruby code with benchmark_suite</a></li>
+              <li><a href="/id/2012/03/scale-mongodb-dengan-sharding.html">Scale MongoDB dengan Sharding</a></li>
             </ul>
             
           </article>
@@ -233,13 +200,6 @@ push some cookbook to a chef server.</p>
           </div>
         </div>
         <div class="item">
-          <div class="image android"></div>
-          <div class="text">
-            <p class="title">Android</p>
-            <p>Android are amazing mobile platform, it's open source and you can easily implement your idea of mobile application including tab with this platform. And this is my place to explore it</p>
-          </div>
-        </div>
-        <div class="item">
           <div class="image web"></div>
           <div class="text">
             <p class="title">Web</p>
@@ -284,7 +244,6 @@ push some cookbook to a chef server.</p>
             <ul class="nav">
               <li class="active banner"><a href="/">Home</a></li>
               <li class=""><a href="/ruby/">Ruby (and Rails)</a></li>
-              <li class=""><a href="/android/">Android</a></li>
               <li class=""><a href="/web/">Web</a></li>
             </ul>
           </div>
@@ -332,57 +291,6 @@ push some cookbook to a chef server.</p>
   })();
 
 </script>
-<!-- AddThis Welcome BEGIN -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=yulrizka"></script>
-<script type='text/javascript'>
-  addthis.bar.initialize({'default':{
-      "backgroundColor": "#000000",
-      "buttonColor": "#098DF4",
-      "textColor": "#FFFFFF",
-      "buttonTextColor": "#FFFFFF"
-      },rules:[
-      {
-      "name": "Twitter",
-      "match": {
-      "referringService": "twitter"
-      },
-      "message": "If you find this page helpful:",
-      "action": {
-      "type": "button",
-      "text": "Tweet it!",
-      "verb": "share",
-      "service": "twitter"
-      }
-      },
-      {
-      "name": "Facebook",
-      "match": {
-        "referringService": "facebook"
-      },
-      "message": "Tell your friends about us:",
-      "action": {
-        "type": "button",
-        "text": "Share on Facebook",
-        "verb": "share",
-        "service": "facebook"
-      }
-      },
-      {
-        "name": "Google",
-        "match": {
-          "referrer": "google.com"
-        },
-        "message": "If you like this page, let Google know:",
-        "action": {
-          "type": "button",
-          "text": "+1",
-          "verb": "share",
-          "service": "google_plusone_share"
-        }
-      }
-  ]});
-</script>
-<!-- AddThis Welcome END -->
 
 
 </body>
