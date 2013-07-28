@@ -19,7 +19,7 @@ so i installed the gem, also the [ruby-ffi][5] gem that somewhat fix an error wh
 
 so this is the code to benchmark it
 
-{% codeblock lang:ruby %}
+```ruby
   require 'benchmark/ips'
 
   string = "The small brown & ginger fox JUMPED OVER the gate"
@@ -33,7 +33,7 @@ so this is the code to benchmark it
       string.split.map(&:capitalize).join ' '
     end
   end
-{% endcodeblock %}
+```
 
 And here are the result
 

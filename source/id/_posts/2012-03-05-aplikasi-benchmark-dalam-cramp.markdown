@@ -21,11 +21,11 @@ Dokumentasi cramp yang lebih lengkap dapat dilihat [disini][cramp-doc]
 
 Untuk melakukan instalasi kita cukup menambahkan gem cramp.
 
-{% codeblock lang:bash %}
+```bash
   gem install cramp
   cramp new expense_cramp
   bundle install
-{% endcodeblock %}
+  
       create
       create  config.ru
       create  Gemfile
@@ -36,6 +36,7 @@ Untuk melakukan instalasi kita cukup menambahkan gem cramp.
       create  config/routes.rb
       create  app/actions
       create  app/actions/home_action.rb
+````
 
 Perintah tersebut akan membuat suatu direktori berisikan file-file default dalam program cramp
 

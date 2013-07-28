@@ -32,14 +32,14 @@ share some password / key file with it.
 
 If you don't already have it on your system, you could installed it with:
 
-{% codeblock lang:bash %}
+```bash
   $ sudo apt-get install gpg
-{% endcodeblock %}
+```
 
 After installing we would start by creating a pair of keys
-{% codeblock lang:bash %}
+```bash
   $ gpg --gen-key
-{% endcodeblock %}
+```
 
 You will be asked with bunch of questions. Most of the answer you could leave it as a default but most important is fill in your **email**
 address and also provide a **Passphrase** to protect your key with password. When it finish gathering information, it will start
@@ -50,7 +50,7 @@ or doing some random IO disk by triggering for example `find /`
 
 After installing, you can see list of keys by using this command
 
-{% codeblock lang:bash %}
+```bash
 $  gpg --list-keys
 /home/user/.gnupg/pubring.gpg
 --------------------------------
@@ -58,7 +58,7 @@ pub   2048R/70280895 2013-07-09
 uid                  Ahmy Yulrizka (ahmy135@mail.com) <ahmy135@mail.com>
 sub   2048R/F7B2D44C 2013-07-09
 
-{% endcodeblock %}
+```
 
 In above output you could see that we have created public key with id of `70280895`. Note this one because we are going to use it later
 when submitting the key to a key server
@@ -69,7 +69,7 @@ To share your public key, so other people could send you encrypted message.
 
 **Note** that further in this article I will discus ways to easily distribute your public key.
 
-{% codeblock lang:bash %}
+```bash
 $ gpg --armor --export 'ahmy135@mail.com'
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1.4.11 (GNU/Linux)
@@ -81,21 +81,21 @@ DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF
 
 $ gpg --armor --export 'ahmy135@mail.com' --output pubkey.txt # to output it to a file
 
-{% endcodeblock %}
+```
 
 ### Encrypting and decrypting
 
 With those generated keys, we could now do a personal encryption. That is if you want to encrypt a file and you are the only one
 who are able to decrypt it.
 
-{% codeblock lang:bash %}
+```bash
   $ echo "this message is secret" > message.txt
   $ gpg --encrypt --recipient 'ahmy135@gmail.com' message.txt
-{% endcodeblock %}
+```
 
 Those code will create a file name `message.txt.gpg` which is encrypted message of `message.txt`
 
-{% codeblock lang:bash %}
+```bash
 $ gpg --decrypt message.txt.gpg
 
 You need a passphrase to unlock the secret key for
@@ -107,7 +107,7 @@ gpg: encrypted with 2048-bit RSA key, ID F7B2D44C, created 2013-07-09
       "Ahmy Yulrizka (ahmy135@mail.com) <ahmy135@mail.com>"
 this message is secret
 
-{% endcodeblock %}
+```
 
 As you can see that we are successfully decrypted the message. This example you encrypt the message
 using your own public key. So this method only work if you want to archive or backup the file securely.
@@ -128,10 +128,10 @@ and also ubuntu key server [http://keyserver.ubuntu.com](http://keyserver.ubuntu
 
 To send our key to MIT server we could do
 
-{% codeblock lang:bash %}
+```bash
 $ gpg --send-key --keyserver pgp.mit.edu 70280895
 gpg: sending key 70280895 to hkp server pgp.mit.edu
-{% endcodeblock %}
+```
 
 the last number `70280895` was the key id of the public file. You could find it with the output of `gpg --list-keys` command.
 Now we have successfully send our public key any body could get your public key through that keyserver. You could test this
@@ -143,28 +143,28 @@ Now to import other people public key, we could also do that in two way.
 
 if the person give you a file which contain their public key (say `ahmy-pub.key`). you could import it with
 
-{% codeblock lang:bash %}
+```bash
 $ gpg --import ahmy-pub.key
-{% endcodeblock %}
+```
 
 Or if the person already publish his public key to a keyserver, we can search it with
 
-{% codeblock lang:bash %}
+```bash
 $ gpg --search-keys 'Ahmy Yulrizka'
 
 # or
 $ gpg --search-keys 'ahmy135@mail.com'
 
-{% endcodeblock %}
+```
 
 It will generate a list of keys that found on the keyserver. Enter the number of the keys and it will be imported to your local machine.
 
 after importing you can send an encrypted message to the person for example
 
 
-{% codeblock lang:bash %}
+```bash
 $ echo "This is also a secret" | gpg --encrypt --armor --recipient 'Ahmy Yulrizka' > output.txt.gpg
-{% endcodeblock %}
+```
 
 You could provide a name or an email address as a recipient.
 THis command will encrypt the message using public key of a person name `Ahmy Yulrizka`

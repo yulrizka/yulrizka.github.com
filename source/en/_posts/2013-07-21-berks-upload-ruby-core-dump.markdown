@@ -15,7 +15,7 @@ think of it as a *Bundler* or *virtual environment* for chef
 I faced this core dump error while doing `berks upload`. That command will actualy
 push some cookbook to a chef server.
 
-{% codeblock lang:bash %}
+```bash
 $ berks upload
 /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: [BUG] Segmentation fault
 ruby 1.9.3p362 (2012-12-25 revision 38607) [x86_64-linux]
@@ -31,6 +31,6 @@ c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
 /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize'
 
 ....
-{% endcodeblock %}
+```
 
 **upgrading** the ruby verison to 2.0 seems to resolve my issue.

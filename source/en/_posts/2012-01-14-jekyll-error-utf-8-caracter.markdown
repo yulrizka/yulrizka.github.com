@@ -17,9 +17,9 @@ it actually got `invalid multibyte char (US-ASCII) error message`
 
 to solve this. I added this line to `.bashrc` or `zshrc` if you are using zsh
 
-{% codeblock lang:bash %}
+```bash
   export LC_ALL=en_US.UTF-8
   export LANG=en_US.UTF-8
-{% endcodeblock %}
+```
 
 It should fix the problem now.

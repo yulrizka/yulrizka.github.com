@@ -1,54 +1,34 @@
-.highlight
-  background: #eee url('/images/pygments/tab_grey.gif') no-repeat !important
-  padding: 0
-  margin: 0px 5px 1.5em
-  min-height: 40px
-  font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important
-  line-height: 1.2em
-  font-size: 1.1em
-  pre
-    margin: 0 5px 5px 0 !important
-    padding-top: 10px
-    border: none
-    background-color: $code-background-color
-  .gutter
-    width: 2px
-    padding: 4px 0 4px 40px    
-    pre
-      background-color: $gutter-background-color
-      color: #888
-      width: 16px 
-  table
-    margin: 0 !important
-  .code
-    padding: 4px 10px 4px 0px
-    background-color: $code-background-color
-    border: 1px solid #dfdfdf
-    border-top: 1px solid #eeeeee
-    @include box-shadow(rgba(0,0,0,.3) 1px 1px 2px)
-    width: 100%
-  td
-    border: none
-  code
-    background-color: $code-background-color
-    padding-left: 0
-    color: $code-foreground-color
-    border: none
-
-.highlight.ruby
-  background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important
-.highlight.bash
-  background: #eee url('/images/pygments/tab_grey_bash.png') no-repeat !important
-
-pre code
-  border: 0px
-  
-.bogus-wrapper figure
-  margin: 0 10px
-
-code
-  background-color: #ddd
-  color: #333
-    
-.mono, pre, code, tt, p code, li code 
+.code-listing
   font-family: Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace !important
+  overflow-x: auto
+  overflow-y: hidden
+  margin: 30px 0
+  min-height: 40px
+  table
+    width: 100%
+  .lines
+    width: 1%
+    vertical-align: top
+    padding: 9px
+    padding-left: 45px
+    background: #eee url('/images/pygments/tab_grey_bash.png') no-repeat
+  .lines.language-ruby 
+    background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important  
+  pre
+    margin: 0
+    border: none
+    color: $code-foreground-color
+    background-color: $code-background-color
+    padding: 8.5px 10px
+  
+
+.line-number
+  display: block
+  color: #888
+
+
+.highlight
+  white-space: nowrap
+  border: 1px solid #dfdfdf
+  border-top: 1px solid #eeeeee
+  @include box-shadow(rgba(0,0,0,.3) 1px 1px 2px)

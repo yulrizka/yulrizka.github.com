@@ -16,7 +16,7 @@ relative_permalinks: true
 
 permalink:   /:categories/:year/:month/:title.html
 paginate_path: 'page:num'
-markdown:    rdiscount
+markdown:    redcarpet
 markdown_ext: markdown, mkd, mkdn, md
 textile_ext: textile
 

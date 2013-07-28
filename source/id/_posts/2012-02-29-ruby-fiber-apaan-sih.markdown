@@ -70,7 +70,7 @@ pada *EventMachine* di ruby
 Untuk dapat memahami fiber, kita ambil contoh seperti berikut. Program ini sebenarnya tidak berguna, tapi cukup untuk
 mendemonstrasikan alur penggunaan fiber
 
-{% codeblock lang:ruby %}
+```ruby
   fiber = Fiber.new do
     puts "Fiber: Beginning of fiber"
     Fiber.yield # kembalikan eksekusi ke main (line 11)
@@ -85,11 +85,12 @@ mendemonstrasikan alur penggunaan fiber
   fiber.resume # jalankan fiber (line 4)
   puts "Main: Sekarang jam berapa ya ?"
   puts fiber.resume # jalankan fiber (line 6) dan output hasil
-{% endcodeblock %}
-
+```
+<pre>
      Main: Beginning main
      Fiber: Beginning of fiber
      Main: Hello saya main thread
      Fiber: Halo main, saya fiber
      Main: Sekarang jam berapa ya ?
      Fiber: Sekarang 2012-02-29 22:45:08 +0700
+</pre>

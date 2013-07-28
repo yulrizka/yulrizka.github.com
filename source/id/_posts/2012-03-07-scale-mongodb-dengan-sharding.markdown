@@ -149,7 +149,8 @@ Pada contoh kasus ini kita akan menjalankan beberpa server sebagai berikut
 
 ### Mongod ###
 Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo server. Untuk menjalankan 2 proses mongod, jalankan perintah berikut
-{% codeblock lang:bash %}
+
+```bash
   $ mkdir a b
   # jalankan instance pertama
   $ mongod --shardsvr --dbpath $PWD/a --port 10000 > /tmp/sharda.log &
@@ -157,11 +158,12 @@ Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo se
   # jalankan instance kedua
   $ mongod --shardsvr --dbpath $PWD/b --port 10001 > /tmp/shardb.log &
   $ cat /tmp/shardb.log # pastikan process tersebut berjalan
-{% endcodeblock %}
+```
 
 ### Configuration Server & Mongos ###
 Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos dengan perintah berikut
-{% codeblock lang:bash %}
+
+```bash
   $ mkdir config
   # start config server
   $ mongod --configsvr --dbpath $PWD/config --port 20000 > /tmp/configdb.log &
@@ -169,7 +171,7 @@ Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos 
   # start mongos
   $ mongos --configdb localhost:20000 --chunkSize 1 > /tmp/mongos.log &
   $ cat /tmp/mongos.log # pastikan server tersebut berjalan
-{% endcodeblock %}
+```
 
 pada contoh diatas, mongos tidak membutuhkan `--dbpath`, karena mongo tidak memerlukan *persistance* (penyimpanan data). Perintah `mongos` diatas
 akan menjalankan mongos pada port default (sama serperti port default mongod) yaitu 27017
@@ -184,7 +186,7 @@ yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berko
 ### Konfigurasi Shard Server pada mongos ###
 Berikutnya yang kita lakukan adalah setup mongos agar menambahkan 2 shard server yang berjalan pada port 10000 & 10001.
 
-{% codeblock lang:bash %}
+```bash
 $ mongo
 MongoDB shell version: 1.8.2
 connecting to: test
@@ -195,18 +197,18 @@ switched to db admin
 > db.runCommand( { addshard: "localhost:10001"} )
 { "shardAdded" : "shard0001", "ok" : 1 }
 >
-{% endcodeblock %}
+```
 
 Berikutnya, kita set agar server tersebut dalam mode sharding pada database test. Setelah itu kita akan menambahkan sharding pada *collection* *people* dengan
 *shard key* *email*. Meskipun pada tahap ini kita belum memiliki *people Collection*
-{% codeblock lang:bash %}
+```bash
   > db.runCommand( { enablesharding: "test" } )
   { "ok" : 1 }
   > db.runCommand( { shardcollection: "test.people", key: {email: 1} } )
   { "collectionsharded" : "test.people", "ok" : 1 }
   > use test
   > show collections
-{% endcodeblock %}
+```
 
 Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjadi 1 MB
 
@@ -214,7 +216,7 @@ Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjad
   Entah mengapa parameter --chunkSize 1 tidak mengubah ukuran chunk, oleh karena itu kita ubah dari database
 </div>
 
-{% codeblock lang:bash %}
+```bash
   > use config
   switched to db config
   > show collections
@@ -235,7 +237,7 @@ Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjad
   > db.settings.find()
   { "_id" : "chunksize", "value" : 1 }
   >
-{% endcodeblock %}
+```
 
 Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.
 
@@ -247,7 +249,7 @@ Sekarang saatnya kita melakukan percobaan dengan shard dan chunk.
 ### Tambahkan data pada collection ###
 Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collection tersebut.
 
-{% codeblock lang:bash %}
+```bash
   > use test
   switched to db test
   > db.people.save( { name: "Person test", email: "test@foo.com" } )
@@ -257,7 +259,7 @@ Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collect
   68
   > db.people.totalSize()
   24576
-{% endcodeblock %}
+```
 
 Dapat dilihat pada hasil diatas bahwa kita telah memasukkan 1 dokumen pada *collection* people dan untuk 1 dokumen kita memerlukan 68 byte.
 Ingat bahwa pada contoh diatas, kita menetapkan ukuran 1 chunk adalah 1MB (1024 byte). Skarang kita coba untuk memasukan data sehingga ukuran
@@ -265,7 +267,7 @@ data menjadi 3 chuck
 
 Mari kita tambahkan record (dokumen) sebanyak 20000.
 
-{% codeblock lang:bash %}
+```bash
   > for (var i = 1; i <= 20000; i++) {
   ...   var person_name = "Person #" + i;
   ...   var person_email = "email-" + i + "@foo.com";
@@ -276,12 +278,12 @@ Mari kita tambahkan record (dokumen) sebanyak 20000.
   > db.people.dataSize()
   1559608
   >
-{% endcodeblock %}
+```
 
 ### Melihat informasi jumlah shard ###
 untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.
 
-{% codeblock lang:bash %}
+```bash
   > use admin
   switched to db admin
   > db.runCommand({ listshards: 1})
@@ -298,11 +300,11 @@ untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.
   	],
   	"ok" : 1
   }
-{% endcodeblock %}
+```
 
 ### Melihat informasi Chunk ###
 Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut
-{% codeblock lang:bash %}
+```bash
   > use config
   switched to db config
   > db.chunks.find()
@@ -353,7 +355,7 @@ Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan per
      },
      "shard":"shard0000"
   }
-{% endcodeblock %}
+```
 
 dari data diatas kita dapat melihat bahwa terdapat 3 chunk:
 
@@ -367,7 +369,7 @@ MongoDB ternyata melakukan partisi terhadap *shard key* dengan memperlakukan key
 Misalkan pada contoh diatas kita ingin memindahkan chunk `test.people-email_\"email-9@foo.com\" berada pada shard0000` dari shard0000 je shard0001. Hal tersebut
 dapat dilakukan dengan perintah berikut
 
-{% codeblock lang:bash %}
+```bash
   > db.adminCommand({ moveChunk: "test.people", find: {email: "email-9@foo.com"}, to: 'shard0001'})
   { "millis" : 1038, "ok" : 1 }
   > db.chunks.find()
@@ -419,7 +421,7 @@ dapat dilakukan dengan perintah berikut
      "shard":"shard0001"
   }
   >
-{% endcodeblock %}
+```
 
 Dari data diatas kita bisa melihat bahwa chunk tersebut sudah pindah dari shard0000 ke sahrd00001
 
