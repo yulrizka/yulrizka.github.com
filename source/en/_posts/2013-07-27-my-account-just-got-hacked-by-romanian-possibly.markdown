@@ -55,4 +55,4 @@ If you ever received / sent this email. I would suggest you to:
 4. Use some secure password, and don't use the same password for all of your account.
 5. If you can, try to change the password on a regular basis. or use service like [LastPass](https://lastpass.com/)
 6. When this is your work email that sometimes contain private information. Use service that offer *two factor authentication* like gmail does [you need to enable it](http://www.google.com/landing/2step/). 
-7. Stay safe friend, internet is a dangerous place
+7. Stay safe friends, internet is a dangerous place
