@@ -4,7 +4,7 @@
  <title>Recursive</title>
  <link href="http://labs.yulrizka.com/feed/" rel="self"/>
  <link href="http://labs.yulrizka.com/"/>
- <updated>2013-07-28T11:12:14+00:00</updated>
+ <updated>2013-07-28T11:16:17+00:00</updated>
  <id>http://labs.yulrizka.com/</id>
  <author>
    <name>labs.yulrizka.com</name>
@@ -63,8 +63,8 @@ Or probably I just never notice.&lt;/p&gt;
 &lt;li&gt;Don&amp;#39;t store or send sensitive information unencrypted with email like: password, keys, bank account info &lt;/li&gt;
 &lt;li&gt;If you need to send sensitive information, try encrypting it first. I go into details of doing that in &lt;a href=&quot;/en/2013/07/safely-sharing-credentials-with-pgp.html&quot;&gt;Safely sharing credentials with PGP&lt;/a&gt;. I&amp;#39;m start doing this from now on.&lt;/li&gt;
 &lt;li&gt;Use some secure password, and don&amp;#39;t use the same password for all of your account.&lt;/li&gt;
-&lt;li&gt;If you can try to change the password on a regular basis. or use service like &lt;a href=&quot;https://lastpass.com/&quot;&gt;LastPass&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;When this is you work email that sometimes contain private information. Use service that offer &lt;em&gt;two factor authentication&lt;/em&gt; like gmail does [you need to enable it(http://www.google.com/landing/2step/). &lt;/li&gt;
+&lt;li&gt;If you can, try to change the password on a regular basis. or use service like &lt;a href=&quot;https://lastpass.com/&quot;&gt;LastPass&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;When this is you work email that sometimes contain private information. Use service that offer &lt;em&gt;two factor authentication&lt;/em&gt; like gmail does &lt;a href=&quot;http://www.google.com/landing/2step/&quot;&gt;you need to enable it&lt;/a&gt;. &lt;/li&gt;
 &lt;li&gt;Stay safe friend, internet is a dangerous place&lt;/li&gt;
 &lt;/ol&gt;
 </content>
