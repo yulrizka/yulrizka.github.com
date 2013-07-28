@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Jekyll error utf-8 caracter | labs.yulrizka.com</title>
+<title>My account just got hacked by Romanian (Possibly) | labs.yulrizka.com</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="jekyll invalid multibyte char (US-ASCII)">
+<meta name="description" content="My Account just got hack by Romanian to send SPAM">
 <meta name="author" content="Ahmy Yulrizka">
 <meta http-equiv="Content-Language" Content="en">
-<meta name="keywords" content="jekyll, invalid multibyte char, error" />
-<meta http-equiv="date" content="2012-01-14T17:32:00+00:00" />
+<meta name="keywords" content="hacked, security, spam" />
+<meta http-equiv="date" content="2013-07-28T11:57:00+00:00" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="canonical" href="http://ahmy.yulrizka.com/">
@@ -27,18 +27,59 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
           <article>
-            <h1>Jekyll error utf-8 caracter</h1>
-            <div class="posted_at">14 Jan 2012</div>
+            <h1>My account just got hacked by Romanian (Possibly)</h1>
+            <div class="posted_at">28 Jul 2013</div>
 
-            <p>If you having a problem in jekyll when it didn&#39;t generate a post and there is no error in the log file.
-you might want to check the content if there is any UTF-8 character encoding such as this <strong>±</strong></p>
+            <p><img class="well" width="90%" src="/images/post/2013/07/spam/1.jpg" align="center"></p>
 
-<p>The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
-it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
+<p>You are probably familiar with above images. Some random friend sent you an email which you can instantly 
+recognize as a spam because it only contains one link.
+Couple days ago I receive this email which is not the first time for me. But this time it was different.
+It actually came from my own Yahoo! account which I never use since more that one year ago.</p>
 
-<p>to solve this. I added this line to <code>.bashrc</code> or <code>zshrc</code> if you are using zsh</p>
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">  <span class="nb">export </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8</div><div class="code-line" id="C1L2">  <span class="nb">export </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8</div></pre></div></td></tr></table></div>
-<p>It should fix the problem now.</p>
+<p>My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the <em>sent mail</em> folder and there it is.
+One email message containing a spam that I actually sent to my friends and family.</p>
+
+<p><img class="well" width="90%" src="/images/post/2013/07/spam/2.jpg" align="center"></p>
+
+<p>Did some digging to my authentication history and found out that somebody from Romania has access my account.
+How could this be. I&#39;ve never use the account since one or more year ago, I&#39;m an IT guy so I know a little bit
+about security. I don&#39;t click some random suspicious link. I don&#39;t install any annoying-spyware-browser-toolbar.
+The password is 12 character long with apla-numeric and random symbol. Thank god that I don&#39;t use the same
+password for all of my account.</p>
+
+<p><img class="well" width="90%" src="/images/post/2013/07/spam/3.jpg" align="center">
+<img class="well" width="90%" src="/images/post/2013/07/spam/4.jpg" align="center"></p>
+
+<p>I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through 
+bunch of proxy all over the world to cover my track. Or probably they don&#39;t even bother because they just
+using it for spam.</p>
+
+<p><img class="well" width="90%" src="/images/post/2013/07/spam/5.jpg" align="center"></p>
+
+<p>Interesting part is I stumble upon this article saying about Romania has became a <a href="http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/">Global Hub for hackers and online crooks</a>.
+According to the article that it&#39;s became a commonplace for some hacker to harness people personal information
+and use it for illegal activity. </p>
+
+<p>Luckily I don&#39;t store any sensitive information on my email. It would have some serious impact if I store password
+or bank account information. </p>
+
+<p>Also something that I notice is most of this spam email came from my friends account which also uses Yahoo! mail.
+Or probably I just never notice.</p>
+
+<h2>What can you do when this happened to you</h2>
+
+<p>If you ever received / sent this email. I would suggest you to:</p>
+
+<ol>
+<li>Tell the person to reset their account password</li>
+<li>Don&#39;t store or send sensitive information unencrypted with email like: password, keys, bank account info </li>
+<li>If you need to send sensitive information, try encrypting it first. I go into details of doing that in <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a>. I&#39;m start doing this from now on.</li>
+<li>Use some secure password, and don&#39;t use the same password for all of your account.</li>
+<li>If you can try to change the password on a regular basis. or use service like <a href="https://lastpass.com/">LastPass</a></li>
+<li>When this is you work email that sometimes contain private information. Use service that offer <em>two factor authentication</em> like gmail does [you need to enable it(http://www.google.com/landing/2step/). </li>
+<li>Stay safe friend, internet is a dangerous place</li>
+</ol>
 
 
             <hr>
@@ -57,15 +98,11 @@ it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
             <b>Site related post:</b>
             
             <ul>
-              <li><a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
-            </ul>
-            
-            <ul>
-              <li><a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html">Testing ruby code with benchmark_suite</a></li>
-            </ul>
-            
-            <ul>
               <li><a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html">My account just got hacked by Romanian (Possibly)</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
             </ul>
             
             <ul>
@@ -76,6 +113,10 @@ it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
               <li><a href="/id/2012/03/scale-mongodb-dengan-sharding.html">Scale MongoDB dengan Sharding</a></li>
             </ul>
             
+            <ul>
+              <li><a href="/en/2012/02/responsive-design.html">Responsive Design</a></li>
+            </ul>
+            
           </article>
 
           
@@ -83,7 +124,7 @@ it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
           <script type="text/javascript">
               //var disqus_developer = 1;
               var disqus_shortname = 'labs-yulrizka';
-              var disqus_identifier = '/en/2012/01/jekyll-error-utf-8-caracter.html';
+              var disqus_identifier = '/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html';
 
               /* * * DON'T EDIT BELOW THIS LINE * * */
               (function() {

@@ -266,6 +266,18 @@ body {
 .content .articles h1 {
   font-size: 22px;
 }
+/* line 24, ../_assets/sass/content.sass */
+.content li {
+  font-size: 16px;
+  line-height: 1.5em;
+}
+
+/* line 27, ../_assets/sass/content.sass */
+p {
+  font-size: 16px;
+  line-height: 1.5em;
+  margin-bottom: 15px;
+}
 
 /* line 1, ../_assets/sass/highlight.sass */
 .code-listing {

@@ -4,13 +4,71 @@
  <title>Recursive</title>
  <link href="http://labs.yulrizka.com/feed/" rel="self"/>
  <link href="http://labs.yulrizka.com/"/>
- <updated>2013-07-28T04:48:09+00:00</updated>
+ <updated>2013-07-28T11:12:14+00:00</updated>
  <id>http://labs.yulrizka.com/</id>
  <author>
    <name>labs.yulrizka.com</name>
    <email>ahmy@yulrizka.com</email>
  </author>
 
+ 
+ <entry>
+   <title>My account just got hacked by Romanian (Possibly)</title>
+   <link href="http://labs.yulrizka.com/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html"/>
+   <updated>2013-07-28T11:57:00+00:00</updated>
+   <id>http://labs.yulrizka.com/en/2013/07/my-account-just-got-hacked-by-romanian-possibly</id>
+   <content type="html">&lt;p&gt;&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/1.jpg&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;You are probably familiar with above images. Some random friend sent you an email which you can instantly 
+recognize as a spam because it only contains one link.
+Couple days ago I receive this email which is not the first time for me. But this time it was different.
+It actually came from my own Yahoo! account which I never use since more that one year ago.&lt;/p&gt;
+
+&lt;p&gt;My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the &lt;em&gt;sent mail&lt;/em&gt; folder and there it is.
+One email message containing a spam that I actually sent to my friends and family.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/2.jpg&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Did some digging to my authentication history and found out that somebody from Romania has access my account.
+How could this be. I&amp;#39;ve never use the account since one or more year ago, I&amp;#39;m an IT guy so I know a little bit
+about security. I don&amp;#39;t click some random suspicious link. I don&amp;#39;t install any annoying-spyware-browser-toolbar.
+The password is 12 character long with apla-numeric and random symbol. Thank god that I don&amp;#39;t use the same
+password for all of my account.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/3.jpg&quot; align=&quot;center&quot;&gt;
+&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/4.jpg&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through 
+bunch of proxy all over the world to cover my track. Or probably they don&amp;#39;t even bother because they just
+using it for spam.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/5.jpg&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Interesting part is I stumble upon this article saying about Romania has became a &lt;a href=&quot;http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/&quot;&gt;Global Hub for hackers and online crooks&lt;/a&gt;.
+According to the article that it&amp;#39;s became a commonplace for some hacker to harness people personal information
+and use it for illegal activity. &lt;/p&gt;
+
+&lt;p&gt;Luckily I don&amp;#39;t store any sensitive information on my email. It would have some serious impact if I store password
+or bank account information. &lt;/p&gt;
+
+&lt;p&gt;Also something that I notice is most of this spam email came from my friends account which also uses Yahoo! mail.
+Or probably I just never notice.&lt;/p&gt;
+
+&lt;h2&gt;What can you do when this happened to you&lt;/h2&gt;
+
+&lt;p&gt;If you ever received / sent this email. I would suggest you to:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Tell the person to reset their account password&lt;/li&gt;
+&lt;li&gt;Don&amp;#39;t store or send sensitive information unencrypted with email like: password, keys, bank account info &lt;/li&gt;
+&lt;li&gt;If you need to send sensitive information, try encrypting it first. I go into details of doing that in &lt;a href=&quot;/en/2013/07/safely-sharing-credentials-with-pgp.html&quot;&gt;Safely sharing credentials with PGP&lt;/a&gt;. I&amp;#39;m start doing this from now on.&lt;/li&gt;
+&lt;li&gt;Use some secure password, and don&amp;#39;t use the same password for all of your account.&lt;/li&gt;
+&lt;li&gt;If you can try to change the password on a regular basis. or use service like &lt;a href=&quot;https://lastpass.com/&quot;&gt;LastPass&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;When this is you work email that sometimes contain private information. Use service that offer &lt;em&gt;two factor authentication&lt;/em&gt; like gmail does [you need to enable it(http://www.google.com/landing/2step/). &lt;/li&gt;
+&lt;li&gt;Stay safe friend, internet is a dangerous place&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+ </entry>
  
  <entry>
    <title>berks upload core dump</title>
