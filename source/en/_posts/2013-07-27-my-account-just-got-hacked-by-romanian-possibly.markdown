@@ -9,7 +9,9 @@ description: My Account just got hack by Romanian to send SPAM
 keywords: hacked, security, spam
 ---
 
-<img class="well" width="90%" src="/images/post/2013/07/spam/1.jpg" align="center">
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/1.jpg" align="center">
+</div>
 
 You are probably familiar with above images. Some random friend sent you an email which you can instantly 
 recognize as a spam because it only contains one link.
@@ -18,8 +20,9 @@ It actually came from my own Yahoo! account which I never use since more that on
 
 My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the *sent mail* folder and there it is.
 One email message containing a spam that I actually sent to my friends and family.
-
-<img class="well" width="90%" src="/images/post/2013/07/spam/2.jpg" align="center">
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/2.jpg" align="center">
+</div>
 
 Did some digging to my authentication history and found out that somebody from Romania has access my account.
 How could this be. I've never use the account since one or more year ago, I'm an IT guy so I know a little bit
@@ -27,14 +30,17 @@ about security. I don't click some random suspicious link. I don't install any a
 The password is 12 character long with apla-numeric and random symbol. Thank god that I don't use the same
 password for all of my account.
 
-<img class="well" width="90%" src="/images/post/2013/07/spam/3.jpg" align="center">
-<img class="well" width="90%" src="/images/post/2013/07/spam/4.jpg" align="center">
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/3.jpg" align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/4.jpg" align="center">
+</div>
 
 I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through 
 bunch of proxy all over the world to cover my track. Or probably they don't even bother because they just
 using it for spam.
-
-<img class="well" width="90%" src="/images/post/2013/07/spam/5.jpg" align="center">
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/5.jpg" align="center">
+</div>
 
 Interesting part is I stumble upon this article saying about Romania has became a [Global Hub for hackers and online crooks](http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/).
 According to the article that it's became a commonplace for some hacker to harness people personal information
