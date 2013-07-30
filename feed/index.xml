@@ -4,7 +4,7 @@
  <title>Recursive</title>
  <link href="http://labs.yulrizka.com/feed/" rel="self"/>
  <link href="http://labs.yulrizka.com/"/>
- <updated>2013-07-28T21:12:43+00:00</updated>
+ <updated>2013-07-30T02:11:56+00:00</updated>
  <id>http://labs.yulrizka.com/</id>
  <author>
    <name>labs.yulrizka.com</name>
@@ -17,7 +17,9 @@
    <link href="http://labs.yulrizka.com/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html"/>
    <updated>2013-07-27T11:58:00+00:00</updated>
    <id>http://labs.yulrizka.com/en/2013/07/my-account-just-got-hacked-by-romanian-possibly</id>
-   <content type="html">&lt;p&gt;&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/1.jpg&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
+   <content type="html">&lt;div align=&quot;center&quot;&gt;
+  &lt;img class=&quot;well&quot; width=&quot;90%&quot; style=&quot;max-width: 800px&quot; src=&quot;/images/post/2013/07/spam/1.jpg&quot; align=&quot;center&quot;&gt;
+&lt;/div&gt;
 
 &lt;p&gt;You are probably familiar with above images. Some random friend sent you an email which you can instantly 
 recognize as a spam because it only contains one link.
@@ -25,9 +27,10 @@ Couple days ago I receive this email which is not the first time for me. But thi
 It actually came from my own Yahoo! account which I never use since more that one year ago.&lt;/p&gt;
 
 &lt;p&gt;My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the &lt;em&gt;sent mail&lt;/em&gt; folder and there it is.
-One email message containing a spam that I actually sent to my friends and family.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/2.jpg&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
+One email message containing a spam that I actually sent to my friends and family.
+&lt;div align=&quot;center&quot;&gt;
+  &lt;img class=&quot;well&quot; width=&quot;90%&quot; style=&quot;max-width: 800px&quot; src=&quot;/images/post/2013/07/spam/2.jpg&quot; align=&quot;center&quot;&gt;
+&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;Did some digging to my authentication history and found out that somebody from Romania has access my account.
 How could this be. I&amp;#39;ve never use the account since one or more year ago, I&amp;#39;m an IT guy so I know a little bit
@@ -35,14 +38,17 @@ about security. I don&amp;#39;t click some random suspicious link. I don&amp;#39
 The password is 12 character long with apla-numeric and random symbol. Thank god that I don&amp;#39;t use the same
 password for all of my account.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/3.jpg&quot; align=&quot;center&quot;&gt;
-&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/4.jpg&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;
+  &lt;img class=&quot;well&quot; width=&quot;90%&quot; style=&quot;max-width: 800px&quot; src=&quot;/images/post/2013/07/spam/3.jpg&quot; align=&quot;center&quot;&gt;
+  &lt;img class=&quot;well&quot; width=&quot;90%&quot; style=&quot;max-width: 800px&quot; src=&quot;/images/post/2013/07/spam/4.jpg&quot; align=&quot;center&quot;&gt;
+&lt;/div&gt;
 
 &lt;p&gt;I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through 
 bunch of proxy all over the world to cover my track. Or probably they don&amp;#39;t even bother because they just
-using it for spam.&lt;/p&gt;
-
-&lt;p&gt;&lt;img class=&quot;well&quot; width=&quot;90%&quot; src=&quot;/images/post/2013/07/spam/5.jpg&quot; align=&quot;center&quot;&gt;&lt;/p&gt;
+using it for spam.
+&lt;div align=&quot;center&quot;&gt;
+  &lt;img class=&quot;well&quot; width=&quot;90%&quot; style=&quot;max-width: 800px&quot; src=&quot;/images/post/2013/07/spam/5.jpg&quot; align=&quot;center&quot;&gt;
+&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;Interesting part is I stumble upon this article saying about Romania has became a &lt;a href=&quot;http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/&quot;&gt;Global Hub for hackers and online crooks&lt;/a&gt;.
 According to the article that it&amp;#39;s became a commonplace for some hacker to harness people personal information

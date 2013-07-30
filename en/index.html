@@ -33,7 +33,9 @@
     </h1>
     <span>July 27, 2013</span>
     <p>
-        <p><img class="well" width="90%" src="/images/post/2013/07/spam/1.jpg" align="center"></p>
+        <div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/1.jpg" align="center">
+</div>
 
 <p>You are probably familiar with above images. Some random friend sent you an email which you can instantly 
 recognize as a spam because it only contains one link.
@@ -41,9 +43,10 @@ Couple days ago I receive this email which is not the first time for me. But thi
 It actually came from my own Yahoo! account which I never use since more that one year ago.</p>
 
 <p>My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the <em>sent mail</em> folder and there it is.
-One email message containing a spam that I actually sent to my friends and family.</p>
-
-<p><img class="well" width="90%" src="/images/post/2013/07/spam/2.jpg" align="center"></p>
+One email message containing a spam that I actually sent to my friends and family.
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/2.jpg" align="center">
+</div></p>
 
 <p>Did some digging to my authentication history and found out that somebody from Romania has access my account.
 How could this be. I&#39;ve never use the account since one or more year ago, I&#39;m an IT guy so I know a little bit
@@ -51,14 +54,17 @@ about security. I don&#39;t click some random suspicious link. I don&#39;t insta
 The password is 12 character long with apla-numeric and random symbol. Thank god that I don&#39;t use the same
 password for all of my account.</p>
 
-<p><img class="well" width="90%" src="/images/post/2013/07/spam/3.jpg" align="center">
-<img class="well" width="90%" src="/images/post/2013/07/spam/4.jpg" align="center"></p>
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/3.jpg" align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/4.jpg" align="center">
+</div>
 
 <p>I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through 
 bunch of proxy all over the world to cover my track. Or probably they don&#39;t even bother because they just
-using it for spam.</p>
-
-<p><img class="well" width="90%" src="/images/post/2013/07/spam/5.jpg" align="center"></p>
+using it for spam.
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/5.jpg" align="center">
+</div></p>
 
 <p>Interesting part is I stumble upon this article saying about Romania has became a <a href="http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/">Global Hub for hackers and online crooks</a>.
 According to the article that it&#39;s became a commonplace for some hacker to harness people personal information
@@ -83,34 +89,30 @@ Or probably I just never notice.</p>
 <li>When this is your work email that sometimes contain private information. Use service that offer <em>two factor authentication</em> like gmail does <a href="http://www.google.com/landing/2step/">you need to enable it</a>. </li>
 <li>Stay safe friends, internet is a dangerous place</li>
 </ol>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<p></article>
+  <hr/></p>
 
-    </p>
-  </article>
-  <hr/>
-
-
-
-  <article>
+<p><article>
     <h1 class="">
         <a href="/en/2013/07/berks-upload-ruby-core-dump.html" rel="bookmark" title="Permanent link to ">berks upload core dump</a>
     </h1>
     <span>July 21, 2013</span>
     <p>
         <p>Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
-think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p>
+think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p></p>
 
 <p>I faced this core dump error while doing <code>berks upload</code>. That command will actualy
 push some cookbook to a chef server.</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="nv">$ </span>berks upload</div><div class="code-line" id="C1L2">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault</div><div class="code-line" id="C1L3">ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span></div><div class="code-line" id="C1L4"><br></div><div class="code-line" id="C1L5">-- Control frame information -----------------------------------------------</div><div class="code-line" id="C1L6">c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47</div><div class="code-line" id="C1L7">c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11</div><div class="code-line" id="C1L8">c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH</div><div class="code-line" id="C1L9">c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------</div><div class="code-line" id="C1L10"><br></div><div class="code-line" id="C1L11">-- Ruby level backtrace information ----------------------------------------</div><div class="code-line" id="C1L12">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;</span></div><div class="code-line" id="C1L13"><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span></div><div class="code-line" id="C1L14"><br></div><div class="code-line" id="C1L15">....</div></pre></div></td></tr></table></div>
+
 <p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<p></article>
+  <hr/></p>
 
-    </p>
-  </article>
-  <hr/>
-
-
-
-  <article>
+<p><article>
     <h1 class="">
         <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html" rel="bookmark" title="Permanent link to ">Safely sharing credentials with PGP</a>
     </h1>
@@ -118,7 +120,7 @@ push some cookbook to a chef server.</p>
     <p>
         <p>When working in teams, we are sometimes required to share some password / keys with our team.
 The most common way for me is probably through email or some chat client. But even though its convenience it&#39;s not
-actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.</p>
+actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.</p></p>
 
 <p>Some simple approach would we communicating the password directly with a person through secure medium.
 One way to do it is both party ssh through a server and use talk client like <a href="http://linux.die.net/man/1/write">write</a>.
@@ -138,7 +140,9 @@ share some password / key file with it.</p>
 <h3>Instalation</h3>
 
 <p>If you don&#39;t already have it on your system, you could installed it with:</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">  <span class="nv">$ </span>sudo apt-get install gpg</div></pre></div></td></tr></table></div>
+
 <p>After installing we would start by creating a pair of keys
 <code>bash
   $ gpg --gen-key
@@ -152,7 +156,9 @@ or doing some random IO disk by triggering for example <code>find /</code></p>
 <h3>Listing keys</h3>
 
 <p>After installing, you can see list of keys by using this command</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"><span class="nv">$ </span> gpg --list-keys</div><div class="code-line" id="C2L2">/home/user/.gnupg/pubring.gpg</div><div class="code-line" id="C2L3">--------------------------------</div><div class="code-line" id="C2L4">pub   2048R/70280895 2013-07-09</div><div class="code-line" id="C2L5">uid                  Ahmy Yulrizka <span class="o">(</span>ahmy135@mail.com<span class="o">)</span> &lt;ahmy135@mail.com&gt;</div><div class="code-line" id="C2L6">sub   2048R/F7B2D44C 2013-07-09</div></pre></div></td></tr></table></div>
+
 <p>In above output you could see that we have created public key with id of <code>70280895</code>. Note this one because we are going to use it later
 when submitting the key to a key server</p>
 
@@ -161,14 +167,20 @@ when submitting the key to a key server</p>
 <p>To share your public key, so other people could send you encrypted message.</p>
 
 <p><strong>Note</strong> that further in this article I will discus ways to easily distribute your public key.</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="nv">$ </span>gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span></div><div class="code-line" id="C3L2">-----BEGIN PGP PUBLIC KEY BLOCK-----</div><div class="code-line" id="C3L3">Version: GnuPG v1.4.11 <span class="o">(</span>GNU/Linux<span class="o">)</span></div><div class="code-line" id="C3L4"><br></div><div class="code-line" id="C3L5">mQENBFHcRTEBCAC056qG97iJAtb604x5Hr+3lIi3UXVOnGauoHSo5S8S3bSCD0Ib</div><div class="code-line" id="C3L6">DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF</div><div class="code-line" id="C3L7">...</div><div class="code-line" id="C3L8">-----END PGP PUBLIC KEY BLOCK-----</div><div class="code-line" id="C3L9"><br></div><div class="code-line" id="C3L10"><span class="nv">$ </span>gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span> --output pubkey.txt <span class="c"># to output it to a file</span></div></pre></div></td></tr></table></div>
+
 <h3>Encrypting and decrypting</h3>
 
 <p>With those generated keys, we could now do a personal encryption. That is if you want to encrypt a file and you are the only one
 who are able to decrypt it.</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">  <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;this message is secret&quot;</span> &gt; message.txt</div><div class="code-line" id="C4L2">  <span class="nv">$ </span>gpg --encrypt --recipient <span class="s1">&#39;ahmy135@gmail.com&#39;</span> message.txt</div></pre></div></td></tr></table></div>
+
 <p>Those code will create a file name <code>message.txt.gpg</code> which is encrypted message of <code>message.txt</code></p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span></td><td><div class="highlight"><pre><div class="code-line" id="C5L1"><span class="nv">$ </span>gpg --decrypt message.txt.gpg</div><div class="code-line" id="C5L2"><br></div><div class="code-line" id="C5L3">You need a passphrase to unlock the secret key <span class="k">for</span></div><div class="code-line" id="C5L4">user: <span class="s2">&quot;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&quot;</span></div><div class="code-line" id="C5L5">2048-bit RSA key, ID F7B2D44C, created 2013-07-09 <span class="o">(</span>main key ID 70280895<span class="o">)</span></div><div class="code-line" id="C5L6"><br></div><div class="code-line" id="C5L7">gpg: gpg-agent is not available in this session</div><div class="code-line" id="C5L8">gpg: encrypted with 2048-bit RSA key, ID F7B2D44C, created 2013-07-09</div><div class="code-line" id="C5L9">      <span class="s2">&quot;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&quot;</span></div><div class="code-line" id="C5L10">this message is secret</div></pre></div></td></tr></table></div>
+
 <p>As you can see that we are successfully decrypted the message. This example you encrypt the message
 using your own public key. So this method only work if you want to archive or backup the file securely.
 In order to send someone else an encrypted message, you need to encrypt the message using the other
@@ -187,7 +199,9 @@ other people could easily find it and import it into their local machine. There 
 and also ubuntu key server <a href="http://keyserver.ubuntu.com">http://keyserver.ubuntu.com</a> that we can use.</p>
 
 <p>To send our key to MIT server we could do</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C6L1"><span class="nv">$ </span>gpg --send-key --keyserver pgp.mit.edu 70280895</div><div class="code-line" id="C6L2">gpg: sending key 70280895 to hkp server pgp.mit.edu</div></pre></div></td></tr></table></div>
+
 <p>the last number <code>70280895</code> was the key id of the public file. You could find it with the output of <code>gpg --list-keys</code> command.
 Now we have successfully send our public key any body could get your public key through that keyserver. You could test this
 by searching a name or email or a person in the key server web interface. for example try searching my name on <a href="http://pgp.mit.edu/">http://pgp.mit.edu/</a></p>
@@ -197,13 +211,19 @@ by searching a name or email or a person in the key server web interface. for ex
 <p>Now to import other people public key, we could also do that in two way.</p>
 
 <p>if the person give you a file which contain their public key (say <code>ahmy-pub.key</code>). you could import it with</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C7L1"><span class="nv">$ </span>gpg --import ahmy-pub.key</div></pre></div></td></tr></table></div>
+
 <p>Or if the person already publish his public key to a keyserver, we can search it with</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span></td><td><div class="highlight"><pre><div class="code-line" id="C8L1"><span class="nv">$ </span>gpg --search-keys <span class="s1">&#39;Ahmy Yulrizka&#39;</span></div><div class="code-line" id="C8L2"><br></div><div class="code-line" id="C8L3"><span class="c"># or</span></div><div class="code-line" id="C8L4"><span class="nv">$ </span>gpg --search-keys <span class="s1">&#39;ahmy135@mail.com&#39;</span></div></pre></div></td></tr></table></div>
+
 <p>It will generate a list of keys that found on the keyserver. Enter the number of the keys and it will be imported to your local machine.</p>
 
 <p>after importing you can send an encrypted message to the person for example</p>
+
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C9L1"><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;This is also a secret&quot;</span> | gpg --encrypt --armor --recipient <span class="s1">&#39;Ahmy Yulrizka&#39;</span> &gt; output.txt.gpg</div></pre></div></td></tr></table></div>
+
 <p>You could provide a name or an email address as a recipient.
 THis command will encrypt the message using public key of a person name <code>Ahmy Yulrizka</code></p>
 
@@ -212,14 +232,11 @@ THis command will encrypt the message using public key of a person name <code>Ah
 <p>At this point you are able to generate, export, distribute and import keys. More over you can already encrypt
 and decrypt file / message to a designated recipient. The the part two of this article I will share some idea
 how we could share some password / password key to other member of the team.</p>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<p></article>
+  <hr/></p>
 
-    </p>
-  </article>
-  <hr/>
-
-
-
-  <article>
+<p><article>
     <h1 class="">
         <a href="/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html" rel="bookmark" title="Permanent link to ">Homeward light indicator with RaspberryPi and CommonSense</a>
     </h1>
@@ -230,19 +247,18 @@ how we could share some password / password key to other member of the team.</p>
     <iframe align="center" width="628" height="400" src="http://www.youtube.com/embed/35ylS4IX_mc" frameborder="0" allowfullscreen></iframe>
   </div>
 </div><br/>
-I've been tinkering with my [raspberry-pi][raspberry-pi] for quite some time now. What I like about it because it is cheap ($25),
-it's run Linux (especially debian based) and most of all it's have General Purpose Input Output pin. Since I was a kid, I always
+I&#39;ve been tinkering with my [raspberry-pi][raspberry-pi] for quite some time now. What I like about it because it is cheap ($25),
+it&#39;s run Linux (especially debian based) and most of all it&#39;s have General Purpose Input Output pin. Since I was a kid, I always
 wanted to control electronic appliance remotely. Luckily my friend [@pimnijdam][pimnijdam] thought me how to control a relay board.
-Basically it's just like an electric switch that connect/disconnect current when you supply a low voltage.
+Basically it&#39;s just like an electric switch that connect/disconnect current when you supply a low voltage.</p>
 
-
-So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through
+<p>So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through
 my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi
 but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is
-quite awesome. So I could install a ruby/python and it only took a single command.
+quite awesome. So I could install a ruby/python and it only took a single command.</p>
 
-So I did create a [project][pi-sinatra-github]  with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source on [github][pi-sinatra-github].
-This project uses [pi-piper][pi-piper] a ruby library that wrap [wiringPi][wiringPi], which is library that is used to control the GPIO pin.
+<p>So I did create a [project][pi-sinatra-github]  with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source on [github][pi-sinatra-github].
+This project uses [pi-piper][pi-piper] a ruby library that wrap [wiringPi][wiringPi], which is library that is used to control the GPIO pin.</p>
 
 <div class="row">
 <div class="span8 offset1">
@@ -440,7 +456,7 @@ So the second code run more than the first code in one second. Which mean the se
 <p>Also the first code run <strong>277.202</strong> times in <strong>5.048175</strong> sec while the second code run <strong>389.844</strong> times in <strong>5.05</strong> sec</p>
 
 <p>So this mean, that <strong>regex is more slower</strong> then calling capitalized on each element on array</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
