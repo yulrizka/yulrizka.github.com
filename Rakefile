@@ -18,17 +18,17 @@ multitask :push do
   Rake::Task[:copy].invoke
   message = "Site updated at #{Time.now.utc}"
   cd "#{deploy_dir}" do
-    system "git add ."
-    system "git add -u"
-    puts "\n## Commiting: Site updated at #{Time.now.utc}"    
-    system "git commit -m \"#{message}\""
-    puts "\n## Pushing generated #{deploy_dir} website"
-    system "git push origin #{deploy_branch}"
-    puts "\n## Github Pages deploy complete"
+    #system "git add ."
+    #system "git add -u"
+    #puts "\n## Commiting: Site updated at #{Time.now.utc}"
+    #system "git commit -m \"#{message}\""
+    #puts "\n## Pushing generated #{deploy_dir} website"
+    #system "git push origin #{deploy_branch}"
+    #puts "\n## Github Pages deploy complete"
   end
     system "git add ."
     system "git add -u"
-    puts "\n## Commiting Source: Site updated at #{Time.now.utc}"    
+    puts "\n## Commiting Source: Site updated at #{Time.now.utc}"
     system "git commit -m \"Source #{message}\""
     puts "\n## Pushing source"
     system "git push origin #{source_branch}"
@@ -41,6 +41,7 @@ task :copy do
   #Rake::Task[:copydot].invoke(public_dir, deploy_dir)
   puts "\n## copying #{public_dir} to #{deploy_dir}"
   cp_r "#{public_dir}/.", deploy_dir
+  puts "\n## task copy done"
 end
 
 # usage rake new_post[my-new-post] or rake new_post['my new post'] or rake new_post (defaults to "new-post")
