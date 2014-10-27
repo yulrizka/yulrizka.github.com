@@ -29,6 +29,40 @@
 
   <article>
     <h1 class="">
+        <a href="/en/2014/10/stubbing-time-dot-now-in-golang.html" rel="bookmark" title="Permanent link to ">Stubbing Time.Now() in golang</a>
+    </h1>
+    <span>October 27, 2014</span>
+    <p>
+        <p>Some time it&#39;s really hard to test functionality that involves with system time.
+Especially when we wanted to test specific functionality. For example testing
+whether today is end of month. It&#39;s unrealistic to run this test case once every month.</p>
+
+<p>If you are coming from ruby land, you might familiar with some test library that solve
+this problem like <a href="https://github.com/travisjeffery/timecop">timecop</a>. Actually it&#39;s not that hard to do it in Go also.
+There is couple of approach you can use.</p>
+
+<p>First approach is passing the <code>time.Time</code> object to every function.</p>
+<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="kd">func</span> <span class="nx">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C1L2">  <span class="o">...</span></div><div class="code-line" id="C1L3"><span class="p">}</span></div></pre></div></td></tr></table></div>
+<p>This way you can either pass <code>time.Now()</code> in your main pacakge
+or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.
+This work well but it&#39;s a bit cumbersome to pas it evertime we call the function</p>
+
+<p>Another approach you can use, is to create a function to generate current time. And during the test
+you can change the implementation of the function. Here is how i do it (and a bonus function to
+generate begining of month and end of month)</p>
+<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C2L2"><br></div><div class="code-line" id="C2L3"><span class="kn">import</span> <span class="s">&quot;time&quot;</span></div><div class="code-line" id="C2L4"><br></div><div class="code-line" id="C2L5"><span class="kd">type</span> <span class="nx">nowFuncT</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span></div><div class="code-line" id="C2L6"><br></div><div class="code-line" id="C2L7"><span class="kd">var</span> <span class="nx">nowFunc</span> <span class="nx">nowFuncT</span></div><div class="code-line" id="C2L8"><br></div><div class="code-line" id="C2L9"><span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C2L10">    <span class="nx">resetClockImplementation</span><span class="p">()</span></div><div class="code-line" id="C2L11"><span class="p">}</span></div><div class="code-line" id="C2L12"><br></div><div class="code-line" id="C2L13"><span class="kd">func</span> <span class="nx">resetClockImplementation</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C2L14">    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L15">        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span></div><div class="code-line" id="C2L16">    <span class="p">}</span></div><div class="code-line" id="C2L17"><span class="p">}</span></div><div class="code-line" id="C2L18"><br></div><div class="code-line" id="C2L19"><span class="c1">// function to return current time stamp in UTC</span></div><div class="code-line" id="C2L20"><span class="kd">func</span> <span class="nx">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L21">    <span class="k">return</span> <span class="nx">nowFunc</span><span class="p">().</span><span class="nx">UTC</span><span class="p">()</span></div><div class="code-line" id="C2L22"><span class="p">}</span></div><div class="code-line" id="C2L23"><br></div><div class="code-line" id="C2L24"><span class="c1">// return beginning of month in UTC</span></div><div class="code-line" id="C2L25"><span class="kd">func</span> <span class="nx">beginningOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L26">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Month</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C2L27"><span class="p">}</span></div><div class="code-line" id="C2L28"><br></div><div class="code-line" id="C2L29"><span class="c1">// return end of month in utc</span></div><div class="code-line" id="C2L30"><span class="kd">func</span> <span class="nx">endOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L31">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Month</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">).</span><span class="nx">AddDate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div><div class="code-line" id="C2L32"><span class="p">}</span></div></pre></div></td></tr></table></div>
+<p>now in your test you could do something like this:</p>
+<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="c1">// change implementation of clock in the beginning of the test</span></div><div class="code-line" id="C3L2"><span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C3L3">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C3L4"><span class="p">}</span></div><div class="code-line" id="C3L5"><br></div><div class="code-line" id="C3L6"><span class="c1">//...</span></div><div class="code-line" id="C3L7"><br></div><div class="code-line" id="C3L8"><span class="c1">// after finish with the test, reset the time implementation</span></div><div class="code-line" id="C3L9"><span class="nx">resetClockImplementation</span><span class="p">()</span></div></pre></div></td></tr></table></div>
+<p>now to the process that, it will see that currently it&#39;s 15 December 2000 8:00 UTC</p>
+
+    </p>
+  </article>
+  <hr/>
+
+
+
+  <article>
+    <h1 class="">
         <a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html" rel="bookmark" title="Permanent link to ">My account just got hacked by Romanian (Possibly)</a>
     </h1>
     <span>July 27, 2013</span>
@@ -472,7 +506,18 @@ So the second code run more than the first code in one second. Which mean the se
             
 
               
-                <h3>2013</h3>
+                <h3>2014</h3>
+              
+
+              <li>Oct <a href="/en/2014/10/stubbing-time-dot-now-in-golang.html">Stubbing Time.Now() in golang</a></li>
+            
+
+              
+                
+                
+                
+                  <h3>2013</h3>
+                
               
 
               <li>Jul <a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html">My account just got hacked by Romanian (Possibly)</a></li>

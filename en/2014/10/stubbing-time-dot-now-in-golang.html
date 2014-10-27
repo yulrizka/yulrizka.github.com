@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Stubbing Time.Now() in golang | Dev blogs of Ahmy yulrizka</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Testing functionality that using system time">
+<meta name="author" content="Ahmy Yulrizka">
+<meta http-equiv="Content-Language" Content="en">
+<meta name="keywords" content="golang test, time stubbing, golang stub time, golang test time" />
+<meta http-equiv="date" content="2014-10-27T16:42:00+00:00" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="canonical" href="http://labs.yulrizka.com/en/2014/10/stubbing-time-dot-now-in-golang.html">
+<!-- Framework CSS -->
+<link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+          <article>
+            <h1>Stubbing Time.Now() in golang</h1>
+            <div class="posted_at">27 Oct 2014</div>
+
+            <p>Some time it&#39;s really hard to test functionality that involves with system time.
+Especially when we wanted to test specific functionality. For example testing
+whether today is end of month. It&#39;s unrealistic to run this test case once every month.</p>
+
+<p>If you are coming from ruby land, you might familiar with some test library that solve
+this problem like <a href="https://github.com/travisjeffery/timecop">timecop</a>. Actually it&#39;s not that hard to do it in Go also.
+There is couple of approach you can use.</p>
+
+<p>First approach is passing the <code>time.Time</code> object to every function.</p>
+<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="kd">func</span> <span class="nx">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C1L2">  <span class="o">...</span></div><div class="code-line" id="C1L3"><span class="p">}</span></div></pre></div></td></tr></table></div>
+<p>This way you can either pass <code>time.Now()</code> in your main pacakge
+or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.
+This work well but it&#39;s a bit cumbersome to pas it evertime we call the function</p>
+
+<p>Another approach you can use, is to create a function to generate current time. And during the test
+you can change the implementation of the function. Here is how i do it (and a bonus function to
+generate begining of month and end of month)</p>
+<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C2L2"><br></div><div class="code-line" id="C2L3"><span class="kn">import</span> <span class="s">&quot;time&quot;</span></div><div class="code-line" id="C2L4"><br></div><div class="code-line" id="C2L5"><span class="kd">type</span> <span class="nx">nowFuncT</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span></div><div class="code-line" id="C2L6"><br></div><div class="code-line" id="C2L7"><span class="kd">var</span> <span class="nx">nowFunc</span> <span class="nx">nowFuncT</span></div><div class="code-line" id="C2L8"><br></div><div class="code-line" id="C2L9"><span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C2L10">    <span class="nx">resetClockImplementation</span><span class="p">()</span></div><div class="code-line" id="C2L11"><span class="p">}</span></div><div class="code-line" id="C2L12"><br></div><div class="code-line" id="C2L13"><span class="kd">func</span> <span class="nx">resetClockImplementation</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C2L14">    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L15">        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span></div><div class="code-line" id="C2L16">    <span class="p">}</span></div><div class="code-line" id="C2L17"><span class="p">}</span></div><div class="code-line" id="C2L18"><br></div><div class="code-line" id="C2L19"><span class="c1">// function to return current time stamp in UTC</span></div><div class="code-line" id="C2L20"><span class="kd">func</span> <span class="nx">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L21">    <span class="k">return</span> <span class="nx">nowFunc</span><span class="p">().</span><span class="nx">UTC</span><span class="p">()</span></div><div class="code-line" id="C2L22"><span class="p">}</span></div><div class="code-line" id="C2L23"><br></div><div class="code-line" id="C2L24"><span class="c1">// return beginning of month in UTC</span></div><div class="code-line" id="C2L25"><span class="kd">func</span> <span class="nx">beginningOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L26">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Month</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C2L27"><span class="p">}</span></div><div class="code-line" id="C2L28"><br></div><div class="code-line" id="C2L29"><span class="c1">// return end of month in utc</span></div><div class="code-line" id="C2L30"><span class="kd">func</span> <span class="nx">endOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L31">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Month</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">).</span><span class="nx">AddDate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div><div class="code-line" id="C2L32"><span class="p">}</span></div></pre></div></td></tr></table></div>
+<p>now in your test you could do something like this:</p>
+<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="c1">// change implementation of clock in the beginning of the test</span></div><div class="code-line" id="C3L2"><span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C3L3">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C3L4"><span class="p">}</span></div><div class="code-line" id="C3L5"><br></div><div class="code-line" id="C3L6"><span class="c1">//...</span></div><div class="code-line" id="C3L7"><br></div><div class="code-line" id="C3L8"><span class="c1">// after finish with the test, reset the time implementation</span></div><div class="code-line" id="C3L9"><span class="nx">resetClockImplementation</span><span class="p">()</span></div></pre></div></td></tr></table></div>
+<p>now to the process that, it will see that currently it&#39;s 15 December 2000 8:00 UTC</p>
+
+
+            <hr>
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+              <a class="addthis_button_facebook"></a>
+              <a class="addthis_button_twitter"></a>
+              <a class="addthis_button_google_plusone_share"></a>
+              <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=yulrizka"></script>
+            <!-- AddThis Button END -->
+            <br>
+
+            <b>Site related post:</b>
+            
+            <ul>
+              <li><a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html">Homeward light indicator with RaspberryPi and CommonSense</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html">Testing ruby code with benchmark_suite</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html">My account just got hacked by Romanian (Possibly)</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2012/02/responsive-design.html">Responsive Design</a></li>
+            </ul>
+            
+          </article>
+
+          
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              //var disqus_developer = 1;
+              var disqus_shortname = 'labs-yulrizka';
+              var disqus_identifier = '/en/2014/10/stubbing-time-dot-now-in-golang.html';
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <ul>
+            
+
+              
+                <h3>2014</h3>
+              
+
+              <li>Oct <a href="/en/2014/10/stubbing-time-dot-now-in-golang.html">Stubbing Time.Now() in golang</a></li>
+            
+
+              
+                
+                
+                
+                  <h3>2013</h3>
+                
+              
+
+              <li>Jul <a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html">My account just got hacked by Romanian (Possibly)</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Jul <a href="/en/2013/07/berks-upload-ruby-core-dump.html">berks upload core dump</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Jul <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Feb <a href="/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html">Homeward light indicator with RaspberryPi and CommonSense</a></li>
+            
+
+              
+                
+                
+                
+                  <h3>2012</h3>
+                
+              
+
+              <li>Mar <a href="/id/2012/03/scale-mongodb-dengan-sharding.html">Scale MongoDB dengan Sharding</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Feb <a href="/id/2012/02/ruby-fiber-apaan-sih.html">Ruby Fiber apaan sih ?</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Feb <a href="/en/2012/02/responsive-design.html">Responsive Design</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Jan <a href="/en/2012/01/jekyll-error-utf-8-caracter.html">Jekyll error utf-8 caracter</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Jan <a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html">Testing ruby code with benchmark_suite</a></li>
+            
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+        <div class="item active">
+          <div class="image labs"></div>
+          <div class="text">
+            <p class="title">Let each man exercise the art he knows</p>
+            <p>Welcome to my canvas. A place for me to explore and experiment on some stuff that I found interesting.</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="image ruby"></div>
+          <div class="text">
+            <p class="title">Ruby (and Rails) </p>
+            <p>Ruby is a neat language. People create clean, elegant and smart app with it. Rails is web framework built on top of ruby. In this category I will explore stuff related to ruby and also rails</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="image web"></div>
+          <div class="text">
+            <p class="title">Web</p>
+            <p>This is general category involving various aspect of web technology. I like to explore not only the programming and technology aspect of the web, but also the design </p>
+          </div>
+        </div>
+        
+      </div>
+    </div> 
+  </div>
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <span class="brand" href="#">Labs.Yulrizka.com</span>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="http://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+              <li class="active banner"><a href="/">Home</a></li>
+              <li class=""><a href="/ruby/">Ruby (and Rails)</a></li>
+              <li class=""><a href="/web/">Web</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  <footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2012. This site is made with <a href="http://jekyllrb.com/">Jekyll</a>
+            using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>
+            and hosted on <a href="http://pages.github.com/">Github pages</a>.
+            All of the content is open and the source can be accessed
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+
+</div> <!-- end of #container-->
+
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="/javascripts/application.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>
