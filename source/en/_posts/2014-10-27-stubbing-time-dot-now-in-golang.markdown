@@ -64,7 +64,7 @@ func beginningOfMonth(t time.Time) time.Time {
 
 // return end of month in utc
 func endOfMonth(t time.Time) time.Time {
-    return time.Date(t.Year(), t.Month()+1, 1, 0, 0, 0, 0, time.UTC).AddDate(0, 0, -1)
+    return time.Date(t.Year(), t.Month()+1, 1, 0, 0, 0, 0, time.UTC).Add(-1 * time.Nanosecond)
 }
 
 ```
