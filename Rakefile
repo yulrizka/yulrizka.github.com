@@ -18,7 +18,9 @@ multitask :push do
   Rake::Task[:copy].invoke
   message = "Site updated at #{Time.now.utc}"
   cd "#{deploy_dir}" do
+    puts "- git add ."
     system "git add ."
+    puts "- git add -u"
     system "git add -u"
     puts "\n## Commiting: Site updated at #{Time.now.utc}"
     system "git commit -m \"#{message}\""
