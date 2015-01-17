@@ -29,20 +29,63 @@
 
   <article>
     <h1 class="">
+        <a href="/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html" rel="bookmark" title="Permanent link to ">Tracking origin of bugs with git bisect</a>
+    </h1>
+    <span>January 16, 2015</span>
+    <p>
+        <div class="thumbnail" align="center">
+  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
+  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
+</div>
+
+<p>I&#39;ve been involved with a iOS project this past week. I&#39;m adding functionality to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
+One of the most annoying thing is that it took about 2 minute to load the project. But this is only happened in the unstable branch.
+The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
+
+<p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
+bad commit found. So you start with a commit and you marked is as a &#39;<em>good</em>&#39; or &#39;<em>bad</em>&#39;. Every time you mark a commit as good / bad. 
+It will then checkout a commit at some point on the history using the binary search algorithm. In each checkout then you test the code and see
+whether the bugs exist or not.</p>
+
+<p>Here is an example</p>
+
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="c"># let&#39;s start to bisecting, Im in unstable branch,</span></div><div class="code-line" id="C1L2">➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> <span class="nv">$ </span>git bisect start</div></pre></div></td></tr></table></div>
+
+<p>the <code>sense-ios-library</code> show the current folder, and <code>git:(unstable)</code> show current commit. it&#39;s part oh <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> plugin</p>
+
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span><span class="line-number">33</span><span class="line-number">34</span><span class="line-number">35</span><span class="line-number">36</span><span class="line-number">37</span><span class="line-number">38</span><span class="line-number">39</span><span class="line-number">40</span><span class="line-number">41</span><span class="line-number">42</span><span class="line-number">43</span><span class="line-number">44</span><span class="line-number">45</span><span class="line-number">46</span><span class="line-number">47</span><span class="line-number">48</span><span class="line-number">49</span><span class="line-number">50</span><span class="line-number">51</span><span class="line-number">52</span><span class="line-number">53</span><span class="line-number">54</span><span class="line-number">55</span><span class="line-number">56</span><span class="line-number">57</span><span class="line-number">58</span><span class="line-number">59</span><span class="line-number">60</span><span class="line-number">61</span><span class="line-number">62</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"># I open the xcode, and it took quite a long time. so let&#39;s marks current revision as bad</div><div class="code-line" id="C2L2">➜ sense-ios-library git:(unstable) $ git bisect bad</div><div class="code-line" id="C2L3"><br></div><div class="code-line" id="C2L4"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</div><div class="code-line" id="C2L5">➜ sense-ios-library git:(unstable) $ git bisect good master</div><div class="code-line" id="C2L6"><br></div><div class="code-line" id="C2L7">Bisecting: 9 revisions left to test after this (roughly 3 steps)</div><div class="code-line" id="C2L8">[c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</div><div class="code-line" id="C2L9"><br></div><div class="code-line" id="C2L10"># now I&#39;m in c1841 commit, I tested again with xcode, and found no problem, mark it as good</div><div class="code-line" id="C2L11"><br></div><div class="code-line" id="C2L12">➜  sense2 git:(c1841c0) $ git bisect good</div><div class="code-line" id="C2L13"><br></div><div class="code-line" id="C2L14">Bisecting: 4 revisions left to test after this (roughly 2 steps)</div><div class="code-line" id="C2L15">[06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</div><div class="code-line" id="C2L16"><br></div><div class="code-line" id="C2L17"># tested again, it&#39;s good</div><div class="code-line" id="C2L18">➜  sense2 git:(06bbd23) $ git bisect good</div><div class="code-line" id="C2L19"><br></div><div class="code-line" id="C2L20">Bisecting: 2 revisions left to test after this (roughly 1 step)</div><div class="code-line" id="C2L21">[71517b7923143a8cf1ce205341dd6942c9468198] Added threshold for checking to remove old data from local storage to save battery life</div><div class="code-line" id="C2L22"><br></div><div class="code-line" id="C2L23"># Tested again, Now I&#39;m beginning to see the problem. Let&#39;s mark this bad</div><div class="code-line" id="C2L24">➜  sense2 git:(71517b7) $ git bisect bad</div><div class="code-line" id="C2L25"><br></div><div class="code-line" id="C2L26">Bisecting: 0 revisions left to test after this (roughly 0 steps)</div><div class="code-line" id="C2L27">[e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1] Updated functionality and tests of getting local data</div><div class="code-line" id="C2L28"><br></div><div class="code-line" id="C2L29"># ....</div><div class="code-line" id="C2L30"># and we keep doing this until we find the first commit when it was introduced.</div><div class="code-line" id="C2L31"><br></div><div class="code-line" id="C2L32"># Now let&#39;s check our progress using log</div><div class="code-line" id="C2L33"><br></div><div class="code-line" id="C2L34"># let&#39;s check our progress so far</div><div class="code-line" id="C2L35"><br></div><div class="code-line" id="C2L36">➜  sense-ios-library git:(71517b7) $ git bisect log</div><div class="code-line" id="C2L37"><br></div><div class="code-line" id="C2L38">git bisect start</div><div class="code-line" id="C2L39"># bad: [af42213324297e1234767f9224ec1af326514292] Merge pull request #48 from senseobservationsystems/feature-LocalStorageInterface</div><div class="code-line" id="C2L40">git bisect bad af42213324297e1234767f9224ec1af326514292</div><div class="code-line" id="C2L41"># good: [19f751627d152b89d3f2ecadb144507fcf9293fc] Merge pull request #43 from senseobservationsystems/unstable</div><div class="code-line" id="C2L42">git bisect good 19f751627d152b89d3f2ecadb144507fcf9293fc</div><div class="code-line" id="C2L43"># good: [c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</div><div class="code-line" id="C2L44">git bisect good c1841c0f99a4fa788c14c7437fac7c9547c768c9</div><div class="code-line" id="C2L45"># good: [06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</div><div class="code-line" id="C2L46">git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9</div><div class="code-line" id="C2L47"><br></div><div class="code-line" id="C2L48"># when you reach the final commit, you will be shown the commit log and modified file</div><div class="code-line" id="C2L49"><br></div><div class="code-line" id="C2L50">➜  sense2 git:(e5c40d4) $ git bisect bad</div><div class="code-line" id="C2L51"><br></div><div class="code-line" id="C2L52">e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit</div><div class="code-line" id="C2L53">commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1</div><div class="code-line" id="C2L54">Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;</div><div class="code-line" id="C2L55">Date:   Thu Jan 8 14:38:07 2015 +0100</div><div class="code-line" id="C2L56"><br></div><div class="code-line" id="C2L57">    Updated functionality and tests of getting local data</div><div class="code-line" id="C2L58"><br></div><div class="code-line" id="C2L59">:040000 040000 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests</div><div class="code-line" id="C2L60">:040000 040000 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj</div><div class="code-line" id="C2L61">:040000 040000 a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests</div><div class="code-line" id="C2L62">:040000 040000 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform</div></pre></div></td></tr></table></div>
+
+<p>Now that you know when was the bug introduced. you can now start looking at the problem. I found out there is something that doesn&#39;t
+feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>. There is a reference to <code>Xcode.app</code> in on of the folder. So every time I open the project,
+or switch branch. It will try to index all the things inside <code>Xcode.app</code>. So removing the reference indeed solve the problem. </p>
+
+<p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced. You can event automate the test so you don&#39;t
+have to check each bisect commit your self. The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command
+and also an example on how to automate the test.</p>
+
+<p>Now go on catch and squash those annoying bug!</p>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<p></article>
+  <hr/></p>
+
+<p><article>
+    <h1 class="">
         <a href="/en/2014/10/stubbing-time-dot-now-in-golang.html" rel="bookmark" title="Permanent link to ">Stubbing Time.Now() in golang</a>
     </h1>
     <span>October 27, 2014</span>
     <p>
         <p>Some time it&#39;s really hard to test functionality that involves with system time.
 Especially when we wanted to test specific functionality. For example testing
-whether today is end of month. It&#39;s unrealistic to run this test case once every month.</p>
+whether today is end of month. It&#39;s unrealistic to run this test case once every month.</p></p>
 
 <p>If you are coming from ruby land, you might familiar with some test library that solve
 this problem like <a href="https://github.com/travisjeffery/timecop">timecop</a>. Actually it&#39;s not that hard to do it in Go also.
 There is couple of approach you can use.</p>
 
 <p>First approach is passing the <code>time.Time</code> object to every function.</p>
+
 <div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="kd">func</span> <span class="nx">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C1L2">  <span class="o">...</span></div><div class="code-line" id="C1L3"><span class="p">}</span></div></pre></div></td></tr></table></div>
+
 <p>This way you can either pass <code>time.Now()</code> in your main pacakge
 or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.
 This work well but it&#39;s a bit cumbersome to pas it evertime we call the function</p>
@@ -50,18 +93,19 @@ This work well but it&#39;s a bit cumbersome to pas it evertime we call the func
 <p>Another approach you can use, is to create a function to generate current time. And during the test
 you can change the implementation of the function. Here is how i do it (and a bonus function to
 generate begining of month and end of month)</p>
+
 <div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C2L2"><br></div><div class="code-line" id="C2L3"><span class="kn">import</span> <span class="s">&quot;time&quot;</span></div><div class="code-line" id="C2L4"><br></div><div class="code-line" id="C2L5"><span class="kd">type</span> <span class="nx">nowFuncT</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span></div><div class="code-line" id="C2L6"><br></div><div class="code-line" id="C2L7"><span class="kd">var</span> <span class="nx">nowFunc</span> <span class="nx">nowFuncT</span></div><div class="code-line" id="C2L8"><br></div><div class="code-line" id="C2L9"><span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C2L10">    <span class="nx">resetClockImplementation</span><span class="p">()</span></div><div class="code-line" id="C2L11"><span class="p">}</span></div><div class="code-line" id="C2L12"><br></div><div class="code-line" id="C2L13"><span class="kd">func</span> <span class="nx">resetClockImplementation</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C2L14">    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L15">        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span></div><div class="code-line" id="C2L16">    <span class="p">}</span></div><div class="code-line" id="C2L17"><span class="p">}</span></div><div class="code-line" id="C2L18"><br></div><div class="code-line" id="C2L19"><span class="c1">// function to return current time stamp in UTC</span></div><div class="code-line" id="C2L20"><span class="kd">func</span> <span class="nx">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L21">    <span class="k">return</span> <span class="nx">nowFunc</span><span class="p">().</span><span class="nx">UTC</span><span class="p">()</span></div><div class="code-line" id="C2L22"><span class="p">}</span></div><div class="code-line" id="C2L23"><br></div><div class="code-line" id="C2L24"><span class="c1">// return beginning of month in UTC</span></div><div class="code-line" id="C2L25"><span class="kd">func</span> <span class="nx">beginningOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L26">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Month</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C2L27"><span class="p">}</span></div><div class="code-line" id="C2L28"><br></div><div class="code-line" id="C2L29"><span class="c1">// return end of month in utc</span></div><div class="code-line" id="C2L30"><span class="kd">func</span> <span class="nx">endOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L31">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Month</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">).</span><span class="nx">Add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Nanosecond</span><span class="p">)</span></div><div class="code-line" id="C2L32"><span class="p">}</span></div></pre></div></td></tr></table></div>
+
 <p>now in your test you could do something like this:</p>
+
 <div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="c1">// change implementation of clock in the beginning of the test</span></div><div class="code-line" id="C3L2"><span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C3L3">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C3L4"><span class="p">}</span></div><div class="code-line" id="C3L5"><br></div><div class="code-line" id="C3L6"><span class="c1">//...</span></div><div class="code-line" id="C3L7"><br></div><div class="code-line" id="C3L8"><span class="c1">// after finish with the test, reset the time implementation</span></div><div class="code-line" id="C3L9"><span class="nx">resetClockImplementation</span><span class="p">()</span></div></pre></div></td></tr></table></div>
+
 <p>now to the process that, it will see that currently it&#39;s 15 December 2000 8:00 UTC</p>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<p></article>
+  <hr/></p>
 
-    </p>
-  </article>
-  <hr/>
-
-
-
-  <article>
+<p><article>
     <h1 class="">
         <a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html" rel="bookmark" title="Permanent link to ">My account just got hacked by Romanian (Possibly)</a>
     </h1>
@@ -69,7 +113,7 @@ generate begining of month and end of month)</p>
     <p>
         <div align="center">
   <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/1.jpg" align="center">
-</div>
+</div></p>
 
 <p>You are probably familiar with above images. Some random friend sent you an email which you can instantly 
 recognize as a spam because it only contains one link.
@@ -123,7 +167,7 @@ Or probably I just never notice.</p>
 <li>When this is your work email that sometimes contain private information. Use service that offer <em>two factor authentication</em> like gmail does <a href="http://www.google.com/landing/2step/">you need to enable it</a>. </li>
 <li>Stay safe friends, internet is a dangerous place</li>
 </ol>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -142,7 +186,7 @@ push some cookbook to a chef server.</p>
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="nv">$ </span>berks upload</div><div class="code-line" id="C1L2">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault</div><div class="code-line" id="C1L3">ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span></div><div class="code-line" id="C1L4"><br></div><div class="code-line" id="C1L5">-- Control frame information -----------------------------------------------</div><div class="code-line" id="C1L6">c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47</div><div class="code-line" id="C1L7">c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11</div><div class="code-line" id="C1L8">c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH</div><div class="code-line" id="C1L9">c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------</div><div class="code-line" id="C1L10"><br></div><div class="code-line" id="C1L11">-- Ruby level backtrace information ----------------------------------------</div><div class="code-line" id="C1L12">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;</span></div><div class="code-line" id="C1L13"><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span></div><div class="code-line" id="C1L14"><br></div><div class="code-line" id="C1L15">....</div></pre></div></td></tr></table></div>
 
 <p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -266,7 +310,7 @@ THis command will encrypt the message using public key of a person name <code>Ah
 <p>At this point you are able to generate, export, distribute and import keys. More over you can already encrypt
 and decrypt file / message to a designated recipient. The the part two of this article I will share some idea
 how we could share some password / password key to other member of the team.</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C5L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -490,7 +534,7 @@ So the second code run more than the first code in one second. Which mean the se
 <p>Also the first code run <strong>277.202</strong> times in <strong>5.048175</strong> sec while the second code run <strong>389.844</strong> times in <strong>5.05</strong> sec</p>
 
 <p>So this mean, that <strong>regex is more slower</strong> then calling capitalized on each element on array</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C6L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -506,7 +550,18 @@ So the second code run more than the first code in one second. Which mean the se
             
 
               
-                <h3>2014</h3>
+                <h3>2015</h3>
+              
+
+              <li>Jan <a href="/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html">Tracking origin of bugs with git bisect</a></li>
+            
+
+              
+                
+                
+                
+                  <h3>2014</h3>
+                
               
 
               <li>Oct <a href="/en/2014/10/stubbing-time-dot-now-in-golang.html">Stubbing Time.Now() in golang</a></li>

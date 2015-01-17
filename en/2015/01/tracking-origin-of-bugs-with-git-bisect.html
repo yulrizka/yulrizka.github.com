@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Tracking origin of bugs with git bisect | Dev blogs of Ahmy yulrizka</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Determine which commit was the bug introduced">
+<meta name="author" content="Ahmy Yulrizka">
+<meta http-equiv="Content-Language" Content="en">
+<meta name="keywords" content="git, bisect, bug tracking" />
+<meta http-equiv="date" content="2015-01-16T23:35:00+00:00" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="canonical" href="http://labs.yulrizka.com/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html">
+<!-- Framework CSS -->
+<link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+          <article>
+            <h1>Tracking origin of bugs with git bisect</h1>
+            <div class="posted_at">16 Jan 2015</div>
+
+            <div class="thumbnail" align="center">
+  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
+  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
+</div>
+
+<p>I&#39;ve been involved with a iOS project this past week. I&#39;m adding functionality to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
+One of the most annoying thing is that it took about 2 minute to load the project. But this is only happened in the unstable branch.
+The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
+
+<p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
+bad commit found. So you start with a commit and you marked is as a &#39;<em>good</em>&#39; or &#39;<em>bad</em>&#39;. Every time you mark a commit as good / bad. 
+It will then checkout a commit at some point on the history using the binary search algorithm. In each checkout then you test the code and see
+whether the bugs exist or not.</p>
+
+<p>Here is an example</p>
+<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="c"># let&#39;s start to bisecting, Im in unstable branch,</span></div><div class="code-line" id="C1L2">➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> <span class="nv">$ </span>git bisect start</div></pre></div></td></tr></table></div>
+<p>the <code>sense-ios-library</code> show the current folder, and <code>git:(unstable)</code> show current commit. it&#39;s part oh <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> plugin</p>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span><span class="line-number">33</span><span class="line-number">34</span><span class="line-number">35</span><span class="line-number">36</span><span class="line-number">37</span><span class="line-number">38</span><span class="line-number">39</span><span class="line-number">40</span><span class="line-number">41</span><span class="line-number">42</span><span class="line-number">43</span><span class="line-number">44</span><span class="line-number">45</span><span class="line-number">46</span><span class="line-number">47</span><span class="line-number">48</span><span class="line-number">49</span><span class="line-number">50</span><span class="line-number">51</span><span class="line-number">52</span><span class="line-number">53</span><span class="line-number">54</span><span class="line-number">55</span><span class="line-number">56</span><span class="line-number">57</span><span class="line-number">58</span><span class="line-number">59</span><span class="line-number">60</span><span class="line-number">61</span><span class="line-number">62</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"># I open the xcode, and it took quite a long time. so let&#39;s marks current revision as bad</div><div class="code-line" id="C2L2">➜ sense-ios-library git:(unstable) $ git bisect bad</div><div class="code-line" id="C2L3"><br></div><div class="code-line" id="C2L4"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</div><div class="code-line" id="C2L5">➜ sense-ios-library git:(unstable) $ git bisect good master</div><div class="code-line" id="C2L6"><br></div><div class="code-line" id="C2L7">Bisecting: 9 revisions left to test after this (roughly 3 steps)</div><div class="code-line" id="C2L8">[c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</div><div class="code-line" id="C2L9"><br></div><div class="code-line" id="C2L10"># now I&#39;m in c1841 commit, I tested again with xcode, and found no problem, mark it as good</div><div class="code-line" id="C2L11"><br></div><div class="code-line" id="C2L12">➜  sense2 git:(c1841c0) $ git bisect good</div><div class="code-line" id="C2L13"><br></div><div class="code-line" id="C2L14">Bisecting: 4 revisions left to test after this (roughly 2 steps)</div><div class="code-line" id="C2L15">[06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</div><div class="code-line" id="C2L16"><br></div><div class="code-line" id="C2L17"># tested again, it&#39;s good</div><div class="code-line" id="C2L18">➜  sense2 git:(06bbd23) $ git bisect good</div><div class="code-line" id="C2L19"><br></div><div class="code-line" id="C2L20">Bisecting: 2 revisions left to test after this (roughly 1 step)</div><div class="code-line" id="C2L21">[71517b7923143a8cf1ce205341dd6942c9468198] Added threshold for checking to remove old data from local storage to save battery life</div><div class="code-line" id="C2L22"><br></div><div class="code-line" id="C2L23"># Tested again, Now I&#39;m beginning to see the problem. Let&#39;s mark this bad</div><div class="code-line" id="C2L24">➜  sense2 git:(71517b7) $ git bisect bad</div><div class="code-line" id="C2L25"><br></div><div class="code-line" id="C2L26">Bisecting: 0 revisions left to test after this (roughly 0 steps)</div><div class="code-line" id="C2L27">[e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1] Updated functionality and tests of getting local data</div><div class="code-line" id="C2L28"><br></div><div class="code-line" id="C2L29"># ....</div><div class="code-line" id="C2L30"># and we keep doing this until we find the first commit when it was introduced.</div><div class="code-line" id="C2L31"><br></div><div class="code-line" id="C2L32"># Now let&#39;s check our progress using log</div><div class="code-line" id="C2L33"><br></div><div class="code-line" id="C2L34"># let&#39;s check our progress so far</div><div class="code-line" id="C2L35"><br></div><div class="code-line" id="C2L36">➜  sense-ios-library git:(71517b7) $ git bisect log</div><div class="code-line" id="C2L37"><br></div><div class="code-line" id="C2L38">git bisect start</div><div class="code-line" id="C2L39"># bad: [af42213324297e1234767f9224ec1af326514292] Merge pull request #48 from senseobservationsystems/feature-LocalStorageInterface</div><div class="code-line" id="C2L40">git bisect bad af42213324297e1234767f9224ec1af326514292</div><div class="code-line" id="C2L41"># good: [19f751627d152b89d3f2ecadb144507fcf9293fc] Merge pull request #43 from senseobservationsystems/unstable</div><div class="code-line" id="C2L42">git bisect good 19f751627d152b89d3f2ecadb144507fcf9293fc</div><div class="code-line" id="C2L43"># good: [c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</div><div class="code-line" id="C2L44">git bisect good c1841c0f99a4fa788c14c7437fac7c9547c768c9</div><div class="code-line" id="C2L45"># good: [06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</div><div class="code-line" id="C2L46">git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9</div><div class="code-line" id="C2L47"><br></div><div class="code-line" id="C2L48"># when you reach the final commit, you will be shown the commit log and modified file</div><div class="code-line" id="C2L49"><br></div><div class="code-line" id="C2L50">➜  sense2 git:(e5c40d4) $ git bisect bad</div><div class="code-line" id="C2L51"><br></div><div class="code-line" id="C2L52">e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit</div><div class="code-line" id="C2L53">commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1</div><div class="code-line" id="C2L54">Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;</div><div class="code-line" id="C2L55">Date:   Thu Jan 8 14:38:07 2015 +0100</div><div class="code-line" id="C2L56"><br></div><div class="code-line" id="C2L57">    Updated functionality and tests of getting local data</div><div class="code-line" id="C2L58"><br></div><div class="code-line" id="C2L59">:040000 040000 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests</div><div class="code-line" id="C2L60">:040000 040000 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj</div><div class="code-line" id="C2L61">:040000 040000 a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests</div><div class="code-line" id="C2L62">:040000 040000 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform</div></pre></div></td></tr></table></div>
+<p>Now that you know when was the bug introduced. you can now start looking at the problem. I found out there is something that doesn&#39;t
+feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>. There is a reference to <code>Xcode.app</code> in on of the folder. So every time I open the project,
+or switch branch. It will try to index all the things inside <code>Xcode.app</code>. So removing the reference indeed solve the problem. </p>
+
+<p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced. You can event automate the test so you don&#39;t
+have to check each bisect commit your self. The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command
+and also an example on how to automate the test.</p>
+
+<p>Now go on catch and squash those annoying bug!</p>
+
+
+            <hr>
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+              <a class="addthis_button_facebook"></a>
+              <a class="addthis_button_twitter"></a>
+              <a class="addthis_button_google_plusone_share"></a>
+              <a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=yulrizka"></script>
+            <!-- AddThis Button END -->
+            <br>
+
+            <b>Site related post:</b>
+            
+            <ul>
+              <li><a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html">Homeward light indicator with RaspberryPi and CommonSense</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2014/10/stubbing-time-dot-now-in-golang.html">Stubbing Time.Now() in golang</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html">My account just got hacked by Romanian (Possibly)</a></li>
+            </ul>
+            
+            <ul>
+              <li><a href="/id/2012/03/scale-mongodb-dengan-sharding.html">Scale MongoDB dengan Sharding</a></li>
+            </ul>
+            
+          </article>
+
+          
+          <div id="disqus_thread"></div>
+          <script type="text/javascript">
+              //var disqus_developer = 1;
+              var disqus_shortname = 'labs-yulrizka';
+              var disqus_identifier = '/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html';
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+          
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <ul>
+            
+
+              
+                <h3>2015</h3>
+              
+
+              <li>Jan <a href="/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html">Tracking origin of bugs with git bisect</a></li>
+            
+
+              
+                
+                
+                
+                  <h3>2014</h3>
+                
+              
+
+              <li>Oct <a href="/en/2014/10/stubbing-time-dot-now-in-golang.html">Stubbing Time.Now() in golang</a></li>
+            
+
+              
+                
+                
+                
+                  <h3>2013</h3>
+                
+              
+
+              <li>Jul <a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html">My account just got hacked by Romanian (Possibly)</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Jul <a href="/en/2013/07/berks-upload-ruby-core-dump.html">berks upload core dump</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Jul <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Feb <a href="/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html">Homeward light indicator with RaspberryPi and CommonSense</a></li>
+            
+
+              
+                
+                
+                
+                  <h3>2012</h3>
+                
+              
+
+              <li>Mar <a href="/id/2012/03/scale-mongodb-dengan-sharding.html">Scale MongoDB dengan Sharding</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Feb <a href="/id/2012/02/ruby-fiber-apaan-sih.html">Ruby Fiber apaan sih ?</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Feb <a href="/en/2012/02/responsive-design.html">Responsive Design</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Jan <a href="/en/2012/01/jekyll-error-utf-8-caracter.html">Jekyll error utf-8 caracter</a></li>
+            
+
+              
+                
+                
+                
+              
+
+              <li>Jan <a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html">Testing ruby code with benchmark_suite</a></li>
+            
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+        <div class="item active">
+          <div class="image labs"></div>
+          <div class="text">
+            <p class="title">Let each man exercise the art he knows</p>
+            <p>Welcome to my canvas. A place for me to explore and experiment on some stuff that I found interesting.</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="image ruby"></div>
+          <div class="text">
+            <p class="title">Ruby (and Rails) </p>
+            <p>Ruby is a neat language. People create clean, elegant and smart app with it. Rails is web framework built on top of ruby. In this category I will explore stuff related to ruby and also rails</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="image web"></div>
+          <div class="text">
+            <p class="title">Web</p>
+            <p>This is general category involving various aspect of web technology. I like to explore not only the programming and technology aspect of the web, but also the design </p>
+          </div>
+        </div>
+        
+      </div>
+    </div> 
+  </div>
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <span class="brand" href="#">Labs.Yulrizka.com</span>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="http://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+              <li class="active banner"><a href="/">Home</a></li>
+              <li class=""><a href="/ruby/">Ruby (and Rails)</a></li>
+              <li class=""><a href="/web/">Web</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+  <footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2012. This site is made with <a href="http://jekyllrb.com/">Jekyll</a>
+            using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>
+            and hosted on <a href="http://pages.github.com/">Github pages</a>.
+            All of the content is open and the source can be accessed
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+
+</div> <!-- end of #container-->
+
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="/javascripts/application.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>
