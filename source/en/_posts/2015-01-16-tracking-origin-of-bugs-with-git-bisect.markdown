@@ -34,7 +34,7 @@ Here is an example
 the `sense-ios-library` show the current folder, and `git:(unstable)` show current commit. it's part oh [oh-my-zsh][oh-my-zsh] plugin
 
 
-```
+``` bash
 # I open the xcode, and it took quite a long time. so let's marks current revision as bad
 ➜ sense-ios-library git:(unstable) $ git bisect bad
 
