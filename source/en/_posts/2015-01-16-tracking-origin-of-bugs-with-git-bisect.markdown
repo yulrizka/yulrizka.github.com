@@ -14,24 +14,24 @@ keywords: git, bisect, bug tracking
   <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
 </div>
 
-I've been involved with a iOS project this past week. I'm adding functionality to the [CommonSense iOS library][cs-ios-lib].
-One of the most annoying thing is that it took about 2 minute to load the project. But this is only happened in the unstable branch.
+I've been involved with a iOS project this past week. I'm adding functionalities to the [CommonSense iOS library][cs-ios-lib].
+One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
 The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.
 
 Now this is a good example where `git bisect` is very useful. It will perform a binary search through commit history until the first
-bad commit found. So you start with a commit and you marked is as a '_good_' or '_bad_'. Every time you mark a commit as good / bad. 
-It will then checkout a commit at some point on the history using the binary search algorithm. In each checkout then you test the code and see
+bad commit found. So you start with a commit and you marked is as a '_good_' or '_bad_'. Then every time you mark a commit as good / bad, 
+it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
 whether the bugs exist or not.
 
 Here is an example
 
 ``` bash
-# let's start to bisecting, Im in unstable branch,
+# let's start  bisecting, Im in unstable branch,
 ➜ sense-ios-library git:(unstable) $ git bisect start
 
 ````
 
-the `sense-ios-library` show the current folder, and `git:(unstable)` show current commit. it's part oh [oh-my-zsh][oh-my-zsh] plugin
+the prompt `sense-ios-library` shows the current folder, and `git:(unstable)` show current commit. it's part of [oh-my-zsh][oh-my-zsh] plugin
 
 
 ``` bash
@@ -68,8 +68,6 @@ Bisecting: 0 revisions left to test after this (roughly 0 steps)
 
 # Now let's check our progress using log
 
-# let's check our progress so far
-
 ➜  sense-ios-library git:(71517b7) $ git bisect log
 
 git bisect start
@@ -100,13 +98,16 @@ Date:   Thu Jan 8 14:38:07 2015 +0100
 
 ```
 
-Now that you know when was the bug introduced. you can now start looking at the problem. I found out there is something that doesn't
-feel right here [github:commit/e5c40][github-commit]. There is a reference to `Xcode.app` in on of the folder. So every time I open the project,
-or switch branch. It will try to index all the things inside `Xcode.app`. So removing the reference indeed solve the problem. 
+Now that you know when was the bugs introduced. you can now start looking at the problem. 
 
-The _bisect_ function is very versatile tool to track down when a bug was introduced. You can event automate the test so you don't
-have to check each bisect commit your self. The [_bisect_ documentation][bisec-documentation] provide a good explanation about the command
-and also an example on how to automate the test.
+I found out there is something that doesn't feel right here [github:commit/e5c40][github-commit].
+There is a reference to `Xcode.app` in one of the folder. So every time I open the project,
+or switch branch, it will try to look into things inside `Xcode.app`.
+So removing the reference indeed solve the problem. 
+
+The _bisect_ function is very versatile tool to track down when a bug was introduced. 
+You can even automate the test so you don't have to check each bisect commit your self. 
+The [_bisect_ documentation][bisec-documentation] provide a good explanation about the command and also an example on how to automate the test.
 
 Now go on catch and squash those annoying bug!
 
