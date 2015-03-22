@@ -20,7 +20,7 @@ Push To Talk app for OSX
 As a part of scrum teams, every day I need to give updates to my team via Google Hangout.
 We have a team here in the Netherlands and also in Indonesia.
 Some times I am in the same room as a colleague of mine. This sometimes quite annoying
-because I can hear my self (with a delay) from this mic. This somehow messed up my brain.
+because I can hear my self (with a delay) from his mic. This somehow messed up my brain.
 Google Hangout already has a 'auto adjust mic volume' that is really great which cancel the noise.
 But we still have a problem and end-up muting each other when we want to talk.
 
