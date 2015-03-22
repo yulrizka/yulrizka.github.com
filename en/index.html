@@ -29,6 +29,60 @@
 
   <article>
     <h1 class="">
+        <a href="/en/2015/03/osx-push-to-talk-app.html" rel="bookmark" title="Permanent link to ">osx-push-to-talk App</a>
+    </h1>
+    <span>March 22, 2015</span>
+    <p>
+        <p>Push To Talk app for OSX</p>
+
+<div class="thumbnail" align="center">
+  <img src="/images/post/ptt/ptt-installer.png" alt="PushToTalk App">
+  <div class="caption">PushToTalk App installer</div>
+</div>
+
+<p><br/></p>
+
+<p>As part of scrum team, every day i need to give update to my team via Google Hangout.
+We have a team here in the Netherlands and also in Indonesia.
+Some times I am in the same room as a colleague of mine. This sometimes quite annoying
+because I can hear my self (with a delay) from this mic. This somehow messed up my brain.
+Google Hangout already has a &#39;auto adjust mic volume&#39; that is really great which cancel the noise.
+But we still have a problem and end-up muting each other when we want to talk.</p>
+
+<p>There are currently app that does this already on Apple store, and pretty cheap too. 
+Example <a href="https://itunes.apple.com/us/app/push-to-talk/id547067197">this</a>, but reading from the comment
+I believe it doesn&#39;t suits me very well because you have to assign F-Key, or combination with Command, Shift etc.
+But it&#39;s a great software also, i has functionality to assign custom key and star-up.</p>
+
+<p>So i decided to create my own, because I&#39;ve never create program for OSX before. And I wanted to find out how hard it is.
+Actually It&#39;s pretty easy. Although I kinda have this hate-love relationship with XCode. But It&#39;s quite easy to build app like this. </p>
+
+<div class="" align="center">
+  <img src="/images/post/ptt/ptt-off.png" alt="PushToTalk Off state">
+  <br>
+  <img src="/images/post/ptt/ptt-on.png" alt="PushToTalk on State">
+  <div class="caption">Status bar indicator</div>
+</div>
+
+<p>The app sits on status bar (tray icon ?). By default it mute the microphone and show
+translucent mic icon. If you hold down the <strong>Right Options</strong> key, it will un-mute the microphone as long as you press that button. And when you release the key, it will mute the microphone until you quit the application.</p>
+
+<p>Everything is at <a href="https://github.com/yulrizka/osx-push-to-talk">github.com/yulrizka/osx-push-to-talk</a>:</p>
+
+<ul>
+<li><a href="https://github.com/yulrizka/osx-push-to-talk/releases">DMG Installer</a></li>
+<li><a href="https://github.com/yulrizka/osx-push-to-talk">Source</a></li>
+</ul>
+
+<p>I&#39;ve only tested this app on my MacBook running Yosemite.</p>
+
+<p>veel succes!</p>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<p></article>
+  <hr/></p>
+
+<p><article>
+    <h1 class="">
         <a href="/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html" rel="bookmark" title="Permanent link to ">Tracking origin of bugs with git bisect</a>
     </h1>
     <span>January 16, 2015</span>
@@ -36,7 +90,7 @@
         <div class="thumbnail" align="center">
   <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
   <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
-</div>
+</div></p>
 
 <p>I&#39;ve been involved with a iOS project this past week. I&#39;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
 One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
@@ -67,7 +121,7 @@ You can even automate the test so you don&#39;t have to check each bisect commit
 The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command and also an example on how to automate the test.</p>
 
 <p>Now go on catch and squash those annoying bug!</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -104,7 +158,7 @@ generate begining of month and end of month)</p>
 <div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="c1">// change implementation of clock in the beginning of the test</span></div><div class="code-line" id="C3L2"><span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C3L3">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C3L4"><span class="p">}</span></div><div class="code-line" id="C3L5"><br></div><div class="code-line" id="C3L6"><span class="c1">//...</span></div><div class="code-line" id="C3L7"><br></div><div class="code-line" id="C3L8"><span class="c1">// after finish with the test, reset the time implementation</span></div><div class="code-line" id="C3L9"><span class="nx">resetClockImplementation</span><span class="p">()</span></div></pre></div></td></tr></table></div>
 
 <p>now to the process that, it will see that currently it&#39;s 15 December 2000 8:00 UTC</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -170,7 +224,7 @@ Or probably I just never notice.</p>
 <li>When this is your work email that sometimes contain private information. Use service that offer <em>two factor authentication</em> like gmail does <a href="http://www.google.com/landing/2step/">you need to enable it</a>. </li>
 <li>Stay safe friends, internet is a dangerous place</li>
 </ol>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -189,7 +243,7 @@ push some cookbook to a chef server.</p>
 <div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="nv">$ </span>berks upload</div><div class="code-line" id="C1L2">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault</div><div class="code-line" id="C1L3">ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span></div><div class="code-line" id="C1L4"><br></div><div class="code-line" id="C1L5">-- Control frame information -----------------------------------------------</div><div class="code-line" id="C1L6">c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47</div><div class="code-line" id="C1L7">c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11</div><div class="code-line" id="C1L8">c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH</div><div class="code-line" id="C1L9">c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------</div><div class="code-line" id="C1L10"><br></div><div class="code-line" id="C1L11">-- Ruby level backtrace information ----------------------------------------</div><div class="code-line" id="C1L12">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;</span></div><div class="code-line" id="C1L13"><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span></div><div class="code-line" id="C1L14"><br></div><div class="code-line" id="C1L15">....</div></pre></div></td></tr></table></div>
 
 <p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C5L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -313,7 +367,7 @@ THis command will encrypt the message using public key of a person name <code>Ah
 <p>At this point you are able to generate, export, distribute and import keys. More over you can already encrypt
 and decrypt file / message to a designated recipient. The the part two of this article I will share some idea
 how we could share some password / password key to other member of the team.</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C5L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C6L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -537,7 +591,7 @@ So the second code run more than the first code in one second. Which mean the se
 <p>Also the first code run <strong>277.202</strong> times in <strong>5.048175</strong> sec while the second code run <strong>389.844</strong> times in <strong>5.05</strong> sec</p>
 
 <p>So this mean, that <strong>regex is more slower</strong> then calling capitalized on each element on array</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C6L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
+<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C7L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
 <p></article>
   <hr/></p>
 
@@ -554,6 +608,15 @@ So the second code run more than the first code in one second. Which mean the se
 
               
                 <h3>2015</h3>
+              
+
+              <li>Mar <a href="/en/2015/03/osx-push-to-talk-app.html">osx-push-to-talk App</a></li>
+            
+
+              
+                
+                
+                
               
 
               <li>Jan <a href="/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html">Tracking origin of bugs with git bisect</a></li>

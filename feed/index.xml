@@ -4,13 +4,65 @@
  <title>Recursive</title>
  <link href="http://labs.yulrizka.com/feed/" rel="self"/>
  <link href="http://labs.yulrizka.com/"/>
- <updated>2015-01-17T00:17:42+00:00</updated>
+ <updated>2015-03-22T00:14:00+00:00</updated>
  <id>http://labs.yulrizka.com/</id>
  <author>
    <name>labs.yulrizka.com</name>
    <email>ahmy@yulrizka.com</email>
  </author>
 
+ 
+ <entry>
+   <title>osx-push-to-talk App</title>
+   <link href="http://labs.yulrizka.com/en/2015/03/osx-push-to-talk-app.html"/>
+   <updated>2015-03-22T00:26:00+00:00</updated>
+   <id>http://labs.yulrizka.com/en/2015/03/osx-push-to-talk-app</id>
+   <content type="html">&lt;p&gt;Push To Talk app for OSX&lt;/p&gt;
+
+&lt;div class=&quot;thumbnail&quot; align=&quot;center&quot;&gt;
+  &lt;img src=&quot;/images/post/ptt/ptt-installer.png&quot; alt=&quot;PushToTalk App&quot;&gt;
+  &lt;div class=&quot;caption&quot;&gt;PushToTalk App installer&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p&gt;As part of scrum team, every day i need to give update to my team via Google Hangout.
+We have a team here in the Netherlands and also in Indonesia.
+Some times I am in the same room as a colleague of mine. This sometimes quite annoying
+because I can hear my self (with a delay) from this mic. This somehow messed up my brain.
+Google Hangout already has a &amp;#39;auto adjust mic volume&amp;#39; that is really great which cancel the noise.
+But we still have a problem and end-up muting each other when we want to talk.&lt;/p&gt;
+
+&lt;p&gt;There are currently app that does this already on Apple store, and pretty cheap too. 
+Example &lt;a href=&quot;https://itunes.apple.com/us/app/push-to-talk/id547067197&quot;&gt;this&lt;/a&gt;, but reading from the comment
+I believe it doesn&amp;#39;t suits me very well because you have to assign F-Key, or combination with Command, Shift etc.
+But it&amp;#39;s a great software also, i has functionality to assign custom key and star-up.&lt;/p&gt;
+
+&lt;p&gt;So i decided to create my own, because I&amp;#39;ve never create program for OSX before. And I wanted to find out how hard it is.
+Actually It&amp;#39;s pretty easy. Although I kinda have this hate-love relationship with XCode. But It&amp;#39;s quite easy to build app like this. &lt;/p&gt;
+
+&lt;div class=&quot;&quot; align=&quot;center&quot;&gt;
+  &lt;img src=&quot;/images/post/ptt/ptt-off.png&quot; alt=&quot;PushToTalk Off state&quot;&gt;
+  &lt;br&gt;
+  &lt;img src=&quot;/images/post/ptt/ptt-on.png&quot; alt=&quot;PushToTalk on State&quot;&gt;
+  &lt;div class=&quot;caption&quot;&gt;Status bar indicator&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The app sits on status bar (tray icon ?). By default it mute the microphone and show
+translucent mic icon. If you hold down the &lt;strong&gt;Right Options&lt;/strong&gt; key, it will un-mute the microphone as long as you press that button. And when you release the key, it will mute the microphone until you quit the application.&lt;/p&gt;
+
+&lt;p&gt;Everything is at &lt;a href=&quot;https://github.com/yulrizka/osx-push-to-talk&quot;&gt;github.com/yulrizka/osx-push-to-talk&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/yulrizka/osx-push-to-talk/releases&quot;&gt;DMG Installer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/yulrizka/osx-push-to-talk&quot;&gt;Source&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I&amp;#39;ve only tested this app on my MacBook running Yosemite.&lt;/p&gt;
+
+&lt;p&gt;veel succes!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Tracking origin of bugs with git bisect</title>
