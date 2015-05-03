@@ -4,13 +4,133 @@
  <title>Recursive</title>
  <link href="http://labs.yulrizka.com/feed/" rel="self"/>
  <link href="http://labs.yulrizka.com/"/>
- <updated>2015-03-22T09:09:39+00:00</updated>
+ <updated>2015-05-03T12:55:14+00:00</updated>
  <id>http://labs.yulrizka.com/</id>
  <author>
    <name>labs.yulrizka.com</name>
    <email>ahmy@yulrizka.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Telepon murah ke Indonesia dengan voip</title>
+   <link href="http://labs.yulrizka.com/id/2015/05/telepon-murah-ke-indonesia-dengan-voip.html"/>
+   <updated>2015-05-03T13:08:00+00:00</updated>
+   <id>http://labs.yulrizka.com/id/2015/05/telepon-murah-ke-indonesia-dengan-voip</id>
+   <content type="html">&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Disclaimer: Tulias ini berisi pengalaman penulis menggunakan VoIP dari belanda. Hasilnya mungkin berbeda
+dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang ditimbulkan apabila pembaca
+memutuskan untuk menggunakan VoIP&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;&quot; align=&quot;center&quot;&gt;
+  &lt;img src=&quot;http://blog.allstream.com/wp-content/uploads/2013/05/3822639-xsmall.jpg&quot;/&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra.
+Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia dengan mudah&lt;/p&gt;
+
+&lt;p&gt;Servis gratis misalkan:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.skype.com/en/&quot;&gt;Skype&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.google.com/+/learnmore/hangouts/&quot;&gt;Google Hangouts&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.whatsapp.com/faq/en/android/28000016&quot;&gt;Whatsapp calling&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Namun kadang-kadang berkomunikasi dengan aplikasi diatas kadang sulit. hal ini bisa dikarenakan:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tidak ada koneksi internet, atau koneksi yang kurang baik. Sehingga telepon kadang terputus, atau yang ditelepon mejadi suka berbahasa robot&lt;/li&gt;
+&lt;li&gt;Tidak ada perangkat komputer atau telepon selurer yang dapat &lt;em&gt;diinstall&lt;/em&gt; aplikasi diatas&lt;/li&gt;
+&lt;li&gt;Orang yang dituju kadang sedang berada di luar (rumah / kantor) sehingga tidak memiliki akses wifi/internet atau komputer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Terdapat beberapa alternatif untuk kita dapat menelefon dengan murah ke nomor telepon di Indonesia.&lt;/p&gt;
+
+&lt;p&gt;Contohnya provider selular &lt;a href=&quot;http://www.lebara.nl/prepaid/rates&quot;&gt;Lebara&lt;/a&gt; saat ini tarifnya
+&lt;strong&gt;19ct/menit&lt;/strong&gt; untuk landline dan &lt;strong&gt;29ct/menit&lt;/strong&gt; untuk mobile. Tapi karena untuk lebara beli 10 dapat 20 euro
+maka praktis harganya menjadi setengahnya. Saya sendiri belum pernah melefon pakai lebara
+sehingga saya tidak bisa mengatakan mengenai kualitas dan delay bila menelpon pakai lebara.&lt;/p&gt;
+
+&lt;p&gt;Nah ada cara lain untuk lebih berhemat sampai &lt;strong&gt;3ct/menit&lt;/strong&gt; !!
+Syaratnya teman-teman hanya butuh akses internet dan device yang mendukung VoIP (komputer, smart phone).
+Selain Menelepon kita juga dapat mengirimkan pesan singkat melalui SMS ke nomor Indonesia.
+Namun ada kekuranganna juga, kadang terdapat delay sekitar 1-2 detik tergantung dari kualitas jaringan VoIP tersebut.&lt;/p&gt;
+
+&lt;h2&gt;Bagaimana caranya ?&lt;/h2&gt;
+
+&lt;p&gt;Tergantung perangkat yang teman-teman miliki disini.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PENTING&lt;/strong&gt;. Pada saat register nanti pastikan provider VoIP yang kita pilih mendukung SIP.&lt;/p&gt;
+
+&lt;p&gt;Kita cukup register ke salah satu provider VoIP dan install aplikasi.&lt;/p&gt;
+
+&lt;p&gt;Setelah register account ke salah satu VoIP provider, anda akan menerima informasi contohnya;&lt;/p&gt;
+&lt;div class=&quot;code-listing&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;lines language-text&quot;&gt;&lt;span class=&quot;line-number&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;line-number&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;line-number&quot;&gt;3&lt;/span&gt;&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;div class=&quot;code-line&quot; id=&quot;C1L1&quot;&gt;sip gateway: sip.webcalldirect.com&lt;/div&gt;&lt;div class=&quot;code-line&quot; id=&quot;C1L2&quot;&gt;username: foo&lt;/div&gt;&lt;div class=&quot;code-line&quot; id=&quot;C1L3&quot;&gt;password: secret&lt;/div&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;
+&lt;p&gt;Informasi ini yang dibutuhkan aplikasi untuk dapat terkoneksi dengan provider tersebut.&lt;/p&gt;
+
+&lt;h3&gt;Android&lt;/h3&gt;
+
+&lt;p&gt;Saya pakai aplikasi &lt;a href=&quot;https://play.google.com/store/apps/details?id=com.zoiper.android.app&amp;amp;hl=en&quot;&gt;zoiper&lt;/a&gt;.
+Instalasinya juga cukup mudah.
+Anda tinggal memasukkan data account ke aplikasi zoiper dan bisa tinggal langsung menelepon ke indonesia dengan VOIP.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PENTING&lt;/strong&gt; pastikan ketika menelepon anda menggunakan aplikasi tersebut, bukan applikasi telepon android.
+Bila tidak maka anda akan menggunakan pulsa telepon biasa.&lt;/p&gt;
+
+&lt;h3&gt;Mac&lt;/h3&gt;
+
+&lt;p&gt;Terdapat aplikasi &lt;a href=&quot;https://itunes.apple.com/en/app/telephone/id406825478?mt=12&quot;&gt;Telephone&lt;/a&gt; yang penggunaanya juga mudah.
+Serupa dengan android, kita hanya perlu memasukkan informasi yang di dapat dari provider ke aplikasi tersebut.&lt;/p&gt;
+
+&lt;h3&gt;Platform lainnya&lt;/h3&gt;
+
+&lt;p&gt;Windows, linux, iOS (iPhone).&lt;/p&gt;
+
+&lt;p&gt;Berhubung saya jarang menelepon dengan device yang menggunakan sistem operasi diatas jadi saya kurang faham juga :)&lt;/p&gt;
+
+&lt;p&gt;Di website providernya kadang terdapat bagian &amp;#39;Download&amp;#39; dimana anda bisa langsung mengguakan aplikasi dari mereka:
+contohnya &lt;a href=&quot;http://www.dialcheap.com/download/desktop&quot;&gt;seperti ini&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Tapi caranya pasti sama mudahnya. Kita tinggal &lt;em&gt;googling&lt;/em&gt; dengan keywords &amp;quot;[windows/linux/iPhone] SIP client&amp;quot; anda pasti menemukan
+banyak aplikasi dan tutorial yang cukup mudah.&lt;/p&gt;
+
+&lt;h2&gt;Registrasi Account VoIP &amp;amp; Pembelian Credit.&lt;/h2&gt;
+
+&lt;p&gt;Saat ini banyak sekali provider VoIP yang tersedia di Internet. Untuk pembelian credit mereka juga sudah mendukung berbagai metode pembayaran:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;iDeal&lt;/li&gt;
+&lt;li&gt;paypal&lt;/li&gt;
+&lt;li&gt;kartu kredit&lt;/li&gt;
+&lt;li&gt;DSB&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Nah, barusan saya membuat &lt;em&gt;script&lt;/em&gt; sederhana untuk melakukan &lt;em&gt;scraping&lt;/em&gt;  provider mana yang paling murah.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;script&lt;/em&gt; ?? &lt;em&gt;scraping&lt;/em&gt; ?? :) no worries, yang penting adalah berikut hasil excel sheet provider dan tarif mereka per &lt;strong&gt;5 mei 2015&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/files/voip-list-03052015.xlsx&quot;&gt;voip-list-03052015.xlsx&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Dari file ditatas kita bisa melihat tarif land-line, tarif selular berdasarkan provider dan negara yang dituju. Pastikan melihat kolom &lt;strong&gt;rate + vat&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Saat ini provider yang paling murah telepon ke Indonesia adalah:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.dialcheap.com/rates/calling-rates&quot;&gt;dialcheap.com&lt;/a&gt; mobile: 2.9ct/menit, landline: 1.1ct/menit&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.freevoipdeal.com/calling_rates/&quot;&gt;freevoipdial.com&lt;/a&gt; mobile: 3ct/menit,  landline: 2.5ct/menit&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.voipsmash.com/rates/calling-rates&quot;&gt;voipmash.com&lt;/a&gt; mobile: 3.1ct/menit, landline: 1.1ct/menit&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.discountcalling.com/rates/calling-rates&quot;&gt;discountcalling.com&lt;/a&gt; mobile: 4ct/menit, landline: 1.1ct/menit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Setelah Register dan mendownload aplikasi dari mereka, anda tinggal memasukan data gateway, username password dan lansung menelepon nomor indonesia&lt;/p&gt;
+
+&lt;p&gt;Selamat menikmati :)&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>osx-push-to-talk App</title>
