@@ -13,7 +13,7 @@ keywords: voip indonesia, voip, telepon murah
 dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang ditimbulkan apabila pembaca
 memutuskan untuk menggunakan VoIP*
 
-<div class="" align="center">
+<div class="thumbnail" align="center">
   <img src="http://blog.allstream.com/wp-content/uploads/2013/05/3822639-xsmall.jpg"/>
 </div>
 
