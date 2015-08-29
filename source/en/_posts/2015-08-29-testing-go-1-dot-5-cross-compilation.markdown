@@ -257,7 +257,7 @@ if you have websocket client (web browser) you could listen to event and stream 
 
 <div class="row">
   <div class="span8 offset1">
-  <iframe width="420" height="480" src="https://www.youtube.com/embed/w1IrlUdEgPk" frameborder="0" allowfullscreen></iframe>
+<iframe width="628" height="400" src="https://www.youtube.com/embed/QkHu2-cgauU" frameborder="0" allowfullscreen></iframe align="center">
   </div>
 </div><br/>
 
@@ -330,13 +330,6 @@ func buttonHandler(p gpio.Pin) {
 	}
 }
 ```
-
-<div class="row">
-  <div class="span8 offset1">
-<iframe width="628" height="400" src="https://www.youtube.com/embed/QkHu2-cgauU" frameborder="0" allowfullscreen></iframe align="center">
-  </div>
-</div><br/>
-
 
 You see there I connect 2 client. One browser and the other one is *cli app* that I created.
 Notice that they got their messages alternately between each other. This is because
