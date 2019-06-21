@@ -1,1 +1,21 @@
-hello world
+{{ define "main" }}
+
+  {{ $paginator := .Paginator }}
+  {{ range $paginator.Pages }}
+  	<article>
+  	<h1>{{ .Title }}</h1>
+  	<div class="posted_at">
+  		{{ dateFormat "2006-01-02" .Date }} 
+  		<a href="{{ .Permalink }}">permalink</a>
+  	</div>
+  	
+  	{{ .Content }}
+  	</article>
+  	<hr/>
+  {{ end}}
+
+  {{ template "_internal/pagination.html" . }}
+
+
+
+{{ end }}

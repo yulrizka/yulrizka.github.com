@@ -558,14 +558,6 @@ dd {
   margin-left: 9px;
 }
 
-/* line 99, ../_assets/sass/screen.scss */
-hr {
-  margin: 18px 0;
-  border: 0;
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #ffffff;
-}
-
 /* line 100, ../_assets/sass/screen.scss */
 strong {
   font-weight: bold;
@@ -5586,7 +5578,7 @@ p {
 
 /* line 3, ../_assets/sass/banner.sass */
 #banner {
-  height: 150px;
+  height: 15px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px inset;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px inset;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 30px inset;
@@ -5663,7 +5655,7 @@ body {
 
 /* line 8, ../_assets/sass/content.sass */
 #main {
-  margin-top: 190px;
+  margin-top: 60px;
 }
 
 /* line 11, ../_assets/sass/content.sass */
@@ -6315,3 +6307,34 @@ footer .footer {
 }
 
 /* Literal.Number.Integer.Long */
+
+/*
+hr {
+  border: 0;
+  height: 55px;
+  background-image: url(/images/hr.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 30pt auto 30pt auto ;
+  
+}*/
+
+hr {
+height: 30px;
+border-style: solid;
+border-color: black;
+border-width: 1px 0 0 0;
+border-radius: 20px;
+margin: 40pt auto 10pt auto ;
+}
+
+hr:before {
+display: block;
+content: "";
+height: 30px;
+margin-top: -31px;
+border-style: solid;
+border-color: black;
+border-width: 0 0 1px 0;
+border-radius: 20px;
+}
