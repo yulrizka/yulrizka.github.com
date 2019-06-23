@@ -5433,7 +5433,7 @@ header .navbar .nav-link ul.nav li.active {
 }
 /* line 17, ../_assets/sass/header.sass */
 header .navbar .btn-navbar {
-  float: left;
+  float: right;
 }
 
 /* line 19, ../_assets/sass/header.sass */

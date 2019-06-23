@@ -32,20 +32,23 @@ div.chroma {
 .highlight td:first-child code {
 	display: block;
 	color: #888;
-	padding: 8.5px;
+	padding: 12.5px 8.5px;
 	padding-left: 45px;
 	background: #eee url('/images/pygments/tab_grey_bash.png') no-repeat;
 }
 
-
 .highlight td:first-child code.language-ruby {
-	background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important  
+	background: #eee url('/images/pygments/tab_grey_ruby.png') no-repeat !important
+}
+
+.highlight td:first-child code.language-go {
+	background: #eee url('/images/pygments/tab_grey_go.png') no-repeat !important
 }
 
 /* 2nd column code */
 .highlight td:nth-child(2) code {
   display: block;
-  padding: 8.5px;
+  padding: 12px;
   background-color: #141414;
   border-radius: 3px;
   color: #f8f8f8;
