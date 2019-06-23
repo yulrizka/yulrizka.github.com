@@ -3,10 +3,13 @@
   {{ $paginator := .Paginator }}
   {{ range $paginator.Pages }}
   	<article>
-  	<h1>{{ .Title }}</h1>
+    <a href="{{ .Permalink }}">
+  	 <h1>
+        {{ .Title }}
+      </h1>
+    </a>
   	<div class="posted_at">
-  		{{ dateFormat "2006-01-02" .Date }} 
-  		<a href="{{ .Permalink }}">permalink</a>
+  		{{ dateFormat "2006-01-02" .Date }}
   	</div>
   	
   	{{ .Content }}

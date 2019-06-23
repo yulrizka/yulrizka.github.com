@@ -10,7 +10,10 @@
 <link rel="canonical" href="http://labs.yulrizka.com/">
 
 <!-- Framework CSS -->
-{{ $style := resources.Get "css/application.css" | minify | fingerprint }} 
+{{ $applicationCSS := resources.Get "css/application.css" }}
+{{ $highlightsCSS := resources.Get "css/highlights.css" }}
+{{ $css := slice $applicationCSS $highlightsCSS | resources.Concat "css/default.css"}}
+{{ $style := $css | minify | fingerprint }} 
 <link rel="stylesheet" href="{{ $style.Permalink }}" media="screen, projection" type="text/css">
 
 
