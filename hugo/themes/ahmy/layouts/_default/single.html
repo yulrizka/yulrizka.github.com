@@ -1,3 +1,7 @@
 {{ define "main" }}
-      {{- .Content -}}
+	<h1>{{ .Title }}</h1>
+	<div class="posted_at">
+		{{ dateFormat "2006-01-02" .Date }}
+	</div>
+	{{- .Content -}}
 {{ end }}
