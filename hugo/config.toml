@@ -2,3 +2,4 @@ theme = "ahmy"
 pygmentsCodeFences = true
 pygmentsOptions = "linenos=table"
 pygmentsUseClasses = true
+disqusShortname = "labs-yulrizka"
