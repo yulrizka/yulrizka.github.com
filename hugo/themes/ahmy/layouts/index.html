@@ -1,23 +1,24 @@
 {{ define "main" }}
 
-  {{ $paginator := .Paginator }}
-  {{ range $paginator.Pages }}
-  	<article>
-    <a href="{{ .Permalink }}">
-  	 <h1>
-        {{ .Title }}
-      </h1>
-    </a>
-  	<div class="posted_at">
-  		{{ dateFormat "2006-01-02" .Date }}
-  	</div>
-  	
-  	{{ .Content }}
-  	</article>
-  	<hr/>
-  {{ end}}
+{{ $paginator := .Paginator }}
+{{ range $paginator.Pages }}
+<article>
+  <a href="{{ .Permalink }}">
+    <h1>
+      {{ .Title }}
+    </h1>
+  </a>
+  <div class="posted_at">
+    {{ dateFormat "2006-01-02" .Date }}
+    (approx. {{ .ReadingTime }} minutes reading)
+  </div>
 
-  {{ template "_internal/pagination.html" . }}
+  {{ .Content }}
+</article>
+<hr/>
+{{ end}}
+
+{{ template "_internal/pagination.html" . }}
 
 
 

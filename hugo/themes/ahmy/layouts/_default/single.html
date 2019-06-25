@@ -4,4 +4,5 @@
 		{{ dateFormat "2006-01-02" .Date }}
 	</div>
 	{{- .Content -}}
+	{{ template "_internal/disqus.html" . }}
 {{ end }}

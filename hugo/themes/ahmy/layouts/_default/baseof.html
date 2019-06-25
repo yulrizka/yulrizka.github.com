@@ -39,9 +39,20 @@
           <h2>Archives</h2>
           <h3>English</h3>
           <ul>
+          {{ range first 10 (where .Site.RegularPages "Section" "en") }}
+            <li>
+              <a href="">{{ .Title }}</a>
+            </li>
+          {{ end }}
           </ul>
           <h3>Indonesia</h3>
-          <h3>Today I Learned</h3>
+          <ul>
+          {{ range first 10 (where .Site.RegularPages "Section" "id") }}
+            <li>
+              <a href="">{{ .Title }}</a>
+            </li>
+          {{ end }}
+          </ul>
           </aside>
         </div>
       </div>
