@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>labs.yulrizka.com - Dev Blogs of Ahmy Yulrizka</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Blog of Ahmy Yulrizka I am currently golang developer and live in the Netherlands">
+<meta name="keywords" content="ahmy,yulrizka,ahmy yulrizka,blog,dev" />
+<meta name="author" content="Ahmy Yulrizka">
+<link rel="canonical" href="http://labs.yulrizka.com/">
+
+
+
+
+
+ 
+<link rel="stylesheet" href="/css/default.min.ddd5e700e2d8ea65f25860be8c90c807bad0fe59e710cb60889700937f21e7f7.css" media="screen, projection" type="text/css">
+
+
+
+
+<link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+<h1>Tracking origin of bugs with git bisect</h1>
+<div class="posted_at">
+	2015-01-16 ::
+	( 4 minutes reading )
+</div><div class="thumbnail" align="center">
+  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
+  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
+</div>
+
+<p>I&rsquo;ve been involved with a iOS project this past week. I&rsquo;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
+One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
+The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
+
+<p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
+bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>&rsquo;. Then every time you mark a commit as good / bad,
+it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
+whether the bugs exist or not.</p>
+
+<p>Here is an example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># let&#39;s start  bisecting, Im in unstable branch,</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect start
+
+<span class="sb">````</span>
+
+the prompt <span class="sb">`</span>sense-ios-library<span class="sb">`</span> shows the current folder, and <span class="sb">`</span>git:<span class="o">(</span>unstable<span class="o">)</span><span class="sb">`</span> show current commit. it<span class="s1">&#39;s part of [oh-my-zsh][oh-my-zsh] plugin
+</span><span class="s1">
+</span><span class="s1">
+</span><span class="s1">``` bash
+</span><span class="s1"># I open the xcode, and it took quite a long time. so let&#39;</span>s marks current revision as bad
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect bad
+
+<span class="c1"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect good master 
+
+Bisecting: <span class="m">9</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">3</span> steps<span class="o">)</span>
+<span class="o">[</span>c1841c0f99a4fa788c14c7437fac7c9547c768c9<span class="o">]</span> Merge pull request <span class="c1">#45 from senseobservationsystems/feature-KeepDataLocally</span>
+
+<span class="c1"># now I&#39;m in c1841 commit, I tested again with xcode, and found no problem, mark it as good</span>
+
+➜  sense2 git:<span class="o">(</span>c1841c0<span class="o">)</span> $ git bisect good
+
+Bisecting: <span class="m">4</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">2</span> steps<span class="o">)</span>
+<span class="o">[</span>06bbd23c4af8f7008abfb814e1375b271e0b23e9<span class="o">]</span> Update interface and write tests lsit<span class="o">(</span> APPEND CMAKE_CXX_FLAGS <span class="s2">&#34;-std=c++0x&#34;</span><span class="o">)</span>
+
+<span class="c1"># tested again, it&#39;s good</span>
+➜  sense2 git:<span class="o">(</span>06bbd23<span class="o">)</span> $ git bisect good
+
+Bisecting: <span class="m">2</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">1</span> step<span class="o">)</span>
+<span class="o">[</span>71517b7923143a8cf1ce205341dd6942c9468198<span class="o">]</span> Added threshold <span class="k">for</span> checking to remove old data from <span class="nb">local</span> storage to save battery life
+
+<span class="c1"># Tested again, Now I&#39;m beginning to see the problem. Let&#39;s mark this bad</span>
+➜  sense2 git:<span class="o">(</span>71517b7<span class="o">)</span> $ git bisect bad
+
+Bisecting: <span class="m">0</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">0</span> steps<span class="o">)</span>
+<span class="o">[</span>e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1<span class="o">]</span> Updated functionality and tests of getting <span class="nb">local</span> data
+
+<span class="c1"># ....</span> 
+<span class="c1"># and we keep doing this until we find the first commit when it was introduced.</span>
+
+<span class="c1"># Now let&#39;s check our progress using log</span>
+
+➜  sense-ios-library git:<span class="o">(</span>71517b7<span class="o">)</span> $ git bisect log
+
+git bisect start
+<span class="c1"># bad: [af42213324297e1234767f9224ec1af326514292] Merge pull request #48 from senseobservationsystems/feature-LocalStorageInterface</span>
+git bisect bad af42213324297e1234767f9224ec1af326514292
+<span class="c1"># good: [19f751627d152b89d3f2ecadb144507fcf9293fc] Merge pull request #43 from senseobservationsystems/unstable</span>
+git bisect good 19f751627d152b89d3f2ecadb144507fcf9293fc
+<span class="c1"># good: [c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</span>
+git bisect good c1841c0f99a4fa788c14c7437fac7c9547c768c9
+<span class="c1"># good: [06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &#34;-std=c++0x&#34;)</span>
+git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9
+
+<span class="c1"># when you reach the final commit, you will be shown the commit log and modified file</span>
+
+➜  sense2 git:<span class="o">(</span>e5c40d4<span class="o">)</span> $ git bisect bad
+
+e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit
+commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1
+Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;
+Date:   Thu Jan <span class="m">8</span> <span class="m">14</span>:38:07 <span class="m">2015</span> +0100
+
+    Updated functionality and tests of getting <span class="nb">local</span> data
+
+:040000 <span class="m">040000</span> 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests
+:040000 <span class="m">040000</span> 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj
+:040000 <span class="m">040000</span> a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests
+:040000 <span class="m">040000</span> 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform</code></pre></td></tr></table>
+</div>
+</div>
+<p>Now that you know when was the bugs introduced. you can now start looking at the problem.</p>
+
+<p>I found out there is something that doesn&rsquo;t feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>.
+There is a reference to <code>Xcode.app</code> in one of the folder. So every time I open the project,
+or switch branch, it will try to look into things inside <code>Xcode.app</code>.
+So removing the reference indeed solve the problem.</p>
+
+<p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced.
+You can even automate the test so you don&rsquo;t have to check each bisect commit your self.
+The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command and also an example on how to automate the test.</p>
+
+<p>Now go on catch and squash those annoying bug!</p>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <h3>English</h3>
+          <ul>
+          
+            <li>
+              <a href="/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
+            </li>
+          
+            <li>
+              <a href="/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
+            </li>
+          
+            <li>
+              <a href="/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
+            </li>
+          
+            <li>
+              <a href="/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
+            </li>
+          
+            <li>
+              <a href="/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
+            </li>
+          
+            <li>
+              <a href="/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
+            </li>
+          
+            <li>
+              <a href="/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
+            </li>
+          
+            <li>
+              <a href="/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
+            </li>
+          
+            <li>
+              <a href="/en/responsive-design/">Responsive Design</a>
+            </li>
+          
+            <li>
+              <a href="/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
+            </li>
+          
+          </ul>
+          <h3>Indonesia</h3>
+          <ul>
+          
+            <li>
+              <a href="">Ruby Fiber apaan sih ?</a>
+            </li>
+          
+            <li>
+              <a href="">Scale MongoDB dengan Sharding</a>
+            </li>
+          
+            <li>
+              <a href="">Telepon murah ke Indonesia dengan voip</a>
+            </li>
+          
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div><header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+      </div>
+    </div> 
+  </div>
+  
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <a href="/"><span class="brand">Labs.Yulrizka.com</span></a>
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="http://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+
+              <li class=""><a href="/">Home</a></li>
+              <li class="active banner"><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+</div> 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+
+<script src="/javascript/global.js"></script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

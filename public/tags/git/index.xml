@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on </title>
+    <link>/tags/git/</link>
+    <description>Recent content in git on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 16 Jan 2015 23:35:00 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tracking origin of bugs with git bisect</title>
+      <link>/en/tracking-origin-of-bugs-with-git-bisect/</link>
+      <pubDate>Fri, 16 Jan 2015 23:35:00 +0200</pubDate>
+      
+      <guid>/en/tracking-origin-of-bugs-with-git-bisect/</guid>
+      <description>Disect the rocket, image by ProudloveNathan Proudlove  I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the CommonSense iOS library. One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch. The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</description>
+    </item>
+    
+  </channel>
+</rss>

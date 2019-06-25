@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2015-08-29T17:28:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/</loc>
+    <lastmod>2015-08-29T17:28:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2015-08-29T17:28:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/testing-go-1-dot-5-cross-compilation/</loc>
+    <lastmod>2015-08-29T17:28:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/go/</loc>
+    <lastmod>2015-08-29T17:28:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/osx-push-to-talk-app/</loc>
+    <lastmod>2015-03-22T00:26:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/web/</loc>
+    <lastmod>2015-03-22T00:26:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/tracking-origin-of-bugs-with-git-bisect/</loc>
+    <lastmod>2015-01-16T23:35:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/git/</loc>
+    <lastmod>2015-01-16T23:35:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/stubbing-time-dot-now-in-golang/</loc>
+    <lastmod>2014-10-27T16:42:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/golang/</loc>
+    <lastmod>2014-10-27T16:42:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/my-account-just-got-hacked-by-romanian-possibly/</loc>
+    <lastmod>2013-07-27T11:58:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/berks-upload-ruby-core-dump/</loc>
+    <lastmod>2013-07-21T23:26:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ruby-web/</loc>
+    <lastmod>2013-07-21T23:26:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/safely-sharing-credentials-with-pgp/</loc>
+    <lastmod>2013-07-08T16:24:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/linux-web/</loc>
+    <lastmod>2013-07-08T16:24:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</loc>
+    <lastmod>2013-02-26T20:33:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/raspberrypi/</loc>
+    <lastmod>2013-02-26T20:33:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/responsive-design/</loc>
+    <lastmod>2012-02-24T01:48:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/jekyll-error-utf-8-caracter/</loc>
+    <lastmod>2012-01-14T17:32:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ruby/</loc>
+    <lastmod>2012-01-14T17:32:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/en/testing-ruby-code-with-benchmark-suite/</loc>
+    <lastmod>2012-01-14T12:05:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/id/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/id/ruby-fiber-apaan-sih/</loc>
+  </url>
+  
+  <url>
+    <loc>/id/scale-mongodb-dengan-sharding/</loc>
+  </url>
+  
+  <url>
+    <loc>/id/telepon-murah-ke-indonesia-dengan-voip/</loc>
+  </url>
+  
+</urlset>
