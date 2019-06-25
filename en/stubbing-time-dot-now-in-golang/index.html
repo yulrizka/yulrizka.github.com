@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>labs.yulrizka.com - Dev Blogs of Ahmy Yulrizka</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Blog of Ahmy Yulrizka I am currently golang developer and live in the Netherlands">
+<meta name="keywords" content="ahmy,yulrizka,ahmy yulrizka,blog,dev" />
+<meta name="author" content="Ahmy Yulrizka">
+<link rel="canonical" href="http://labs.yulrizka.com/">
+
+
+
+
+
+ 
+<link rel="stylesheet" href="/css/default.min.ddd5e700e2d8ea65f25860be8c90c807bad0fe59e710cb60889700937f21e7f7.css" media="screen, projection" type="text/css">
+
+
+
+
+<link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+<h1>Stubbing Time.Now() in golang</h1>
+<div class="posted_at">
+	2014-10-27 ::
+	( 2 minutes reading )
+</div><p>Some time it&rsquo;s really hard to test functionality that involves with system time.
+Especially when we wanted to test specific functionality. For example testing
+whether today is end of month. It&rsquo;s unrealistic to run this test case once every month.</p>
+
+<p>If you are coming from ruby land, you might familiar with some test library that solve
+this problem like <a href="https://github.com/travisjeffery/timecop">timecop</a>. Actually it&rsquo;s not that hard to do it in Go also.
+There is couple of approach you can use.</p>
+
+<p>First approach is passing the <code>time.Time</code> object to every function.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">...</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>This way you can either pass <code>time.Now()</code> in your main pacakge
+or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.
+This work well but it&rsquo;s a bit cumbersome to pas it evertime we call the function</p>
+
+<p>Another approach you can use, is to create a function to generate current time. And during the test
+you can change the implementation of the function. Here is how i do it (and a bonus function to
+generate begining of month and end of month)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;time&#34;</span>
+
+<span class="kd">type</span> <span class="nx">nowFuncT</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+
+<span class="kd">var</span> <span class="nx">nowFunc</span> <span class="nx">nowFuncT</span>
+
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">resetClockImplementation</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">resetClockImplementation</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// function to return current time stamp in UTC
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">nowFunc</span><span class="p">().</span><span class="nf">UTC</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// return beginning of month in UTC
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">beginningOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nf">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Month</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// return end of month in utc
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">endOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nf">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nf">Month</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">).</span><span class="nf">Add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Nanosecond</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>now in your test you could do something like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// change implementation of clock in the beginning of the test
+</span><span class="c1"></span><span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">//...
+</span><span class="c1"></span>
+<span class="c1">// after finish with the test, reset the time implementation
+</span><span class="c1"></span><span class="nf">resetClockImplementation</span><span class="p">()</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>now to the process that, it will see that currently it&rsquo;s 15 December 2000 8:00 UTC</p>
+
+
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <h3>English</h3>
+          <ul>
+          
+            <li>
+              <a href="/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
+            </li>
+          
+            <li>
+              <a href="/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
+            </li>
+          
+            <li>
+              <a href="/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
+            </li>
+          
+            <li>
+              <a href="/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
+            </li>
+          
+            <li>
+              <a href="/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
+            </li>
+          
+            <li>
+              <a href="/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
+            </li>
+          
+            <li>
+              <a href="/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
+            </li>
+          
+            <li>
+              <a href="/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
+            </li>
+          
+            <li>
+              <a href="/en/responsive-design/">Responsive Design</a>
+            </li>
+          
+            <li>
+              <a href="/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
+            </li>
+          
+          </ul>
+          <h3>Indonesia</h3>
+          <ul>
+          
+            <li>
+              <a href="">Ruby Fiber apaan sih ?</a>
+            </li>
+          
+            <li>
+              <a href="">Scale MongoDB dengan Sharding</a>
+            </li>
+          
+            <li>
+              <a href="">Telepon murah ke Indonesia dengan voip</a>
+            </li>
+          
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div><header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+      </div>
+    </div> 
+  </div>
+  
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <a href=""><span class="brand">Labs.Yulrizka.com</span></a>
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="http://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+
+              <li class=""><a href="/">Home</a></li>
+              <li class="active banner"><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+</div> 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+
+<script src="/javascript/global.js"></script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ens on </title>
+    <link>/en/</link>
+    <description>Recent content in Ens on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 29 Aug 2015 17:28:00 +0200</lastBuildDate>
+    
+	<atom:link href="/en/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Testing go 1.5 cross compilation on raspberry pi</title>
+      <link>/en/testing-go-1-dot-5-cross-compilation/</link>
+      <pubDate>Sat, 29 Aug 2015 17:28:00 +0200</pubDate>
+      
+      <guid>/en/testing-go-1-dot-5-cross-compilation/</guid>
+      <description>I&amp;rsquo;m so excited with the new release of golang. One particular feature is now very easy to build for multiple architecture. If you seen my other posts, I also like to tinker with my raspberry-pi. On my previous project I use either ruby or python for building some stuff. One annoying thing is dependency, setup and compilation is usually quite slow. Would be cool if I could just create some stuff in desktop and just scp the binary to pi and everything should work!</description>
+    </item>
+    
+    <item>
+      <title>osx-push-to-talk App</title>
+      <link>/en/osx-push-to-talk-app/</link>
+      <pubDate>Sun, 22 Mar 2015 00:26:00 +0200</pubDate>
+      
+      <guid>/en/osx-push-to-talk-app/</guid>
+      <description>Push To Talk app for OSX
+PushToTalk App installer   As a part of scrum teams, every day I need to give updates to my team via Google Hangout. We have a team here in the Netherlands and also in Indonesia. Some times I am in the same room as a colleague of mine. This sometimes quite annoying because I can hear my self (with a delay) from his mic.</description>
+    </item>
+    
+    <item>
+      <title>Tracking origin of bugs with git bisect</title>
+      <link>/en/tracking-origin-of-bugs-with-git-bisect/</link>
+      <pubDate>Fri, 16 Jan 2015 23:35:00 +0200</pubDate>
+      
+      <guid>/en/tracking-origin-of-bugs-with-git-bisect/</guid>
+      <description>Disect the rocket, image by ProudloveNathan Proudlove  I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the CommonSense iOS library. One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch. The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</description>
+    </item>
+    
+    <item>
+      <title>Stubbing Time.Now() in golang</title>
+      <link>/en/stubbing-time-dot-now-in-golang/</link>
+      <pubDate>Mon, 27 Oct 2014 16:42:00 +0200</pubDate>
+      
+      <guid>/en/stubbing-time-dot-now-in-golang/</guid>
+      <description>Some time it&amp;rsquo;s really hard to test functionality that involves with system time. Especially when we wanted to test specific functionality. For example testing whether today is end of month. It&amp;rsquo;s unrealistic to run this test case once every month.
+If you are coming from ruby land, you might familiar with some test library that solve this problem like timecop. Actually it&amp;rsquo;s not that hard to do it in Go also.</description>
+    </item>
+    
+    <item>
+      <title>My account just got hacked by Romanian (Possibly)</title>
+      <link>/en/my-account-just-got-hacked-by-romanian-possibly/</link>
+      <pubDate>Sat, 27 Jul 2013 11:58:00 +0200</pubDate>
+      
+      <guid>/en/my-account-just-got-hacked-by-romanian-possibly/</guid>
+      <description>You are probably familiar with above images. Some random friend sent you an email which you can instantly recognize as a spam because it only contains one link. Couple days ago I receive this email which is not the first time for me. But this time it was different. It actually came from my own Yahoo! account which I never use since more that one year ago.
+My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address.</description>
+    </item>
+    
+    <item>
+      <title>berks upload core dump</title>
+      <link>/en/berks-upload-ruby-core-dump/</link>
+      <pubDate>Sun, 21 Jul 2013 23:26:00 +0200</pubDate>
+      
+      <guid>/en/berks-upload-ruby-core-dump/</guid>
+      <description>Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python, think of it as a Bundler or virtual environment for chef
+I faced this core dump error while doing berks upload. That command will actualy push some cookbook to a chef server.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  $ berks upload /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: [BUG] Segmentation fault ruby 1.</description>
+    </item>
+    
+    <item>
+      <title>Safely sharing credentials with PGP</title>
+      <link>/en/safely-sharing-credentials-with-pgp/</link>
+      <pubDate>Mon, 08 Jul 2013 16:24:00 +0200</pubDate>
+      
+      <guid>/en/safely-sharing-credentials-with-pgp/</guid>
+      <description>When working in teams, we are sometimes required to share some password / keys with our team. The most common way for me is probably through email or some chat client. But even though its convenience it&amp;rsquo;s not actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.
+Some simple approach would we communicating the password directly with a person through secure medium.</description>
+    </item>
+    
+    <item>
+      <title>Homeward light indicator with RaspberryPi and CommonSense</title>
+      <link>/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</link>
+      <pubDate>Tue, 26 Feb 2013 20:33:00 +0200</pubDate>
+      
+      <guid>/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</guid>
+      <description>I&amp;rsquo;ve been tinkering with my raspberry-pi for quite some time now. What I like about it because it is cheap ($25), it&amp;rsquo;s run Linux (especially debian based) and most of all it&amp;rsquo;s have General Purpose Input Output pin. Since I was a kid, I always wanted to control electronic appliance remotely. Luckily my friend @pimnijdam thought me how to control a relay board. Basically it&amp;rsquo;s just like an electric switch that connect/disconnect current when you supply a low voltage.</description>
+    </item>
+    
+    <item>
+      <title>Responsive Design</title>
+      <link>/en/responsive-design/</link>
+      <pubDate>Fri, 24 Feb 2012 01:48:00 +0200</pubDate>
+      
+      <guid>/en/responsive-design/</guid>
+      <description>I&amp;rsquo;ve been playing around with twitter bootstrap. It&amp;rsquo;s like a css framework to help designer or developer create a nice and clean site. It&amp;rsquo;s offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for prototyping.
+I&amp;rsquo;ve been using it to build this blog since it was version 1. Recently i had a chance to upgrade it to version 2. The new version offer a lot of functionalities, one the feature that I play a lot is the responsive design.</description>
+    </item>
+    
+    <item>
+      <title>Jekyll error utf-8 caracter</title>
+      <link>/en/jekyll-error-utf-8-caracter/</link>
+      <pubDate>Sat, 14 Jan 2012 17:32:00 +0200</pubDate>
+      
+      <guid>/en/jekyll-error-utf-8-caracter/</guid>
+      <description>If you having a problem in jekyll when it didn&amp;rsquo;t generate a post and there is no error in the log file. you might want to check the content if there is any UTF-8 character encoding such as this ±
+The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character. it actually got invalid multibyte char (US-ASCII) error message
+to solve this. I added this line to .</description>
+    </item>
+    
+    <item>
+      <title>Testing ruby code with benchmark_suite</title>
+      <link>/en/testing-ruby-code-with-benchmark-suite/</link>
+      <pubDate>Sat, 14 Jan 2012 12:05:00 +0200</pubDate>
+      
+      <guid>/en/testing-ruby-code-with-benchmark-suite/</guid>
+      <description>Just a couple days ago I found out therubygame.com which challenge us to solve a problem with ruby. The result were measured by the fastest, slowest, shortest, longest, cheaters (yup there are also some rule).
+And also I was listening to an episode of ruby rouge on Benchmarking. And there is one tools called benchmark_suite.
+So there is this challenge to capitalize first letter of every word. I want to compare my code to the fastest solution there.</description>
+    </item>
+    
+  </channel>
+</rss>

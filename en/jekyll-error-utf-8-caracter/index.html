@@ -27,58 +27,30 @@
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content"><h1>
-	
-	Indonesia
-	
-</h1>
-<ul>
-	
-	<li>
-		<a href="">Testing go 1.5 cross compilation on raspberry pi</a>
-	</li>
-	
-	<li>
-		<a href="">osx-push-to-talk App</a>
-	</li>
-	
-	<li>
-		<a href="">Tracking origin of bugs with git bisect</a>
-	</li>
-	
-	<li>
-		<a href="">Stubbing Time.Now() in golang</a>
-	</li>
-	
-	<li>
-		<a href="">My account just got hacked by Romanian (Possibly)</a>
-	</li>
-	
-	<li>
-		<a href="">berks upload core dump</a>
-	</li>
-	
-	<li>
-		<a href="">Safely sharing credentials with PGP</a>
-	</li>
-	
-	<li>
-		<a href="">Homeward light indicator with RaspberryPi and CommonSense</a>
-	</li>
-	
-	<li>
-		<a href="">Responsive Design</a>
-	</li>
-	
-	<li>
-		<a href="">Jekyll error utf-8 caracter</a>
-	</li>
-	
-	<li>
-		<a href="">Testing ruby code with benchmark_suite</a>
-	</li>
-	
-</ul>
+        <div class="content">
+<h1>Jekyll error utf-8 caracter</h1>
+<div class="posted_at">
+	2012-01-14 ::
+	( 1 minutes reading )
+</div><p>If you having a problem in jekyll when it didn&rsquo;t generate a post and there is no error in the log file.
+you might want to check the content if there is any UTF-8 character encoding such as this <strong>±</strong></p>
+
+<p>The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
+it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
+
+<p>to solve this. I added this line to <code>.bashrc</code> or <code>zshrc</code> if you are using zsh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  <span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+  <span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8</code></pre></td></tr></table>
+</div>
+</div>
+<p>It should fix the problem now.</p>
+
 
         </div>
       </div>
@@ -192,8 +164,8 @@
             <ul class="nav">
 
               <li class=""><a href="/">Home</a></li>
-              <li class=""><a href="/en/">EN</a></li>
-              <li class="active banner"><a href="/id/">ID</a></li>
+              <li class="active banner"><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
               
             </ul>
           </div>

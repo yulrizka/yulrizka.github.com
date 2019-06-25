@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>labs.yulrizka.com - Dev Blogs of Ahmy Yulrizka</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Blog of Ahmy Yulrizka I am currently golang developer and live in the Netherlands">
+<meta name="keywords" content="ahmy,yulrizka,ahmy yulrizka,blog,dev" />
+<meta name="author" content="Ahmy Yulrizka">
+<link rel="canonical" href="http://labs.yulrizka.com/">
+
+
+
+
+
+ 
+<link rel="stylesheet" href="/css/default.min.ddd5e700e2d8ea65f25860be8c90c807bad0fe59e710cb60889700937f21e7f7.css" media="screen, projection" type="text/css">
+
+
+
+
+<link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+<h1>Safely sharing credentials with PGP</h1>
+<div class="posted_at">
+	2013-07-08 ::
+	( 6 minutes reading )
+</div>
+
+<p>When working in teams, we are sometimes required to share some password / keys with our team.
+The most common way for me is probably through email or some chat client. But even though its convenience it&rsquo;s not
+actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.</p>
+
+<p>Some simple approach would we communicating the password directly with a person through secure medium.
+One way to do it is both party ssh through a server and use talk client like <a href="http://linux.die.net/man/1/write">write</a>.
+But for some cases it&rsquo;s quite impractical.</p>
+
+<h2 id="pgp">PGP</h2>
+
+<p>Enter <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy">PGP</a>. It&rsquo;s basically a software that do a Public-key cryptography.
+Public-key cryptography is basically encryption process which require 2 keys, one for encrypting and the other one
+for decrypting. Usually the <strong>public key</strong> is used for encrypting and <strong>private key</strong> is use for decrypting.
+I would not dive into the details about it since I&rsquo;ve only have basic understanding about it.
+But for those people that is interested, you would read the nice article on <a href="http://en.wikipedia.org/wiki/Public-key_cryptography">wikipedia</a></p>
+
+<p>There is a open source project called GPG (GNU Privacy Guard) and in this article I would like to show you how we could
+share some password / key file with it.</p>
+
+<h3 id="instalation">Instalation</h3>
+
+<p>If you don&rsquo;t already have it on your system, you could installed it with:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ sudo apt-get install gpg</code></pre></td></tr></table>
+</div>
+</div>
+<p>After installing we would start by creating a pair of keys</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ gpg --gen-key</code></pre></td></tr></table>
+</div>
+</div>
+<p>You will be asked with bunch of questions. Most of the answer you could leave it as a default but most important is fill in your <strong>email</strong>
+address and also provide a <strong>Passphrase</strong> to protect your key with password. When it finish gathering information, it will start
+creating a key pair by using system entropy. You can help the system to generate the entropy by clicking or moving your mouse randomly
+or doing some random IO disk by triggering for example <code>find /</code></p>
+
+<h3 id="listing-keys">Listing keys</h3>
+
+<p>After installing, you can see list of keys by using this command</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$  gpg --list-keys
+/home/user/.gnupg/pubring.gpg
+--------------------------------
+pub   2048R/70280895 <span class="m">2013</span>-07-09
+uid                  Ahmy Yulrizka <span class="o">(</span>ahmy135@mail.com<span class="o">)</span> &lt;ahmy135@mail.com&gt;
+sub   2048R/F7B2D44C <span class="m">2013</span>-07-09</code></pre></td></tr></table>
+</div>
+</div>
+<p>In above output you could see that we have created public key with id of <code>70280895</code>. Note this one because we are going to use it later
+when submitting the key to a key server</p>
+
+<h3 id="exporting-keys">Exporting keys</h3>
+
+<p>To share your public key, so other people could send you encrypted message.</p>
+
+<p><strong>Note</strong> that further in this article I will discus ways to easily distribute your public key.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.11 <span class="o">(</span>GNU/Linux<span class="o">)</span>
+
+mQENBFHcRTEBCAC056qG97iJAtb604x5Hr+3lIi3UXVOnGauoHSo5S8S3bSCD0Ib
+DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF
+...
+-----END PGP PUBLIC KEY BLOCK-----
+
+$ gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span> --output pubkey.txt <span class="c1"># to output it to a file</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="encrypting-and-decrypting">Encrypting and decrypting</h3>
+
+<p>With those generated keys, we could now do a personal encryption. That is if you want to encrypt a file and you are the only one
+who are able to decrypt it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ <span class="nb">echo</span> <span class="s2">&#34;this message is secret&#34;</span> &gt; message.txt
+  $ gpg --encrypt --recipient <span class="s1">&#39;ahmy135@gmail.com&#39;</span> message.txt</code></pre></td></tr></table>
+</div>
+</div>
+<p>Those code will create a file name <code>message.txt.gpg</code> which is encrypted message of <code>message.txt</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --decrypt message.txt.gpg
+
+You need a passphrase to unlock the secret key <span class="k">for</span>
+user: <span class="s2">&#34;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&#34;</span>
+<span class="m">2048</span>-bit RSA key, ID F7B2D44C, created <span class="m">2013</span>-07-09 <span class="o">(</span>main key ID <span class="m">70280895</span><span class="o">)</span>
+
+gpg: gpg-agent is not available in this session
+gpg: encrypted with <span class="m">2048</span>-bit RSA key, ID F7B2D44C, created <span class="m">2013</span>-07-09
+      <span class="s2">&#34;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&#34;</span>
+this message is secret</code></pre></td></tr></table>
+</div>
+</div>
+<p>As you can see that we are successfully decrypted the message. This example you encrypt the message
+using your own public key. So this method only work if you want to archive or backup the file securely.
+In order to send someone else an encrypted message, you need to encrypt the message using the other
+person <strong>public key</strong></p>
+
+<h3 id="distributing-the-key">Distributing the key</h3>
+
+<p>In order for any body to send you a encrypted message, you need to give your <strong>public key</strong>.
+Since <strong>public key</strong> only used for encryption, It&rsquo;s OK to publicly share your <strong>public key</strong>.
+But never share your <strong>private key</strong>. Once the other party have your <strong>public key</strong> they could
+start send you an encrypted message using the command above.</p>
+
+<p>You could share your public key manually to some one (through usb / email etc) by exporting it first just like I mention before.
+But there are an easy way to distribute the key. There are some public GPG server that store your public key so that
+other people could easily find it and import it into their local machine. There are <a href="http://pgp.mit.edu">http://pgp.mit.edu</a>
+and also ubuntu key server <a href="http://keyserver.ubuntu.com">http://keyserver.ubuntu.com</a> that we can use.</p>
+
+<p>To send our key to MIT server we could do</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --send-key --keyserver pgp.mit.edu <span class="m">70280895</span>
+gpg: sending key <span class="m">70280895</span> to hkp server pgp.mit.edu</code></pre></td></tr></table>
+</div>
+</div>
+<p>the last number <code>70280895</code> was the key id of the public file. You could find it with the output of <code>gpg --list-keys</code> command.
+Now we have successfully send our public key any body could get your public key through that keyserver. You could test this
+by searching a name or email or a person in the key server web interface. for example try searching my name on <a href="http://pgp.mit.edu/">http://pgp.mit.edu/</a></p>
+
+<h3 id="importing-keys">Importing Keys</h3>
+
+<p>Now to import other people public key, we could also do that in two way.</p>
+
+<p>if the person give you a file which contain their public key (say <code>ahmy-pub.key</code>). you could import it with</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --import ahmy-pub.key</code></pre></td></tr></table>
+</div>
+</div>
+<p>Or if the person already publish his public key to a keyserver, we can search it with</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --search-keys <span class="s1">&#39;Ahmy Yulrizka&#39;</span>
+
+<span class="c1"># or</span>
+$ gpg --search-keys <span class="s1">&#39;ahmy135@mail.com&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>It will generate a list of keys that found on the keyserver. Enter the number of the keys and it will be imported to your local machine.</p>
+
+<p>after importing you can send an encrypted message to the person for example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">echo</span> <span class="s2">&#34;This is also a secret&#34;</span> <span class="p">|</span> gpg --encrypt --armor --recipient <span class="s1">&#39;Ahmy Yulrizka&#39;</span> &gt; output.txt.gpg</code></pre></td></tr></table>
+</div>
+</div>
+<p>You could provide a name or an email address as a recipient.
+THis command will encrypt the message using public key of a person name <code>Ahmy Yulrizka</code></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>At this point you are able to generate, export, distribute and import keys. More over you can already encrypt
+and decrypt file / message to a designated recipient. The the part two of this article I will share some idea
+how we could share some password / password key to other member of the team.</p>
+
+
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <h3>English</h3>
+          <ul>
+          
+            <li>
+              <a href="/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
+            </li>
+          
+            <li>
+              <a href="/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
+            </li>
+          
+            <li>
+              <a href="/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
+            </li>
+          
+            <li>
+              <a href="/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
+            </li>
+          
+            <li>
+              <a href="/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
+            </li>
+          
+            <li>
+              <a href="/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
+            </li>
+          
+            <li>
+              <a href="/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
+            </li>
+          
+            <li>
+              <a href="/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
+            </li>
+          
+            <li>
+              <a href="/en/responsive-design/">Responsive Design</a>
+            </li>
+          
+            <li>
+              <a href="/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
+            </li>
+          
+          </ul>
+          <h3>Indonesia</h3>
+          <ul>
+          
+            <li>
+              <a href="">Ruby Fiber apaan sih ?</a>
+            </li>
+          
+            <li>
+              <a href="">Scale MongoDB dengan Sharding</a>
+            </li>
+          
+            <li>
+              <a href="">Telepon murah ke Indonesia dengan voip</a>
+            </li>
+          
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div><header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+      </div>
+    </div> 
+  </div>
+  
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <a href=""><span class="brand">Labs.Yulrizka.com</span></a>
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="http://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+
+              <li class=""><a href="/">Home</a></li>
+              <li class="active banner"><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+</div> 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+
+<script src="/javascript/global.js"></script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

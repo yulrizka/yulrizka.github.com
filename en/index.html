@@ -4,673 +4,81 @@
 <title>labs.yulrizka.com - Dev Blogs of Ahmy Yulrizka</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Technical blog of Ahmy Yulrizka. I post my daily and programming experience on ruby, rails and web related stuff.">
-<meta name="keywords" content="ahmy,yulrizka,ahmy yulrizka,ruby,rails,blog,dev" />
+<meta name="description" content="Blog of Ahmy Yulrizka I am currently golang developer and live in the Netherlands">
+<meta name="keywords" content="ahmy,yulrizka,ahmy yulrizka,blog,dev" />
 <meta name="author" content="Ahmy Yulrizka">
 <link rel="canonical" href="http://labs.yulrizka.com/">
 
-<!-- Framework CSS -->
-<link href="/stylesheets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
 
-<!--[if lt IE 9]>
-  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+
+
+
+ 
+<link rel="stylesheet" href="/css/default.min.ddd5e700e2d8ea65f25860be8c90c807bad0fe59e710cb60889700937f21e7f7.css" media="screen, projection" type="text/css">
+
+
+
 
 <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
 <div id="container" class="sidebar-right">
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content">
-          <div class="articles">
-
-
-  <article>
-    <h1 class="">
-        <a href="/en/2015/08/testing-go-1-dot-5-cross-compilation.html" rel="bookmark" title="Permanent link to ">Testing go 1.5 cross compilation on raspberry pi</a>
-    </h1>
-    <span>August 29, 2015</span>
-    <p>
-        <p>I&#39;m so excited with the new release of golang. One particular feature
-is now very easy to build for multiple architecture. If you seen my other posts,
-I also like to tinker with my raspberry-pi. On my previous project I use either ruby
-or python for building some stuff. One annoying thing is dependency, setup and compilation
-is usually quite slow. Would be cool if I could just create some stuff in desktop and just
-<em>scp</em> the binary to pi and everything should work!</p>
-
-<p>There is <a href="http://dave.cheney.net/2015/03/03/cross-compilation-just-got-a-whole-lot-better-in-go-1-5">this nice</a> article that explain the process. Let&#39;s start there and create simple application</p>
-<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C1L2"><br></div><div class="code-line" id="C1L3"><span class="kn">import</span> <span class="p">(</span></div><div class="code-line" id="C1L4">    <span class="s">&quot;fmt&quot;</span></div><div class="code-line" id="C1L5">    <span class="s">&quot;runtime&quot;</span></div><div class="code-line" id="C1L6"><span class="p">)</span></div><div class="code-line" id="C1L7"><br></div><div class="code-line" id="C1L8"><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C1L9">    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Hello. I&#39;m running %s on %s architecture\n&quot;</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOOS</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOARCH</span><span class="p">)</span></div><div class="code-line" id="C1L10"><span class="p">}</span></div></pre></div></td></tr></table></div>
-<p>Let&#39;s try to build it</p>
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"><span class="c"># create binary called &#39;main&#39; for raspberry-pi (1gen)</span></div><div class="code-line" id="C2L2"><span class="nv">$ </span>env <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>arm <span class="nv">GOARM</span><span class="o">=</span>6 go build main.go</div><div class="code-line" id="C2L3"><br></div><div class="code-line" id="C2L4"><span class="c"># transfer the binary to pi</span></div><div class="code-line" id="C2L5"><span class="nv">$ </span>scp main pi:</div></pre></div></td></tr></table></div>
-<p>Now, crossing my finger, and run it on my pi</p>
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="nv">$ </span>ssh pi</div><div class="code-line" id="C3L2"><br></div><div class="code-line" id="C3L3">pi@raspbmc:~<span class="nv">$ </span>./main</div><div class="code-line" id="C3L4">Hello. I<span class="err">&#39;</span>m running linux on arm architecture</div><div class="code-line" id="C3L5">pi@raspbmc:~<span class="nv">$ </span></div></pre></div></td></tr></table></div>
-<p>Holy crap, it&#39;s that easy. I&#39;m excited. Let&#39;s see if go routine works</p>
-<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span><span class="line-number">33</span><span class="line-number">34</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C4L2"><br></div><div class="code-line" id="C4L3"><span class="kn">import</span> <span class="p">(</span></div><div class="code-line" id="C4L4">    <span class="s">&quot;fmt&quot;</span></div><div class="code-line" id="C4L5">    <span class="s">&quot;sync&quot;</span></div><div class="code-line" id="C4L6"><span class="p">)</span></div><div class="code-line" id="C4L7"><br></div><div class="code-line" id="C4L8"><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C4L9">    <span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span></div><div class="code-line" id="C4L10">    <span class="nx">nWorker</span> <span class="o">:=</span> <span class="mi">2</span></div><div class="code-line" id="C4L11">    <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span></div><div class="code-line" id="C4L12"><br></div><div class="code-line" id="C4L13">    <span class="c1">// write 10 message to channel c</span></div><div class="code-line" id="C4L14">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C4L15">        <span class="k">defer</span> <span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span></div><div class="code-line" id="C4L16">        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span></div><div class="code-line" id="C4L17">            <span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;item sequence %d&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span></div><div class="code-line" id="C4L18">        <span class="p">}</span></div><div class="code-line" id="C4L19">    <span class="p">}()</span></div><div class="code-line" id="C4L20"><br></div><div class="code-line" id="C4L21">    <span class="c1">// create n worker to read from channel c</span></div><div class="code-line" id="C4L22">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">nWorker</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span></div><div class="code-line" id="C4L23">        <span class="nx">wg</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div><div class="code-line" id="C4L24">        <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">worker</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C4L25">            <span class="k">for</span> <span class="nx">msg</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span></div><div class="code-line" id="C4L26">                <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;worker %d: msg %s\n&quot;</span><span class="p">,</span> <span class="nx">worker</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span></div><div class="code-line" id="C4L27">            <span class="p">}</span></div><div class="code-line" id="C4L28">            <span class="nx">wg</span><span class="p">.</span><span class="nx">Done</span><span class="p">()</span></div><div class="code-line" id="C4L29">        <span class="p">}(</span><span class="nx">i</span><span class="p">)</span></div><div class="code-line" id="C4L30">    <span class="p">}</span></div><div class="code-line" id="C4L31"><br></div><div class="code-line" id="C4L32">    <span class="nx">wg</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span></div><div class="code-line" id="C4L33">    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;That&#39;s super awesome!!, cee ya!&quot;</span><span class="p">)</span></div><div class="code-line" id="C4L34"><span class="p">}</span></div></pre></div></td></tr></table></div>
-<p>Again, build and <em>scp</em>, and cross some more fingers</p>
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span></td><td><div class="highlight"><pre><div class="code-line" id="C5L1">@raspbmc:~<span class="nv">$ </span>ls -alh main</div><div class="code-line" id="C5L2">-rwxr-xr-- 1 pi pi 1.9M Aug 29 18:08 main</div><div class="code-line" id="C5L3">pi@raspbmc:~<span class="nv">$ </span>./main</div><div class="code-line" id="C5L4">worker 1: msg item sequence 0</div><div class="code-line" id="C5L5">worker 0: msg item sequence 1</div><div class="code-line" id="C5L6">worker 1: msg item sequence 2</div><div class="code-line" id="C5L7">worker 0: msg item sequence 3</div><div class="code-line" id="C5L8">worker 0: msg item sequence 4</div><div class="code-line" id="C5L9">worker 0: msg item sequence 5</div><div class="code-line" id="C5L10">worker 0: msg item sequence 6</div><div class="code-line" id="C5L11">worker 0: msg item sequence 7</div><div class="code-line" id="C5L12">worker 0: msg item sequence 8</div><div class="code-line" id="C5L13">worker 1: msg item sequence 9</div><div class="code-line" id="C5L14">That<span class="err">&#39;</span>s super awesome!!, cee ya!</div></pre></div></td></tr></table></div>
-<p>Super awesome indeed, it just works!. Oh and the binary is not that big <em>1.9M</em>
-considering it statically include the library.</p>
-
-<p>Hmm let&#39;s try something fun that fiddle with the <em>gpio</em> pin. Let&#39;s create something that
-what raspberry-pi made for.. blinking led :p</p>
-
-<p>There is already <a href="https://github.com/davecheney/gpio">library</a>. Let&#39;s starts there.</p>
-<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span><span class="line-number">33</span><span class="line-number">34</span><span class="line-number">35</span><span class="line-number">36</span><span class="line-number">37</span><span class="line-number">38</span><span class="line-number">39</span><span class="line-number">40</span><span class="line-number">41</span><span class="line-number">42</span><span class="line-number">43</span></td><td><div class="highlight"><pre><div class="code-line" id="C6L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C6L2"><br></div><div class="code-line" id="C6L3"><span class="kn">import</span> <span class="p">(</span></div><div class="code-line" id="C6L4">    <span class="s">&quot;fmt&quot;</span></div><div class="code-line" id="C6L5">    <span class="s">&quot;os&quot;</span></div><div class="code-line" id="C6L6">    <span class="s">&quot;os/signal&quot;</span></div><div class="code-line" id="C6L7">    <span class="s">&quot;time&quot;</span></div><div class="code-line" id="C6L8"><br></div><div class="code-line" id="C6L9">    <span class="s">&quot;github.com/davecheney/gpio&quot;</span></div><div class="code-line" id="C6L10">    <span class="s">&quot;github.com/davecheney/gpio/rpi&quot;</span></div><div class="code-line" id="C6L11"><span class="p">)</span></div><div class="code-line" id="C6L12"><br></div><div class="code-line" id="C6L13"><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C6L14">    <span class="c1">// set GPIO25 to output mode</span></div><div class="code-line" id="C6L15">    <span class="nx">pin</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">OpenPin</span><span class="p">(</span><span class="nx">rpi</span><span class="p">.</span><span class="nx">GPIO25</span><span class="p">,</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">ModeOutput</span><span class="p">)</span></div><div class="code-line" id="C6L16">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span></div><div class="code-line" id="C6L17">        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Error opening pin! %s\n&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span></div><div class="code-line" id="C6L18">        <span class="k">return</span></div><div class="code-line" id="C6L19">    <span class="p">}</span></div><div class="code-line" id="C6L20"><br></div><div class="code-line" id="C6L21">    <span class="c1">// turn the led off on exit</span></div><div class="code-line" id="C6L22">    <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div><div class="code-line" id="C6L23">    <span class="nx">signal</span><span class="p">.</span><span class="nx">Notify</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span></div><div class="code-line" id="C6L24">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C6L25">        <span class="k">for</span> <span class="nx">_</span> <span class="p">=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span></div><div class="code-line" id="C6L26">            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;\nClearing and unexporting the pin.\n&quot;</span><span class="p">)</span></div><div class="code-line" id="C6L27">            <span class="nx">pin</span><span class="p">.</span><span class="nx">Clear</span><span class="p">()</span></div><div class="code-line" id="C6L28">            <span class="nx">pin</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span></div><div class="code-line" id="C6L29">            <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div><div class="code-line" id="C6L30">        <span class="p">}</span></div><div class="code-line" id="C6L31">    <span class="p">}()</span></div><div class="code-line" id="C6L32"><br></div><div class="code-line" id="C6L33">    <span class="nx">dance</span><span class="p">(</span><span class="nx">pin</span><span class="p">)</span></div><div class="code-line" id="C6L34"><span class="p">}</span></div><div class="code-line" id="C6L35"><br></div><div class="code-line" id="C6L36"><span class="kd">func</span> <span class="nx">dance</span><span class="p">(</span><span class="nx">pin</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">Pin</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C6L37">    <span class="k">for</span> <span class="p">{</span></div><div class="code-line" id="C6L38">        <span class="nx">pin</span><span class="p">.</span><span class="nx">Set</span><span class="p">()</span></div><div class="code-line" id="C6L39">        <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span></div><div class="code-line" id="C6L40">        <span class="nx">pin</span><span class="p">.</span><span class="nx">Clear</span><span class="p">()</span></div><div class="code-line" id="C6L41">        <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span></div><div class="code-line" id="C6L42">    <span class="p">}</span></div><div class="code-line" id="C6L43"><span class="p">}</span></div></pre></div></td></tr></table></div>
-<p>Dayuumm.. It&#39;s that easy. No more pip install or bundle install on pi. Just <em>scp</em> the binary!</p>
-
-<p>Of course we&#39;ve got this far, we must try to control it remotely via HTTP.</p>
-
-<div class="row">
-  <div class="span8 offset1">
-<iframe width="628" height="400" src="https://www.youtube.com/embed/QkHu2-cgauU" frameborder="0" allowfullscreen></iframe align="center">
-  </div>
-
-<p></div><br/></p>
-<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span><span class="line-number">33</span><span class="line-number">34</span><span class="line-number">35</span><span class="line-number">36</span><span class="line-number">37</span><span class="line-number">38</span><span class="line-number">39</span><span class="line-number">40</span><span class="line-number">41</span><span class="line-number">42</span><span class="line-number">43</span><span class="line-number">44</span><span class="line-number">45</span><span class="line-number">46</span><span class="line-number">47</span><span class="line-number">48</span><span class="line-number">49</span><span class="line-number">50</span><span class="line-number">51</span><span class="line-number">52</span><span class="line-number">53</span><span class="line-number">54</span><span class="line-number">55</span><span class="line-number">56</span><span class="line-number">57</span><span class="line-number">58</span><span class="line-number">59</span><span class="line-number">60</span><span class="line-number">61</span><span class="line-number">62</span><span class="line-number">63</span><span class="line-number">64</span><span class="line-number">65</span><span class="line-number">66</span><span class="line-number">67</span><span class="line-number">68</span></td><td><div class="highlight"><pre><div class="code-line" id="C7L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C7L2"><br></div><div class="code-line" id="C7L3"><span class="kn">import</span> <span class="p">(</span></div><div class="code-line" id="C7L4">    <span class="s">&quot;fmt&quot;</span></div><div class="code-line" id="C7L5">    <span class="s">&quot;net/http&quot;</span></div><div class="code-line" id="C7L6">    <span class="s">&quot;os&quot;</span></div><div class="code-line" id="C7L7">    <span class="s">&quot;os/signal&quot;</span></div><div class="code-line" id="C7L8">    <span class="s">&quot;time&quot;</span></div><div class="code-line" id="C7L9"><br></div><div class="code-line" id="C7L10">    <span class="s">&quot;github.com/davecheney/gpio&quot;</span></div><div class="code-line" id="C7L11">    <span class="s">&quot;github.com/davecheney/gpio/rpi&quot;</span></div><div class="code-line" id="C7L12"><span class="p">)</span></div><div class="code-line" id="C7L13"><br></div><div class="code-line" id="C7L14"><span class="c1">// channel to control start blinking or not</span></div><div class="code-line" id="C7L15"><span class="kd">var</span> <span class="nx">ctrlChan</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span></div><div class="code-line" id="C7L16"><br></div><div class="code-line" id="C7L17"><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C7L18">    <span class="c1">// set GPIO25 to output mode</span></div><div class="code-line" id="C7L19">    <span class="nx">pin</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">OpenPin</span><span class="p">(</span><span class="nx">rpi</span><span class="p">.</span><span class="nx">GPIO25</span><span class="p">,</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">ModeOutput</span><span class="p">)</span></div><div class="code-line" id="C7L20">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span></div><div class="code-line" id="C7L21">        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Error opening pin! %s\n&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span></div><div class="code-line" id="C7L22">        <span class="k">return</span></div><div class="code-line" id="C7L23">    <span class="p">}</span></div><div class="code-line" id="C7L24"><br></div><div class="code-line" id="C7L25">    <span class="c1">// turn the led off on exit</span></div><div class="code-line" id="C7L26">    <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div><div class="code-line" id="C7L27">    <span class="nx">signal</span><span class="p">.</span><span class="nx">Notify</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span></div><div class="code-line" id="C7L28">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C7L29">        <span class="k">for</span> <span class="nx">_</span> <span class="p">=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span></div><div class="code-line" id="C7L30">            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;\nClearing and unexporting the pin.\n&quot;</span><span class="p">)</span></div><div class="code-line" id="C7L31">            <span class="nx">pin</span><span class="p">.</span><span class="nx">Clear</span><span class="p">()</span></div><div class="code-line" id="C7L32">            <span class="nx">pin</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span></div><div class="code-line" id="C7L33">            <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div><div class="code-line" id="C7L34">        <span class="p">}</span></div><div class="code-line" id="C7L35">    <span class="p">}()</span></div><div class="code-line" id="C7L36"><br></div><div class="code-line" id="C7L37">    <span class="k">go</span> <span class="nx">dance</span><span class="p">(</span><span class="nx">pin</span><span class="p">,</span> <span class="nx">ctrlChan</span><span class="p">)</span></div><div class="code-line" id="C7L38">    <span class="nx">ctrlChan</span> <span class="o">&lt;-</span> <span class="kc">true</span></div><div class="code-line" id="C7L39"><br></div><div class="code-line" id="C7L40">    <span class="c1">// http listen</span></div><div class="code-line" id="C7L41">    <span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">&quot;/dance&quot;</span><span class="p">,</span> <span class="nx">danceHandler</span><span class="p">)</span></div><div class="code-line" id="C7L42">    <span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8080&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span></div><div class="code-line" id="C7L43"><span class="p">}</span></div><div class="code-line" id="C7L44"><br></div><div class="code-line" id="C7L45"><span class="kd">func</span> <span class="nx">dance</span><span class="p">(</span><span class="nx">pin</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">Pin</span><span class="p">,</span> <span class="nx">ctrlChan</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C7L46">    <span class="nx">enabled</span> <span class="o">:=</span> <span class="kc">false</span></div><div class="code-line" id="C7L47">    <span class="k">for</span> <span class="p">{</span></div><div class="code-line" id="C7L48">        <span class="k">select</span> <span class="p">{</span></div><div class="code-line" id="C7L49">        <span class="k">case</span> <span class="nx">val</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ctrlChan</span><span class="p">:</span></div><div class="code-line" id="C7L50">      <span class="c1">// got value from danceHandler via the channel</span></div><div class="code-line" id="C7L51">            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;dancing? %+v\n&quot;</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span></div><div class="code-line" id="C7L52">            <span class="nx">enabled</span> <span class="p">=</span> <span class="nx">val</span></div><div class="code-line" id="C7L53">        <span class="k">default</span><span class="p">:</span></div><div class="code-line" id="C7L54">            <span class="k">if</span> <span class="nx">enabled</span> <span class="p">{</span></div><div class="code-line" id="C7L55">                <span class="nx">pin</span><span class="p">.</span><span class="nx">Set</span><span class="p">()</span></div><div class="code-line" id="C7L56">                <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span></div><div class="code-line" id="C7L57">                <span class="nx">pin</span><span class="p">.</span><span class="nx">Clear</span><span class="p">()</span></div><div class="code-line" id="C7L58">                <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span></div><div class="code-line" id="C7L59">            <span class="p">}</span></div><div class="code-line" id="C7L60">        <span class="p">}</span></div><div class="code-line" id="C7L61">    <span class="p">}</span></div><div class="code-line" id="C7L62"><span class="p">}</span></div><div class="code-line" id="C7L63"><br></div><div class="code-line" id="C7L64"><span class="kd">func</span> <span class="nx">danceHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C7L65">    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Received request&quot;</span><span class="p">)</span></div><div class="code-line" id="C7L66">    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nx">Query</span><span class="p">().</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;s&quot;</span><span class="p">)</span></div><div class="code-line" id="C7L67">    <span class="nx">ctrlChan</span> <span class="o">&lt;-</span> <span class="nx">s</span> <span class="o">==</span> <span class="s">&quot;1&quot;</span> <span class="c1">// tell dance to enable or not</span></div><div class="code-line" id="C7L68"><span class="p">}</span></div></pre></div></td></tr></table></div>
-<p>Look at that. All it takes to do that is just 67 lines of code. The main 
-logic just about 31 lines. That&#39;s including the fancy dancing blinking.
-No framework, only <em>gpio</em> dependency. Everything else is go <em>stdlib</em>.</p>
-
-<p>Ok, let&#39;s do one other thing. The reverse!
-Trigger something when button is pressed. For this let&#39;s just use
-<em>websocket</em>, and see how hard it is to implement this. What this mean that
-if you have websocket client (web browser) you could listen to event and stream it
-  directly from your raspberry-pi to your computer.</p>
-
-<div class="row">
-  <div class="span8 offset1">
-<iframe width="628" height="400" src="https://www.youtube.com/embed/w1IrlUdEgPk" frameborder="0" allowfullscreen></iframe align="center">
-  </div>
-
-<p></div><br/></p>
-<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span><span class="line-number">33</span><span class="line-number">34</span><span class="line-number">35</span><span class="line-number">36</span><span class="line-number">37</span><span class="line-number">38</span><span class="line-number">39</span><span class="line-number">40</span><span class="line-number">41</span><span class="line-number">42</span><span class="line-number">43</span><span class="line-number">44</span><span class="line-number">45</span><span class="line-number">46</span><span class="line-number">47</span><span class="line-number">48</span><span class="line-number">49</span><span class="line-number">50</span><span class="line-number">51</span><span class="line-number">52</span><span class="line-number">53</span><span class="line-number">54</span><span class="line-number">55</span><span class="line-number">56</span><span class="line-number">57</span><span class="line-number">58</span><span class="line-number">59</span><span class="line-number">60</span><span class="line-number">61</span><span class="line-number">62</span><span class="line-number">63</span><span class="line-number">64</span><span class="line-number">65</span><span class="line-number">66</span><span class="line-number">67</span></td><td><div class="highlight"><pre><div class="code-line" id="C8L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C8L2"><br></div><div class="code-line" id="C8L3"><span class="kn">import</span> <span class="p">(</span></div><div class="code-line" id="C8L4">    <span class="s">&quot;bufio&quot;</span></div><div class="code-line" id="C8L5">    <span class="s">&quot;fmt&quot;</span></div><div class="code-line" id="C8L6">    <span class="s">&quot;net/http&quot;</span></div><div class="code-line" id="C8L7">    <span class="s">&quot;os&quot;</span></div><div class="code-line" id="C8L8">    <span class="s">&quot;os/signal&quot;</span></div><div class="code-line" id="C8L9">    <span class="s">&quot;time&quot;</span></div><div class="code-line" id="C8L10"><br></div><div class="code-line" id="C8L11">    <span class="s">&quot;github.com/davecheney/gpio&quot;</span></div><div class="code-line" id="C8L12">    <span class="s">&quot;github.com/davecheney/gpio/rpi&quot;</span></div><div class="code-line" id="C8L13">    <span class="s">&quot;golang.org/x/net/websocket&quot;</span></div><div class="code-line" id="C8L14"><span class="p">)</span></div><div class="code-line" id="C8L15"><br></div><div class="code-line" id="C8L16"><span class="c1">// channel to control start blinking or not</span></div><div class="code-line" id="C8L17"><span class="kd">var</span> <span class="nx">ctrlChan</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span></div><div class="code-line" id="C8L18"><br></div><div class="code-line" id="C8L19"><span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C8L20">    <span class="c1">// set GPIO25 to output mode</span></div><div class="code-line" id="C8L21">    <span class="nx">pin</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">OpenPin</span><span class="p">(</span><span class="nx">rpi</span><span class="p">.</span><span class="nx">GPIO25</span><span class="p">,</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">ModeOutput</span><span class="p">)</span></div><div class="code-line" id="C8L22">    <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span></div><div class="code-line" id="C8L23">        <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Error opening pin! %s\n&quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span></div><div class="code-line" id="C8L24">        <span class="k">return</span></div><div class="code-line" id="C8L25">    <span class="p">}</span></div><div class="code-line" id="C8L26"><br></div><div class="code-line" id="C8L27">    <span class="c1">// turn the led off on exit</span></div><div class="code-line" id="C8L28">    <span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div><div class="code-line" id="C8L29">    <span class="nx">signal</span><span class="p">.</span><span class="nx">Notify</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span></div><div class="code-line" id="C8L30">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C8L31">        <span class="k">for</span> <span class="nx">_</span> <span class="p">=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span></div><div class="code-line" id="C8L32">            <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;\nClearing and unexporting the pin.\n&quot;</span><span class="p">)</span></div><div class="code-line" id="C8L33">            <span class="nx">pin</span><span class="p">.</span><span class="nx">Clear</span><span class="p">()</span></div><div class="code-line" id="C8L34">            <span class="nx">pin</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span></div><div class="code-line" id="C8L35">            <span class="nx">os</span><span class="p">.</span><span class="nx">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div><div class="code-line" id="C8L36">        <span class="p">}</span></div><div class="code-line" id="C8L37">    <span class="p">}()</span></div><div class="code-line" id="C8L38"><br></div><div class="code-line" id="C8L39">    <span class="k">go</span> <span class="nx">buttonHandler</span><span class="p">(</span><span class="nx">pin</span><span class="p">)</span></div><div class="code-line" id="C8L40"><br></div><div class="code-line" id="C8L41">    <span class="c1">// http listen</span></div><div class="code-line" id="C8L42">    <span class="nx">http</span><span class="p">.</span><span class="nx">Handle</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="nx">websocket</span><span class="p">.</span><span class="nx">Handler</span><span class="p">(</span><span class="nx">EchoServer</span><span class="p">))</span></div><div class="code-line" id="C8L43">    <span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">&quot;:8080&quot;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span></div><div class="code-line" id="C8L44"><span class="p">}</span></div><div class="code-line" id="C8L45"><br></div><div class="code-line" id="C8L46"><span class="c1">// handle websocket connection</span></div><div class="code-line" id="C8L47"><span class="kd">func</span> <span class="nx">EchoServer</span><span class="p">(</span><span class="nx">ws</span> <span class="o">*</span><span class="nx">websocket</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C8L48">    <span class="nx">w</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nx">NewWriter</span><span class="p">(</span><span class="nx">ws</span><span class="p">)</span></div><div class="code-line" id="C8L49">    <span class="nx">w</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">&quot;Hello, i will tell you if button is pressed\n\n&quot;</span><span class="p">)</span></div><div class="code-line" id="C8L50">    <span class="nx">w</span><span class="p">.</span><span class="nx">Flush</span><span class="p">()</span></div><div class="code-line" id="C8L51"><br></div><div class="code-line" id="C8L52">    <span class="k">for</span> <span class="p">{</span></div><div class="code-line" id="C8L53">        <span class="o">&lt;-</span><span class="nx">ctrlChan</span></div><div class="code-line" id="C8L54">        <span class="nx">w</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">&quot;Kachhinggg... somebody pressed the button\n&quot;</span><span class="p">)</span></div><div class="code-line" id="C8L55">        <span class="nx">w</span><span class="p">.</span><span class="nx">Flush</span><span class="p">()</span></div><div class="code-line" id="C8L56">    <span class="p">}</span></div><div class="code-line" id="C8L57"><span class="p">}</span></div><div class="code-line" id="C8L58"><br></div><div class="code-line" id="C8L59"><span class="c1">// check if button is pressed</span></div><div class="code-line" id="C8L60"><span class="kd">func</span> <span class="nx">buttonHandler</span><span class="p">(</span><span class="nx">p</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">Pin</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C8L61">    <span class="k">for</span> <span class="p">{</span></div><div class="code-line" id="C8L62">        <span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nx">Get</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C8L63">            <span class="nx">ctrlChan</span> <span class="o">&lt;-</span> <span class="kc">true</span></div><div class="code-line" id="C8L64">        <span class="p">}</span></div><div class="code-line" id="C8L65">        <span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="mi">150</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span></div><div class="code-line" id="C8L66">    <span class="p">}</span></div><div class="code-line" id="C8L67"><span class="p">}</span></div></pre></div></td></tr></table></div>
-<p>You see there I connect 2 client. One browser and the other one is <em>cli app</em> that I created.
-Notice that they got their messages alternately between each other. This is because
-they are sharing the same channel. I will leave it to you my kind reader as an exercise
-to make it broadcast the message instead of distributing them :)</p>
-
-<p>all source are available at <a href="https://github.com/yulrizka/go-pi-experiments">https://github.com/yulrizka/go-pi-experiments</a></p>
-
-    </p>
-  </article>
-  <hr/>
-
-
-
-
-
-  <article>
-    <h1 class="">
-        <a href="/en/2015/03/osx-push-to-talk-app.html" rel="bookmark" title="Permanent link to ">osx-push-to-talk App</a>
-    </h1>
-    <span>March 22, 2015</span>
-    <p>
-        <p>Push To Talk app for OSX</p>
-
-<div class="thumbnail" align="center">
-  <img src="/images/post/ptt/ptt-installer.png" alt="PushToTalk App">
-  <div class="caption">PushToTalk App installer</div>
-</div>
-
-<p><br/></p>
-
-<p>As a part of scrum teams, every day I need to give updates to my team via Google Hangout.
-We have a team here in the Netherlands and also in Indonesia.
-Some times I am in the same room as a colleague of mine. This sometimes quite annoying
-because I can hear my self (with a delay) from his mic. This somehow messed up my brain.
-Google Hangout already has a &#39;auto adjust mic volume&#39; that is really great which cancel the noise.
-But we still have a problem and end-up muting each other when we want to talk.</p>
-
-<p>There are currently an App that does this already on Apple store, and pretty cheap too. 
-Nevertheless I could not find the one that is suitable for my needs. And I would like to develop an OSX app
-since I never done it before. Even though i have a hate-love relationship with XCode,
-I have to give credits to XCode. It&#39;s quite easy to create an app like this. </p>
-
-<div class="" align="center">
-  <img src="/images/post/ptt/ptt-off.png" alt="PushToTalk Off state">
-  <br>
-  <img src="/images/post/ptt/ptt-on.png" alt="PushToTalk on State">
-  <div class="caption">Status bar indicator</div>
-</div>
-
-<p>The app sits on status-bar (tray icon ?). By default it muted the microphone and show
-translucent mic icon. If you hold down the <strong>Right Options</strong> key, it will un-mute the microphone as long as you pressed it.  when you release the key, it will mute the microphone until you press the key again or quit the application.</p>
-
-<p>Everything is at <a href="https://github.com/yulrizka/osx-push-to-talk">github.com/yulrizka/osx-push-to-talk</a>:</p>
-
+        <div class="content"><h1>
+	English
+	
+	
+</h1>
 <ul>
-<li><a href="https://github.com/yulrizka/osx-push-to-talk/releases">DMG Installer</a></li>
-<li><a href="https://github.com/yulrizka/osx-push-to-talk">Source</a></li>
+	
+	<li>
+		<a href="">Testing go 1.5 cross compilation on raspberry pi</a>
+	</li>
+	
+	<li>
+		<a href="">osx-push-to-talk App</a>
+	</li>
+	
+	<li>
+		<a href="">Tracking origin of bugs with git bisect</a>
+	</li>
+	
+	<li>
+		<a href="">Stubbing Time.Now() in golang</a>
+	</li>
+	
+	<li>
+		<a href="">My account just got hacked by Romanian (Possibly)</a>
+	</li>
+	
+	<li>
+		<a href="">berks upload core dump</a>
+	</li>
+	
+	<li>
+		<a href="">Safely sharing credentials with PGP</a>
+	</li>
+	
+	<li>
+		<a href="">Homeward light indicator with RaspberryPi and CommonSense</a>
+	</li>
+	
+	<li>
+		<a href="">Responsive Design</a>
+	</li>
+	
+	<li>
+		<a href="">Jekyll error utf-8 caracter</a>
+	</li>
+	
+	<li>
+		<a href="">Testing ruby code with benchmark_suite</a>
+	</li>
+	
 </ul>
-
-<p>I&#39;ve only tested this app on my MacBook running Yosemite.</p>
-
-<p>If you are on Linux, there is also a phython GTK <a href="https://github.com/coddingtonbear/linux-push-to-talk">app</a> that does this really nicely. </p>
-
-<p>If you are on windows, well Godspeed my friend :)</p>
-
-<p>veel succes!</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
-<p></article>
-  <hr/></p>
-
-<p><article>
-    <h1 class="">
-        <a href="/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html" rel="bookmark" title="Permanent link to ">Tracking origin of bugs with git bisect</a>
-    </h1>
-    <span>January 16, 2015</span>
-    <p>
-        <div class="thumbnail" align="center">
-  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
-  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
-</div></p>
-
-<p>I&#39;ve been involved with a iOS project this past week. I&#39;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
-One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
-The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
-
-<p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
-bad commit found. So you start with a commit and you marked is as a &#39;<em>good</em>&#39; or &#39;<em>bad</em>&#39;. Then every time you mark a commit as good / bad, 
-it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
-whether the bugs exist or not.</p>
-
-<p>Here is an example</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="c"># let&#39;s start  bisecting, Im in unstable branch,</span></div><div class="code-line" id="C1L2">➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> <span class="nv">$ </span>git bisect start</div></pre></div></td></tr></table></div>
-
-<p>the prompt <code>sense-ios-library</code> shows the current folder, and <code>git:(unstable)</code> show current commit. it&#39;s part of <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> plugin</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span><span class="line-number">33</span><span class="line-number">34</span><span class="line-number">35</span><span class="line-number">36</span><span class="line-number">37</span><span class="line-number">38</span><span class="line-number">39</span><span class="line-number">40</span><span class="line-number">41</span><span class="line-number">42</span><span class="line-number">43</span><span class="line-number">44</span><span class="line-number">45</span><span class="line-number">46</span><span class="line-number">47</span><span class="line-number">48</span><span class="line-number">49</span><span class="line-number">50</span><span class="line-number">51</span><span class="line-number">52</span><span class="line-number">53</span><span class="line-number">54</span><span class="line-number">55</span><span class="line-number">56</span><span class="line-number">57</span><span class="line-number">58</span><span class="line-number">59</span><span class="line-number">60</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"><span class="c"># I open the xcode, and it took quite a long time. so let&#39;s marks current revision as bad</span></div><div class="code-line" id="C2L2">➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> <span class="nv">$ </span>git bisect bad</div><div class="code-line" id="C2L3"><br></div><div class="code-line" id="C2L4"><span class="c"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</span></div><div class="code-line" id="C2L5">➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> <span class="nv">$ </span>git bisect good master</div><div class="code-line" id="C2L6"><br></div><div class="code-line" id="C2L7">Bisecting: 9 revisions left to <span class="nb">test </span>after this <span class="o">(</span>roughly 3 steps<span class="o">)</span></div><div class="code-line" id="C2L8"><span class="o">[</span>c1841c0f99a4fa788c14c7437fac7c9547c768c9<span class="o">]</span> Merge pull request <span class="c">#45 from senseobservationsystems/feature-KeepDataLocally</span></div><div class="code-line" id="C2L9"><br></div><div class="code-line" id="C2L10"><span class="c"># now I&#39;m in c1841 commit, I tested again with xcode, and found no problem, mark it as good</span></div><div class="code-line" id="C2L11"><br></div><div class="code-line" id="C2L12">➜  sense2 git:<span class="o">(</span>c1841c0<span class="o">)</span> <span class="nv">$ </span>git bisect good</div><div class="code-line" id="C2L13"><br></div><div class="code-line" id="C2L14">Bisecting: 4 revisions left to <span class="nb">test </span>after this <span class="o">(</span>roughly 2 steps<span class="o">)</span></div><div class="code-line" id="C2L15"><span class="o">[</span>06bbd23c4af8f7008abfb814e1375b271e0b23e9<span class="o">]</span> Update interface and write tests lsit<span class="o">(</span> APPEND CMAKE_CXX_FLAGS <span class="s2">&quot;-std=c++0x&quot;</span><span class="o">)</span></div><div class="code-line" id="C2L16"><br></div><div class="code-line" id="C2L17"><span class="c"># tested again, it&#39;s good</span></div><div class="code-line" id="C2L18">➜  sense2 git:<span class="o">(</span>06bbd23<span class="o">)</span> <span class="nv">$ </span>git bisect good</div><div class="code-line" id="C2L19"><br></div><div class="code-line" id="C2L20">Bisecting: 2 revisions left to <span class="nb">test </span>after this <span class="o">(</span>roughly 1 step<span class="o">)</span></div><div class="code-line" id="C2L21"><span class="o">[</span>71517b7923143a8cf1ce205341dd6942c9468198<span class="o">]</span> Added threshold <span class="k">for </span>checking to remove old data from <span class="nb">local </span>storage to save battery life</div><div class="code-line" id="C2L22"><br></div><div class="code-line" id="C2L23"><span class="c"># Tested again, Now I&#39;m beginning to see the problem. Let&#39;s mark this bad</span></div><div class="code-line" id="C2L24">➜  sense2 git:<span class="o">(</span>71517b7<span class="o">)</span> <span class="nv">$ </span>git bisect bad</div><div class="code-line" id="C2L25"><br></div><div class="code-line" id="C2L26">Bisecting: 0 revisions left to <span class="nb">test </span>after this <span class="o">(</span>roughly 0 steps<span class="o">)</span></div><div class="code-line" id="C2L27"><span class="o">[</span>e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1<span class="o">]</span> Updated functionality and tests of getting <span class="nb">local </span>data</div><div class="code-line" id="C2L28"><br></div><div class="code-line" id="C2L29"><span class="c"># .... </span></div><div class="code-line" id="C2L30"><span class="c"># and we keep doing this until we find the first commit when it was introduced.</span></div><div class="code-line" id="C2L31"><br></div><div class="code-line" id="C2L32"><span class="c"># Now let&#39;s check our progress using log</span></div><div class="code-line" id="C2L33"><br></div><div class="code-line" id="C2L34">➜  sense-ios-library git:<span class="o">(</span>71517b7<span class="o">)</span> <span class="nv">$ </span>git bisect log</div><div class="code-line" id="C2L35"><br></div><div class="code-line" id="C2L36">git bisect start</div><div class="code-line" id="C2L37"><span class="c"># bad: [af42213324297e1234767f9224ec1af326514292] Merge pull request #48 from senseobservationsystems/feature-LocalStorageInterface</span></div><div class="code-line" id="C2L38">git bisect bad af42213324297e1234767f9224ec1af326514292</div><div class="code-line" id="C2L39"><span class="c"># good: [19f751627d152b89d3f2ecadb144507fcf9293fc] Merge pull request #43 from senseobservationsystems/unstable</span></div><div class="code-line" id="C2L40">git bisect good 19f751627d152b89d3f2ecadb144507fcf9293fc</div><div class="code-line" id="C2L41"><span class="c"># good: [c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</span></div><div class="code-line" id="C2L42">git bisect good c1841c0f99a4fa788c14c7437fac7c9547c768c9</div><div class="code-line" id="C2L43"><span class="c"># good: [06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &quot;-std=c++0x&quot;)</span></div><div class="code-line" id="C2L44">git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9</div><div class="code-line" id="C2L45"><br></div><div class="code-line" id="C2L46"><span class="c"># when you reach the final commit, you will be shown the commit log and modified file</span></div><div class="code-line" id="C2L47"><br></div><div class="code-line" id="C2L48">➜  sense2 git:<span class="o">(</span>e5c40d4<span class="o">)</span> <span class="nv">$ </span>git bisect bad</div><div class="code-line" id="C2L49"><br></div><div class="code-line" id="C2L50">e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit</div><div class="code-line" id="C2L51">commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1</div><div class="code-line" id="C2L52">Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;</div><div class="code-line" id="C2L53">Date:   Thu Jan 8 14:38:07 2015 +0100</div><div class="code-line" id="C2L54"><br></div><div class="code-line" id="C2L55">    Updated functionality and tests of getting <span class="nb">local </span>data</div><div class="code-line" id="C2L56"><br></div><div class="code-line" id="C2L57">:040000 040000 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests</div><div class="code-line" id="C2L58">:040000 040000 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj</div><div class="code-line" id="C2L59">:040000 040000 a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests</div><div class="code-line" id="C2L60">:040000 040000 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform</div></pre></div></td></tr></table></div>
-
-<p>Now that you know when was the bugs introduced. you can now start looking at the problem. </p>
-
-<p>I found out there is something that doesn&#39;t feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>.
-There is a reference to <code>Xcode.app</code> in one of the folder. So every time I open the project,
-or switch branch, it will try to look into things inside <code>Xcode.app</code>.
-So removing the reference indeed solve the problem. </p>
-
-<p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced. 
-You can even automate the test so you don&#39;t have to check each bisect commit your self. 
-The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command and also an example on how to automate the test.</p>
-
-<p>Now go on catch and squash those annoying bug!</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
-<p></article>
-  <hr/></p>
-
-<p><article>
-    <h1 class="">
-        <a href="/en/2014/10/stubbing-time-dot-now-in-golang.html" rel="bookmark" title="Permanent link to ">Stubbing Time.Now() in golang</a>
-    </h1>
-    <span>October 27, 2014</span>
-    <p>
-        <p>Some time it&#39;s really hard to test functionality that involves with system time.
-Especially when we wanted to test specific functionality. For example testing
-whether today is end of month. It&#39;s unrealistic to run this test case once every month.</p></p>
-
-<p>If you are coming from ruby land, you might familiar with some test library that solve
-this problem like <a href="https://github.com/travisjeffery/timecop">timecop</a>. Actually it&#39;s not that hard to do it in Go also.
-There is couple of approach you can use.</p>
-
-<p>First approach is passing the <code>time.Time</code> object to every function.</p>
-
-<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="kd">func</span> <span class="nx">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span></div><div class="code-line" id="C1L2">  <span class="o">...</span></div><div class="code-line" id="C1L3"><span class="p">}</span></div></pre></div></td></tr></table></div>
-
-<p>This way you can either pass <code>time.Now()</code> in your main pacakge
-or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.
-This work well but it&#39;s a bit cumbersome to pas it evertime we call the function</p>
-
-<p>Another approach you can use, is to create a function to generate current time. And during the test
-you can change the implementation of the function. Here is how i do it (and a bonus function to
-generate begining of month and end of month)</p>
-
-<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span><span class="line-number">16</span><span class="line-number">17</span><span class="line-number">18</span><span class="line-number">19</span><span class="line-number">20</span><span class="line-number">21</span><span class="line-number">22</span><span class="line-number">23</span><span class="line-number">24</span><span class="line-number">25</span><span class="line-number">26</span><span class="line-number">27</span><span class="line-number">28</span><span class="line-number">29</span><span class="line-number">30</span><span class="line-number">31</span><span class="line-number">32</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"><span class="kn">package</span> <span class="nx">main</span></div><div class="code-line" id="C2L2"><br></div><div class="code-line" id="C2L3"><span class="kn">import</span> <span class="s">&quot;time&quot;</span></div><div class="code-line" id="C2L4"><br></div><div class="code-line" id="C2L5"><span class="kd">type</span> <span class="nx">nowFuncT</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span></div><div class="code-line" id="C2L6"><br></div><div class="code-line" id="C2L7"><span class="kd">var</span> <span class="nx">nowFunc</span> <span class="nx">nowFuncT</span></div><div class="code-line" id="C2L8"><br></div><div class="code-line" id="C2L9"><span class="kd">func</span> <span class="nx">init</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C2L10">    <span class="nx">resetClockImplementation</span><span class="p">()</span></div><div class="code-line" id="C2L11"><span class="p">}</span></div><div class="code-line" id="C2L12"><br></div><div class="code-line" id="C2L13"><span class="kd">func</span> <span class="nx">resetClockImplementation</span><span class="p">()</span> <span class="p">{</span></div><div class="code-line" id="C2L14">    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L15">        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span></div><div class="code-line" id="C2L16">    <span class="p">}</span></div><div class="code-line" id="C2L17"><span class="p">}</span></div><div class="code-line" id="C2L18"><br></div><div class="code-line" id="C2L19"><span class="c1">// function to return current time stamp in UTC</span></div><div class="code-line" id="C2L20"><span class="kd">func</span> <span class="nx">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L21">    <span class="k">return</span> <span class="nx">nowFunc</span><span class="p">().</span><span class="nx">UTC</span><span class="p">()</span></div><div class="code-line" id="C2L22"><span class="p">}</span></div><div class="code-line" id="C2L23"><br></div><div class="code-line" id="C2L24"><span class="c1">// return beginning of month in UTC</span></div><div class="code-line" id="C2L25"><span class="kd">func</span> <span class="nx">beginningOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L26">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Month</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C2L27"><span class="p">}</span></div><div class="code-line" id="C2L28"><br></div><div class="code-line" id="C2L29"><span class="c1">// return end of month in utc</span></div><div class="code-line" id="C2L30"><span class="kd">func</span> <span class="nx">endOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C2L31">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="nx">t</span><span class="p">.</span><span class="nx">Year</span><span class="p">(),</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Month</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">).</span><span class="nx">Add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Nanosecond</span><span class="p">)</span></div><div class="code-line" id="C2L32"><span class="p">}</span></div></pre></div></td></tr></table></div>
-
-<p>now in your test you could do something like this:</p>
-
-<div class="code-listing"><table><tr><td class="lines language-go"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="c1">// change implementation of clock in the beginning of the test</span></div><div class="code-line" id="C3L2"><span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span></div><div class="code-line" id="C3L3">    <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span></div><div class="code-line" id="C3L4"><span class="p">}</span></div><div class="code-line" id="C3L5"><br></div><div class="code-line" id="C3L6"><span class="c1">//...</span></div><div class="code-line" id="C3L7"><br></div><div class="code-line" id="C3L8"><span class="c1">// after finish with the test, reset the time implementation</span></div><div class="code-line" id="C3L9"><span class="nx">resetClockImplementation</span><span class="p">()</span></div></pre></div></td></tr></table></div>
-
-<p>now to the process that, it will see that currently it&#39;s 15 December 2000 8:00 UTC</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
-<p></article>
-  <hr/></p>
-
-<p><article>
-    <h1 class="">
-        <a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html" rel="bookmark" title="Permanent link to ">My account just got hacked by Romanian (Possibly)</a>
-    </h1>
-    <span>July 27, 2013</span>
-    <p>
-        <div align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/1.jpg" align="center">
-</div></p>
-
-<p>You are probably familiar with above images. Some random friend sent you an email which you can instantly 
-recognize as a spam because it only contains one link.
-Couple days ago I receive this email which is not the first time for me. But this time it was different.
-It actually came from my own Yahoo! account which I never use since more that one year ago.</p>
-
-<p>My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the <em>sent mail</em> folder and there it is.
-One email message containing a spam that I actually sent to my friends and family.
-<div align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/2.jpg" align="center">
-</div></p>
-
-<p>Did some digging to my authentication history and found out that somebody from Romania has access my account.
-How could this be. I&#39;ve never use the account since one or more year ago, I&#39;m an IT guy so I know a little bit
-about security. I don&#39;t click some random suspicious link. I don&#39;t install any annoying-spyware-browser-toolbar.
-The password is 12 character long with apla-numeric and random symbol. Thank god that I don&#39;t use the same
-password for all of my account.</p>
-
-<div align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/3.jpg" align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/4.jpg" align="center">
-</div>
-
-<p>I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through 
-bunch of proxy all over the world to cover my track. Or probably they don&#39;t even bother because they just
-using it for spam.
-<div align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/5.jpg" align="center">
-</div></p>
-
-<p>Interesting part is I stumble upon this article saying about Romania has became a <a href="http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/">Global Hub for hackers and online crooks</a>.
-According to the article that it&#39;s became a commonplace for some hacker to harness people personal information
-and use it for illegal activity. </p>
-
-<p>Luckily I don&#39;t store any sensitive information on my email. It would have some serious impact if I store password
-or bank account information. </p>
-
-<p>Also something that I notice is most of this spam email came from my friends account which also uses Yahoo! mail.
-Or probably I just never notice.</p>
-
-<h2>What can you do when this happened to you</h2>
-
-<p>If you ever received / sent this email. I would suggest you to:</p>
-
-<ol>
-<li>Tell the person to reset their account password</li>
-<li>Don&#39;t store or send sensitive information unencrypted with email like: password, keys, bank account info </li>
-<li>If you need to send sensitive information, try encrypting it first. I go into details of doing that in <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a>. I&#39;m start doing this from now on.</li>
-<li>Use some secure password, and don&#39;t use the same password for all of your account.</li>
-<li>If you can, try to change the password on a regular basis. or use service like <a href="https://lastpass.com/">LastPass</a></li>
-<li>When this is your work email that sometimes contain private information. Use service that offer <em>two factor authentication</em> like gmail does <a href="http://www.google.com/landing/2step/">you need to enable it</a>. </li>
-<li>Stay safe friends, internet is a dangerous place</li>
-</ol>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
-<p></article>
-  <hr/></p>
-
-<p><article>
-    <h1 class="">
-        <a href="/en/2013/07/berks-upload-ruby-core-dump.html" rel="bookmark" title="Permanent link to ">berks upload core dump</a>
-    </h1>
-    <span>July 21, 2013</span>
-    <p>
-        <p>Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
-think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p></p>
-
-<p>I faced this core dump error while doing <code>berks upload</code>. That command will actualy
-push some cookbook to a chef server.</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span><span class="line-number">14</span><span class="line-number">15</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1"><span class="nv">$ </span>berks upload</div><div class="code-line" id="C1L2">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault</div><div class="code-line" id="C1L3">ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span></div><div class="code-line" id="C1L4"><br></div><div class="code-line" id="C1L5">-- Control frame information -----------------------------------------------</div><div class="code-line" id="C1L6">c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47</div><div class="code-line" id="C1L7">c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11</div><div class="code-line" id="C1L8">c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH</div><div class="code-line" id="C1L9">c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------</div><div class="code-line" id="C1L10"><br></div><div class="code-line" id="C1L11">-- Ruby level backtrace information ----------------------------------------</div><div class="code-line" id="C1L12">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;</span></div><div class="code-line" id="C1L13"><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span></div><div class="code-line" id="C1L14"><br></div><div class="code-line" id="C1L15">....</div></pre></div></td></tr></table></div>
-
-<p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C5L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
-<p></article>
-  <hr/></p>
-
-<p><article>
-    <h1 class="">
-        <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html" rel="bookmark" title="Permanent link to ">Safely sharing credentials with PGP</a>
-    </h1>
-    <span>July  8, 2013</span>
-    <p>
-        <p>When working in teams, we are sometimes required to share some password / keys with our team.
-The most common way for me is probably through email or some chat client. But even though its convenience it&#39;s not
-actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.</p></p>
-
-<p>Some simple approach would we communicating the password directly with a person through secure medium.
-One way to do it is both party ssh through a server and use talk client like <a href="http://linux.die.net/man/1/write">write</a>.
-But for some cases it&#39;s quite impractical.</p>
-
-<h2>PGP</h2>
-
-<p>Enter <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy">PGP</a>. It&#39;s basically a software that do a Public-key cryptography.
-Public-key cryptography is basically encryption process which require 2 keys, one for encrypting and the other one
-for decrypting. Usually the <strong>public key</strong> is used for encrypting and <strong>private key</strong> is use for decrypting.
-I would not dive into the details about it since I&#39;ve only have basic understanding about it.
-But for those people that is interested, you would read the nice article on <a href="http://en.wikipedia.org/wiki/Public-key_cryptography">wikipedia</a></p>
-
-<p>There is a open source project called GPG (GNU Privacy Guard) and in this article I would like to show you how we could
-share some password / key file with it.</p>
-
-<h3>Instalation</h3>
-
-<p>If you don&#39;t already have it on your system, you could installed it with:</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">  <span class="nv">$ </span>sudo apt-get install gpg</div></pre></div></td></tr></table></div>
-
-<p>After installing we would start by creating a pair of keys
-<code>bash
-  $ gpg --gen-key
-</code></p>
-
-<p>You will be asked with bunch of questions. Most of the answer you could leave it as a default but most important is fill in your <strong>email</strong>
-address and also provide a <strong>Passphrase</strong> to protect your key with password. When it finish gathering information, it will start
-creating a key pair by using system entropy. You can help the system to generate the entropy by clicking or moving your mouse randomly
-or doing some random IO disk by triggering for example <code>find /</code></p>
-
-<h3>Listing keys</h3>
-
-<p>After installing, you can see list of keys by using this command</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1"><span class="nv">$ </span> gpg --list-keys</div><div class="code-line" id="C2L2">/home/user/.gnupg/pubring.gpg</div><div class="code-line" id="C2L3">--------------------------------</div><div class="code-line" id="C2L4">pub   2048R/70280895 2013-07-09</div><div class="code-line" id="C2L5">uid                  Ahmy Yulrizka <span class="o">(</span>ahmy135@mail.com<span class="o">)</span> &lt;ahmy135@mail.com&gt;</div><div class="code-line" id="C2L6">sub   2048R/F7B2D44C 2013-07-09</div></pre></div></td></tr></table></div>
-
-<p>In above output you could see that we have created public key with id of <code>70280895</code>. Note this one because we are going to use it later
-when submitting the key to a key server</p>
-
-<h3>Exporting keys</h3>
-
-<p>To share your public key, so other people could send you encrypted message.</p>
-
-<p><strong>Note</strong> that further in this article I will discus ways to easily distribute your public key.</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span></td><td><div class="highlight"><pre><div class="code-line" id="C3L1"><span class="nv">$ </span>gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span></div><div class="code-line" id="C3L2">-----BEGIN PGP PUBLIC KEY BLOCK-----</div><div class="code-line" id="C3L3">Version: GnuPG v1.4.11 <span class="o">(</span>GNU/Linux<span class="o">)</span></div><div class="code-line" id="C3L4"><br></div><div class="code-line" id="C3L5">mQENBFHcRTEBCAC056qG97iJAtb604x5Hr+3lIi3UXVOnGauoHSo5S8S3bSCD0Ib</div><div class="code-line" id="C3L6">DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF</div><div class="code-line" id="C3L7">...</div><div class="code-line" id="C3L8">-----END PGP PUBLIC KEY BLOCK-----</div><div class="code-line" id="C3L9"><br></div><div class="code-line" id="C3L10"><span class="nv">$ </span>gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span> --output pubkey.txt <span class="c"># to output it to a file</span></div></pre></div></td></tr></table></div>
-
-<h3>Encrypting and decrypting</h3>
-
-<p>With those generated keys, we could now do a personal encryption. That is if you want to encrypt a file and you are the only one
-who are able to decrypt it.</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C4L1">  <span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;this message is secret&quot;</span> &gt; message.txt</div><div class="code-line" id="C4L2">  <span class="nv">$ </span>gpg --encrypt --recipient <span class="s1">&#39;ahmy135@gmail.com&#39;</span> message.txt</div></pre></div></td></tr></table></div>
-
-<p>Those code will create a file name <code>message.txt.gpg</code> which is encrypted message of <code>message.txt</code></p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span></td><td><div class="highlight"><pre><div class="code-line" id="C5L1"><span class="nv">$ </span>gpg --decrypt message.txt.gpg</div><div class="code-line" id="C5L2"><br></div><div class="code-line" id="C5L3">You need a passphrase to unlock the secret key <span class="k">for</span></div><div class="code-line" id="C5L4">user: <span class="s2">&quot;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&quot;</span></div><div class="code-line" id="C5L5">2048-bit RSA key, ID F7B2D44C, created 2013-07-09 <span class="o">(</span>main key ID 70280895<span class="o">)</span></div><div class="code-line" id="C5L6"><br></div><div class="code-line" id="C5L7">gpg: gpg-agent is not available in this session</div><div class="code-line" id="C5L8">gpg: encrypted with 2048-bit RSA key, ID F7B2D44C, created 2013-07-09</div><div class="code-line" id="C5L9">      <span class="s2">&quot;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&quot;</span></div><div class="code-line" id="C5L10">this message is secret</div></pre></div></td></tr></table></div>
-
-<p>As you can see that we are successfully decrypted the message. This example you encrypt the message
-using your own public key. So this method only work if you want to archive or backup the file securely.
-In order to send someone else an encrypted message, you need to encrypt the message using the other
-person <strong>public key</strong></p>
-
-<h3>Distributing the key</h3>
-
-<p>In order for any body to send you a encrypted message, you need to give your <strong>public key</strong>.
-Since <strong>public key</strong> only used for encryption, It&#39;s OK to publicly share your <strong>public key</strong>.
-But never share your <strong>private key</strong>. Once the other party have your <strong>public key</strong> they could
-start send you an encrypted message using the command above.</p>
-
-<p>You could share your public key manually to some one (through usb / email etc) by exporting it first just like I mention before.
-But there are an easy way to distribute the key. There are some public GPG server that store your public key so that
-other people could easily find it and import it into their local machine. There are <a href="http://pgp.mit.edu">http://pgp.mit.edu</a>
-and also ubuntu key server <a href="http://keyserver.ubuntu.com">http://keyserver.ubuntu.com</a> that we can use.</p>
-
-<p>To send our key to MIT server we could do</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C6L1"><span class="nv">$ </span>gpg --send-key --keyserver pgp.mit.edu 70280895</div><div class="code-line" id="C6L2">gpg: sending key 70280895 to hkp server pgp.mit.edu</div></pre></div></td></tr></table></div>
-
-<p>the last number <code>70280895</code> was the key id of the public file. You could find it with the output of <code>gpg --list-keys</code> command.
-Now we have successfully send our public key any body could get your public key through that keyserver. You could test this
-by searching a name or email or a person in the key server web interface. for example try searching my name on <a href="http://pgp.mit.edu/">http://pgp.mit.edu/</a></p>
-
-<h3>Importing Keys</h3>
-
-<p>Now to import other people public key, we could also do that in two way.</p>
-
-<p>if the person give you a file which contain their public key (say <code>ahmy-pub.key</code>). you could import it with</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C7L1"><span class="nv">$ </span>gpg --import ahmy-pub.key</div></pre></div></td></tr></table></div>
-
-<p>Or if the person already publish his public key to a keyserver, we can search it with</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span></td><td><div class="highlight"><pre><div class="code-line" id="C8L1"><span class="nv">$ </span>gpg --search-keys <span class="s1">&#39;Ahmy Yulrizka&#39;</span></div><div class="code-line" id="C8L2"><br></div><div class="code-line" id="C8L3"><span class="c"># or</span></div><div class="code-line" id="C8L4"><span class="nv">$ </span>gpg --search-keys <span class="s1">&#39;ahmy135@mail.com&#39;</span></div></pre></div></td></tr></table></div>
-
-<p>It will generate a list of keys that found on the keyserver. Enter the number of the keys and it will be imported to your local machine.</p>
-
-<p>after importing you can send an encrypted message to the person for example</p>
-
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C9L1"><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;This is also a secret&quot;</span> | gpg --encrypt --armor --recipient <span class="s1">&#39;Ahmy Yulrizka&#39;</span> &gt; output.txt.gpg</div></pre></div></td></tr></table></div>
-
-<p>You could provide a name or an email address as a recipient.
-THis command will encrypt the message using public key of a person name <code>Ahmy Yulrizka</code></p>
-
-<h2>Conclusion</h2>
-
-<p>At this point you are able to generate, export, distribute and import keys. More over you can already encrypt
-and decrypt file / message to a designated recipient. The the part two of this article I will share some idea
-how we could share some password / password key to other member of the team.</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C6L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
-<p></article>
-  <hr/></p>
-
-<p><article>
-    <h1 class="">
-        <a href="/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html" rel="bookmark" title="Permanent link to ">Homeward light indicator with RaspberryPi and CommonSense</a>
-    </h1>
-    <span>February 26, 2013</span>
-    <p>
-        <div class="row">
-  <div class="span8 offset1">
-    <iframe align="center" width="628" height="400" src="http://www.youtube.com/embed/35ylS4IX_mc" frameborder="0" allowfullscreen></iframe>
-  </div>
-</div><br/>
-I&#39;ve been tinkering with my [raspberry-pi][raspberry-pi] for quite some time now. What I like about it because it is cheap ($25),
-it&#39;s run Linux (especially debian based) and most of all it&#39;s have General Purpose Input Output pin. Since I was a kid, I always
-wanted to control electronic appliance remotely. Luckily my friend [@pimnijdam][pimnijdam] thought me how to control a relay board.
-Basically it&#39;s just like an electric switch that connect/disconnect current when you supply a low voltage.</p>
-
-<p>So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through
-my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi
-but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is
-quite awesome. So I could install a ruby/python and it only took a single command.</p>
-
-<p>So I did create a [project][pi-sinatra-github]  with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source on [github][pi-sinatra-github].
-This project uses [pi-piper][pi-piper] a ruby library that wrap [wiringPi][wiringPi], which is library that is used to control the GPIO pin.</p>
-
-<div class="row">
-<div class="span8 offset1">
-<div class="thumbnail">
-  <img src="/images/post/2013/02/homeward-indicator-project.jpg" alt="homeward indicator">
-  <div class="caption">
-    The light will turn on whenever I leave the office at noon.
-  </div>
-</div>
-
-<p></div>
-</div><br/></p>
-
-<div class="row">
-  <div class="span4 offset1">
-    <div class="thumbnail">
-      <img src="/images/post/2013/02/lamp-off.jpg" alt="lamp off">
-      <div class="caption">
-        Controlling Lamp with Raspberry-pi + ruby/sinatra
-      </div>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">&lt;/div&gt;</div></pre></div></td></tr></table></div>
-<p></div>
-  <div class="span4">
-    <div class="thumbnail">
-      <img src="/images/post/2013/02/lamp-on.jpg">
-      <div class="caption">
-        The phone open a web browser to the raspberry pi
-      </div>
-    </div>
-  </div>
-</div><br/></p>
-
-<p>Now, turning a desk lamp with pi is something; But it&#39;s quite boring and not really useful. Now let us make something a bit
-interesting. Instead of controlling it manually, The light be trigger on my activity. In this case I the light to turn on
-when ever I came back from the office on every working day. So at home my wife know exactly when I leave the office. I already
-have it running a web server, so basically I can control it from my mobile phone. But I don&#39;t want to do this every single day.
-And this is where <a href="http://www.sense-os.nl/commonsense">ComonSense</a> really makes thing easy for me.</p>
-
-<p><a href="http://www.sense-os.nl/commonsense">CommonSense</a> is a platform to store, retrieve, analyze and interpret our sensory data. What is a sensor ? well anything could be a sensor. From physical sensor on our mobile phone like accelerometer, noise, position, cell network, light, ambience and more sophisticated sensor like sensor that tell your quality of sleep. By using one or more sensor, it could create more intelligent sensor. For example a sensor that tell wether you are standing or sitting by analyzing the accelerometer data. CommonSense is Awesome!, but for this experiment we will be using a simple location sensor. It will tell where is my current location by GPS or
-wifi-network.</p>
-
-<p>What is make it easy is I don&#39;t have to create an application on my mobile phone. CommonSense already have a platform that run on
-<a href="https://play.google.com/store/apps/details?id=nl.sense_os.app">Android</a> or <a href="https://itunes.apple.com/nl/app/senseplatform/id447552125?mt=8&amp;uo=4">iOs</a>. The application act as an agent that collect and sample sensor data from the mobile phone. By it self it&#39;s not really doing much right now but combine with the <a href="http://www.sense-os.nl/commonsense">CommonSense</a> make it really easy for a developer like me to
-easily experiment with my data. So with this sense app, the raspberry-pi could easily get data from my mobile phone through the
-<a href="http://developer.sense-os.nl">CommonSense API</a>.</p>
-
-<div class="row">
-  <div class="span3 offset1">
-    <div class="thumbnail">
-      <img src="/images/post/2013/02/sense-app.jpg" alt="sense app">
-      <div class="caption">
-        Sense Android App - Works as an aggent of CommonSense
-      </div>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C2L1">&lt;/div&gt;</div></pre></div></td></tr></table></div>
-<p></div>
-  <div class="span7">
-    <div class="thumbnail">
-      <img src="/images/post/2013/02/biking-out-of-the-office.jpg" alt="biking out of the office">
-      <div class="caption">
-        The light will turn on when I&#39;m 200m away from the office
-      </div>
-    </div>
-  </div>
-</div><br/>
-Again, my awesome colleague <a href="https://github.com/pimnijdam">@pim</a> create a prototype of <a href="https://github.com/pimnijdam/eventScripting">python framework</a> that make it very easy for me to
-implement my project. You should definitely <a href="https://github.com/pimnijdam/eventScripting">chek it out!</a>. I&#39;ve created the <em>homeward light indicator</em> project
-using the early version of the framework. This is actually my first encounter with Python. Although I still prefer doing my
-project with Ruby, I&#39;m really enjoying working with Python.</p>
-
-    </p>
-  </article>
-  <hr/>
-
-
-
-
-
-
-
-  <article>
-    <h1 class="">
-        <a href="/en/2012/02/responsive-design.html" rel="bookmark" title="Permanent link to ">Responsive Design</a>
-    </h1>
-    <span>February 24, 2012</span>
-    <p>
-        <p>I&#39;ve been playing around with <a href="http://twitter.github.com/bootstrap/">twitter bootstrap</a>. It&#39;s like a css framework to help designer or developer create a nice and clean site.
-It&#39;s offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for
-prototyping.</p>
-
-<p>I&#39;ve been using it to build this blog since it was version 1. Recently i had a chance to upgrade it to version 2.
-The new version offer a lot of functionalities, one the feature that I play a lot is the responsive design.</p>
-
-<p>Basically <a href="http://en.wikipedia.org/wiki/Responsive_Web_Design">Responsive Web Design</a> (RWD) means the ability of the web site to adapt to the user screen size. So the page should look different
-in a way that it suited for specific screen. Like this website will look different if it&#39;s open with mobile phone, portrait mode on tablet,
-landscape mode on tablet, net book or even in a large desktop. This actually achieved by using W3C CSS3 media query. It means that it uses
-different stylesheet for each of the screen size. More info on RWD in twitter bootstrap can be found <a href="http://twitter.github.com/bootstrap/scaffolding.html#responsive">here</a></p>
-
-<p>You can test this functionality by resizing your browser window. Try to drag it slowly and watch the page banner slightly change.
-here are the screen shoot of the design.</p>
-
-<ul class="thumbnails" style="text-align: center">
-  <li class="span5">
-    <div class="thumbnail">
-      <a href="http://www.flickr.com/photos/77240053@N02/6777836336/" title="Desktop View by yulrizka, on Flickr"><img src="http://farm8.staticflickr.com/7188/6777836336_cfc30a387d.jpg" width="500" height="328" alt="Desktop View"></a>
-      <div class="caption">Desktop View (1210px and up)</div>
-    </div>
-  </li>
-  <li class="span5">
-    <div class="thumbnail">
-      <a href="http://www.flickr.com/photos/77240053@N02/6777836342/" title="Tablet Landscape by yulrizka, on Flickr"><img src="http://farm8.staticflickr.com/7177/6777836342_2bae8d18f9.jpg" width="500" height="403" alt="Tablet Landscape"></a>
-      <div class="caption">Tablet Landscape (768px to 979px)</div>
-    </div>
-  </li>
-  <li class="span4">
-    <div class="thumbnail">
-      <a href="http://www.flickr.com/photos/77240053@N02/6777836344/" title="Tablet View by yulrizka, on Flickr"><img src="http://farm8.staticflickr.com/7068/6777836344_04a80d610b_m.jpg" width="240" height="237" alt="Tablet View"></a>
-      <div class="caption">Tablet Portrait (480px to 768px)</div>
-    </div>
-  </li>
-  <li class="span4">
-    <div class="thumbnail">
-      <a href="http://www.flickr.com/photos/77240053@N02/6777836350/" title="Tablet with menu by yulrizka, on Flickr"><img src="http://farm8.staticflickr.com/7050/6777836350_3a8e661196_m.jpg" width="240" height="237" alt="Tablet with menu"></a>
-      <div class="caption">Tablet Portrait with menu (480px to 768px)</div>
-    </div>
-  </li>
-  <li class="span4">
-    <div class="thumbnail">
-      <a href="http://www.flickr.com/photos/77240053@N02/6777836354/" title="Mobile Phone by yulrizka, on Flickr"><img src="http://farm8.staticflickr.com/7191/6777836354_aec27fd376_m.jpg" width="164" height="240" alt="Mobile Phone"></a>
-      <div class="caption">Mobile Phone (480px and below)</div>
-    </div>
-  </li>
-  <li class="span4">
-    <div class="thumbnail">
-      <a href="http://www.flickr.com/photos/77240053@N02/6777836358/" title="Mobile Phone with menu by yulrizka, on Flickr"><img src="http://farm8.staticflickr.com/7205/6777836358_d06448c5da_m.jpg" width="164" height="240" alt="Mobile Phone with menu"></a>
-      <div class="caption">Mobile Phone with Menu(480px and below)</div>
-    </div>
-  </li>
-</ul>
-
-    </p>
-  </article>
-  <hr/>
-
-
-
-  <article>
-    <h1 class="">
-        <a href="/en/2012/01/jekyll-error-utf-8-caracter.html" rel="bookmark" title="Permanent link to ">Jekyll error utf-8 caracter</a>
-    </h1>
-    <span>January 14, 2012</span>
-    <p>
-        <p>If you having a problem in jekyll when it didn&#39;t generate a post and there is no error in the log file.
-you might want to check the content if there is any UTF-8 character encoding such as this <strong>±</strong></p>
-
-<p>The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
-it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
-
-<p>to solve this. I added this line to <code>.bashrc</code> or <code>zshrc</code> if you are using zsh</p>
-<div class="code-listing"><table><tr><td class="lines language-bash"><span class="line-number">1</span><span class="line-number">2</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">  <span class="nb">export </span><span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8</div><div class="code-line" id="C1L2">  <span class="nb">export </span><span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8</div></pre></div></td></tr></table></div>
-<p>It should fix the problem now.</p>
-
-    </p>
-  </article>
-  <hr/>
-
-
-
-  <article>
-    <h1 class="">
-        <a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html" rel="bookmark" title="Permanent link to ">Testing ruby code with benchmark_suite</a>
-    </h1>
-    <span>January 14, 2012</span>
-    <p>
-        <p>Just a couple days ago I found out <a href="http://www.therubygame.com" title="The Ruby Game">therubygame.com</a> which challenge us to
-solve a problem with ruby. The result were measured by the <strong>fastest</strong>, <strong>slowest</strong>, <strong>shortest</strong>, <strong>longest</strong>,
-<strong>cheaters</strong> (yup there are also some rule).</p>
-
-<p>And also I was listening to an episode of ruby rouge on <a href="http://rubyrogues.com/034-rr-benchmarking-and-profiling/" title="034 RR Benchmarking and Profiling">Benchmarking</a>. And there is one tools called <a href="http://rubygems.org/gems/benchmark_suite" title="benchmark_suite">benchmark_suite</a>.</p>
-
-<p>So there is this <a href="http://www.therubygame.com/challenges/3/submissions" title="Challenge #3">challenge</a> to capitalize first letter of every word. I want to compare my code to the fastest solution there.
-so i installed the gem, also the <a href="http://rubygems.org/gems/ffi" title="ffi gem">ruby-ffi</a> gem that somewhat fix an error while I tried to run the benchmark.</p>
-
-<p>so this is the code to benchmark it</p>
-<div class="code-listing"><table><tr><td class="lines language-ruby"><span class="line-number">1</span><span class="line-number">2</span><span class="line-number">3</span><span class="line-number">4</span><span class="line-number">5</span><span class="line-number">6</span><span class="line-number">7</span><span class="line-number">8</span><span class="line-number">9</span><span class="line-number">10</span><span class="line-number">11</span><span class="line-number">12</span><span class="line-number">13</span></td><td><div class="highlight"><pre><div class="code-line" id="C1L1">  <span class="nb">require</span> <span class="s1">&#39;benchmark/ips&#39;</span></div><div class="code-line" id="C1L2"><br></div><div class="code-line" id="C1L3">  <span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;The small brown &amp; ginger fox JUMPED OVER the gate&quot;</span></div><div class="code-line" id="C1L4"><br></div><div class="code-line" id="C1L5">  <span class="no">Benchmark</span><span class="o">.</span><span class="n">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span></div><div class="code-line" id="C1L6">    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;first&quot;</span><span class="p">)</span> <span class="k">do</span></div><div class="code-line" id="C1L7">      <span class="n">string</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\w+/</span><span class="p">){</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span></div><div class="code-line" id="C1L8">    <span class="k">end</span></div><div class="code-line" id="C1L9"><br></div><div class="code-line" id="C1L10">    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&quot;second&quot;</span><span class="p">)</span> <span class="k">do</span></div><div class="code-line" id="C1L11">      <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span> <span class="s1">&#39; &#39;</span></div><div class="code-line" id="C1L12">    <span class="k">end</span></div><div class="code-line" id="C1L13">  <span class="k">end</span></div></pre></div></td></tr></table></div>
-<p>And here are the result</p>
-
-<div class="well">
-  <p>first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471) </p>
-  <p>second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)</p>
-</div>
-
-<p>The first code run <strong>55.609,3</strong> times per second and the latter is <strong>77.996,4</strong> times per second.
-So the second code run more than the first code in one second. Which mean the second code is faster.</p>
-
-<p>Also the first code run <strong>277.202</strong> times in <strong>5.048175</strong> sec while the second code run <strong>389.844</strong> times in <strong>5.05</strong> sec</p>
-
-<p>So this mean, that <strong>regex is more slower</strong> then calling capitalized on each element on array</p>
-<div class="code-listing"><table><tr><td class="lines language-text"><span class="line-number">1</span></td><td><div class="highlight"><pre><div class="code-line" id="C7L1">&lt;/p&gt;</div></pre></div></td></tr></table></div>
-<p></article>
-  <hr/></p>
-
-<p></div></p>
 
         </div>
       </div>
@@ -678,178 +86,88 @@ So the second code run more than the first code in one second. Which mean the se
         <div class="sidebar">
           <aside>
           <h2>Archives</h2>
+          <h3>English</h3>
           <ul>
-            
-
-              
-                <h3>2015</h3>
-              
-
-              <li>Aug <a href="/en/2015/08/testing-go-1-dot-5-cross-compilation.html">Testing go 1.5 cross compilation on raspberry pi</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>May <a href="/id/2015/05/telepon-murah-ke-indonesia-dengan-voip.html">Telepon murah ke Indonesia dengan voip</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Mar <a href="/en/2015/03/osx-push-to-talk-app.html">osx-push-to-talk App</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Jan <a href="/en/2015/01/tracking-origin-of-bugs-with-git-bisect.html">Tracking origin of bugs with git bisect</a></li>
-            
-
-              
-                
-                
-                
-                  <h3>2014</h3>
-                
-              
-
-              <li>Oct <a href="/en/2014/10/stubbing-time-dot-now-in-golang.html">Stubbing Time.Now() in golang</a></li>
-            
-
-              
-                
-                
-                
-                  <h3>2013</h3>
-                
-              
-
-              <li>Jul <a href="/en/2013/07/my-account-just-got-hacked-by-romanian-possibly.html">My account just got hacked by Romanian (Possibly)</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Jul <a href="/en/2013/07/berks-upload-ruby-core-dump.html">berks upload core dump</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Jul <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Feb <a href="/en/2013/02/homeward-light-indicator-with-raspberrypi-and-commonsense.html">Homeward light indicator with RaspberryPi and CommonSense</a></li>
-            
-
-              
-                
-                
-                
-                  <h3>2012</h3>
-                
-              
-
-              <li>Mar <a href="/id/2012/03/scale-mongodb-dengan-sharding.html">Scale MongoDB dengan Sharding</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Feb <a href="/id/2012/02/ruby-fiber-apaan-sih.html">Ruby Fiber apaan sih ?</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Feb <a href="/en/2012/02/responsive-design.html">Responsive Design</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Jan <a href="/en/2012/01/jekyll-error-utf-8-caracter.html">Jekyll error utf-8 caracter</a></li>
-            
-
-              
-                
-                
-                
-              
-
-              <li>Jan <a href="/en/2012/01/testing-ruby-code-with-benchmark-suite.html">Testing ruby code with benchmark_suite</a></li>
-            
+          
+            <li>
+              <a href="/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
+            </li>
+          
+            <li>
+              <a href="/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
+            </li>
+          
+            <li>
+              <a href="/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
+            </li>
+          
+            <li>
+              <a href="/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
+            </li>
+          
+            <li>
+              <a href="/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
+            </li>
+          
+            <li>
+              <a href="/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
+            </li>
+          
+            <li>
+              <a href="/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
+            </li>
+          
+            <li>
+              <a href="/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
+            </li>
+          
+            <li>
+              <a href="/en/responsive-design/">Responsive Design</a>
+            </li>
+          
+            <li>
+              <a href="/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
+            </li>
+          
+          </ul>
+          <h3>Indonesia</h3>
+          <ul>
+          
+            <li>
+              <a href="">Ruby Fiber apaan sih ?</a>
+            </li>
+          
+            <li>
+              <a href="">Scale MongoDB dengan Sharding</a>
+            </li>
+          
+            <li>
+              <a href="">Telepon murah ke Indonesia dengan voip</a>
+            </li>
+          
           </ul>
           </aside>
         </div>
       </div>
     </div>
-  </div>
-  <header>
+  </div><header>
   <div id="banner">
     <div id="carousel-banner" class="wrapper carousel">
       <div class="carousel-inner excerpt">
-        <div class="item active">
-          <div class="image labs"></div>
-          <div class="text">
-            <p class="title">Let each man exercise the art he knows</p>
-            <p>Welcome to my canvas. A place for me to explore and experiment on some stuff that I found interesting.</p>
-          </div>
-        </div>
-        <div class="item">
-          <div class="image ruby"></div>
-          <div class="text">
-            <p class="title">Ruby (and Rails) </p>
-            <p>Ruby is a neat language. People create clean, elegant and smart app with it. Rails is web framework built on top of ruby. In this category I will explore stuff related to ruby and also rails</p>
-          </div>
-        </div>
-        <div class="item">
-          <div class="image web"></div>
-          <div class="text">
-            <p class="title">Web</p>
-            <p>This is general category involving various aspect of web technology. I like to explore not only the programming and technology aspect of the web, but also the design </p>
-          </div>
-        </div>
-        
       </div>
     </div> 
   </div>
+  
   <div class="navbar navbar-fixed-top relative">  
     <div class="navbar-inner">    
       <div class="fill">
         <div class="container">
-          <span class="brand" href="#">Labs.Yulrizka.com</span>
+          <a href=""><span class="brand">Labs.Yulrizka.com</span></a>
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="http://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
           <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -870,16 +188,13 @@ So the second code run more than the first code in one second. Which mean the se
               </li>
             </ul>
           </div>            
-          <div id="social-icon" class="pull-right">
-            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
-            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
-            <a href="http://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
-          </div>
           <div class="nav-link nav-collapse">
             <ul class="nav">
-              <li class="active banner"><a href="/">Home</a></li>
-              <li class=""><a href="/ruby/">Ruby (and Rails)</a></li>
-              <li class=""><a href="/web/">Web</a></li>
+
+              <li class=""><a href="/">Home</a></li>
+              <li class="active banner"><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
+              
             </ul>
           </div>
         </div>
@@ -887,33 +202,30 @@ So the second code run more than the first code in one second. Which mean the se
     </div>
   </div>
 </header>
-
-  <footer>
+<footer>
   <div class="container-fluid">
     <div class="row-fluid">
       <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
         <div class="footer">
           <p>
-            &copy; Ahmy Yulrizka 2012. This site is made with <a href="http://jekyllrb.com/">Jekyll</a>
-            using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>
-            and hosted on <a href="http://pages.github.com/">Github pages</a>.
-            All of the content is open and the source can be accessed
-            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">here</a>
+            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
           </p>
         </div>
       </div>
     </div>
  </div>
 </footer>
+</div> 
 
-</div> <!-- end of #container-->
 
-<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
-<script src="/javascripts/application.js"></script>
-<script type="text/javascript">
 
+
+<script src="/javascript/global.js"></script>
+
+<script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-22308054-2']);
   _gaq.push(['_trackPageview']);

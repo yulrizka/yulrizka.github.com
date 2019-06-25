@@ -27,58 +27,54 @@
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content"><h1>
-	
-	Indonesia
-	
-</h1>
-<ul>
-	
-	<li>
-		<a href="">Testing go 1.5 cross compilation on raspberry pi</a>
-	</li>
-	
-	<li>
-		<a href="">osx-push-to-talk App</a>
-	</li>
-	
-	<li>
-		<a href="">Tracking origin of bugs with git bisect</a>
-	</li>
-	
-	<li>
-		<a href="">Stubbing Time.Now() in golang</a>
-	</li>
-	
-	<li>
-		<a href="">My account just got hacked by Romanian (Possibly)</a>
-	</li>
-	
-	<li>
-		<a href="">berks upload core dump</a>
-	</li>
-	
-	<li>
-		<a href="">Safely sharing credentials with PGP</a>
-	</li>
-	
-	<li>
-		<a href="">Homeward light indicator with RaspberryPi and CommonSense</a>
-	</li>
-	
-	<li>
-		<a href="">Responsive Design</a>
-	</li>
-	
-	<li>
-		<a href="">Jekyll error utf-8 caracter</a>
-	</li>
-	
-	<li>
-		<a href="">Testing ruby code with benchmark_suite</a>
-	</li>
-	
-</ul>
+        <div class="content">
+<h1>berks upload core dump</h1>
+<div class="posted_at">
+	2013-07-21 ::
+	( 1 minutes reading )
+</div><p>Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
+think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p>
+
+<p>I faced this core dump error while doing <code>berks upload</code>. That command will actualy
+push some cookbook to a chef server.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ berks upload
+/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault
+ruby <span class="m">1</span>.9.3p362 <span class="o">(</span><span class="m">2012</span>-12-25 revision <span class="m">38607</span><span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
+
+-- Control frame information -----------------------------------------------
+c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
+c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11
+c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH
+c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
+
+-- Ruby level backtrace information ----------------------------------------
+/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;
+</span><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span>
+
+....</code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
+
 
         </div>
       </div>
@@ -192,8 +188,8 @@
             <ul class="nav">
 
               <li class=""><a href="/">Home</a></li>
-              <li class=""><a href="/en/">EN</a></li>
-              <li class="active banner"><a href="/id/">ID</a></li>
+              <li class="active banner"><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
               
             </ul>
           </div>
