@@ -1,3 +1,15 @@
 {{ define "main" }}
-      {{- .Content -}}
+{{- .Content -}}
+<h1>
+	{{ if eq .Section "en" }}English{{ end }}
+	{{ if eq .Section "id" }}Indonesia{{ end }}
+	{{ if eq .Section "til" }}Today I Learned{{ end }}
+</h1>
+<ul>
+	{{ range where .Site.RegularPages "Section" "en" }}
+	<li>
+		<a href="">{{ .Title }}</a>
+	</li>
+	{{ end }}
+</ul>
 {{ end }}

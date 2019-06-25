@@ -9,8 +9,8 @@
     </h1>
   </a>
   <div class="posted_at">
-    {{ dateFormat "2006-01-02" .Date }}
-    (approx. {{ .ReadingTime }} minutes reading)
+    {{ dateFormat "2006-01-02" .Date }} ::
+    ( {{ .ReadingTime }} minutes reading )
   </div>
 
   {{ .Content }}

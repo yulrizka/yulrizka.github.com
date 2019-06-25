@@ -1,8 +1,10 @@
 {{ define "main" }}
-	<h1>{{ .Title }}</h1>
-	<div class="posted_at">
-		{{ dateFormat "2006-01-02" .Date }}
-	</div>
-	{{- .Content -}}
-	{{ template "_internal/disqus.html" . }}
+<h1>{{ .Title }}</h1>
+<div class="posted_at">
+	{{ dateFormat "2006-01-02" .Date }} ::
+	( {{ .ReadingTime }} minutes reading )
+</div>
+
+{{- .Content -}}
+{{ template "_internal/disqus.html" . }}
 {{ end }}

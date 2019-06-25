@@ -41,7 +41,7 @@
           <ul>
           {{ range first 10 (where .Site.RegularPages "Section" "en") }}
             <li>
-              <a href="">{{ .Title }}</a>
+              <a href="{{ .Permalink }}">{{ .Title }}</a>
             </li>
           {{ end }}
           </ul>
