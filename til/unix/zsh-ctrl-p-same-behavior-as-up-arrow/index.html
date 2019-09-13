@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title>pandas - format custom date in data frame - labs.yulrizka.com</title>
-<meta name="description" content="pandas - format custom date in data frame">
+<title>Zsh Ctrl P Same Behavior as Up Arrow - labs.yulrizka.com</title>
+<meta name="description" content="Make Ctrl-P in zsh like up arrow which is to search for the last command">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="keywords" content="analytics pandas dataframe json">
+<meta name="keywords" content="unix, tar, compression">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">
 
 
 
@@ -32,31 +32,30 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-<h1>pandas - format custom date in data frame</h1>
+<h1>Zsh Ctrl P Same Behavior as Up Arrow</h1>
 <div class="posted_at">
-	2016-06-07 ::
+	2019-09-13 ::
 	( 1 minutes reading )
-</div><p>say you have a data frame like this</p>
+</div><p>By default Ctrl-P just jump back to the history while up arrow behave a little bit smarter.</p>
 
-<pre><code>[
-  {foo: 1, created_date:&quot;2016-06-04 03:00:01.727&quot;},
-  ...
-]
+<p>For example if you have history like this</p>
+
+<pre><code>ssh a.com
+ls
+cd
+ssh b.com
+cat
+grep
 </code></pre>
 
-<p>the timestamp doesn&rsquo;t recognize immediately. To make this field as timestamp and as index we could do</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># assuming df contains the data frame</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">be</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S.</span><span class="si">%f</span><span class="s2">&#34;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></td></tr></table>
-</div>
-</div><div id="disqus_thread"></div>
+<p>Normaly if you type <code>$ ssh</code> and <code>Ctrl-P</code> afterwares, it will give you <code>grep</code> not <code>ssh b.com</code></p>
+
+<p>to change this behavior, you can put this in your .zshrc</p>
+
+<pre><code>bindkey &quot;^P&quot; up-line-or-search
+bindkey &quot;^N&quot; down-line-or-search
+</code></pre>
+<div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

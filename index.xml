@@ -5,10 +5,23 @@
     <link>https://labs.yulrizka.com/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 03 Apr 2019 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 13 Sep 2019 16:26:08 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Zsh Ctrl P Same Behavior as Up Arrow</title>
+      <link>https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/</link>
+      <pubDate>Fri, 13 Sep 2019 16:26:08 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/</guid>
+      <description>By default Ctrl-P just jump back to the history while up arrow behave a little bit smarter.
+For example if you have history like this
+ssh a.com ls cd ssh b.com cat grep  Normaly if you type $ ssh and Ctrl-P afterwares, it will give you grep not ssh b.com
+to change this behavior, you can put this in your .zshrc
+bindkey &amp;quot;^P&amp;quot; up-line-or-search bindkey &amp;quot;^N&amp;quot; down-line-or-search  </description>
+    </item>
     
     <item>
       <title>extend letsencrypt certificate with DNS challenge</title>
