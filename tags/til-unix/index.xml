@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>til unix on </title>
-    <link>/tags/til-unix/</link>
+    <link>https://labs.yulrizka.com/tags/til-unix/</link>
     <description>Recent content in til unix on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 03 Apr 2019 00:00:00 +0200</lastBuildDate>
     
-	<atom:link href="/tags/til-unix/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://labs.yulrizka.com/tags/til-unix/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>extend letsencrypt certificate with DNS challenge</title>
-      <link>/til/unix/extend-letsencrypt-certificate-with-dns-challenge/</link>
+      <link>https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/</link>
       <pubDate>Wed, 03 Apr 2019 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/extend-letsencrypt-certificate-with-dns-challenge/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/</guid>
       <description>Assuming the domain name is yulrizka.com and the certificate was created with
 $ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com  To extend this certificate with DNS challenge
 # certbot -d home.yulrizka.com --manual --preferred-challenges dns certonly  You will be asked to add TXT record of _acme-challenge.yulrizka.com.
@@ -24,29 +24,29 @@ After updating that DNS record, wait couple of minutes and proceed.</description
     
     <item>
       <title>diff output of 2 command</title>
-      <link>/til/unix/diff-output-of-2-command/</link>
+      <link>https://labs.yulrizka.com/til/unix/diff-output-of-2-command/</link>
       <pubDate>Thu, 04 Oct 2018 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/diff-output-of-2-command/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/diff-output-of-2-command/</guid>
       <description>for example, I want to compare output of 2 different curl comand
 $ diff &amp;lt;(curl -s http://host.com/a) &amp;lt;(curl -s http://anotherhost.com/a)  </description>
     </item>
     
     <item>
       <title>sending curl POST with file</title>
-      <link>/til/unix/sending-curl-post-with-file/</link>
+      <link>https://labs.yulrizka.com/til/unix/sending-curl-post-with-file/</link>
       <pubDate>Sun, 15 Oct 2017 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/sending-curl-post-with-file/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/sending-curl-post-with-file/</guid>
       <description>curl -X POST -d @myfilename http://www.url.com `` or `` curl -XPOST &#39;localhost:9200/bank/_search?pretty&#39; -d &#39; { &amp;quot;query&amp;quot;: { &amp;quot;match_phrase&amp;quot;: { &amp;quot;address&amp;quot;: &amp;quot;mill lane&amp;quot; } } }&#39;  </description>
     </item>
     
     <item>
       <title>bulk renaming multiple file</title>
-      <link>/til/unix/bulk-renaming-multiple-file/</link>
+      <link>https://labs.yulrizka.com/til/unix/bulk-renaming-multiple-file/</link>
       <pubDate>Tue, 12 Jul 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/bulk-renaming-multiple-file/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/bulk-renaming-multiple-file/</guid>
       <description>There are couple of way to rename multiple files.
 From http://unix.stackexchange.com/questions/1136/batch-renaming-files
 example we have files
@@ -57,10 +57,10 @@ image0001.png image0002.png image0003.png ...  And we would like to rename it to
     
     <item>
       <title>specify compression level in tar gzip</title>
-      <link>/til/unix/specify-compression-level-in-tar-gzip/</link>
+      <link>https://labs.yulrizka.com/til/unix/specify-compression-level-in-tar-gzip/</link>
       <pubDate>Thu, 30 Jun 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/specify-compression-level-in-tar-gzip/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/specify-compression-level-in-tar-gzip/</guid>
       <description>from http://superuser.com/questions/305128/how-to-specify-level-of-compression-when-using-tar-zcvf
 GZIP=-9 tar cvzf file.tar.gz /path/to/directory  or
 tar cvf - /path/to/file0 /path/to/file1 | gzip -9 - &amp;gt; files.tar.gz  </description>
@@ -68,10 +68,10 @@ tar cvf - /path/to/file0 /path/to/file1 | gzip -9 - &amp;gt; files.tar.gz  </des
     
     <item>
       <title>file size older than x days</title>
-      <link>/til/unix/file-size-older-than-x-days/</link>
+      <link>https://labs.yulrizka.com/til/unix/file-size-older-than-x-days/</link>
       <pubDate>Mon, 06 Jun 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/file-size-older-than-x-days/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/file-size-older-than-x-days/</guid>
       <description>from http://stackoverflow.com/a/17419690/546750
 to list all file that modified more than more than X days, we can use
 $ find . -mtime +[number of days]  if you use - sign than it became file is modified since X days
@@ -81,10 +81,10 @@ $ find . -mtime +180 -exec du -ks {} \; | cut -f1 | awk &#39;{total=total+$1}END
     
     <item>
       <title>filtering json with jq</title>
-      <link>/til/unix/filtering-json-with-jq/</link>
+      <link>https://labs.yulrizka.com/til/unix/filtering-json-with-jq/</link>
       <pubDate>Tue, 31 May 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/filtering-json-with-jq/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/filtering-json-with-jq/</guid>
       <description>jq is a fantastic command line tools to parse and filter json in command line. It works for linux, osx and maybe windows.
 example, to format json
 $ json=&#39;[{&amp;quot;genre&amp;quot;:&amp;quot;deep house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot;}]&#39; $ echo $json [{&amp;quot;genre&amp;quot;:&amp;quot;deep house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot;}] $ echo $json | jq . [ { &amp;quot;genre&amp;quot;: &amp;quot;deep house&amp;quot; }, { &amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot; }, { &amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot; } ]  To output a particular field</description>
@@ -92,20 +92,20 @@ $ json=&#39;[{&amp;quot;genre&amp;quot;:&amp;quot;deep house&amp;quot;}, {&amp;q
     
     <item>
       <title>find out what is using swap</title>
-      <link>/til/unix/find-out-what-is-using-swap/</link>
+      <link>https://labs.yulrizka.com/til/unix/find-out-what-is-using-swap/</link>
       <pubDate>Tue, 24 May 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/find-out-what-is-using-swap/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/find-out-what-is-using-swap/</guid>
       <description>from http://northernmost.org/blog/find-out-what-is-using-your-swap/
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash # Get current swap usage for all running processes # Erik Ljungstrom 27/05/2011 SUM=0 OVERALL=0 for DIR in `find /proc/ -maxdepth 1 -type d | egrep &amp;#34;^/proc/[0-9]&amp;#34;` ; do PID=`echo $DIR | cut -d / -f 3` PROGNAME=`ps -p $PID -o comm --no-headers` for SWAP in `grep Swap $DIR/smaps 2&amp;gt;/dev/null| awk &amp;#39;{ print $2 }&amp;#39;` do let SUM=$SUM+$SWAP done echo &amp;#34;PID=$PID- Swap used: $SUM- ($PROGNAME)&amp;#34; let OVERALL=$OVERALL+$SUM SUM=0 done echo &amp;#34;Overall swap used: $OVERALL&amp;#34;  </description>
     </item>
     
     <item>
       <title>get all line except n last one</title>
-      <link>/til/unix/get-all-line-except-n-last-one/</link>
+      <link>https://labs.yulrizka.com/til/unix/get-all-line-except-n-last-one/</link>
       <pubDate>Wed, 18 May 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/get-all-line-except-n-last-one/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/get-all-line-except-n-last-one/</guid>
       <description>with head -n &amp;lt;negative number&amp;gt; we can get the output except n lines
 example
 cat a.txt | head -n -1  will gives as the content of a.txt except the last one
@@ -116,20 +116,20 @@ $ ls | grep 4 -B 100000000 | head -n -1  the -B show 100000000 lines before matc
     
     <item>
       <title>grep - print only matched</title>
-      <link>/til/unix/grep-print-only-matched/</link>
+      <link>https://labs.yulrizka.com/til/unix/grep-print-only-matched/</link>
       <pubDate>Wed, 16 Mar 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/grep-print-only-matched/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/grep-print-only-matched/</guid>
       <description>you can use the -o flag to only print matched value. Example
 $ echo &amp;quot;Hello fellow unix fan&amp;quot; | grep --color -o nix nix $ echo &amp;quot;Hello fellow unix fan&amp;quot; | grep --color -o nux $ echo $? 1  </description>
     </item>
     
     <item>
       <title>pbcopy alternative for copying to clipboard</title>
-      <link>/til/unix/pbcopy-alternative-for-copying-to-clipboard/</link>
+      <link>https://labs.yulrizka.com/til/unix/pbcopy-alternative-for-copying-to-clipboard/</link>
       <pubDate>Sat, 13 Feb 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/pbcopy-alternative-for-copying-to-clipboard/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/pbcopy-alternative-for-copying-to-clipboard/</guid>
       <description>in osx we have pbcopy &amp;amp; pbpaste
 we can have something similar in linux. Put this is your shell profile (~/.bashrc or ~/.zshrc if you are using zsh)
 1 2  alias pbcopy=&amp;#39;xclip -selection clipboard&amp;#39; alias pbpaste=&amp;#39;xclip -selection clipboard -o&amp;#39;  </description>

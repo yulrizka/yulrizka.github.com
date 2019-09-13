@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>golang on </title>
-    <link>/tags/golang/</link>
+    <link>https://labs.yulrizka.com/tags/golang/</link>
     <description>Recent content in golang on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 27 Oct 2014 16:42:00 +0200</lastBuildDate>
     
-	<atom:link href="/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://labs.yulrizka.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Stubbing Time.Now() in golang</title>
-      <link>/en/stubbing-time-dot-now-in-golang/</link>
+      <link>https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/</link>
       <pubDate>Mon, 27 Oct 2014 16:42:00 +0200</pubDate>
       
-      <guid>/en/stubbing-time-dot-now-in-golang/</guid>
+      <guid>https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/</guid>
       <description>Some time it&amp;rsquo;s really hard to test functionality that involves with system time. Especially when we wanted to test specific functionality. For example testing whether today is end of month. It&amp;rsquo;s unrealistic to run this test case once every month.
 If you are coming from ruby land, you might familiar with some test library that solve this problem like timecop. Actually it&amp;rsquo;s not that hard to do it in Go also.</description>
     </item>

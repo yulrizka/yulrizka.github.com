@@ -3,508 +3,508 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>https://labs.yulrizka.com/</loc>
     <lastmod>2019-04-03T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/</loc>
     <lastmod>2019-04-03T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://labs.yulrizka.com/tags/</loc>
     <lastmod>2019-04-03T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/extend-letsencrypt-certificate-with-dns-challenge/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/</loc>
     <lastmod>2019-04-03T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-unix/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-unix/</loc>
     <lastmod>2019-04-03T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/rename-tmux-window/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/rename-tmux-window/</loc>
     <lastmod>2019-01-17T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-unix-tmux/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-unix-tmux/</loc>
     <lastmod>2019-01-17T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/git/</loc>
+    <loc>https://labs.yulrizka.com/til/git/</loc>
     <lastmod>2019-01-13T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/net/</loc>
+    <loc>https://labs.yulrizka.com/til/net/</loc>
     <lastmod>2019-01-13T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/net/dnssec/</loc>
+    <loc>https://labs.yulrizka.com/til/net/dnssec/</loc>
     <lastmod>2019-01-13T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/git/reset-email-multiple-commit/</loc>
+    <loc>https://labs.yulrizka.com/til/git/reset-email-multiple-commit/</loc>
     <lastmod>2019-01-13T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-git/</loc>
-    <lastmod>2019-01-13T00:00:00+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/til-net/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-git/</loc>
     <lastmod>2019-01-13T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/encription-with-gpg/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-net/</loc>
+    <lastmod>2019-01-13T00:00:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/unix/encription-with-gpg/</loc>
     <lastmod>2019-01-06T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-unix-gpg/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-unix-gpg/</loc>
     <lastmod>2019-01-06T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/net/ldap-list-users/</loc>
+    <loc>https://labs.yulrizka.com/til/net/ldap-list-users/</loc>
     <lastmod>2018-10-31T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/linux/</loc>
+    <loc>https://labs.yulrizka.com/til/linux/</loc>
     <lastmod>2018-10-24T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/til-linux/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-linux/</loc>
     <lastmod>2018-10-24T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/linux/zfs-external-backup-drive-with-snapshot-and-encryption/</loc>
+    <loc>https://labs.yulrizka.com/til/linux/zfs-external-backup-drive-with-snapshot-and-encryption/</loc>
     <lastmod>2018-10-24T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-linux-zfs/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-linux-zfs/</loc>
     <lastmod>2018-10-22T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/linux/zfs-auto-snapshot/</loc>
+    <loc>https://labs.yulrizka.com/til/linux/zfs-auto-snapshot/</loc>
     <lastmod>2018-10-22T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/linux/connect-bluetooth-device-from-cli/</loc>
+    <loc>https://labs.yulrizka.com/til/linux/connect-bluetooth-device-from-cli/</loc>
     <lastmod>2018-10-20T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/diff-output-of-2-command/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/diff-output-of-2-command/</loc>
     <lastmod>2018-10-04T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/linux/get-full-argument-from-a-process/</loc>
+    <loc>https://labs.yulrizka.com/til/linux/get-full-argument-from-a-process/</loc>
     <lastmod>2017-12-05T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/sending-curl-post-with-file/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/sending-curl-post-with-file/</loc>
     <lastmod>2017-10-15T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/jq-extracting-properties-to-arrays-from-json-row-line/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/jq-extracting-properties-to-arrays-from-json-row-line/</loc>
     <lastmod>2017-10-09T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-unix-jq/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-unix-jq/</loc>
     <lastmod>2017-10-09T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/osx/</loc>
+    <loc>https://labs.yulrizka.com/til/osx/</loc>
     <lastmod>2017-03-16T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/osx/list-open-port/</loc>
+    <loc>https://labs.yulrizka.com/til/osx/list-open-port/</loc>
     <lastmod>2017-03-16T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-osx/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-osx/</loc>
     <lastmod>2017-03-16T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/parsing-epoch-timestamp-to-date/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/parsing-epoch-timestamp-to-date/</loc>
     <lastmod>2016-08-16T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-unix-cli/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-unix-cli/</loc>
     <lastmod>2016-08-16T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/repeat-content-of-text-x-time/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/repeat-content-of-text-x-time/</loc>
     <lastmod>2016-08-15T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/vim/</loc>
+    <loc>https://labs.yulrizka.com/til/vim/</loc>
     <lastmod>2016-08-12T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/vim/paste-yanked-text-on-command-buffer/</loc>
+    <loc>https://labs.yulrizka.com/til/vim/paste-yanked-text-on-command-buffer/</loc>
     <lastmod>2016-08-12T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-vim/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-vim/</loc>
     <lastmod>2016-08-12T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/bulk-renaming-multiple-file/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/bulk-renaming-multiple-file/</loc>
     <lastmod>2016-07-12T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/specify-compression-level-in-tar-gzip/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/specify-compression-level-in-tar-gzip/</loc>
     <lastmod>2016-06-30T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/linux/clearing-up-swap-space/</loc>
+    <loc>https://labs.yulrizka.com/til/linux/clearing-up-swap-space/</loc>
     <lastmod>2016-06-15T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/analytics/</loc>
+    <loc>https://labs.yulrizka.com/til/analytics/</loc>
     <lastmod>2016-06-07T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/analytics/convert-json-perline-to-panads-data-frame/</loc>
+    <loc>https://labs.yulrizka.com/til/analytics/convert-json-perline-to-panads-data-frame/</loc>
     <lastmod>2016-06-07T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/analytics/pandas-format-custom-date-in-data-frame/</loc>
+    <loc>https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/</loc>
     <lastmod>2016-06-07T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til/</loc>
+    <loc>https://labs.yulrizka.com/tags/til/</loc>
     <lastmod>2016-06-07T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/file-size-older-than-x-days/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/file-size-older-than-x-days/</loc>
     <lastmod>2016-06-06T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/linux/symbolic-vs-hard-link/</loc>
+    <loc>https://labs.yulrizka.com/til/linux/symbolic-vs-hard-link/</loc>
     <lastmod>2016-06-01T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/filtering-json-with-jq/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/filtering-json-with-jq/</loc>
     <lastmod>2016-05-31T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/keep-n-recent-item-in-folder/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/keep-n-recent-item-in-folder/</loc>
     <lastmod>2016-05-26T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/osx/starting-program-on-startup-with-login-items/</loc>
+    <loc>https://labs.yulrizka.com/til/osx/starting-program-on-startup-with-login-items/</loc>
     <lastmod>2016-05-25T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/find-out-what-is-using-swap/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/find-out-what-is-using-swap/</loc>
     <lastmod>2016-05-24T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/prompt-confirmation-in-bash/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/prompt-confirmation-in-bash/</loc>
     <lastmod>2016-05-24T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/get-all-line-except-n-last-one/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/get-all-line-except-n-last-one/</loc>
     <lastmod>2016-05-18T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/osx/sign-application-with-self-certificate/</loc>
+    <loc>https://labs.yulrizka.com/til/osx/sign-application-with-self-certificate/</loc>
     <lastmod>2016-04-04T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/git/git-mergetool-and-diff-with-p4merge/</loc>
+    <loc>https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/</loc>
     <lastmod>2016-04-03T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-unix-git/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-unix-git/</loc>
     <lastmod>2016-04-03T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/git/worktree-switching-branch-without-stash/</loc>
+    <loc>https://labs.yulrizka.com/til/git/worktree-switching-branch-without-stash/</loc>
     <lastmod>2016-04-03T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/osx/cluster-ssh-in-iterm2-with-i2cssh/</loc>
+    <loc>https://labs.yulrizka.com/til/osx/cluster-ssh-in-iterm2-with-i2cssh/</loc>
     <lastmod>2016-03-31T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/formatting-or-parse-json-in-command-line/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/formatting-or-parse-json-in-command-line/</loc>
     <lastmod>2016-03-17T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/grep-print-only-matched/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/grep-print-only-matched/</loc>
     <lastmod>2016-03-16T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/send-slack-message-from-command-line/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/send-slack-message-from-command-line/</loc>
     <lastmod>2016-03-15T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-unix-slack/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-unix-slack/</loc>
     <lastmod>2016-03-15T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/go/</loc>
+    <loc>https://labs.yulrizka.com/til/go/</loc>
     <lastmod>2016-03-13T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/go/default-math.rand.source-is-thread-save-while-rand.newsource-is-not/</loc>
+    <loc>https://labs.yulrizka.com/til/go/default-math.rand.source-is-thread-save-while-rand.newsource-is-not/</loc>
     <lastmod>2016-03-13T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/til-go/</loc>
+    <loc>https://labs.yulrizka.com/tags/til-go/</loc>
     <lastmod>2016-03-13T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/linux/removing-old-kernel/</loc>
+    <loc>https://labs.yulrizka.com/til/linux/removing-old-kernel/</loc>
     <lastmod>2016-03-12T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/reusing-last-command-argument/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/reusing-last-command-argument/</loc>
     <lastmod>2016-03-11T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/unix/pbcopy-alternative-for-copying-to-clipboard/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/pbcopy-alternative-for-copying-to-clipboard/</loc>
     <lastmod>2016-02-13T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/osx/manage-clipboard-easily-with-jumpcut/</loc>
+    <loc>https://labs.yulrizka.com/til/osx/manage-clipboard-easily-with-jumpcut/</loc>
     <lastmod>2016-02-11T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/</loc>
+    <loc>https://labs.yulrizka.com/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/</loc>
     <lastmod>2016-02-10T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/en/</loc>
+    <loc>https://labs.yulrizka.com/en/</loc>
     <lastmod>2015-08-29T17:28:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/en/testing-go-1-dot-5-cross-compilation/</loc>
+    <loc>https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/</loc>
     <lastmod>2015-08-29T17:28:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/go/</loc>
+    <loc>https://labs.yulrizka.com/tags/go/</loc>
     <lastmod>2015-08-29T17:28:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/en/osx-push-to-talk-app/</loc>
+    <loc>https://labs.yulrizka.com/en/osx-push-to-talk-app/</loc>
     <lastmod>2015-03-22T00:26:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/web/</loc>
+    <loc>https://labs.yulrizka.com/tags/web/</loc>
     <lastmod>2015-03-22T00:26:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/til/unix/process-pipe-operator/</loc>
+    <loc>https://labs.yulrizka.com/til/unix/process-pipe-operator/</loc>
     <lastmod>2015-02-12T00:00:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/en/tracking-origin-of-bugs-with-git-bisect/</loc>
+    <loc>https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/</loc>
     <lastmod>2015-01-16T23:35:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/git/</loc>
+    <loc>https://labs.yulrizka.com/tags/git/</loc>
     <lastmod>2015-01-16T23:35:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/en/stubbing-time-dot-now-in-golang/</loc>
+    <loc>https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/</loc>
     <lastmod>2014-10-27T16:42:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/golang/</loc>
+    <loc>https://labs.yulrizka.com/tags/golang/</loc>
     <lastmod>2014-10-27T16:42:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/en/my-account-just-got-hacked-by-romanian-possibly/</loc>
+    <loc>https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/</loc>
     <lastmod>2013-07-27T11:58:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/en/berks-upload-ruby-core-dump/</loc>
+    <loc>https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/</loc>
     <lastmod>2013-07-21T23:26:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/ruby-web/</loc>
+    <loc>https://labs.yulrizka.com/tags/ruby-web/</loc>
     <lastmod>2013-07-21T23:26:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/en/safely-sharing-credentials-with-pgp/</loc>
+    <loc>https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/</loc>
     <lastmod>2013-07-08T16:24:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/linux-web/</loc>
+    <loc>https://labs.yulrizka.com/tags/linux-web/</loc>
     <lastmod>2013-07-08T16:24:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</loc>
+    <loc>https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</loc>
     <lastmod>2013-02-26T20:33:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/raspberrypi/</loc>
+    <loc>https://labs.yulrizka.com/tags/raspberrypi/</loc>
     <lastmod>2013-02-26T20:33:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/en/responsive-design/</loc>
+    <loc>https://labs.yulrizka.com/en/responsive-design/</loc>
     <lastmod>2012-02-24T01:48:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/en/jekyll-error-utf-8-caracter/</loc>
+    <loc>https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/</loc>
     <lastmod>2012-01-14T17:32:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/ruby/</loc>
+    <loc>https://labs.yulrizka.com/tags/ruby/</loc>
     <lastmod>2012-01-14T17:32:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/en/testing-ruby-code-with-benchmark-suite/</loc>
+    <loc>https://labs.yulrizka.com/en/testing-ruby-code-with-benchmark-suite/</loc>
     <lastmod>2012-01-14T12:05:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://labs.yulrizka.com/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/id/</loc>
+    <loc>https://labs.yulrizka.com/id/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/id/ruby-fiber-apaan-sih/</loc>
+    <loc>https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/</loc>
   </url>
   
   <url>
-    <loc>/id/scale-mongodb-dengan-sharding/</loc>
+    <loc>https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/</loc>
   </url>
   
   <url>
-    <loc>/id/telepon-murah-ke-indonesia-dengan-voip/</loc>
+    <loc>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</loc>
   </url>
   
   <url>
-    <loc>/til/</loc>
+    <loc>https://labs.yulrizka.com/til/</loc>
     <priority>0</priority>
   </url>
   

@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>til unix slack on </title>
-    <link>/tags/til-unix-slack/</link>
+    <link>https://labs.yulrizka.com/tags/til-unix-slack/</link>
     <description>Recent content in til unix slack on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 15 Mar 2016 00:00:00 +0200</lastBuildDate>
     
-	<atom:link href="/tags/til-unix-slack/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://labs.yulrizka.com/tags/til-unix-slack/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>send slack message from command line</title>
-      <link>/til/unix/send-slack-message-from-command-line/</link>
+      <link>https://labs.yulrizka.com/til/unix/send-slack-message-from-command-line/</link>
       <pubDate>Tue, 15 Mar 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/send-slack-message-from-command-line/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/send-slack-message-from-command-line/</guid>
       <description>Install Incomming webhook to your channel https://api.slack.com/incoming-webhooks#sending_messages
 you will then get some url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 create /usr/local/bin/notifyme

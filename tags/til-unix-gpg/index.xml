@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>til unix gpg on </title>
-    <link>/tags/til-unix-gpg/</link>
+    <link>https://labs.yulrizka.com/tags/til-unix-gpg/</link>
     <description>Recent content in til unix gpg on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 06 Jan 2019 00:00:00 +0200</lastBuildDate>
     
-	<atom:link href="/tags/til-unix-gpg/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://labs.yulrizka.com/tags/til-unix-gpg/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>encription with gpg</title>
-      <link>/til/unix/encription-with-gpg/</link>
+      <link>https://labs.yulrizka.com/til/unix/encription-with-gpg/</link>
       <pubDate>Sun, 06 Jan 2019 00:00:00 +0200</pubDate>
       
-      <guid>/til/unix/encription-with-gpg/</guid>
+      <guid>https://labs.yulrizka.com/til/unix/encription-with-gpg/</guid>
       <description>Generate key gpg --gen-key  List keys gpg --list-keys  Encrypt Data With a passprhare
 gpg -ca -o output.txt.gpg input.txt  with a certificate and from STDOUT
 gpg -ea  or if you know the name already (can be key, name or email)

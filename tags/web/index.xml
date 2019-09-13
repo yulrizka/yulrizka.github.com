@@ -2,59 +2,59 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>web on </title>
-    <link>/tags/web/</link>
+    <link>https://labs.yulrizka.com/tags/web/</link>
     <description>Recent content in web on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 22 Mar 2015 00:26:00 +0200</lastBuildDate>
     
-	<atom:link href="/tags/web/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://labs.yulrizka.com/tags/web/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>osx-push-to-talk App</title>
-      <link>/en/osx-push-to-talk-app/</link>
+      <link>https://labs.yulrizka.com/en/osx-push-to-talk-app/</link>
       <pubDate>Sun, 22 Mar 2015 00:26:00 +0200</pubDate>
       
-      <guid>/en/osx-push-to-talk-app/</guid>
+      <guid>https://labs.yulrizka.com/en/osx-push-to-talk-app/</guid>
       <description>Push To Talk app for OSX
 PushToTalk App installer   As a part of scrum teams, every day I need to give updates to my team via Google Hangout. We have a team here in the Netherlands and also in Indonesia. Some times I am in the same room as a colleague of mine. This sometimes quite annoying because I can hear my self (with a delay) from his mic.</description>
     </item>
     
     <item>
       <title>My account just got hacked by Romanian (Possibly)</title>
-      <link>/en/my-account-just-got-hacked-by-romanian-possibly/</link>
+      <link>https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/</link>
       <pubDate>Sat, 27 Jul 2013 11:58:00 +0200</pubDate>
       
-      <guid>/en/my-account-just-got-hacked-by-romanian-possibly/</guid>
+      <guid>https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/</guid>
       <description>You are probably familiar with above images. Some random friend sent you an email which you can instantly recognize as a spam because it only contains one link. Couple days ago I receive this email which is not the first time for me. But this time it was different. It actually came from my own Yahoo! account which I never use since more that one year ago.
 My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address.</description>
     </item>
     
     <item>
       <title>Homeward light indicator with RaspberryPi and CommonSense</title>
-      <link>/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</link>
+      <link>https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</link>
       <pubDate>Tue, 26 Feb 2013 20:33:00 +0200</pubDate>
       
-      <guid>/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</guid>
+      <guid>https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</guid>
       <description>I&amp;rsquo;ve been tinkering with my raspberry-pi for quite some time now. What I like about it because it is cheap ($25), it&amp;rsquo;s run Linux (especially debian based) and most of all it&amp;rsquo;s have General Purpose Input Output pin. Since I was a kid, I always wanted to control electronic appliance remotely. Luckily my friend @pimnijdam thought me how to control a relay board. Basically it&amp;rsquo;s just like an electric switch that connect/disconnect current when you supply a low voltage.</description>
     </item>
     
     <item>
       <title>Responsive Design</title>
-      <link>/en/responsive-design/</link>
+      <link>https://labs.yulrizka.com/en/responsive-design/</link>
       <pubDate>Fri, 24 Feb 2012 01:48:00 +0200</pubDate>
       
-      <guid>/en/responsive-design/</guid>
+      <guid>https://labs.yulrizka.com/en/responsive-design/</guid>
       <description>I&amp;rsquo;ve been playing around with twitter bootstrap. It&amp;rsquo;s like a css framework to help designer or developer create a nice and clean site. It&amp;rsquo;s offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for prototyping.
 I&amp;rsquo;ve been using it to build this blog since it was version 1. Recently i had a chance to upgrade it to version 2. The new version offer a lot of functionalities, one the feature that I play a lot is the responsive design.</description>
     </item>
     
     <item>
       <title>Jekyll error utf-8 caracter</title>
-      <link>/en/jekyll-error-utf-8-caracter/</link>
+      <link>https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/</link>
       <pubDate>Sat, 14 Jan 2012 17:32:00 +0200</pubDate>
       
-      <guid>/en/jekyll-error-utf-8-caracter/</guid>
+      <guid>https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/</guid>
       <description>If you having a problem in jekyll when it didn&amp;rsquo;t generate a post and there is no error in the log file. you might want to check the content if there is any UTF-8 character encoding such as this ±
 The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character. it actually got invalid multibyte char (US-ASCII) error message
 to solve this. I added this line to .</description>
@@ -62,10 +62,10 @@ to solve this. I added this line to .</description>
     
     <item>
       <title>Telepon murah ke Indonesia dengan voip</title>
-      <link>/id/telepon-murah-ke-indonesia-dengan-voip/</link>
+      <link>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/id/telepon-murah-ke-indonesia-dengan-voip/</guid>
+      <guid>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</guid>
       <description>Disclaimer: Tulias ini berisi pengalaman penulis menggunakan VoIP dari belanda. Hasilnya mungkin berbeda dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang ditimbulkan apabila pembaca memutuskan untuk menggunakan VoIP
    Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra. Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia dengan mudah
 Servis gratis misalkan:

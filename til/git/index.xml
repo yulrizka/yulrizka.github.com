@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link>/til/git/</link>
+    <link>https://labs.yulrizka.com/til/git/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0200</lastBuildDate>
     
-	<atom:link href="/til/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://labs.yulrizka.com/til/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>reset email multiple git commit</title>
-      <link>/til/git/reset-email-multiple-commit/</link>
+      <link>https://labs.yulrizka.com/til/git/reset-email-multiple-commit/</link>
       <pubDate>Sun, 13 Jan 2019 00:00:00 +0200</pubDate>
       
-      <guid>/til/git/reset-email-multiple-commit/</guid>
+      <guid>https://labs.yulrizka.com/til/git/reset-email-multiple-commit/</guid>
       <description>I started not to use my real email for git commit. Instead i uses the one that is provided by github
 After enabling Block command line pushes that expose my email on Block command line pushes that expose my email, it will reject all email that exposes public email adress.
 So in order to rewrite git history and change the author email, I found this github help
@@ -24,20 +24,20 @@ So in order to rewrite git history and change the author email, I found this git
     
     <item>
       <title>git mergetool and diff with p4merge</title>
-      <link>/til/git/git-mergetool-and-diff-with-p4merge/</link>
+      <link>https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/</link>
       <pubDate>Sun, 03 Apr 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/git/git-mergetool-and-diff-with-p4merge/</guid>
+      <guid>https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/</guid>
       <description>Some time you want visually merge conflict in git. To use p4merge https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge
 git mergetool Linux $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ $ &amp;quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.p4mergetool.trustExitCode false $ git config --global mergetool.keepBackup false  Mac $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ &amp;quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.</description>
     </item>
     
     <item>
       <title>worktree - switching branch without stash</title>
-      <link>/til/git/worktree-switching-branch-without-stash/</link>
+      <link>https://labs.yulrizka.com/til/git/worktree-switching-branch-without-stash/</link>
       <pubDate>Sun, 03 Apr 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/git/worktree-switching-branch-without-stash/</guid>
+      <guid>https://labs.yulrizka.com/til/git/worktree-switching-branch-without-stash/</guid>
       <description>Some times you are working on some feature but then you need to check or fix something on some other branch. The normal way to do it is that we do:
  git stash switch to other branch commit changes swith to previous branch git stash pop  This can be complicated especially you have multiple stash. You can&amp;rsquo;t easily understand which stash belongs where.
 After version 2.5.2 there is new command called git worktree</description>

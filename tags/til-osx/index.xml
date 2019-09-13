@@ -2,40 +2,40 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>til osx on </title>
-    <link>/tags/til-osx/</link>
+    <link>https://labs.yulrizka.com/tags/til-osx/</link>
     <description>Recent content in til osx on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 16 Mar 2017 00:00:00 +0200</lastBuildDate>
     
-	<atom:link href="/tags/til-osx/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://labs.yulrizka.com/tags/til-osx/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>list open port</title>
-      <link>/til/osx/list-open-port/</link>
+      <link>https://labs.yulrizka.com/til/osx/list-open-port/</link>
       <pubDate>Thu, 16 Mar 2017 00:00:00 +0200</pubDate>
       
-      <guid>/til/osx/list-open-port/</guid>
+      <guid>https://labs.yulrizka.com/til/osx/list-open-port/</guid>
       <description> list open port $ sudo netstat -atp tcp| grep -i listen  or
 $ sudo lsof -i -P | grep -i listen  </description>
     </item>
     
     <item>
       <title>starting program on startup with login items</title>
-      <link>/til/osx/starting-program-on-startup-with-login-items/</link>
+      <link>https://labs.yulrizka.com/til/osx/starting-program-on-startup-with-login-items/</link>
       <pubDate>Wed, 25 May 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/osx/starting-program-on-startup-with-login-items/</guid>
+      <guid>https://labs.yulrizka.com/til/osx/starting-program-on-startup-with-login-items/</guid>
       <description>I need to start jumpcut during startup because I have to start it manually now.
 We can add one or more program to start when we are logged in. Use system preference &amp;gt; Users &amp;amp; Groups. Select your username and there should be Login items tabs where you can add more or disable programs.</description>
     </item>
     
     <item>
       <title>sign application with self certificate</title>
-      <link>/til/osx/sign-application-with-self-certificate/</link>
+      <link>https://labs.yulrizka.com/til/osx/sign-application-with-self-certificate/</link>
       <pubDate>Mon, 04 Apr 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/osx/sign-application-with-self-certificate/</guid>
+      <guid>https://labs.yulrizka.com/til/osx/sign-application-with-self-certificate/</guid>
       <description>When compiling binary that open port, (depending on your settings) it will ask to allow if the process can make the connection.
 We can sign our binary with certificate to avoid this.
 From http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010
@@ -45,10 +45,10 @@ While RedYeti&amp;rsquo;s link is useful, just to save a few clicks for others l
     
     <item>
       <title>cluster ssh in iterm2 with i2cssh</title>
-      <link>/til/osx/cluster-ssh-in-iterm2-with-i2cssh/</link>
+      <link>https://labs.yulrizka.com/til/osx/cluster-ssh-in-iterm2-with-i2cssh/</link>
       <pubDate>Thu, 31 Mar 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/osx/cluster-ssh-in-iterm2-with-i2cssh/</guid>
+      <guid>https://labs.yulrizka.com/til/osx/cluster-ssh-in-iterm2-with-i2cssh/</guid>
       <description>I&amp;rsquo;m a fan of cluster ssh. It allows you to control multiple ssh session with one keyboard. I tried csshx which uses the default osx terminal, but I love iterm2.
 But today I found i2cssh which does that for iterm2
 One of the feature is broadcast where you can send command to multiple window. It&amp;rsquo;s basically the same with csshx but their approach is to create another extra window that receive an input and send it to all other windows.</description>
@@ -56,20 +56,20 @@ One of the feature is broadcast where you can send command to multiple window. I
     
     <item>
       <title>manage clipboard easily with jumpcut</title>
-      <link>/til/osx/manage-clipboard-easily-with-jumpcut/</link>
+      <link>https://labs.yulrizka.com/til/osx/manage-clipboard-easily-with-jumpcut/</link>
       <pubDate>Thu, 11 Feb 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/osx/manage-clipboard-easily-with-jumpcut/</guid>
+      <guid>https://labs.yulrizka.com/til/osx/manage-clipboard-easily-with-jumpcut/</guid>
       <description>Jumpcut is clipboard manager that allows you to select your copy history.
 Let say you copy fil the contents of A, B, C, D. After you copy file D you want to paste the file B. Usually you have to go back to copy the content of file, but now you don&amp;rsquo;t have too.</description>
     </item>
     
     <item>
       <title>pipe output to clipboard with pbcopy and pbpaste</title>
-      <link>/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/</link>
+      <link>https://labs.yulrizka.com/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/</link>
       <pubDate>Wed, 10 Feb 2016 00:00:00 +0200</pubDate>
       
-      <guid>/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/</guid>
+      <guid>https://labs.yulrizka.com/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/</guid>
       <description>Using terminal and needs to copy the result of command to clipboard ? use pbcopy
 1  $ cat somefile.txt | pbcopy   Or the other way around, paste from clipboard and pipe it to other program
 1  $ pbpaste | grep foo  </description>
