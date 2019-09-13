@@ -56,7 +56,7 @@
           <ul>
           {{ range first 10 (where .Site.RegularPages "Section" "id") }}
             <li>
-              <a href="">{{ .Title }}</a>
+              <a href="{{ .Permalink }}">{{ .Title }}</a>
             </li>
           {{ end }}
           </ul>
@@ -65,7 +65,7 @@
           <ul>
           {{ range first 10 (where .Site.RegularPages "Section" "til") }}
             <li>
-              <a href="">{{ .Title }}</a>
+              <a href="{{ .Permalink }}">{{ .Title }}</a>
             </li>
           {{ end }}
           </ul>
