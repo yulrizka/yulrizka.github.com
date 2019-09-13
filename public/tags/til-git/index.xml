@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>til git on </title>
+    <link>/tags/til-git/</link>
+    <description>Recent content in til git on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/til-git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>reset email multiple git commit</title>
+      <link>/til/git/reset-email-multiple-commit/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>/til/git/reset-email-multiple-commit/</guid>
+      <description>I started not to use my real email for git commit. Instead i uses the one that is provided by github
+After enabling Block command line pushes that expose my email on Block command line pushes that expose my email, it will reject all email that exposes public email adress.
+So in order to rewrite git history and change the author email, I found this github help
+#!/bin/sh git filter-branch --env-filter &#39; OLD_EMAIL=&amp;quot;your-old-email@example.</description>
+    </item>
+    
+  </channel>
+</rss>

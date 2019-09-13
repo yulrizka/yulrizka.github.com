@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>til linux zfs on </title>
+    <link>/tags/til-linux-zfs/</link>
+    <description>Recent content in til linux zfs on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 22 Oct 2018 00:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/til-linux-zfs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>zfs auto snapshot</title>
+      <link>/til/linux/zfs-auto-snapshot/</link>
+      <pubDate>Mon, 22 Oct 2018 00:00:00 +0200</pubDate>
+      
+      <guid>/til/linux/zfs-auto-snapshot/</guid>
+      <description>Having ZFS snapshot saved me once when I acidentally rm -f /home/myuser.
+There is a simple package that easily make auto snapshot.
+$ sudo apt install zfs-auto-snapshot  This will install the script and the cron job associated with it.
+By default it will backup all filesystem and volumes. You can disable the filesystems completely by
+$ sudo zfs set com.sun:auto-snapshot=false tank/data-set-name  or only for specific interval
+sudo zfs set com.</description>
+    </item>
+    
+  </channel>
+</rss>

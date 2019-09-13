@@ -5,10 +5,145 @@
     <link>/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 29 Aug 2015 17:28:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 03 Apr 2019 00:00:00 +0200</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>til unix</title>
+      <link>/tags/til-unix/</link>
+      <pubDate>Wed, 03 Apr 2019 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-unix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til unix tmux</title>
+      <link>/tags/til-unix-tmux/</link>
+      <pubDate>Thu, 17 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-unix-tmux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til git</title>
+      <link>/tags/til-git/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til net</title>
+      <link>/tags/til-net/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-net/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til unix gpg</title>
+      <link>/tags/til-unix-gpg/</link>
+      <pubDate>Sun, 06 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-unix-gpg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til linux</title>
+      <link>/tags/til-linux/</link>
+      <pubDate>Wed, 24 Oct 2018 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til linux zfs</title>
+      <link>/tags/til-linux-zfs/</link>
+      <pubDate>Mon, 22 Oct 2018 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-linux-zfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til unix jq</title>
+      <link>/tags/til-unix-jq/</link>
+      <pubDate>Mon, 09 Oct 2017 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-unix-jq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til osx</title>
+      <link>/tags/til-osx/</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-osx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til unix cli</title>
+      <link>/tags/til-unix-cli/</link>
+      <pubDate>Tue, 16 Aug 2016 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-unix-cli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til vim</title>
+      <link>/tags/til-vim/</link>
+      <pubDate>Fri, 12 Aug 2016 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til</title>
+      <link>/tags/til/</link>
+      <pubDate>Tue, 07 Jun 2016 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til unix git</title>
+      <link>/tags/til-unix-git/</link>
+      <pubDate>Sun, 03 Apr 2016 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-unix-git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til unix slack</title>
+      <link>/tags/til-unix-slack/</link>
+      <pubDate>Tue, 15 Mar 2016 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-unix-slack/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>til go</title>
+      <link>/tags/til-go/</link>
+      <pubDate>Sun, 13 Mar 2016 00:00:00 +0200</pubDate>
+      
+      <guid>/tags/til-go/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>go</title>

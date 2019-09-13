@@ -1,7 +1,6 @@
 {{ define "main" }}
 
-{{ $paginator := .Paginator }}
-{{ range $paginator.Pages }}
+{{ range (.Paginate (where .Pages "Section" "in" "en,id")).Pages }}.
 <article>
   <a href="{{ .Permalink }}">
     <h1>

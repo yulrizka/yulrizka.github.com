@@ -8,9 +8,10 @@
 	</h1>
 
 	{{ if eq .Section "til" }}
-		{{ range .Sections }}
+		{{ range sort .Sections "CurrentSection.File.Dir" }}
 
-		<h2>{{ path.Base .CurrentSection.File.Dir }}</h2>
+		{{ $tilPath := path.Base .CurrentSection.File.Dir }}
+		<h2>{{ $tilPath | upper }}</h2>
 			<ul>
 			{{ range .Pages }}
 			<li>

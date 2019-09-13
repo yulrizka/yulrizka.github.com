@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>/til/net/</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="/til/net/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>DNSSEC</title>
+      <link>/til/net/dnssec/</link>
+      <pubDate>Sun, 13 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>/til/net/dnssec/</guid>
+      <description>DNSSEC  DNSSEC is a technology that was developed to, among other things, protect against such attacks by digitally &amp;lsquo;signing&amp;rsquo; data so you can be assured it is valid. However, in order to eliminate the vulnerability from the Internet, it must be deployed at each step in the lookup from root zone to final domain name (e.g., www.icann.org). Signing the root (deploying DNSSEC on the root zone) is a necessary step in this overall processii.</description>
+    </item>
+    
+    <item>
+      <title>ldap list users</title>
+      <link>/til/net/ldap-list-users/</link>
+      <pubDate>Wed, 31 Oct 2018 00:00:00 +0200</pubDate>
+      
+      <guid>/til/net/ldap-list-users/</guid>
+      <description> ldap list users On ldap connected machine
+$ genet group groupname groupname*:2141:usera,userb,userc,userd  </description>
+    </item>
+    
+  </channel>
+</rss>

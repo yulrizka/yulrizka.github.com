@@ -53,6 +53,15 @@
             </li>
           {{ end }}
           </ul>
+
+          <h3>Today I Learned</h3>
+          <ul>
+          {{ range first 10 (where .Site.RegularPages "Section" "til") }}
+            <li>
+              <a href="">{{ .Title }}</a>
+            </li>
+          {{ end }}
+          </ul>
           </aside>
         </div>
       </div>

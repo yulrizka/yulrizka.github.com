@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>til vim on </title>
+    <link>/tags/til-vim/</link>
+    <description>Recent content in til vim on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 12 Aug 2016 00:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="/tags/til-vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>paste yanked text on command buffer</title>
+      <link>/til/vim/paste-yanked-text-on-command-buffer/</link>
+      <pubDate>Fri, 12 Aug 2016 00:00:00 +0200</pubDate>
+      
+      <guid>/til/vim/paste-yanked-text-on-command-buffer/</guid>
+      <description>Sometimes you need to paste yanked text while performing command. For example subtituting yanked text with some words.
+yanked text are stored in the 0 and &amp;quot; register.
+in the command mode you can paste this with ctrl-R [registe] example in our cases this would be ctrl-R 0
+so full command would be for example :%s/[press ctrl-R then 0]/replacement/gc</description>
+    </item>
+    
+  </channel>
+</rss>
