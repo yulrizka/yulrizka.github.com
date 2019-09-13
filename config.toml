@@ -3,3 +3,4 @@ pygmentsCodeFences = true
 pygmentsOptions = "linenos=table"
 pygmentsUseClasses = true
 disqusShortname = "labs-yulrizka"
+baseURL = "https://labs.yulrizka.com/"
