@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>labs.yulrizka.com - Dev Blogs of Ahmy Yulrizka</title>
+{{ if .IsHome }}
+<title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
+{{ else }}
+<title>{{ .Title }} - labs.yulrizka.com</title>
+{{ end}}
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Blog of Ahmy Yulrizka I am currently golang developer and live in the Netherlands">
-<meta name="keywords" content="ahmy,yulrizka,ahmy yulrizka,blog,dev" />
+<meta name="description" content="{{ .Description }}">
+{{ with .Keywords }}<meta name="keywords" content="{{ range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="http://labs.yulrizka.com/">
+<link rel="canonical" href="{{ .Permalink }}">
 
 <!-- Framework CSS -->
 {{ $applicationCSS := resources.Get "css/application.css" }}
