@@ -1,15 +1,32 @@
 {{ define "main" }}
 {{- .Content -}}
-<h1>
-	{{ if eq .Section "en" }}English{{ end }}
-	{{ if eq .Section "id" }}Indonesia{{ end }}
-	{{ if eq .Section "til" }}Today I Learned{{ end }}
-</h1>
-<ul>
-	{{ range where .Site.RegularPages "Section" "en" }}
-	<li>
-		<a href="">{{ .Title }}</a>
-	</li>
+
+	<h1>
+		{{ if eq .Section "en" }}English{{ end }}
+		{{ if eq .Section "id" }}Indonesia{{ end }}
+		{{ if eq .Section "til" }}Today I Learned{{ end }}
+	</h1>
+
+	{{ if eq .Section "til" }}
+		{{ range .Sections }}
+
+		<h2>{{ path.Base .CurrentSection.File.Dir }}</h2>
+			<ul>
+			{{ range .Pages }}
+			<li>
+				<a href="{{ .Permalink }}">{{ dateFormat "2006-01-02" .PublishDate }} - {{ .Title }}</a>
+			</li>
+			{{ end }}
+			</ul>
+		{{ end }}
+	{{ else }}
+	<ul>
+		{{ range where .Site.RegularPages "Section" .Section }}
+		<li>
+			<a href="{{ .Permalink }}">{{ .Title }}</a>
+		</li>
+		{{ end }}
+	</ul>
 	{{ end }}
-</ul>
+
 {{ end }}
