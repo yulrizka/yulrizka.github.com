@@ -3,13 +3,15 @@
 <head>
 {{ if .IsHome }}
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
+<meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
 {{ else }}
 <title>{{ .Title }} - labs.yulrizka.com</title>
+<meta name="description" content="{{ .Description }}">
 {{ end}}
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="{{ .Description }}">
+
 {{ with .Keywords }}<meta name="keywords" content="{{ range $i, $e := . }}{{ if $i }} {{ end }}{{ $e }}{{ end }}">{{ end }}
 <meta name="author" content="Ahmy Yulrizka">
 <link rel="canonical" href="{{ .Permalink }}">
