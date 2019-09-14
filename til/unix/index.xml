@@ -31,7 +31,7 @@ bindkey &amp;quot;^P&amp;quot; up-line-or-search bindkey &amp;quot;^N&amp;quot; 
       <guid>https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/</guid>
       <description>Assuming the domain name is yulrizka.com and the certificate was created with
 $ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com  To extend this certificate with DNS challenge
-# certbot -d home.yulrizka.com --manual --preferred-challenges dns certonly  You will be asked to add TXT record of _acme-challenge.yulrizka.com.
+# certbot -d yulrizka.com --manual --preferred-challenges dns certonly  You will be asked to add TXT record of _acme-challenge.yulrizka.com.
 After updating that DNS record, wait couple of minutes and proceed.</description>
     </item>
     
