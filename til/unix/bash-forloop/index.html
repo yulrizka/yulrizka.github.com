@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title>bulk renaming multiple file - labs.yulrizka.com</title>
-<meta name="description" content="bulk renaming multiple file">
+<title>Bash Forloop - labs.yulrizka.com</title>
+<meta name="description" content="Bash forloop syntax">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="keywords" content="unix rename bulk">
+<meta name="keywords" content="bash loop forloop">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/unix/bulk-renaming-multiple-file/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/unix/bash-forloop/">
 
 
 
@@ -32,76 +32,33 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-<h1>bulk renaming multiple file</h1>
+<h1>Bash Forloop</h1>
 <div class="posted_at">
-	2016-07-12 ::
+	2019-09-16 ::
 	( 1 minutes reading )
-</div>
+</div><p>Example of forloop syntax</p>
 
-<p>There are couple of way to rename multiple files.</p>
-
-<p>From <a href="http://unix.stackexchange.com/questions/1136/batch-renaming-files">http://unix.stackexchange.com/questions/1136/batch-renaming-files</a></p>
-
-<p>example we have files</p>
-
-<pre><code>image0001.png
-image0002.png
-image0003.png
-...
+<pre><code>for i in 1 2 3 4 5
+do
+   echo &quot;i=$i&quot;
+done
 </code></pre>
 
-<p>And we would like to rename it to</p>
+<p>with range</p>
 
-<pre><code>0001.png
-0002.png
-0003.png
-...
+<pre><code>for i in {1..5}
+do
+   echo &quot;i=$i&quot;
+done
 </code></pre>
 
-<h2 id="with-for-loop">with for loop</h2>
+<p>cutomize increment</p>
 
-<p>this works with linux and mac without installing anything</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> f in *.png<span class="p">;</span> <span class="k">do</span> mv <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">f</span><span class="p">#image</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">done</span></code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="with-zsh">With ZSH</h2>
-
-<p>This is my favorite way since I&rsquo;m using <a href="http://www.zsh.org/">ZSH</a> and <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>.
-Check it now, it&rsquo;s awesome</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ autoload zmv
-zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>or let zsh automatically define $1, $2 etc</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">zmv -w <span class="s1">&#39;image*.png&#39;</span> <span class="s1">&#39;$1.png&#39;</span></code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="using-your-editor">Using your editor</h2>
-
-<p>for more complex operation, sometimes it easier to rename the file on your editor.</p>
-
-<p>there is <code>qmv</code> from renameutils</p>
-
-<pre><code>$ qmv *.png
+<pre><code>for i in {0..10..2}
+do 
+   echo &quot;i=$i&quot;
+done
 </code></pre>
-
-<p>it will open editor with 2 columns, you can edit the right size rename that file</p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
