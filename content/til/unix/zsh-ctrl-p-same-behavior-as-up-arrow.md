@@ -27,6 +27,6 @@ Normaly if you type `$ ssh` and `Ctrl-P` afterwares, it will give you `grep` not
 to change this behavior, you can put this in your .zshrc 
 
 ```
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
 ```
