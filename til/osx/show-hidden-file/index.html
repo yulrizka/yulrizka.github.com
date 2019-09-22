@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title> - labs.yulrizka.com</title>
-<meta name="description" content="">
+<title>Show Hidden File - labs.yulrizka.com</title>
+<meta name="description" content="How to show hidden file osx finder">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<meta name="keywords" content="osx, til, finder,">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/linux/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/osx/show-hidden-file/">
 
 
 
@@ -31,17 +31,48 @@
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content"><p>Linux index</p>
-<h1>
-		
-		
-		Today I Learned
-	</h1>
+        <div class="content">
+<h1>Show Hidden File</h1>
+<div class="posted_at">
+	2019-09-22 ::
+	( 1 minutes reading )
+</div><p>Tho show hidden file (file with <code>x</code>):</p>
 
-	
-		
-	
+<p><strong>Mojave</strong>:</p>
 
+<p>In finder <code>CMD + Shift + .</code> to toggle it</p>
+
+<p><strong>Before Mojave</strong>:</p>
+
+<p>Show</p>
+
+<pre><code>defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app
+</code></pre>
+
+<p>Hide</p>
+
+<pre><code>defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app
+</code></pre>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
         </div>
       </div>

@@ -32,7 +32,7 @@ for i in {0..10..2} do echo &amp;quot;i=$i&amp;quot; done  </description>
 For example if you have history like this
 ssh a.com ls cd ssh b.com cat grep  Normaly if you type $ ssh and Ctrl-P afterwares, it will give you grep not ssh b.com
 to change this behavior, you can put this in your .zshrc
-bindkey &amp;quot;^P&amp;quot; up-line-or-search bindkey &amp;quot;^N&amp;quot; down-line-or-search  </description>
+bindkey &amp;quot;^P&amp;quot; up-line-or-beginning-search bindkey &amp;quot;^N&amp;quot; down-line-or-beginning-search  </description>
     </item>
     
     <item>
