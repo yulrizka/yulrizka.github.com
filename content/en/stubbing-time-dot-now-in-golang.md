@@ -7,6 +7,8 @@ comments: true
 tags: [golang]
 description: Testing functionality that using system time
 keywords: golang test, time stubbing, golang stub time, golang test time
+aliases:
+    - /en/2014/10/stubbing-time-dot-now-in-golang.html
 ---
 
 Some time it's really hard to test functionality that involves with system time.
