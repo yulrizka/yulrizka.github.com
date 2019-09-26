@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title>symbolic vs hard link - labs.yulrizka.com</title>
-<meta name="description" content="symbolic vs hard link">
+<title>Sort file inline - labs.yulrizka.com</title>
+<meta name="description" content="How to sort file inline in unix">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="keywords" content="linux symlink">
+<meta name="keywords" content="unix,linux,sort">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/linux/symbolic-vs-hard-link/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/unix/sort-file-inline/">
 
 
 
@@ -32,26 +32,28 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-<h1>symbolic vs hard link</h1>
+<h1>Sort file inline</h1>
 <div class="posted_at">
-	2016-06-01 ::
+	2019-09-26 ::
 	( 1 minutes reading )
-</div><p>from <a href="http://stackoverflow.com/a/185903/546750">http://stackoverflow.com/a/185903/546750</a></p>
+</div><p>We can sort file by using <code>sort</code> command for example:</p>
 
-<blockquote>
-<p>Underneath the file system files are represented by inodes (or is it multiple inodes not sure)</p>
+<pre><code>$ sort a.txt
 
-<p>A file in the file system is basically a link to an inode.
-A hard link then just creates another file with a link to the same underlying inode.</p>
+# or
 
-<p>When you delete a file it removes one link to the underlying inode. The inode is only deleted (or deletable/over-writable) when all links to the inode have been deleted.</p>
+$ cat a.txt | sort
+</code></pre>
 
-<p>A symbolic link is a link to another name in the file system.</p>
+<p>But this will only output to stdout. Some time you want the file to be sorted. Instead you can do</p>
 
-<p>Once a hard link has been made the link is to the inode. deleting renaming or moving the original file will not affect the hard link as it links to the underlying inode. Any changes to the data on the inode is reflected in all files that refer to that inode.</p>
+<pre><code>$ sort a.txt -o a.txt
+</code></pre>
 
-<p>Note: Hard links are only valid within the same File System. Symbolic links can span file systems as they are simply the name of another file.</p>
-</blockquote>
+<p>note that this DOEST work and it will TRUNCATE the file</p>
+
+<pre><code>$ sort a.txt &gt; a.txt
+</code></pre>
 <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {

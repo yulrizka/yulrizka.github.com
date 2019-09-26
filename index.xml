@@ -5,10 +5,22 @@
     <link>https://labs.yulrizka.com/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 22 Sep 2019 16:20:01 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 26 Sep 2019 11:44:50 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sort file inline</title>
+      <link>https://labs.yulrizka.com/til/unix/sort-file-inline/</link>
+      <pubDate>Thu, 26 Sep 2019 11:44:50 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/unix/sort-file-inline/</guid>
+      <description>We can sort file by using sort command for example:
+$ sort a.txt # or $ cat a.txt | sort  But this will only output to stdout. Some time you want the file to be sorted. Instead you can do
+$ sort a.txt -o a.txt  note that this DOEST work and it will TRUNCATE the file
+$ sort a.txt &amp;gt; a.txt  </description>
+    </item>
     
     <item>
       <title>Show Hidden File</title>
