@@ -11,18 +11,27 @@ aliases:
     - /en/2014/10/stubbing-time-dot-now-in-golang.html
 ---
 
-Some time it's really hard to test functionality that involves with system time.
-Especially when we want to test the function at a specific time. For example testing
-whether today is end of month.
+Sometimes it's really hard to test functionality that involve with system time.
+Especially when we want to test the function with a specific time. For example testing
+whether today is end of month or test 2 different behavior at a different time
 
-Below we look into different way we can mock or stub the time with. Each with it's own
+Below we look into different ways we can mock or stub the time. Each with it's own
 advantages and disadvantages.  
 
-## Passing the time object
+## Passing the time instance
 
 ```go
 func CheckEndOfMonth(now time.Time) {
-  ...
+    // business process
+}
+
+func main() {
+	CheckEndOfMonth(time.Now())
+}
+
+// for test
+func TestCheckEndOfMonth(t *testing.T) {
+	CheckEndOfMonth(time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC))
 }
 ```
 
@@ -44,18 +53,18 @@ Disadvantages:
 ```go
 func CheckEndOfMonth(now func() time.Time) {
 	// ...
-	x := now()
+	x := now() // runs at this moment, not at the caller time
 }
 
 func main() {
-	CheckEndOfMonth(time.Now)
+	CheckEndOfMonth(time.Now) // instead of time.Now()
 }
 
 // for test
 func TestCheckEndOfMonth(t *testing.T) {
-	// you can access closure here if needed    
+	loc := time.UTC // closure can be used if necessary
 	timeFn := func() time.Time {
-		return time.Date(2019, 1, 1,0,0,0,0, time.UTC)
+		return time.Date(2019, 1, 1, 0, 0, 0, 0, loc)
 	}
 	CheckEndOfMonth(timeFn)
 }
@@ -64,14 +73,14 @@ func TestCheckEndOfMonth(t *testing.T) {
 
 Advantages:
 
-- This method allow you to have more control over how and when the time is generated.
-  For example the time is generated inside the `CheckEndOfMonth` not at the _caller_
+- This method allows you to have more control over how and when the time is generated.
+  For example the time is generated inside the `CheckEndOfMonth` not at the _caller_.
 - Allows the mock function to use closure inside the function
   
   
 Disadvantages:
 
-- Caller need to pass function 
+- Caller needs to pass function 
 
 ## Abstract the time generator as an interface
 ```go
@@ -106,28 +115,29 @@ func (m mockClock) Now() time.Time {
 }
 
 func TestCheckEndOfMonth(t *testing.T) {
-	mc := mockClock{}
+	mc := NewMockClock(time.Date(2019, 1, 1, 0, 0, 0, 0, time.UTC))
 	CheckEndOfMonth(mc)
 }
 ```
 
 Advantages:
 
-- Control the method that is used necessary 
+- Control the generator method 
+- Interface can be defined small with only needed functions
 - Easily switch to different implementation
   
   
 Disadvantages:
 
-- Caller need to pass instance 
+- Caller need to pass instance that implements the interface
 
 ##  Package level time generator
 
-Previous examples require you to pass in either concrete instance or a function on the caller
-that can be sometime cumbersome.
+Previous examples require you to pass in either concrete instance or a function on the caller.
 
-Another approach you can use, is to create a function to generate current time. And during the test
-you can change the implementation of the function.
+
+Another approach you can use is to create a package level function to generate current time. 
+You can change the implementation during test.
 
 ```go
 package main
@@ -211,6 +221,11 @@ func (t TimeValidator) now() time.Time  {
 
 	return t.clock()
 }
+
+func main() {
+	tv := TimeValidator{}
+	tv.CheckEndOfMonth()
+}
 ```
 
 And the test can be
@@ -227,9 +242,11 @@ func TestCheckEndOfMonth(t *testing.T) {
 I like this method because you don't have to pass instance of time or function all over the place
 but still have it easily create an arbitrary time mock/stub
 
-If you do this more often, you can also easily reuse the functionality in other struct
+**Make this pattern reusable**  
+If you do this more often, you can also easily reuse the functionality into other struct
+by creating embeddable 
 ```go
-// TimeMock embeddable structure that provide ability to inject time to the parent struct
+// TimeMock embeddable structure that provides ability to inject time to the parent struct
 type TimeMock struct {
 	NowFn func() time.Time
 
@@ -280,20 +297,18 @@ Advantages:
 
 - No need to pass instance of time or generator
 - Fall back to default standard library time implementation 
-- Easily extend existing struct
-- Mock different time easily in test
-- Start small functionality in MockTime struct and implement more function when necessary
+- Easily extend `TimeMock` by adding more function that is needed
 
 Disadvantages:
 
-- Extra struct
+- The caller needs to be a struct
 
 ## Better way to write test function with time
 
-Function with time is usually hard to test because it dependency with functions on package time.
+Function with time is usually hard to test because it dependency with  on _time_ package.
 
 A different way to test is to separate the function that generate the time with the function
-that process the time. For example
+that process the time value. For example
 
 ```go
 func CheckEndOfMonth()  {
@@ -322,6 +337,6 @@ func processEndOfMonth(t time.Time) {
 }
 ```
 
-this way you don't test the `CheckEndOfMonth()` function but `processEndOfMonth`. The downside is
-you will not have 100% test coverage :wink:
+this way you don't test the `CheckEndOfMonth()` but `processEndOfMonth`. This way you can easily
+mock time without the need to do some wiring.
 
