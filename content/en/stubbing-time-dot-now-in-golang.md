@@ -12,11 +12,11 @@ aliases:
 ---
 
 Some time it's really hard to test functionality that involves with system time.
-Especially when we wanted to test specific functionality. For example testing
-whether today is end of month. It's unrealistic to run this test case once every month.
+Especially when we want to test the function at a specific time. For example testing
+whether today is end of month.
 
-I can think of multiple ways to address this issue. It depends on the use case where it
-may apply to the usecase  
+Below we look into different way we can mock or stub the time with. Each with it's own
+advantages and disadvantages.  
 
 ## Passing the time object
 
@@ -28,7 +28,16 @@ func CheckEndOfMonth(now time.Time) {
 
 This way you can either pass `time.Now()` in your main pacakge
 or call it with something like `time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)` in your test.
-This work well but it's a bit cumbersome to pas it ever time we call the function
+
+Advantages:
+
+- Simple, no extra generator necessary
+- Easy to test, no need to wire mock function or struct
+  
+  
+Disadvantages:
+
+- Caller need to pass instance of everywhere
 
 ## Passing a function that generate time
 
@@ -53,8 +62,16 @@ func TestCheckEndOfMonth(t *testing.T) {
 
 ```
 
-This method allow you to have more control over how and when the time is generated.
-For example the time is generated inside the `CheckEndOfMonth` not at the _caller_
+Advantages:
+
+- This method allow you to have more control over how and when the time is generated.
+  For example the time is generated inside the `CheckEndOfMonth` not at the _caller_
+- Allows the mock function to use closure inside the function
+  
+  
+Disadvantages:
+
+- Caller need to pass function 
 
 ## Abstract the time generator as an interface
 ```go
@@ -77,9 +94,15 @@ func main() {
 
 on the test code
 ```go
-type mockClock struct {}
-func (mockClock) Now() time.Time {
-	return time.Date(2000, 12, 15, 17, 8, 00, 0, time.UTC)
+type mockClock struct {
+    t time.Time
+}
+func NewMockClock(t time.Time) mockClock {
+    return mocktime{t}
+}
+
+func (m mockClock) Now() time.Time {
+	return m.t
 }
 
 func TestCheckEndOfMonth(t *testing.T) {
@@ -88,7 +111,15 @@ func TestCheckEndOfMonth(t *testing.T) {
 }
 ```
 
-This has disadvantage that for each different time to test we must create a separate struct
+Advantages:
+
+- Control the method that is used necessary 
+- Easily switch to different implementation
+  
+  
+Disadvantages:
+
+- Caller need to pass instance 
 
 ##  Package level time generator
 
@@ -145,9 +176,16 @@ func TestCheckEndOfMonth(t *testing.T) {
 }
 ```
 
-Now that we hide from the caller but it became a package level function. Beside the fact
-that we always remember to call `resetClockImplementation`, this package is not thread
-safe. Tests can't be executed in parallel
+Advantages:
+
+- No need to pass instance of time or generator 
+  
+Disadvantages:
+
+- Caller need to pass instance 
+- Global variable
+- Not thread safe
+- Need to remember to call `resetClockImplementation`
 
 ## Embed time generator in struct
 
@@ -161,14 +199,14 @@ type TimeValidator struct {
 }
 
 func (t TimeValidator) CheckEndOfMonth()  {
-	x := t.clock()
+	x := t.now()
 	// ...
 }
 
 // now is time generator that by default fall back to standard library
 func (t TimeValidator) now() time.Time  {
 	if t.clock == nil {
-		return time.Now() // default implementation
+		return time.Now() // default implementation which fall back to standard library
 	}
 
 	return t.clock()
@@ -191,6 +229,7 @@ but still have it easily create an arbitrary time mock/stub
 
 If you do this more often, you can also easily reuse the functionality in other struct
 ```go
+// TimeMock embeddable structure that provide ability to inject time to the parent struct
 type TimeMock struct {
 	NowFn func() time.Time
 
@@ -206,8 +245,21 @@ func (t TimeMock) Now() time.Time  {
 	return t.NowFn()
 }
 
+// Use in the business logic
+
+// TimeValidator contains business logic that uses time.Now
 type TimeValidator struct {
-	TimeMock
+	clock TimeMock 
+}
+
+func (t TimeValidator) CheckEndOfMonth()  {
+	x := t.clock.Now()
+	// ...
+}
+
+func main () {
+    tv := TimeValidator{} // empty clock field gives implementation with standard lib
+    tv.CheckEndOfMonth()
 }
 ```
 
@@ -215,7 +267,7 @@ in test
 ```go
 func TestCheckEndOfMonth(t *testing.T) {
 	tv := TimeValidator{
-		TimeMock: TimeMock{
+		clock: TimeMock{
 			NowFn: func() time.Time {
 				return time.Date(2000, 12, 15, 17, 8, 00, 0, time.UTC)	
 		},
@@ -223,6 +275,18 @@ func TestCheckEndOfMonth(t *testing.T) {
 	tv.CheckEndOfMonth()
 }
 ```
+
+Advantages:
+
+- No need to pass instance of time or generator
+- Fall back to default standard library time implementation 
+- Easily extend existing struct
+- Mock different time easily in test
+- Start small functionality in MockTime struct and implement more function when necessary
+
+Disadvantages:
+
+- Extra struct
 
 ## Better way to write test function with time
 
@@ -248,7 +312,6 @@ func CheckEndOfMonth()  {
 	now :=  time.Now()
 
 	processEndOfMonth(now)
-	
 }
 
 func processEndOfMonth(t time.Time) {
