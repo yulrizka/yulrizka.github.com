@@ -594,7 +594,8 @@ example
       
       <guid>https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/</guid>
       <description>Some time it&amp;rsquo;s really hard to test functionality that involves with system time. Especially when we wanted to test specific functionality. For example testing whether today is end of month. It&amp;rsquo;s unrealistic to run this test case once every month.
-If you are coming from ruby land, you might familiar with some test library that solve this problem like timecop. Actually it&amp;rsquo;s not that hard to do it in Go also.</description>
+I can think of multiple ways to address this issue. It depends on the use case where it may apply to the usecase
+Passing the time object 1 2 3  func CheckEndOfMonth(now time.</description>
     </item>
     
     <item>

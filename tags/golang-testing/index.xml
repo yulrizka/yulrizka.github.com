@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang testing on </title>
+    <link>https://labs.yulrizka.com/tags/golang-testing/</link>
+    <description>Recent content in golang testing on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 27 Oct 2014 16:42:00 +0200</lastBuildDate>
+    
+	<atom:link href="https://labs.yulrizka.com/tags/golang-testing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Stubbing Time.Now() in golang</title>
+      <link>https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/</link>
+      <pubDate>Mon, 27 Oct 2014 16:42:00 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/</guid>
+      <description>Some time it&amp;rsquo;s really hard to test functionality that involves with system time. Especially when we wanted to test specific functionality. For example testing whether today is end of month. It&amp;rsquo;s unrealistic to run this test case once every month.
+I can think of multiple ways to address this issue. It depends on the use case where it may apply to the usecase
+Passing the time object 1 2 3  func CheckEndOfMonth(now time.</description>
+    </item>
+    
+  </channel>
+</rss>
