@@ -44,9 +44,9 @@ PushToTalk App installer   As a part of scrum teams, every day I need to give up
       <pubDate>Mon, 27 Oct 2014 16:42:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/</guid>
-      <description>Some time it&amp;rsquo;s really hard to test functionality that involves with system time. Especially when we wanted to test specific functionality. For example testing whether today is end of month. It&amp;rsquo;s unrealistic to run this test case once every month.
-I can think of multiple ways to address this issue. It depends on the use case where it may apply to the use-cases
-Passing the time object 1 2 3  func CheckEndOfMonth(now time.</description>
+      <description>Some time it&amp;rsquo;s really hard to test functionality that involves with system time. Especially when we want to test the function at a specific time. For example testing whether today is end of month.
+Below we look into different way we can mock or stub the time with. Each with it&amp;rsquo;s own advantages and disadvantages.
+Passing the time object 1 2 3  func CheckEndOfMonth(now time.Time) { ... }   This way you can either pass time.</description>
     </item>
     
     <item>

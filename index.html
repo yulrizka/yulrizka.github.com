@@ -898,11 +898,11 @@ The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</
   
 
 <p>Some time it&rsquo;s really hard to test functionality that involves with system time.
-Especially when we wanted to test specific functionality. For example testing
-whether today is end of month. It&rsquo;s unrealistic to run this test case once every month.</p>
+Especially when we want to test the function at a specific time. For example testing
+whether today is end of month.</p>
 
-<p>I can think of multiple ways to address this issue. It depends on the use case where it
-may apply to the use-cases</p>
+<p>Below we look into different way we can mock or stub the time with. Each with it&rsquo;s own
+advantages and disadvantages.</p>
 
 <h2 id="passing-the-time-object">Passing the time object</h2>
 <div class="highlight"><div class="chroma">
@@ -1228,7 +1228,7 @@ you can change the implementation of the function.</p>
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
-	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">clock</span><span class="p">()</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
 	<span class="c1">// ...
 </span><span class="c1"></span><span class="p">}</span>
 
@@ -1287,9 +1287,24 @@ but still have it easily create an arbitrary time mock/stub</p>
 </span><span class="lnt">16
 </span><span class="lnt">17
 </span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">TimeMock</span> <span class="kd">struct</span> <span class="p">{</span>
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// TimeMock embeddable structure that provide ability to inject time to the parent struct
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeMock</span> <span class="kd">struct</span> <span class="p">{</span>
 	<span class="nx">NowFn</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
 
 	<span class="c1">// can be extended to mock other time function
@@ -1304,8 +1319,21 @@ but still have it easily create an arbitrary time mock/stub</p>
 	<span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NowFn</span><span class="p">()</span>
 <span class="p">}</span>
 
-<span class="kd">type</span> <span class="nx">TimeValidator</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">TimeMock</span>
+<span class="c1">// Use in the business logic
+</span><span class="c1"></span>
+<span class="c1">// TimeValidator contains business logic that uses time.Now
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeValidator</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">clock</span> <span class="nx">TimeMock</span> 
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">clock</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span> <span class="c1">// empty clock field gives implementation with standard lib
+</span><span class="c1"></span>    <span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
 <span class="p">}</span></code></pre></td></tr></table>
 </div>
 </div>
@@ -1325,7 +1353,7 @@ but still have it easily create an arbitrary time mock/stub</p>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{</span>
-		<span class="nx">TimeMock</span><span class="p">:</span> <span class="nx">TimeMock</span><span class="p">{</span>
+		<span class="nx">clock</span><span class="p">:</span> <span class="nx">TimeMock</span><span class="p">{</span>
 			<span class="nx">NowFn</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
 				<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>	
 		<span class="p">},</span>
@@ -1393,14 +1421,12 @@ that process the time. For example</p>
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
-</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
 	<span class="nx">now</span> <span class="o">:=</span>  <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
 
 	<span class="nf">processEndOfMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">)</span>
-	
 <span class="p">}</span>
 
 <span class="kd">func</span> <span class="nf">processEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
