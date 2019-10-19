@@ -3,9 +3,9 @@
 {{ range (.Paginate (where .Pages "Section" "in" "en,id")).Pages }}
 <article>
   <a href="{{ .Permalink }}">
-    <h1>
+    <h2>
       {{ .Title }}
-    </h1>
+    </h2>
   </a>
   <div class="posted_at">
     {{ dateFormat "2006-01-02" .Date }} ::

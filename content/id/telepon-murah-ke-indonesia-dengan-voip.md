@@ -14,7 +14,7 @@ dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang dit
 memutuskan untuk menggunakan VoIP*
 
 <div class="thumbnail" align="center">
-  <img src="http://blog.allstream.com/wp-content/uploads/2013/05/3822639-xsmall.jpg"/>
+  <img src="https://blog.allstream.com/wp-content/uploads/2013/05/3822639-xsmall.jpg"/>
 </div>
 
 Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra.
