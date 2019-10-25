@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title> - labs.yulrizka.com</title>
+<title>Regex for Validating Password - labs.yulrizka.com</title>
 <meta name="description" content="">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<meta name="keywords" content="regex validating password">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/analytics/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">
 
 
 
@@ -31,17 +31,46 @@
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content"><p>analytics index</p>
-<h1>
-		
-		
-		Today I Learned
-	</h1>
+        <div class="content">
+<h1>Regex for Validating Password</h1>
+<div class="posted_at">
+	2019-10-25 ::
+	( 1 minutes reading )
+</div><p>This regex can be use to validate password</p>
 
-	
-		
-	
+<pre><code>((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,20})
+</code></pre>
 
+<p>description:</p>
+
+<pre><code>(                   # Start of group
+  (?=.*\d)          # must contains one digit from 0-9
+  (?=.*[a-z])       # must contains one lowercase characters
+  (?=.*[\W])        # must contains at least one special character
+  .                 # match anything with previous condition checking
+  {8,20}            # length at least 8 characters and maximum of 20 
+)                   # End of group
+</code></pre>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
         </div>
       </div>

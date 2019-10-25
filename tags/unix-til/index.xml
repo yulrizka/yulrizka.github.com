@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>unix til on </title>
+    <link>https://labs.yulrizka.com/tags/unix-til/</link>
+    <description>Recent content in unix til on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 25 Oct 2019 11:55:53 +0200</lastBuildDate>
+    
+	<atom:link href="https://labs.yulrizka.com/tags/unix-til/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Regex for Validating Password</title>
+      <link>https://labs.yulrizka.com/til/unix/regex-for-validating-password/</link>
+      <pubDate>Fri, 25 Oct 2019 11:55:53 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/unix/regex-for-validating-password/</guid>
+      <description>This regex can be use to validate password
+((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,20})  description:
+( # Start of group (?=.*\d) # must contains one digit from 0-9 (?=.*[a-z]) # must contains one lowercase characters (?=.*[\W]) # must contains at least one special character . # match anything with previous condition checking {8,20} # length at least 8 characters and maximum of 20 ) # End of group  </description>
+    </item>
+    
+  </channel>
+</rss>
