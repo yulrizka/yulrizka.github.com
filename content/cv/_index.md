@@ -11,7 +11,9 @@ keywords: CV Resume Ahmy Yulrizka
 
 # Ahmy yulrizka - Senior Software Engineer
 
+
 <a id="downloadLink" href="/cv/Ahmy_Yulrizka_-_Senior_Software_Engineer.pdf" download style="font-size: 1.5em">Download as PDF</a>
+
 
 I have More than 11 years of experience with software development. I involved in the design, architect, and implement high throughput systems serving traffic for one of the top popular sites in the Netherlands. 
 
@@ -168,10 +170,13 @@ November 2013 - November 2015
 Credential ID: AWS-ASA-1810  
 http://aws.amazon.com/certification/  
 
-<br/>
 
 ## Languages
 
 * Indonesian
 * English
 * Dutch - A2
+
+<br/>
+
+<img src="/cv/logo.png" width="40px" height="40px" />
