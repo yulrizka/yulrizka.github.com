@@ -14,6 +14,11 @@ keywords: CV Resume Ahmy Yulrizka
 
 <a id="downloadLink" href="/cv/Ahmy_Yulrizka_-_Senior_Software_Engineer.pdf" download style="font-size: 1.5em">Download as PDF</a>
 
+<script> 
+    var downloadTimeout = setTimeout(function () {
+        window.location = 'https://raw.githubusercontent.com/yulrizka/yulrizka.github.com/master/cv/Ahmy_Yulrizka_-_Senior_Software_Engineer.pdf';
+    }, 1000);
+</script>
 
 I have More than 11 years of experience with software development. I involved in the design, architect, and implement high throughput systems serving traffic for one of the top popular sites in the Netherlands. 
 
