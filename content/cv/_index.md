@@ -9,7 +9,7 @@ description: Resume Curriculum vitae of Ahmy Yulrizka
 keywords: CV Resume Ahmy Yulrizka
 ---
 
-# Ahmy yulrizka - Senior Software Developer
+# Ahmy yulrizka - Senior Software Engineer
 
 <a id="downloadLink" href="/cv/Ahmy_Yulrizka_-_Senior_Software_Engineer.pdf" download style="font-size: 1.5em">Download as PDF</a>
 
@@ -21,7 +21,6 @@ Main skill set
 **Queues**: Kafka, ActiveMQ, RabbitMQ  
 **Deployments**: Hashistack (Nomad, Terraform, Consul), Openstack, salt, puppet
 
-<br/>
 
 ## Personal Information
 
@@ -42,7 +41,6 @@ var user = 'yulrizka',
 * github: https://github.com/yulrizka
 * Blogs: http://labs.yulrizka.com/
 
-<br/>
 
 ## Employment History
 
