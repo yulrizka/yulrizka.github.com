@@ -30,8 +30,8 @@ Sebelum mengeksplorasi mongodb, ada beberapa konsep yang harus kita pahami tenta
 * Routing Process (mongos)
 
 <div class="row">
-  <a href="http://www.mongodb.org/display/DOCS/Sharding+Introduction" class="thumbnail span7 offset2">
-    <img src="http://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&nbsp;modificationDate=1267724627656"/>
+  <a href="https://www.mongodb.org/display/DOCS/Sharding+Introduction" class="thumbnail span7 offset2">
+    <img src="https://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&nbsp;modificationDate=1267724627656"/>
     <h5>Skema Sharding - MongoDB Sharding Introduction</h5>
   </a>
 </div>

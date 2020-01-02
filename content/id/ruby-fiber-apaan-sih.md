@@ -10,13 +10,13 @@ keywords: fiber, ruby, thread, green thread
 ---
 <blockquote>
   <p>
-    Fibers are light-weight (green) <a href="http://en.wikipedia.org/wiki/Thread_(computing)" alt="wiki Thread (Computing)">
+    Fibers are light-weight (green) <a href="https://en.wikipedia.org/wiki/Thread_(computing)" alt="wiki Thread (Computing)">
       threads</a> with manual, cooperative scheduling, rather than the preemptive scheduling
     of Ruby 1.8's threads. Since Ruby 1.9's threads exist at the system level, fibers are, in a way,
     Ruby 1.9's answer to Ruby 1.8's green threads, but lacking the pre-emptive scheduling
   </p>
   <small>
-    <a href="http://www.rubyinside.com/ruby-fibers-8-useful-reads-on-rubys-new-concurrency-feature-1769.html">
+    <a href="https://www.rubyinside.com/ruby-fibers-8-useful-reads-on-rubys-new-concurrency-feature-1769.html">
       rubyinside.com
     </a>
   </small>
@@ -53,10 +53,10 @@ thread kedua melakukan 50ms komputasi.
 
 Berikut adalah implementasi dalam thread dan juga fiber:
 <div class="thumbnail">
-  <img src="http://www.igvita.com/posts/09/fibers-vs-threads.png"></img>
+  <img src="https://www.igvita.com/posts/09/fibers-vs-threads.png"></img>
   <div class="caption">
     Komparasi kode yang dijalankan menggunakan thread &nbsp; fiber.
-    <a href="http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/</a>
+    <a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/</a>
   </div>
 </div><br/>
 
