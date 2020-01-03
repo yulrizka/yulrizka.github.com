@@ -20,7 +20,9 @@ keywords: CV Resume Ahmy Yulrizka
     }, 1000);
 </script>
 
-I have More than 11 years of experience with software development. I involved in the design, architect, and implement high throughput systems serving traffic for one of the top popular sites in the Netherlands. 
+I have more than 11 years of experience in software development. I involved in designing, architect, and implementing high throughput systems serving traffic for one of the top popular sites in the Netherlands. 
+
+As part of a team, my potential contributions would be to collaborate with the team and business to rapidly iterate on a design and implementation of new functionalities as well as maintaining, improving, and scaling the current system.
 
 Main skill set  
 **Programming Languages**: Golang, ruby, python, java  
@@ -55,7 +57,7 @@ var user = 'yulrizka',
 Aug 2015 - Present (4.5 years)  
 Amsterdam, The Netherlands
 
-I started working as a software developer. My role then was to design and implement multiple micro-services to support high-throughput systems. Currently, leading the platform sub-team which focuses on closing the gap between developers and operations with automation.
+Initially, I started working as a software developer with a role to design and implement multiple micro-services to support high-throughput systems. Currently, I am leading the platform sub-team which focuses on closing gaps between developers and operations with automation.
 
 **Key technologies**: Go, MySQL, Clickhouse, Elasticsearch, HashiStack (consul, nomad), Kafka, Redis
 
@@ -73,9 +75,16 @@ Responsibilities:
 Jun 2012 - July 2015 (3 years 2 months)  
 Rotterdam, The Netherlands
 
-Sense OS is a start-up that focuses on providing IOT platform with an intelligent agent that empowers developers to build smart applications. My main role is to expand and scale the back-end system
+Sense OS is a start-up that focuses on providing IOT platform with an intelligent agent that empowers developers to build smart applications. My main role was to expand and scale the back-end system
+
 
 **Key technologies**: Go, PHP, Ruby & Rails, Cassandra, MySQL, MongoDB, AWS (EC2, Route53, S3), Openstack, Kafka, Redis, ELK Stack, Chef, Android (java), iOS (Swift & Objective-C). Frontend (JS, Angular, CSS, Haml, Compass, Sass)
+
+Responsibilities:
+
+* Sense OS is a start-up that focuses on providing IOT platform with an intelligent agent that empowers developers to build smart applications. My main role was to expand and scale the back-end system
+
+Key technologies : Go, PHP, Ruby & Rails, Cassandra, MySQL, MongoDB, AWS (EC2, Route53, S3), Openstack, Kafka, Redis, ELK Stack, Chef, Android (java), iOS (Swift & Objective-C). Frontend (JS, Angular, CSS, Haml, Compass, Sass)
 
 Responsibilities:
 
@@ -92,7 +101,7 @@ Responsibilities:
 Jan 2009 - Jan 2012 (3 years 1 month)  
 Bandung, Indonesia
 
-Starqle is a small startup that mainly develops software for company and government institutions.
+Starqle is a small startup that mainly develops software for companies and government institutions.
 
 **Key technologies**: Ruby (and rails, sinatra), Java (hibernate, JBoss Seam), PHP, MySQL, Git, SVN
 
@@ -109,13 +118,13 @@ Responsibilities:
 Mar 2008 - Jan 2009 (11 months)  
 Bandung, Indonesia
 
-Zamrud Khatilistiwa Techonloy is a software company that develop custom solutions for private companies. I started as a junior software developer.
+I started my career as a junior software developer at Zamrud Khatilistiwa Technology. This company develops a custom solution for the private sector in which I involved mainly as a programmer.
 
 **Key technologies**: Javascript (Extjs),  PHP, Java (Spring, DWR, Hibernate), Mysql, Subversion
 
 Responsibilities:
 
-* Lead programmer crayonpedia.org. Customizing  mediawiki engines to create an encyclopedia that follows the national school curriculum.
+* Lead developer crayonpedia.org. Customizing  mediawiki engines to create an encyclopedia that follows the national school curriculum.
 * As a developer of financial systems for the local state government.
 * As a developer of administration support systems used by one of the national agencies.
 * Establish policies and software version control systems to enable collaborative development.
@@ -175,13 +184,28 @@ November 2013 - November 2015
 Credential ID: AWS-ASA-1810  
 http://aws.amazon.com/certification/  
 
+<br/>
+
+## Honors and Awards
+
+### 1st place Bandung Open Data Summit & Challenge “BOSCHA 2015"
+Bandung Open Data
+February 2015
+
+### 1st place Data of the Crowds Hackathon
+CMI en Creating010 van Hogeschool Rotterdam, Zeewaardig en Gemeente Rotterdam
+August 2014
+
+### 4th Best on Indosat Wireless Innovation Contest category android
+Indosat Indonesia
+2012
+
+### 2nd Best on Codefest Asia 2007
+Code Asia
+2007
 
 ## Languages
 
 * Indonesian
 * English
 * Dutch - A2
-
-<br/>
-
-<img src="/cv/logo.png" width="40px" height="40px" />
