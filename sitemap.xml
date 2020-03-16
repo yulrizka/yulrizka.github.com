@@ -4,52 +4,48 @@
   
   <url>
     <loc>https://labs.yulrizka.com/</loc>
-    <lastmod>2020-03-08T13:23:49+01:00</lastmod>
+    <lastmod>2020-03-16T14:44:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/git/</loc>
+    <lastmod>2020-03-16T14:44:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/git/checkout-last-branch/</loc>
+    <lastmod>2020-03-16T14:44:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/</loc>
+    <lastmod>2020-03-16T14:44:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/til/</loc>
+    <lastmod>2020-03-16T14:44:17+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/til/unix/</loc>
-    <lastmod>2020-03-08T13:23:49+01:00</lastmod>
+    <lastmod>2019-09-26T11:44:50+02:00</lastmod>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/</loc>
-    <lastmod>2020-03-08T13:23:49+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/</loc>
-    <lastmod>2020-03-08T13:23:49+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/unix-til/</loc>
-    <lastmod>2020-03-08T13:23:49+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/</loc>
-    <lastmod>2020-03-08T13:18:33+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/til-unix/</loc>
-    <lastmod>2020-03-08T13:18:33+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/til/unix/regex-for-validating-password/</loc>
-    <lastmod>2019-10-25T11:55:53+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/til/unix/sort-file-inline/</loc>
     <lastmod>2019-09-26T11:44:50+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/til-unix/</loc>
+    <lastmod>2019-09-26T11:44:50+02:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -92,12 +88,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-unix-tmux/</loc>
     <lastmod>2019-01-17T00:00:00+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/til/git/</loc>
-    <lastmod>2019-01-13T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -282,12 +272,6 @@
   <url>
     <loc>https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/</loc>
     <lastmod>2016-06-07T00:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/til/</loc>
-    <lastmod>2016-06-07T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

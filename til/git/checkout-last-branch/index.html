@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title> - labs.yulrizka.com</title>
-<meta name="description" content="">
+<title>Checkout Last Branch - labs.yulrizka.com</title>
+<meta name="description" content="checkout last branch">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<meta name="keywords" content="git,til">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/linux/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/git/checkout-last-branch/">
 
 
 
@@ -31,17 +31,60 @@
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content"><p>Linux index</p>
-<h1>
-		
-		
-		Today I Learned
-	</h1>
+        <div class="content">
+<h1>Checkout Last Branch</h1>
+<div class="posted_at">
+	2020-03-16 ::
+	( 1 minutes reading )
+</div><p>Sometimes you are checking out mutltiple different git branches and want to navigate back to previous branch.</p>
 
-	
-		
-	
+<p>You can use <code>git checkout -</code> to do it</p>
 
+<p>example :</p>
+
+<pre><code>$ git checkout ay/convert-errors-lib
+Updating files: 100% (2480/2480), done.
+Switched to branch 'ay/convert-errors-lib'
+
+$ git checkout -
+Updating files: 100% (2480/2480), done.
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+</code></pre>
+
+<p>If you want to checkout 2 branches a go. you can do</p>
+
+<pre><code>$ git checkout @{-2}
+</code></pre>
+
+<p>Basically <code>git checkout -</code> is equql to <code>git checkout @{-1}</code></p>
+
+<p>If you want to list all of the checked out branch (history) you can use this script</p>
+
+<pre><code>$ for i in {1..10}; do echo -n &quot;[$i] &quot;; git rev-parse --symbolic-full-name @{-$i}; done
+</code></pre>
+
+<p>I added this as a git command on my zsh. have a look at <a href="https://github.com/yulrizka/oh-my-zsh/commit/2b730e3bf2777f83e6a215da4a03e51e67145ff3">this commit</a></p>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
         </div>
       </div>

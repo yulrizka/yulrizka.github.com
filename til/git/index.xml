@@ -5,10 +5,22 @@
     <link>https://labs.yulrizka.com/til/git/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 13 Jan 2019 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 16 Mar 2020 14:44:17 +0100</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/til/git/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Checkout Last Branch</title>
+      <link>https://labs.yulrizka.com/til/git/checkout-last-branch/</link>
+      <pubDate>Mon, 16 Mar 2020 14:44:17 +0100</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/git/checkout-last-branch/</guid>
+      <description>Sometimes you are checking out mutltiple different git branches and want to navigate back to previous branch.
+You can use git checkout - to do it
+example :
+$ git checkout ay/convert-errors-lib Updating files: 100% (2480/2480), done. Switched to branch &#39;ay/convert-errors-lib&#39; $ git checkout - Updating files: 100% (2480/2480), done. Switched to branch &#39;master&#39; Your branch is up to date with &#39;origin/master&#39;.  If you want to checkout 2 branches a go.</description>
+    </item>
     
     <item>
       <title>reset email multiple git commit</title>

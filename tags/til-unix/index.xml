@@ -5,22 +5,10 @@
     <link>https://labs.yulrizka.com/tags/til-unix/</link>
     <description>Recent content in til unix on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 08 Mar 2020 13:18:33 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 26 Sep 2019 11:44:50 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/tags/til-unix/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Open Last Command in the Editor With Fc</title>
-      <link>https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/</link>
-      <pubDate>Sun, 08 Mar 2020 13:18:33 +0100</pubDate>
-      
-      <guid>https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/</guid>
-      <description>Some time you have a long command and you want to edit multiple word in it. for example: $ cat foo.txt | grep foo | grep -v bar &amp;gt; foo_output.txt
-Say you want to execute this 5 times and each replacing foo and bar with something else.
-for that you can use the fc command.
-$ fc  It will open a text editor (vim for me. I&amp;rsquo;m guessing it will look at $EDITOR env variable).</description>
-    </item>
     
     <item>
       <title>Sort file inline</title>
