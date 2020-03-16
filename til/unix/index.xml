@@ -17,9 +17,9 @@
       
       <guid>https://labs.yulrizka.com/til/unix/sort-file-inline/</guid>
       <description>We can sort file by using sort command for example:
-$ sort a.txt # or $ cat a.txt | sort  But this will only output to stdout. Some time you want the file to be sorted. Instead you can do
-$ sort a.txt -o a.txt  note that this DOEST work and it will TRUNCATE the file
-$ sort a.txt &amp;gt; a.txt  </description>
+1 2 3 4 5  $ sort a.txt # or $ cat a.txt | sort   But this will only output to stdout. Some time you want the file to be sorted. Instead you can do
+1  $ sort a.txt -o a.txt   note that this DOEST work and it will TRUNCATE the file
+1  $ sort a.</description>
     </item>
     
     <item>
@@ -29,9 +29,9 @@ $ sort a.txt &amp;gt; a.txt  </description>
       
       <guid>https://labs.yulrizka.com/til/unix/bash-forloop/</guid>
       <description>Example of forloop syntax
-for i in 1 2 3 4 5 do echo &amp;quot;i=$i&amp;quot; done  with range
-for i in {1..5} do echo &amp;quot;i=$i&amp;quot; done  cutomize increment
-for i in {0..10..2} do echo &amp;quot;i=$i&amp;quot; done  </description>
+1 2 3 4  for i in 1 2 3 4 5 do echo &amp;#34;i=$i&amp;#34; done   with range
+1 2 3 4  for i in {1..5} do echo &amp;#34;i=$i&amp;#34; done   cutomize increment
+1 2 3 4  for i in {0..10..2} do echo &amp;#34;i=$i&amp;#34; done  </description>
     </item>
     
     <item>
@@ -54,8 +54,8 @@ bindkey &amp;quot;^P&amp;quot; up-line-or-beginning-search bindkey &amp;quot;^N&
       
       <guid>https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/</guid>
       <description>Assuming the domain name is yulrizka.com and the certificate was created with
-$ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com  To extend this certificate with DNS challenge
-# certbot -d yulrizka.com --manual --preferred-challenges dns certonly  You will be asked to add TXT record of _acme-challenge.yulrizka.com.
+1  $ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com   To extend this certificate with DNS challenge
+1  # certbot -d yulrizka.com --manual --preferred-challenges dns certonly   You will be asked to add TXT record of _acme-challenge.yulrizka.com.
 After updating that DNS record, wait couple of minutes and proceed.</description>
     </item>
     
@@ -74,11 +74,10 @@ After updating that DNS record, wait couple of minutes and proceed.</description
       <pubDate>Sun, 06 Jan 2019 00:00:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/til/unix/encription-with-gpg/</guid>
-      <description>Generate key gpg --gen-key  List keys gpg --list-keys  Encrypt Data With a passprhare
-gpg -ca -o output.txt.gpg input.txt  with a certificate and from STDOUT
-gpg -ea  or if you know the name already (can be key, name or email)
-gpg -ea -r &amp;quot;Ahmy&amp;quot;  Decrypt Data gpg -d file.txt.gpg  Export Public key
-gpg --export -a &amp;quot;name&amp;quot; &amp;gt; public.key  -a is to create armored ascii output.</description>
+      <description>Generate key 1  $ gpg --gen-key   List keys 1  $ gpg --list-keys   Encrypt Data With a passprhare
+1  $ gpg -ca -o output.txt.gpg input.txt   with a certificate and from STDOUT
+1  $ gpg -ea    or if you know the name already (can be key, name or email)
+1  $ gpg -ea -r &amp;#34;Ahmy&amp;#34;   Decrypt Data 1  $ gpg -d file.</description>
     </item>
     
     <item>

@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.55.6" />
+
+<title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
+<meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<meta name="author" content="Ahmy Yulrizka">
+<link rel="canonical" href="https://labs.yulrizka.com/">
+
+
+
+
+
+ 
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+
+
+
+
+<link href='https://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/process-pipe-operator/">
+    <h2>
+      process pipe operator
+    </h2>
+  </a>
+  <div class="posted_at">
+    2015-02-12 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p><code>&lt;( )</code> operator executes command inside the parenthesis and output the file descriptor</p>
+
+<p>example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span><span class="o">)</span> &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;world&#39;</span><span class="o">)</span>
+hello
+world
+
+<span class="c1"># is practically the same with</span>
+
+$ <span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span> &gt; <span class="m">1</span>.txt
+$ <span class="nb">echo</span> <span class="s1">&#39;world&#39;</span> &gt; <span class="m">2</span>.txt
+$ cat <span class="m">1</span>.txt <span class="m">2</span>.txt
+
+<span class="c1"># replace cat with ls</span>
+$ ls &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span><span class="o">)</span> &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;world&#39;</span><span class="o">)</span>
+/proc/self/fd/11  /proc/self/fd/12</code></pre></td></tr></table>
+</div>
+</div>
+<p>you can use this command for example to compare 2 directory and find only uniq file</p>
+
+<p>example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ comm -3 &lt;<span class="o">(</span>ls -1 dir1<span class="o">)</span> &lt;<span class="o">(</span>ls -1 dir2<span class="o">)</span></code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">
+    <h2>
+      Tracking origin of bugs with git bisect
+    </h2>
+  </a>
+  <div class="posted_at">
+    2015-01-16 ::
+    ( 4 minutes reading )
+  </div>
+
+  <div class="thumbnail" align="center">
+  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
+  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
+</div>
+
+<p>I&rsquo;ve been involved with a iOS project this past week. I&rsquo;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
+One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
+The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
+
+<p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
+bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>&rsquo;. Then every time you mark a commit as good / bad,
+it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
+whether the bugs exist or not.</p>
+
+<p>Here is an example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># let&#39;s start  bisecting, Im in unstable branch,</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect start
+
+<span class="sb">````</span>
+
+the prompt <span class="sb">`</span>sense-ios-library<span class="sb">`</span> shows the current folder, and <span class="sb">`</span>git:<span class="o">(</span>unstable<span class="o">)</span><span class="sb">`</span> show current commit. it<span class="s1">&#39;s part of [oh-my-zsh][oh-my-zsh] plugin
+</span><span class="s1">
+</span><span class="s1">
+</span><span class="s1">``` bash
+</span><span class="s1"># I open the xcode, and it took quite a long time. so let&#39;</span>s marks current revision as bad
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect bad
+
+<span class="c1"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect good master 
+
+Bisecting: <span class="m">9</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">3</span> steps<span class="o">)</span>
+<span class="o">[</span>c1841c0f99a4fa788c14c7437fac7c9547c768c9<span class="o">]</span> Merge pull request <span class="c1">#45 from senseobservationsystems/feature-KeepDataLocally</span>
+
+<span class="c1"># now I&#39;m in c1841 commit, I tested again with xcode, and found no problem, mark it as good</span>
+
+➜  sense2 git:<span class="o">(</span>c1841c0<span class="o">)</span> $ git bisect good
+
+Bisecting: <span class="m">4</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">2</span> steps<span class="o">)</span>
+<span class="o">[</span>06bbd23c4af8f7008abfb814e1375b271e0b23e9<span class="o">]</span> Update interface and write tests lsit<span class="o">(</span> APPEND CMAKE_CXX_FLAGS <span class="s2">&#34;-std=c++0x&#34;</span><span class="o">)</span>
+
+<span class="c1"># tested again, it&#39;s good</span>
+➜  sense2 git:<span class="o">(</span>06bbd23<span class="o">)</span> $ git bisect good
+
+Bisecting: <span class="m">2</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">1</span> step<span class="o">)</span>
+<span class="o">[</span>71517b7923143a8cf1ce205341dd6942c9468198<span class="o">]</span> Added threshold <span class="k">for</span> checking to remove old data from <span class="nb">local</span> storage to save battery life
+
+<span class="c1"># Tested again, Now I&#39;m beginning to see the problem. Let&#39;s mark this bad</span>
+➜  sense2 git:<span class="o">(</span>71517b7<span class="o">)</span> $ git bisect bad
+
+Bisecting: <span class="m">0</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">0</span> steps<span class="o">)</span>
+<span class="o">[</span>e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1<span class="o">]</span> Updated functionality and tests of getting <span class="nb">local</span> data
+
+<span class="c1"># ....</span> 
+<span class="c1"># and we keep doing this until we find the first commit when it was introduced.</span>
+
+<span class="c1"># Now let&#39;s check our progress using log</span>
+
+➜  sense-ios-library git:<span class="o">(</span>71517b7<span class="o">)</span> $ git bisect log
+
+git bisect start
+<span class="c1"># bad: [af42213324297e1234767f9224ec1af326514292] Merge pull request #48 from senseobservationsystems/feature-LocalStorageInterface</span>
+git bisect bad af42213324297e1234767f9224ec1af326514292
+<span class="c1"># good: [19f751627d152b89d3f2ecadb144507fcf9293fc] Merge pull request #43 from senseobservationsystems/unstable</span>
+git bisect good 19f751627d152b89d3f2ecadb144507fcf9293fc
+<span class="c1"># good: [c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</span>
+git bisect good c1841c0f99a4fa788c14c7437fac7c9547c768c9
+<span class="c1"># good: [06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &#34;-std=c++0x&#34;)</span>
+git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9
+
+<span class="c1"># when you reach the final commit, you will be shown the commit log and modified file</span>
+
+➜  sense2 git:<span class="o">(</span>e5c40d4<span class="o">)</span> $ git bisect bad
+
+e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit
+commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1
+Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;
+Date:   Thu Jan <span class="m">8</span> <span class="m">14</span>:38:07 <span class="m">2015</span> +0100
+
+    Updated functionality and tests of getting <span class="nb">local</span> data
+
+:040000 <span class="m">040000</span> 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests
+:040000 <span class="m">040000</span> 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj
+:040000 <span class="m">040000</span> a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests
+:040000 <span class="m">040000</span> 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform</code></pre></td></tr></table>
+</div>
+</div>
+<p>Now that you know when was the bugs introduced. you can now start looking at the problem.</p>
+
+<p>I found out there is something that doesn&rsquo;t feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>.
+There is a reference to <code>Xcode.app</code> in one of the folder. So every time I open the project,
+or switch branch, it will try to look into things inside <code>Xcode.app</code>.
+So removing the reference indeed solve the problem.</p>
+
+<p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced.
+You can even automate the test so you don&rsquo;t have to check each bisect commit your self.
+The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command and also an example on how to automate the test.</p>
+
+<p>Now go on catch and squash those annoying bug!</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">
+    <h2>
+      Stubbing Time.Now() in golang
+    </h2>
+  </a>
+  <div class="posted_at">
+    2014-10-27 ::
+    ( 6 minutes reading )
+  </div>
+
+  
+
+<p>Sometimes it&rsquo;s really hard to test functionality that involve with system time.
+Especially when we want to test the function with a specific time. For example testing
+whether today is end of month or test 2 different behavior at a different time</p>
+
+<p>Below we look into different ways we can mock or stub the time. Each with it&rsquo;s own
+advantages and disadvantages.</p>
+
+<h2 id="passing-the-time-instance">Passing the time instance</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// business process
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="c1">// for test
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>This way you can either pass <code>time.Now()</code> in your main pacakge
+or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.</p>
+
+<p>Advantages:</p>
+
+<ul>
+<li>Simple, no extra generator necessary</li>
+<li>Easy to test, no need to wire mock function or struct
+<br />
+<br /></li>
+</ul>
+
+<p>Disadvantages:</p>
+
+<ul>
+<li>Caller need to pass instance of everywhere</li>
+</ul>
+
+<h2 id="passing-a-function-that-generate-time">Passing a function that generate time</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span> <span class="c1">// runs at this moment, not at the caller time
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">)</span> <span class="c1">// instead of time.Now()
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// for test
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">loc</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span> <span class="c1">// closure can be used if necessary
+</span><span class="c1"></span>	<span class="nx">timeFn</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">loc</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">timeFn</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Advantages:</p>
+
+<ul>
+<li>This method allows you to have more control over how and when the time is generated.
+For example the time is generated inside the <code>CheckEndOfMonth</code> not at the <em>caller</em>.</li>
+<li>Allows the mock function to use closure inside the function
+<br />
+<br /></li>
+</ul>
+
+<p>Disadvantages:</p>
+
+<ul>
+<li>Caller needs to pass function</li>
+</ul>
+
+<h2 id="abstract-the-time-generator-as-an-interface">Abstract the time generator as an interface</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Clock</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">realClock</span> <span class="kd">struct</span> <span class="p">{}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">realClock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">clock</span> <span class="nx">Clock</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">clock</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">realClock</span><span class="p">{})</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>on the test code</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">mockClock</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">NewMockClock</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">mockClock</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">mocktime</span><span class="p">{</span><span class="nx">t</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">mockClock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nx">t</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">mc</span> <span class="o">:=</span> <span class="nf">NewMockClock</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">mc</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Advantages:</p>
+
+<ul>
+<li>Control the generator method</li>
+<li>Interface can be defined small with only needed functions</li>
+<li>Easily switch to different implementation
+<br />
+<br /></li>
+</ul>
+
+<p>Disadvantages:</p>
+
+<ul>
+<li>Caller need to pass instance that implements the interface</li>
+</ul>
+
+<h2 id="package-level-time-generator">Package level time generator</h2>
+
+<p>Previous examples require you to pass in either concrete instance or a function on the caller.</p>
+
+<p>Another approach you can use is to create a package level function to generate current time.
+You can change the implementation during test.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;time&#34;</span>
+
+<span class="kd">type</span> <span class="nx">nowFuncT</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+
+<span class="kd">var</span> <span class="nx">nowFunc</span> <span class="nx">nowFuncT</span>
+
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">resetClockImplementation</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">resetClockImplementation</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// function to return current time stamp in UTC
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">nowFunc</span><span class="p">().</span><span class="nf">UTC</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>now in your test you could do something like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// change implementation of clock in the beginning of the test
+</span><span class="c1"></span>    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// after finish with the test, reset the time implementation
+</span><span class="c1"></span>    <span class="k">defer</span> <span class="nf">resetClockImplementation</span><span class="p">()</span>
+    
+    <span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+    <span class="c1">//...
+</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Advantages:</p>
+
+<ul>
+<li>No need to pass instance of time or generator
+<br /></li>
+</ul>
+
+<p>Disadvantages:</p>
+
+<ul>
+<li>Caller need to pass instance</li>
+<li>Global variable</li>
+<li>Not thread safe</li>
+<li>Need to remember to call <code>resetClockImplementation</code></li>
+</ul>
+
+<h2 id="embed-time-generator-in-struct">Embed time generator in struct</h2>
+
+<p>If you are lucky enough to work in a <em>struct</em>, you can do this</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// TimeValidator contains business logic to CheckEndOfMonth
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeValidator</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="c1">// .. your fields
+</span><span class="c1"></span>	<span class="nx">clock</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// now is time generator that by default fall back to standard library
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">clock</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="c1">// default implementation which fall back to standard library
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">clock</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>And the test can be</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{</span>
+		<span class="nx">clock</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+	<span class="p">}}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>I like this method because you don&rsquo;t have to pass instance of time or function all over the place
+but still have it easily create an arbitrary time mock/stub</p>
+
+<p><strong>Make this pattern reusable</strong><br />
+If you do this more often, you can also easily reuse the functionality into other struct
+by creating embeddable</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// TimeMock embeddable structure that provides ability to inject time to the parent struct
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeMock</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">NowFn</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+
+	<span class="c1">// can be extended to mock other time function
+</span><span class="c1"></span>	<span class="nx">AfterFn</span> <span class="kd">func</span><span class="p">()</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeMock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">NowFn</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="c1">// default implementation
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NowFn</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// Use in the business logic
+</span><span class="c1"></span>
+<span class="c1">// TimeValidator contains business logic that uses time.Now
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeValidator</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">clock</span> <span class="nx">TimeMock</span> 
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">clock</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span> <span class="c1">// empty clock field gives implementation with standard lib
+</span><span class="c1"></span>    <span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>in test</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{</span>
+		<span class="nx">clock</span><span class="p">:</span> <span class="nx">TimeMock</span><span class="p">{</span>
+			<span class="nx">NowFn</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>	
+		<span class="p">},</span>
+	<span class="p">}}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Advantages:</p>
+
+<ul>
+<li>No need to pass instance of time or generator</li>
+<li>Fall back to default standard library time implementation</li>
+<li>Easily extend <code>TimeMock</code> by adding more function that is needed</li>
+</ul>
+
+<p>Disadvantages:</p>
+
+<ul>
+<li>The caller needs to be a struct</li>
+</ul>
+
+<h2 id="better-way-to-write-test-function-with-time">Better way to write test function with time</h2>
+
+<p>Function with time is usually hard to test because it dependency with  on <em>time</em> package.</p>
+
+<p>A different way to test is to separate the function that generate the time with the function
+that process the time value. For example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">now</span> <span class="o">:=</span>  <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nf">endOfMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">now</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
+		<span class="c1">// do some business logic
+</span><span class="c1"></span>	<span class="p">}</span> 
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Instead of testing that function, extract the logic of processing time</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">now</span> <span class="o">:=</span>  <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+
+	<span class="nf">processEndOfMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">processEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nf">endOfMonth</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
+		<span class="c1">// do some business logic
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>this way you don&rsquo;t test the <code>CheckEndOfMonth()</code> but <code>processEndOfMonth</code>. This way you can easily
+mock time without the need to do some wiring.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">
+    <h2>
+      My account just got hacked by Romanian (Possibly)
+    </h2>
+  </a>
+  <div class="posted_at">
+    2013-07-27 ::
+    ( 3 minutes reading )
+  </div>
+
+  
+
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/1.jpg" align="center">
+</div>
+
+<p>You are probably familiar with above images. Some random friend sent you an email which you can instantly
+recognize as a spam because it only contains one link.
+Couple days ago I receive this email which is not the first time for me. But this time it was different.
+It actually came from my own Yahoo! account which I never use since more that one year ago.</p>
+
+<p>My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the <em>sent mail</em> folder and there it is.
+One email message containing a spam that I actually sent to my friends and family.
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/2.jpg" align="center">
+</div></p>
+
+<p>Did some digging to my authentication history and found out that somebody from Romania has access my account.
+How could this be. I&rsquo;ve never use the account since one or more year ago, I&rsquo;m an IT guy so I know a little bit
+about security. I don&rsquo;t click some random suspicious link. I don&rsquo;t install any annoying-spyware-browser-toolbar.
+The password is 12 character long with apla-numeric and random symbol. Thank god that I don&rsquo;t use the same
+password for all of my account.</p>
+
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/3.jpg" align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/4.jpg" align="center">
+</div>
+
+<p>I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through
+bunch of proxy all over the world to cover my track. Or probably they don&rsquo;t even bother because they just
+using it for spam.
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/5.jpg" align="center">
+</div></p>
+
+<p>Interesting part is I stumble upon this article saying about Romania has became a <a href="http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/">Global Hub for hackers and online crooks</a>.
+According to the article that it&rsquo;s became a commonplace for some hacker to harness people personal information
+and use it for illegal activity.</p>
+
+<p>Luckily I don&rsquo;t store any sensitive information on my email. It would have some serious impact if I store password
+or bank account information.</p>
+
+<p>Also something that I notice is most of this spam email came from my friends account which also uses Yahoo! mail.
+Or probably I just never notice.</p>
+
+<h2 id="what-can-you-do-when-this-happened-to-you">What can you do when this happened to you</h2>
+
+<p>If you ever received / sent this email. I would suggest you to:</p>
+
+<ol>
+<li>Tell the person to reset their account password</li>
+<li>Don&rsquo;t store or send sensitive information unencrypted with email like: password, keys, bank account info</li>
+<li>If you need to send sensitive information, try encrypting it first. I go into details of doing that in <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a>. I&rsquo;m start doing this from now on.</li>
+<li>Use some secure password, and don&rsquo;t use the same password for all of your account.</li>
+<li>If you can, try to change the password on a regular basis. or use service like <a href="https://lastpass.com/">LastPass</a></li>
+<li>When this is your work email that sometimes contain private information. Use service that offer <em>two factor authentication</em> like gmail does <a href="http://www.google.com/landing/2step/">you need to enable it</a>.</li>
+<li>Stay safe friends, internet is a dangerous place</li>
+</ol>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">
+    <h2>
+      berks upload core dump
+    </h2>
+  </a>
+  <div class="posted_at">
+    2013-07-21 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
+think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p>
+
+<p>I faced this core dump error while doing <code>berks upload</code>. That command will actualy
+push some cookbook to a chef server.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ berks upload
+/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault
+ruby <span class="m">1</span>.9.3p362 <span class="o">(</span><span class="m">2012</span>-12-25 revision <span class="m">38607</span><span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
+
+-- Control frame information -----------------------------------------------
+c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
+c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11
+c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH
+c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
+
+-- Ruby level backtrace information ----------------------------------------
+/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;
+</span><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span>
+
+....</code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">
+    <h2>
+      Safely sharing credentials with PGP
+    </h2>
+  </a>
+  <div class="posted_at">
+    2013-07-08 ::
+    ( 6 minutes reading )
+  </div>
+
+  
+
+<p>When working in teams, we are sometimes required to share some password / keys with our team.
+The most common way for me is probably through email or some chat client. But even though its convenience it&rsquo;s not
+actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.</p>
+
+<p>Some simple approach would we communicating the password directly with a person through secure medium.
+One way to do it is both party ssh through a server and use talk client like <a href="http://linux.die.net/man/1/write">write</a>.
+But for some cases it&rsquo;s quite impractical.</p>
+
+<h2 id="pgp">PGP</h2>
+
+<p>Enter <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy">PGP</a>. It&rsquo;s basically a software that do a Public-key cryptography.
+Public-key cryptography is basically encryption process which require 2 keys, one for encrypting and the other one
+for decrypting. Usually the <strong>public key</strong> is used for encrypting and <strong>private key</strong> is use for decrypting.
+I would not dive into the details about it since I&rsquo;ve only have basic understanding about it.
+But for those people that is interested, you would read the nice article on <a href="http://en.wikipedia.org/wiki/Public-key_cryptography">wikipedia</a></p>
+
+<p>There is a open source project called GPG (GNU Privacy Guard) and in this article I would like to show you how we could
+share some password / key file with it.</p>
+
+<h3 id="instalation">Instalation</h3>
+
+<p>If you don&rsquo;t already have it on your system, you could installed it with:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ sudo apt-get install gpg</code></pre></td></tr></table>
+</div>
+</div>
+<p>After installing we would start by creating a pair of keys</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ gpg --gen-key</code></pre></td></tr></table>
+</div>
+</div>
+<p>You will be asked with bunch of questions. Most of the answer you could leave it as a default but most important is fill in your <strong>email</strong>
+address and also provide a <strong>Passphrase</strong> to protect your key with password. When it finish gathering information, it will start
+creating a key pair by using system entropy. You can help the system to generate the entropy by clicking or moving your mouse randomly
+or doing some random IO disk by triggering for example <code>find /</code></p>
+
+<h3 id="listing-keys">Listing keys</h3>
+
+<p>After installing, you can see list of keys by using this command</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$  gpg --list-keys
+/home/user/.gnupg/pubring.gpg
+--------------------------------
+pub   2048R/70280895 <span class="m">2013</span>-07-09
+uid                  Ahmy Yulrizka <span class="o">(</span>ahmy135@mail.com<span class="o">)</span> &lt;ahmy135@mail.com&gt;
+sub   2048R/F7B2D44C <span class="m">2013</span>-07-09</code></pre></td></tr></table>
+</div>
+</div>
+<p>In above output you could see that we have created public key with id of <code>70280895</code>. Note this one because we are going to use it later
+when submitting the key to a key server</p>
+
+<h3 id="exporting-keys">Exporting keys</h3>
+
+<p>To share your public key, so other people could send you encrypted message.</p>
+
+<p><strong>Note</strong> that further in this article I will discus ways to easily distribute your public key.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.11 <span class="o">(</span>GNU/Linux<span class="o">)</span>
+
+mQENBFHcRTEBCAC056qG97iJAtb604x5Hr+3lIi3UXVOnGauoHSo5S8S3bSCD0Ib
+DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF
+...
+-----END PGP PUBLIC KEY BLOCK-----
+
+$ gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span> --output pubkey.txt <span class="c1"># to output it to a file</span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="encrypting-and-decrypting">Encrypting and decrypting</h3>
+
+<p>With those generated keys, we could now do a personal encryption. That is if you want to encrypt a file and you are the only one
+who are able to decrypt it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ <span class="nb">echo</span> <span class="s2">&#34;this message is secret&#34;</span> &gt; message.txt
+  $ gpg --encrypt --recipient <span class="s1">&#39;ahmy135@gmail.com&#39;</span> message.txt</code></pre></td></tr></table>
+</div>
+</div>
+<p>Those code will create a file name <code>message.txt.gpg</code> which is encrypted message of <code>message.txt</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --decrypt message.txt.gpg
+
+You need a passphrase to unlock the secret key <span class="k">for</span>
+user: <span class="s2">&#34;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&#34;</span>
+<span class="m">2048</span>-bit RSA key, ID F7B2D44C, created <span class="m">2013</span>-07-09 <span class="o">(</span>main key ID <span class="m">70280895</span><span class="o">)</span>
+
+gpg: gpg-agent is not available in this session
+gpg: encrypted with <span class="m">2048</span>-bit RSA key, ID F7B2D44C, created <span class="m">2013</span>-07-09
+      <span class="s2">&#34;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&#34;</span>
+this message is secret</code></pre></td></tr></table>
+</div>
+</div>
+<p>As you can see that we are successfully decrypted the message. This example you encrypt the message
+using your own public key. So this method only work if you want to archive or backup the file securely.
+In order to send someone else an encrypted message, you need to encrypt the message using the other
+person <strong>public key</strong></p>
+
+<h3 id="distributing-the-key">Distributing the key</h3>
+
+<p>In order for any body to send you a encrypted message, you need to give your <strong>public key</strong>.
+Since <strong>public key</strong> only used for encryption, It&rsquo;s OK to publicly share your <strong>public key</strong>.
+But never share your <strong>private key</strong>. Once the other party have your <strong>public key</strong> they could
+start send you an encrypted message using the command above.</p>
+
+<p>You could share your public key manually to some one (through usb / email etc) by exporting it first just like I mention before.
+But there are an easy way to distribute the key. There are some public GPG server that store your public key so that
+other people could easily find it and import it into their local machine. There are <a href="http://pgp.mit.edu">http://pgp.mit.edu</a>
+and also ubuntu key server <a href="http://keyserver.ubuntu.com">http://keyserver.ubuntu.com</a> that we can use.</p>
+
+<p>To send our key to MIT server we could do</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --send-key --keyserver pgp.mit.edu <span class="m">70280895</span>
+gpg: sending key <span class="m">70280895</span> to hkp server pgp.mit.edu</code></pre></td></tr></table>
+</div>
+</div>
+<p>the last number <code>70280895</code> was the key id of the public file. You could find it with the output of <code>gpg --list-keys</code> command.
+Now we have successfully send our public key any body could get your public key through that keyserver. You could test this
+by searching a name or email or a person in the key server web interface. for example try searching my name on <a href="http://pgp.mit.edu/">http://pgp.mit.edu/</a></p>
+
+<h3 id="importing-keys">Importing Keys</h3>
+
+<p>Now to import other people public key, we could also do that in two way.</p>
+
+<p>if the person give you a file which contain their public key (say <code>ahmy-pub.key</code>). you could import it with</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --import ahmy-pub.key</code></pre></td></tr></table>
+</div>
+</div>
+<p>Or if the person already publish his public key to a keyserver, we can search it with</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --search-keys <span class="s1">&#39;Ahmy Yulrizka&#39;</span>
+
+<span class="c1"># or</span>
+$ gpg --search-keys <span class="s1">&#39;ahmy135@mail.com&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>It will generate a list of keys that found on the keyserver. Enter the number of the keys and it will be imported to your local machine.</p>
+
+<p>after importing you can send an encrypted message to the person for example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">echo</span> <span class="s2">&#34;This is also a secret&#34;</span> <span class="p">|</span> gpg --encrypt --armor --recipient <span class="s1">&#39;Ahmy Yulrizka&#39;</span> &gt; output.txt.gpg</code></pre></td></tr></table>
+</div>
+</div>
+<p>You could provide a name or an email address as a recipient.
+THis command will encrypt the message using public key of a person name <code>Ahmy Yulrizka</code></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>At this point you are able to generate, export, distribute and import keys. More over you can already encrypt
+and decrypt file / message to a designated recipient. The the part two of this article I will share some idea
+how we could share some password / password key to other member of the team.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">
+    <h2>
+      Homeward light indicator with RaspberryPi and CommonSense
+    </h2>
+  </a>
+  <div class="posted_at">
+    2013-02-26 ::
+    ( 4 minutes reading )
+  </div>
+
+  <p><div class="row">
+  <div class="span8 offset1">
+    <iframe align="center" width="628" height="400" src="https://www.youtube.com/embed/35ylS4IX_mc" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div><br/>
+I&rsquo;ve been tinkering with my <a href="http://www.raspberrypi.org/">raspberry-pi</a> for quite some time now. What I like about it because it is cheap ($25),
+it&rsquo;s run Linux (especially debian based) and most of all it&rsquo;s have General Purpose Input Output pin. Since I was a kid, I always
+wanted to control electronic appliance remotely. Luckily my friend <a href="https://github.com/pimnijdam">@pimnijdam</a> thought me how to control a relay board.
+Basically it&rsquo;s just like an electric switch that connect/disconnect current when you supply a low voltage.</p>
+
+<p>So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through
+my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi
+but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is
+quite awesome. So I could install a ruby/python and it only took a single command.</p>
+
+<p>So I did create a <a href="https://github.com/yulrizka/pi-sinatra-gpio/blob/master/app.rb">project</a>  with ruby/sinatra to control this light. Its really small (30 lines of code, 80 lines html + js) and with this project I can control up to 3 light, one of those eventually control the light. In case you are interested, I put the source on <a href="https://github.com/yulrizka/pi-sinatra-gpio/blob/master/app.rb">github</a>.
+This project uses <a href="https://github.com/jwhitehorn/pi_piper">pi-piper</a> a ruby library that wrap <a href="https://projects.drogon.net/raspberry-pi/wiringpi/">wiringPi</a>, which is library that is used to control the GPIO pin.</p>
+
+<p><div class="row">
+<div class="span8 offset1">
+<div class="thumbnail">
+  <img src="/images/post/2013/02/homeward-indicator-project.jpg" alt="homeward indicator">
+  <div class="caption">
+    The light will turn on whenever I leave the office at noon.
+  </div>
+</div>
+</div>
+</div><br/></p>
+
+<p><div class="row">
+  <div class="span4 offset1">
+    <div class="thumbnail">
+      <img src="/images/post/2013/02/lamp-off.jpg" alt="lamp off">
+      <div class="caption">
+        Controlling Lamp with Raspberry-pi + ruby/sinatra
+      </div>
+    </div>
+  </div>
+  <div class="span4">
+    <div class="thumbnail">
+      <img src="/images/post/2013/02/lamp-on.jpg">
+      <div class="caption">
+        The phone open a web browser to the raspberry pi
+      </div>
+    </div>
+  </div>
+</div><br/></p>
+
+<p>Now, turning a desk lamp with pi is something; But it&rsquo;s quite boring and not really useful. Now let us make something a bit
+interesting. Instead of controlling it manually, The light be trigger on my activity. In this case I the light to turn on
+when ever I came back from the office on every working day. So at home my wife know exactly when I leave the office. I already
+have it running a web server, so basically I can control it from my mobile phone. But I don&rsquo;t want to do this every single day.
+And this is where <a href="http://www.sense-os.nl/commonsense">ComonSense</a> really makes thing easy for me.</p>
+
+<p><a href="http://www.sense-os.nl/commonsense">CommonSense</a> is a platform to store, retrieve, analyze and interpret our sensory data. What is a sensor ? well anything could be a sensor. From physical sensor on our mobile phone like accelerometer, noise, position, cell network, light, ambience and more sophisticated sensor like sensor that tell your quality of sleep. By using one or more sensor, it could create more intelligent sensor. For example a sensor that tell wether you are standing or sitting by analyzing the accelerometer data. CommonSense is Awesome!, but for this experiment we will be using a simple location sensor. It will tell where is my current location by GPS or
+wifi-network.</p>
+
+<p>What is make it easy is I don&rsquo;t have to create an application on my mobile phone. CommonSense already have a platform that run on
+<a href="https://play.google.com/store/apps/details?id=nl.sense_os.app">Android</a> or <a href="https://itunes.apple.com/nl/app/senseplatform/id447552125?mt=8&amp;uo=4">iOs</a>. The application act as an agent that collect and sample sensor data from the mobile phone. By it self it&rsquo;s not really doing much right now but combine with the <a href="http://www.sense-os.nl/commonsense">CommonSense</a> make it really easy for a developer like me to
+easily experiment with my data. So with this sense app, the raspberry-pi could easily get data from my mobile phone through the
+<a href="http://developer.sense-os.nl">CommonSense API</a>.</p>
+
+<p><div class="row">
+  <div class="span3 offset1">
+    <div class="thumbnail">
+      <img src="/images/post/2013/02/sense-app.jpg" alt="sense app">
+      <div class="caption">
+        Sense Android App - Works as an aggent of CommonSense
+      </div>
+    </div>
+  </div>
+  <div class="span7">
+    <div class="thumbnail">
+      <img src="/images/post/2013/02/biking-out-of-the-office.jpg" alt="biking out of the office">
+      <div class="caption">
+        The light will turn on when I&rsquo;m 200m away from the office
+      </div>
+    </div>
+  </div>
+</div><br/>
+Again, my awesome colleague <a href="https://github.com/pimnijdam">@pim</a> create a prototype of <a href="https://github.com/pimnijdam/eventScripting">python framework</a> that make it very easy for me to
+implement my project. You should definitely <a href="https://github.com/pimnijdam/eventScripting">chek it out!</a>. I&rsquo;ve created the <em>homeward light indicator</em> project
+using the early version of the framework. This is actually my first encounter with Python. Although I still prefer doing my
+project with Ruby, I&rsquo;m really enjoying working with Python.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/responsive-design/">
+    <h2>
+      Responsive Design
+    </h2>
+  </a>
+  <div class="posted_at">
+    2012-02-24 ::
+    ( 2 minutes reading )
+  </div>
+
+  <p>I&rsquo;ve been playing around with <a href="http://twitter.github.com/bootstrap/">twitter bootstrap</a>. It&rsquo;s like a css framework to help designer or developer create a nice and clean site.
+It&rsquo;s offer grid system, predefine layout, button, javascript, carousel etc. You can build website in just a few hours. Very nice for
+prototyping.</p>
+
+<p>I&rsquo;ve been using it to build this blog since it was version 1. Recently i had a chance to upgrade it to version 2.
+The new version offer a lot of functionalities, one the feature that I play a lot is the responsive design.</p>
+
+<p>Basically <a href="http://en.wikipedia.org/wiki/Responsive_Web_Design">Responsive Web Design</a> (RWD) means the ability of the web site to adapt to the user screen size. So the page should look different
+in a way that it suited for specific screen. Like this website will look different if it&rsquo;s open with mobile phone, portrait mode on tablet,
+landscape mode on tablet, net book or even in a large desktop. This actually achieved by using W3C CSS3 media query. It means that it uses
+different stylesheet for each of the screen size. More info on RWD in twitter bootstrap can be found <a href="http://twitter.github.com/bootstrap/scaffolding.html#responsive">here</a></p>
+
+<p>You can test this functionality by resizing your browser window. Try to drag it slowly and watch the page banner slightly change.
+here are the screen shoot of the design.</p>
+
+<ul class="thumbnails" style="text-align: center">
+  <li class="span5">
+    <div class="thumbnail">
+      <a href="https://www.flickr.com/photos/77240053@N02/6777836336/" title="Desktop View by yulrizka, on Flickr"><img src="https://farm8.staticflickr.com/7188/6777836336_cfc30a387d.jpg" width="500" height="328" alt="Desktop View"></a>
+      <div class="caption">Desktop View (1210px and up)</div>
+    </div>
+  </li>
+  <li class="span5">
+    <div class="thumbnail">
+      <a href="https://www.flickr.com/photos/77240053@N02/6777836342/" title="Tablet Landscape by yulrizka, on Flickr"><img src="https://farm8.staticflickr.com/7177/6777836342_2bae8d18f9.jpg" width="500" height="403" alt="Tablet Landscape"></a>
+      <div class="caption">Tablet Landscape (768px to 979px)</div>
+    </div>
+  </li>
+  <li class="span4">
+    <div class="thumbnail">
+      <a href="https://www.flickr.com/photos/77240053@N02/6777836344/" title="Tablet View by yulrizka, on Flickr"><img src="https://farm8.staticflickr.com/7068/6777836344_04a80d610b_m.jpg" width="240" height="237" alt="Tablet View"></a>
+      <div class="caption">Tablet Portrait (480px to 768px)</div>
+    </div>
+  </li>
+  <li class="span4">
+    <div class="thumbnail">
+      <a href="https://www.flickr.com/photos/77240053@N02/6777836350/" title="Tablet with menu by yulrizka, on Flickr"><img src="https://farm8.staticflickr.com/7050/6777836350_3a8e661196_m.jpg" width="240" height="237" alt="Tablet with menu"></a>
+      <div class="caption">Tablet Portrait with menu (480px to 768px)</div>
+    </div>
+  </li>
+  <li class="span4">
+    <div class="thumbnail">
+      <a href="https://www.flickr.com/photos/77240053@N02/6777836354/" title="Mobile Phone by yulrizka, on Flickr"><img src="https://farm8.staticflickr.com/7191/6777836354_aec27fd376_m.jpg" width="164" height="240" alt="Mobile Phone"></a>
+      <div class="caption">Mobile Phone (480px and below)</div>
+    </div>
+  </li>
+  <li class="span4">
+    <div class="thumbnail">
+      <a href="https://www.flickr.com/photos/77240053@N02/6777836358/" title="Mobile Phone with menu by yulrizka, on Flickr"><img src="https://farm8.staticflickr.com/7205/6777836358_d06448c5da_m.jpg" width="164" height="240" alt="Mobile Phone with menu"></a>
+      <div class="caption">Mobile Phone with Menu(480px and below)</div>
+    </div>
+  </li>
+</ul>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/">
+    <h2>
+      Jekyll error utf-8 caracter
+    </h2>
+  </a>
+  <div class="posted_at">
+    2012-01-14 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>If you having a problem in jekyll when it didn&rsquo;t generate a post and there is no error in the log file.
+you might want to check the content if there is any UTF-8 character encoding such as this <strong>±</strong></p>
+
+<p>The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
+it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
+
+<p>to solve this. I added this line to <code>.bashrc</code> or <code>zshrc</code> if you are using zsh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  <span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+  <span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8</code></pre></td></tr></table>
+</div>
+</div>
+<p>It should fix the problem now.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/testing-ruby-code-with-benchmark-suite/">
+    <h2>
+      Testing ruby code with benchmark_suite
+    </h2>
+  </a>
+  <div class="posted_at">
+    2012-01-14 ::
+    ( 2 minutes reading )
+  </div>
+
+  <p>Just a couple days ago I found out <a href="http://www.therubygame.com" title="The Ruby Game">therubygame.com</a> which challenge us to
+solve a problem with ruby. The result were measured by the <strong>fastest</strong>, <strong>slowest</strong>, <strong>shortest</strong>, <strong>longest</strong>,
+<strong>cheaters</strong> (yup there are also some rule).</p>
+
+<p>And also I was listening to an episode of ruby rouge on <a href="http://rubyrogues.com/034-rr-benchmarking-and-profiling/" title="034 RR Benchmarking and Profiling">Benchmarking</a>. And there is one tools called <a href="http://rubygems.org/gems/benchmark_suite" title="benchmark_suite">benchmark_suite</a>.</p>
+
+<p>So there is this <a href="http://www.therubygame.com/challenges/3/submissions" title="Challenge #3">challenge</a> to capitalize first letter of every word. I want to compare my code to the fastest solution there.
+so i installed the gem, also the <a href="http://rubygems.org/gems/ffi" title="ffi gem">ruby-ffi</a> gem that somewhat fix an error while I tried to run the benchmark.</p>
+
+<p>so this is the code to benchmark it</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="nb">require</span> <span class="s1">&#39;benchmark/ips&#39;</span>
+
+  <span class="n">string</span> <span class="o">=</span> <span class="s2">&#34;The small brown &amp; ginger fox JUMPED OVER the gate&#34;</span>
+
+  <span class="no">Benchmark</span><span class="o">.</span><span class="n">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&#34;first&#34;</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">string</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\w+/</span><span class="p">){</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&#34;second&#34;</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span> <span class="s1">&#39; &#39;</span>
+    <span class="k">end</span>
+  <span class="k">end</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>And here are the result</p>
+
+<div class="well">
+  <p>first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471) </p>
+  <p>second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)</p>
+</div>
+
+<p>The first code run <strong>55.609,3</strong> times per second and the latter is <strong>77.996,4</strong> times per second.
+So the second code run more than the first code in one second. Which mean the second code is faster.</p>
+
+<p>Also the first code run <strong>277.202</strong> times in <strong>5.048175</strong> sec while the second code run <strong>389.844</strong> times in <strong>5.05</strong> sec</p>
+
+<p>So this mean, that <strong>regex is more slower</strong> then calling capitalized on each element on array</p>
+
+</article>
+<hr/>
+
+
+
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="/page/5/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/5/">5</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/page/6/">6</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/7/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+
+
+
+
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <h3>English</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
+            </li>
+          
+          </ul>
+          <h3>Indonesia</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">Ruby Fiber apaan sih ?</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">Scale MongoDB dengan Sharding</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/">Telepon murah ke Indonesia dengan voip</a>
+            </li>
+          
+          </ul>
+
+          <h3>Today I Learned</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">Checkout Last Branch</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/rename-tmux-window/">rename tmux window</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/net/dnssec/">DNSSEC</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/git/reset-email-multiple-commit/">reset email multiple git commit</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/encription-with-gpg/">encription with gpg</a>
+            </li>
+          
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div><header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+      </div>
+    </div> 
+  </div>
+  
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <a href="/"><span class="brand">Labs.Yulrizka.com</span></a>
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="https://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+
+              <li class="active banner"><a href="/">Home</a></li>
+              <li class=""><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
+              <li class=""><a href="/til/">Today I Learned</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+</div> 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+
+<script src="https://labs.yulrizka.com/javascript/global.js"></script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

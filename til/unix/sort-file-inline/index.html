@@ -37,24 +37,40 @@
 	2019-09-26 ::
 	( 1 minutes reading )
 </div><p>We can sort file by using <code>sort</code> command for example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt
 
-<pre><code>$ sort a.txt
+<span class="c1"># or</span>
 
-# or
-
-$ cat a.txt | sort
-</code></pre>
-
+$ cat a.txt <span class="p">|</span> sort</code></pre></td></tr></table>
+</div>
+</div>
 <p>But this will only output to stdout. Some time you want the file to be sorted. Instead you can do</p>
-
-<pre><code>$ sort a.txt -o a.txt
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt -o a.txt</code></pre></td></tr></table>
+</div>
+</div>
 <p>note that this DOEST work and it will TRUNCATE the file</p>
-
-<pre><code>$ sort a.txt &gt; a.txt
-</code></pre>
-<div id="disqus_thread"></div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt &gt; a.txt</code></pre></td></tr></table>
+</div>
+</div><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

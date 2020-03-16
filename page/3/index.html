@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.55.6" />
+
+<title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
+<meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<meta name="author" content="Ahmy Yulrizka">
+<link rel="canonical" href="https://labs.yulrizka.com/">
+
+
+
+
+
+ 
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+
+
+
+
+<link href='https://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/repeat-content-of-text-x-time/">
+    <h2>
+      repeat content of text x time
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-08-15 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>I have a use-case where 1 have single file that contain 20K line. I need to have another file with 1 million line with just content of the first file repeated 50 time.</p>
+
+<p>Solution: form <a href="http://askubuntu.com/questions/521465/how-can-i-repeat-the-content-of-a-file-n-times">stack overflow</a></p>
+
+<pre><code>$ perl -0777pe '$_=$_ x 50' input_file.txt &gt; output_file.txt
+</code></pre>
+
+<p>arguments:</p>
+
+<ul>
+<li>0777 : -0 sets sets the input record separator (perl special variable $/ which is a newline by default). Setting this to a value greater than 0400 will cause Perl to slurp the entire input file into memory.</li>
+<li>pe : the -p means &ldquo;print each input line after applying the script given by -e to it&rdquo;.</li>
+<li>$<em>=$</em> x 50 : $_ is the current input line. Since we&rsquo;re reading the entire file at once because of -0700, this means the entire file. The x 50 will result in 50 copies of the entire file being printed.</li>
+</ul>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/vim/paste-yanked-text-on-command-buffer/">
+    <h2>
+      paste yanked text on command buffer
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-08-12 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Sometimes you need to paste yanked text while performing command. For example subtituting yanked text with some words.</p>
+
+<p>yanked text are stored in the <code>0</code> and <code>&quot;</code> register.</p>
+
+<p>in the command mode you can paste this with <code>ctrl-R [registe]</code> example in our cases this would be <code>ctrl-R 0</code></p>
+
+<p>so full command would be for example <code>:%s/[press ctrl-R then 0]/replacement/gc</code></p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/bulk-renaming-multiple-file/">
+    <h2>
+      bulk renaming multiple file
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-07-12 ::
+    ( 1 minutes reading )
+  </div>
+
+  
+
+<p>There are couple of way to rename multiple files.</p>
+
+<p>From <a href="http://unix.stackexchange.com/questions/1136/batch-renaming-files">http://unix.stackexchange.com/questions/1136/batch-renaming-files</a></p>
+
+<p>example we have files</p>
+
+<pre><code>image0001.png
+image0002.png
+image0003.png
+...
+</code></pre>
+
+<p>And we would like to rename it to</p>
+
+<pre><code>0001.png
+0002.png
+0003.png
+...
+</code></pre>
+
+<h2 id="with-for-loop">with for loop</h2>
+
+<p>this works with linux and mac without installing anything</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> f in *.png<span class="p">;</span> <span class="k">do</span> mv <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">f</span><span class="p">#image</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">done</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="with-zsh">With ZSH</h2>
+
+<p>This is my favorite way since I&rsquo;m using <a href="http://www.zsh.org/">ZSH</a> and <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>.
+Check it now, it&rsquo;s awesome</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ autoload zmv
+zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>or let zsh automatically define $1, $2 etc</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">zmv -w <span class="s1">&#39;image*.png&#39;</span> <span class="s1">&#39;$1.png&#39;</span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="using-your-editor">Using your editor</h2>
+
+<p>for more complex operation, sometimes it easier to rename the file on your editor.</p>
+
+<p>there is <code>qmv</code> from renameutils</p>
+
+<pre><code>$ qmv *.png
+</code></pre>
+
+<p>it will open editor with 2 columns, you can edit the right size rename that file</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/specify-compression-level-in-tar-gzip/">
+    <h2>
+      specify compression level in tar gzip
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-30 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>from <a href="http://superuser.com/questions/305128/how-to-specify-level-of-compression-when-using-tar-zcvf">http://superuser.com/questions/305128/how-to-specify-level-of-compression-when-using-tar-zcvf</a></p>
+
+<pre><code>GZIP=-9 tar cvzf file.tar.gz /path/to/directory
+</code></pre>
+
+<p>or</p>
+
+<pre><code>tar cvf - /path/to/file0 /path/to/file1 | gzip -9 - &gt; files.tar.gz
+</code></pre>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/linux/clearing-up-swap-space/">
+    <h2>
+      clearing up swap space
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-15 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p><em>WARNING: make sure the memory is enough to put the data back from swap, else system will start killing processes</em></p>
+
+<p>To clear up swap space (put the data back into memory) we can do</p>
+
+<pre><code># swapoff -a &amp;&amp; swapon -a
+</code></pre>
+
+<p>Because this is quite slow process, it&rsquo;s a good idea to run this inside screen session.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/analytics/convert-json-perline-to-panads-data-frame/">
+    <h2>
+      convert json perline to panads data frame
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-07 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Sometimes we have a file that contains a json object per line.
+For example log file in json format</p>
+
+<pre><code>{foo: 1, bar: 2}
+{foo: 3, bar: 4}
+</code></pre>
+
+<p>if we want to read this in python pandas we need to convert it to</p>
+
+<pre><code>[
+  {foo: 1, bar: 2},
+  {foo: 3, bar: 4}
+]
+</code></pre>
+
+<p>easy way to do this is with <code>jq --slurp</code></p>
+
+<pre><code>$ cat file.json | jq --slurp . &gt; one_array.json
+</code></pre>
+
+<p>then you can read it in python pandas (notebook) like this</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">sf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s1">&#39;one_array.json&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/">
+    <h2>
+      pandas - format custom date in data frame
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-07 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>say you have a data frame like this</p>
+
+<pre><code>[
+  {foo: 1, created_date:&quot;2016-06-04 03:00:01.727&quot;},
+  ...
+]
+</code></pre>
+
+<p>the timestamp doesn&rsquo;t recognize immediately. To make this field as timestamp and as index we could do</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># assuming df contains the data frame</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">be</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S.</span><span class="si">%f</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/file-size-older-than-x-days/">
+    <h2>
+      file size older than x days
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-06 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>from <a href="http://stackoverflow.com/a/17419690/546750">http://stackoverflow.com/a/17419690/546750</a></p>
+
+<p>to list all file that modified more than more than X days, we can use</p>
+
+<pre><code>$ find . -mtime +[number of days]
+</code></pre>
+
+<p>if you use <code>-</code> sign than it became file is modified since X days</p>
+
+<p>Combine it with akw, we can get total file size</p>
+
+<pre><code>$ find . -mtime +180 -exec du -ks {} \; | cut -f1 | awk '{total=total+$1}END{print total/1024}'
+</code></pre>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/linux/symbolic-vs-hard-link/">
+    <h2>
+      symbolic vs hard link
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-01 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>from <a href="http://stackoverflow.com/a/185903/546750">http://stackoverflow.com/a/185903/546750</a></p>
+
+<blockquote>
+<p>Underneath the file system files are represented by inodes (or is it multiple inodes not sure)</p>
+
+<p>A file in the file system is basically a link to an inode.
+A hard link then just creates another file with a link to the same underlying inode.</p>
+
+<p>When you delete a file it removes one link to the underlying inode. The inode is only deleted (or deletable/over-writable) when all links to the inode have been deleted.</p>
+
+<p>A symbolic link is a link to another name in the file system.</p>
+
+<p>Once a hard link has been made the link is to the inode. deleting renaming or moving the original file will not affect the hard link as it links to the underlying inode. Any changes to the data on the inode is reflected in all files that refer to that inode.</p>
+
+<p>Note: Hard links are only valid within the same File System. Symbolic links can span file systems as they are simply the name of another file.</p>
+</blockquote>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/filtering-json-with-jq/">
+    <h2>
+      filtering json with jq
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-31 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p><a href="https://stedolan.github.io/jq/">jq</a> is a fantastic command line tools to parse and filter json in command line.
+It works for linux, osx and maybe windows.</p>
+
+<p>example, to format json</p>
+
+<pre><code>$ json='[{&quot;genre&quot;:&quot;deep house&quot;}, {&quot;genre&quot;: &quot;progressive house&quot;}, {&quot;genre&quot;: &quot;dubstep&quot;}]'
+$ echo $json
+[{&quot;genre&quot;:&quot;deep house&quot;}, {&quot;genre&quot;: &quot;progressive house&quot;}, {&quot;genre&quot;: &quot;dubstep&quot;}]
+
+$ echo $json | jq .
+[
+  {
+    &quot;genre&quot;: &quot;deep house&quot;
+  },
+  {
+    &quot;genre&quot;: &quot;progressive house&quot;
+  },
+  {
+    &quot;genre&quot;: &quot;dubstep&quot;
+  }
+]
+</code></pre>
+
+<p>To output a particular field</p>
+
+<pre><code>$ echo $json | jq '.[].genre'
+&quot;deep house&quot;
+&quot;progressive house&quot;
+&quot;dubstep&quot;
+</code></pre>
+
+<p>To filter based on a key</p>
+
+<pre><code>$ echo &quot;$json&quot; | jq -c '.[] | select(.genre | contains(&quot;house&quot;))'
+{&quot;genre&quot;:&quot;deep house&quot;}
+{&quot;genre&quot;:&quot;progressive house&quot;}
+</code></pre>
+
+<p>more example could be found on <a href="https://github.com/stedolan/jq/wiki/Cookbook">here</a></p>
+
+</article>
+<hr/>
+
+
+
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="/page/2/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/4/">4</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/4/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+
+
+
+
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <h3>English</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
+            </li>
+          
+          </ul>
+          <h3>Indonesia</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">Ruby Fiber apaan sih ?</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">Scale MongoDB dengan Sharding</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/">Telepon murah ke Indonesia dengan voip</a>
+            </li>
+          
+          </ul>
+
+          <h3>Today I Learned</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">Checkout Last Branch</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/rename-tmux-window/">rename tmux window</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/net/dnssec/">DNSSEC</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/git/reset-email-multiple-commit/">reset email multiple git commit</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/encription-with-gpg/">encription with gpg</a>
+            </li>
+          
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div><header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+      </div>
+    </div> 
+  </div>
+  
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <a href="/"><span class="brand">Labs.Yulrizka.com</span></a>
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="https://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+
+              <li class="active banner"><a href="/">Home</a></li>
+              <li class=""><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
+              <li class=""><a href="/til/">Today I Learned</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+</div> 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+
+<script src="https://labs.yulrizka.com/javascript/global.js"></script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

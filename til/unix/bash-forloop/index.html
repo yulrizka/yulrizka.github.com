@@ -37,29 +37,50 @@
 	2019-09-16 ::
 	( 1 minutes reading )
 </div><p>Example of forloop syntax</p>
-
-<pre><code>for i in 1 2 3 4 5
-do
-   echo &quot;i=$i&quot;
-done
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span>
+<span class="k">do</span>
+   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
+<span class="k">done</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>with range</p>
-
-<pre><code>for i in {1..5}
-do
-   echo &quot;i=$i&quot;
-done
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="o">{</span><span class="m">1</span>..5<span class="o">}</span>
+<span class="k">do</span>
+   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
+<span class="k">done</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>cutomize increment</p>
-
-<pre><code>for i in {0..10..2}
-do 
-   echo &quot;i=$i&quot;
-done
-</code></pre>
-<div id="disqus_thread"></div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="o">{</span><span class="m">0</span>..10..2<span class="o">}</span>
+<span class="k">do</span> 
+   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
+<span class="k">done</span></code></pre></td></tr></table>
+</div>
+</div><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

@@ -39,75 +39,123 @@
 </div>
 
 <h2 id="generate-key">Generate key</h2>
-
-<pre><code>gpg --gen-key
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --gen-key</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="list-keys">List keys</h2>
-
-<pre><code>gpg --list-keys
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --list-keys</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="encrypt-data">Encrypt Data</h2>
 
 <p>With a passprhare</p>
-
-<pre><code>gpg -ca -o output.txt.gpg input.txt
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ca -o output.txt.gpg input.txt</code></pre></td></tr></table>
+</div>
+</div>
 <p>with a certificate and from STDOUT</p>
-
-<pre><code>gpg -ea 
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ea </code></pre></td></tr></table>
+</div>
+</div>
 <p>or if you know the name already (can be key, name or email)</p>
-
-<pre><code>gpg -ea -r &quot;Ahmy&quot;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ea -r <span class="s2">&#34;Ahmy&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="decrypt-data">Decrypt Data</h2>
-
-<pre><code>gpg -d file.txt.gpg
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -d file.txt.gpg</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="export">Export</h2>
 
 <p>Public key</p>
-
-<pre><code>gpg --export -a &quot;name&quot; &gt; public.key
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export -a <span class="s2">&#34;name&#34;</span> &gt; public.key</code></pre></td></tr></table>
+</div>
+</div>
 <p><code>-a</code> is to create armored ascii output.</p>
 
 <p>Private Key</p>
-
-<pre><code>gpg --export-secret-key -a &quot;name&quot; &gt; private.key
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export-secret-key -a <span class="s2">&#34;name&#34;</span> &gt; private.key</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="import">Import</h2>
 
 <p>Public key</p>
-
-<pre><code>gpg --export-secret-key -a &quot;rtCamp&quot; &gt; private.key
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export-secret-key -a <span class="s2">&#34;rtCamp&#34;</span> &gt; private.key</code></pre></td></tr></table>
+</div>
+</div>
 <p>Private Key</p>
-
-<pre><code>gpg --allow-secret-key-import --import private.key
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --allow-secret-key-import --import private.key</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="deleting">Deleting</h2>
 
 <p>Public Key</p>
-
-<pre><code>gpg --delete-key &quot;Real Name&quot;
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --delete-key <span class="s2">&#34;Real Name&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>Private Key</p>
-
-<pre><code>gpg --delete-secret-key &quot;Real Name&quot;
-</code></pre>
-<div id="disqus_thread"></div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --delete-secret-key <span class="s2">&#34;Real Name&#34;</span></code></pre></td></tr></table>
+</div>
+</div><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="generator" content="Hugo 0.55.6" />
+
+<title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
+<meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<meta name="author" content="Ahmy Yulrizka">
+<link rel="canonical" href="https://labs.yulrizka.com/">
+
+
+
+
+
+ 
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+
+
+
+
+<link href='https://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/keep-n-recent-item-in-folder/">
+    <h2>
+      keep N recent item in folder
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-26 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Sometimes you create a script that generate something
+but you wanted to only keep N last item. There is couple way to achive this.
+This version works both on OSX and Linux.</p>
+
+<pre><code>$ (ls -t|head -n 5;ls)|sort|uniq -u|xargs rm
+</code></pre>
+
+<p>Basically it the <code>(..)</code> will capture together the output</p>
+
+<ol>
+<li><code>ls -t | head -n 5</code> will list files sort by time and get first 5 items</li>
+<li>The second <code>ls</code> will list all file. Now it contains duplicate items for items we want to keep</li>
+<li><code>sort|uniq -u</code> will sort it, and remove those duplicate file in step 1. At this point it will contains only files that we want to delete (everything except files from step 1)</li>
+<li><code>xargs rm</code> will change the resulst into space separated value which is argument for <code>rm</code></li>
+</ol>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/osx/starting-program-on-startup-with-login-items/">
+    <h2>
+      starting program on startup with login items
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-25 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>I need to start <a href="https://github.com/yulrizka/til/blob/master/osx/manage%20clipboard%20easily%20with%20jumpcut.md">jumpcut</a>
+during startup because I have to start it manually now.</p>
+
+<p>We can add one or more program to start when we are logged in.
+Use system preference &gt; Users &amp; Groups. Select your username and there should be <em>Login items</em> tabs
+where you can add more or disable programs.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/find-out-what-is-using-swap/">
+    <h2>
+      find out what is using swap
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-24 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>from <a href="http://northernmost.org/blog/find-out-what-is-using-your-swap/">http://northernmost.org/blog/find-out-what-is-using-your-swap/</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1"># Get current swap usage for all running processes</span>
+<span class="c1"># Erik Ljungstrom 27/05/2011</span>
+<span class="nv">SUM</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">OVERALL</span><span class="o">=</span><span class="m">0</span>
+<span class="k">for</span> DIR in <span class="sb">`</span>find /proc/ -maxdepth <span class="m">1</span> -type d <span class="p">|</span> egrep <span class="s2">&#34;^/proc/[0-9]&#34;</span><span class="sb">`</span> <span class="p">;</span> <span class="k">do</span>
+        <span class="nv">PID</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$DIR</span> <span class="p">|</span> cut -d / -f <span class="m">3</span><span class="sb">`</span>
+        <span class="nv">PROGNAME</span><span class="o">=</span><span class="sb">`</span>ps -p <span class="nv">$PID</span> -o comm --no-headers<span class="sb">`</span>
+        <span class="k">for</span> SWAP in <span class="sb">`</span>grep Swap <span class="nv">$DIR</span>/smaps <span class="m">2</span>&gt;/dev/null<span class="p">|</span> awk <span class="s1">&#39;{ print $2 }&#39;</span><span class="sb">`</span>
+        <span class="k">do</span>
+                <span class="nb">let</span> <span class="nv">SUM</span><span class="o">=</span><span class="nv">$SUM</span>+<span class="nv">$SWAP</span>
+        <span class="k">done</span>
+        <span class="nb">echo</span> <span class="s2">&#34;PID=</span><span class="nv">$PID</span><span class="s2"> - Swap used: </span><span class="nv">$SUM</span><span class="s2"> - (</span><span class="nv">$PROGNAME</span><span class="s2"> )&#34;</span>
+        <span class="nb">let</span> <span class="nv">OVERALL</span><span class="o">=</span><span class="nv">$OVERALL</span>+<span class="nv">$SUM</span>
+        <span class="nv">SUM</span><span class="o">=</span><span class="m">0</span>
+
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&#34;Overall swap used: </span><span class="nv">$OVERALL</span><span class="s2">&#34;</span></code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/prompt-confirmation-in-bash/">
+    <h2>
+      prompt confirmation in bash
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-24 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>From <a href="http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script">http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">read</span> -p <span class="s2">&#34;Are you sure? &#34;</span> -n <span class="m">1</span> -r
+<span class="nb">echo</span>    <span class="c1"># (optional) move to a new line</span>
+<span class="k">if</span> <span class="o">[[</span> ! <span class="nv">$REPLY</span> <span class="o">=</span>~ ^<span class="o">[</span>Yy<span class="o">]</span>$ <span class="o">]]</span>
+<span class="k">then</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span></code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/get-all-line-except-n-last-one/">
+    <h2>
+      get all line except n last one
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-18 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>with <code>head -n &lt;negative number&gt;</code> we can get the output except n lines</p>
+
+<p>example</p>
+
+<pre><code>cat a.txt | head -n -1
+</code></pre>
+
+<p>will gives as the content of a.txt except the last one</p>
+
+<p>Let say we have file 1 2 3 4 5, and with grep we want to only get 1 2 3.</p>
+
+<p>we can achive this with ls and grep</p>
+
+<pre><code>$ ls | grep 4 -B 100000000 | head -n -1
+</code></pre>
+
+<p>the -B show 100000000 lines before matched line, and the head -n -1 removes the matched</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/osx/sign-application-with-self-certificate/">
+    <h2>
+      sign application with self certificate
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-04-04 ::
+    ( 2 minutes reading )
+  </div>
+
+  <p>When compiling binary that open port, (depending on your settings) it will ask to allow if the process can make the connection.</p>
+
+<p>We can sign our binary with certificate to avoid this.</p>
+
+<p>From <a href="http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010">http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010</a></p>
+
+<p>While RedYeti&rsquo;s link is useful, just to save a few clicks for others let me recap how to generate a code-signing cert and to use it for code (re-)signing:</p>
+
+<pre><code>1. Create your own code signing cert:
+In Keychain Access, Keychain Access &gt; Certificate Assistant &gt; Create a certificate. This launches the Certificate Assistant:
+
+Name: Enter some arbitrary string here that you can remember. Avoid spaces otherwise you'll need to escape the cert's name when using codesign from the command line.
+
+Identity type: Self Signed Root
+
+Certificate Type: Code Signing
+
+Check the box &quot;Let me override defaults&quot;, this is quite important
+
+Serial number: 1 (OK as long as the cert name/serial no. combination is unique)
+
+Validity Period: 3650 (gives you 10 years)
+
+Email, Name, etc. fill out as you wish.
+
+Key pair info: set to RSA, 2048 bits. Does not really matter IMHO.
+
+From &quot;Key usage extension&quot; up to &quot;Subject Alternate Name Extension&quot;: accept the defaults.
+
+Location: login keychain.
+
+Once it is created, set to &quot;Always trust&quot; in the Login keychain.
+
+
+2. Re-signing an app: codesign -f -s &lt;certname&gt; /path/to/app --deep
+
+3. Verify that it worked: codesign -dvvvv /path/to/app
+
+Enjoy!
+</code></pre>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/">
+    <h2>
+      git mergetool and diff with p4merge
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-04-03 ::
+    ( 1 minutes reading )
+  </div>
+
+  
+
+<p>Some time you want visually merge conflict in git. To use p4merge
+<a href="https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge">https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge</a></p>
+
+<h2 id="git-mergetool">git mergetool</h2>
+
+<h3 id="linux">Linux</h3>
+
+<pre><code>$ git config --global merge.tool p4mergetool
+$ git config --global mergetool.p4mergetool.cmd \
+$ &quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
+$ git config --global mergetool.p4mergetool.trustExitCode false
+$ git config --global mergetool.keepBackup false
+</code></pre>
+
+<h3 id="mac">Mac</h3>
+
+<pre><code>$ git config --global merge.tool p4mergetool
+$ git config --global mergetool.p4mergetool.cmd \
+&quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
+$ git config --global mergetool.p4mergetool.trustExitCode false
+$ git config --global mergetool.keepBackup false
+</code></pre>
+
+<h2 id="set-as-diff-tool">Set as diff tool</h2>
+
+<h3 id="linux-1">Linux</h3>
+
+<p>$ git config &ndash;global merge.tool p4mergetool
+$ git config &ndash;global mergetool.p4mergetool.cmd <br />
+&rdquo;/opt/p4v/bin/p4merge \$LOCAL \$REMOTE&rdquo;</p>
+
+<h3 id="mac-1">Mac</h3>
+
+<p>$ git config &ndash;global diff.tool p4mergetool
+$ git config &ndash;global difftool.p4mergetool.cmd <br />
+&rdquo;/Applications/p4merge.app/Contents/Resources/launchp4merge \$LOCAL \$REMOTE&rdquo;</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/git/worktree-switching-branch-without-stash/">
+    <h2>
+      worktree - switching branch without stash
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-04-03 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Some times you are working on some feature but then you need to check or fix something on some other branch.
+The normal way to do it is that we do:</p>
+
+<ol>
+<li>git stash</li>
+<li>switch to other branch</li>
+<li>commit changes</li>
+<li>swith to previous branch</li>
+<li>git stash pop</li>
+</ol>
+
+<p>This can be complicated especially you have multiple stash. You can&rsquo;t easily understand which stash belongs where.</p>
+
+<p>After version 2.5.2 there is new command called <code>git worktree</code></p>
+
+<p>Basically it can create new directory which checkout different branch</p>
+
+<p>example</p>
+
+<pre><code>$ git worktree add ../branch-temp some-branch
+$ cd ../branch-temp
+
+// hack
+// finish
+
+$ cd ../original-path
+$ rm -rf ../branch-temp
+
+// cleanup
+
+$ git worktree prune
+</code></pre>
+
+<p>more detail about the command are available at <a href="https://git-scm.com/docs/git-worktree">https://git-scm.com/docs/git-worktree</a></p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/osx/cluster-ssh-in-iterm2-with-i2cssh/">
+    <h2>
+      cluster ssh in iterm2 with i2cssh
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-03-31 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>I&rsquo;m a fan of cluster ssh. It allows you to control multiple ssh session with one keyboard.
+I tried <a href="https://github.com/brockgr/csshx">csshx</a> which uses the default osx terminal, but I love iterm2.</p>
+
+<p>But today I found <a href="https://github.com/wouterdebie/i2cssh">i2cssh</a> which does that for iterm2</p>
+
+<p>One of the feature is broadcast where you can send command to multiple window.
+It&rsquo;s basically the same with csshx but their approach is to create another extra window
+that receive an input and send it to all other windows. I like  i2cssh approach better with shortcut.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/formatting-or-parse-json-in-command-line/">
+    <h2>
+      Format or parse json in command line
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-03-17 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>To easily format json or command line there <a href="https://stedolan.github.io/jq/">jq</a></p>
+
+<p>example</p>
+
+<pre><code>$ echo '{&quot;user&quot;:&quot;stedolan&quot;,&quot;titles&quot;:[&quot;JQ Primer&quot;, &quot;More JQ&quot;]}' | jq .
+{
+    &quot;user&quot;: &quot;stedolan&quot;,
+      &quot;titles&quot;: [
+          &quot;JQ Primer&quot;,
+              &quot;More JQ&quot;
+                ]
+}
+</code></pre>
+
+<p>or just print specific value</p>
+
+<pre><code>$ echo '{&quot;user&quot;:&quot;stedolan&quot;,&quot;titles&quot;:[&quot;JQ Primer&quot;, &quot;More JQ&quot;]}' | jq .titles[0]
+&quot;JQ Primer&quot;
+</code></pre>
+
+</article>
+<hr/>
+
+
+
+
+<ul class="pagination">
+    
+    <li class="page-item">
+        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+    <a href="/page/3/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+    </li>
+    
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/">1</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item active"><a class="page-link" href="/page/4/">4</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/5/">5</a></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/5/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    </li>
+    
+    <li class="page-item">
+        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    </li>
+    
+</ul>
+
+
+
+
+
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <h3>English</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
+            </li>
+          
+          </ul>
+          <h3>Indonesia</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">Ruby Fiber apaan sih ?</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">Scale MongoDB dengan Sharding</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/">Telepon murah ke Indonesia dengan voip</a>
+            </li>
+          
+          </ul>
+
+          <h3>Today I Learned</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">Checkout Last Branch</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/rename-tmux-window/">rename tmux window</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/net/dnssec/">DNSSEC</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/git/reset-email-multiple-commit/">reset email multiple git commit</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/encription-with-gpg/">encription with gpg</a>
+            </li>
+          
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div><header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+      </div>
+    </div> 
+  </div>
+  
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <a href="/"><span class="brand">Labs.Yulrizka.com</span></a>
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="https://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+
+              <li class="active banner"><a href="/">Home</a></li>
+              <li class=""><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
+              <li class=""><a href="/til/">Today I Learned</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+</div> 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+
+<script src="https://labs.yulrizka.com/javascript/global.js"></script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

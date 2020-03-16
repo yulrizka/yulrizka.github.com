@@ -37,15 +37,23 @@
 	2019-04-03 ::
 	( 1 minutes reading )
 </div><p>Assuming the domain name is <code>yulrizka.com</code> and the certificate was created with</p>
-
-<pre><code>$ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com</code></pre></td></tr></table>
+</div>
+</div>
 <p>To extend this certificate with DNS challenge</p>
-
-<pre><code># certbot -d yulrizka.com --manual --preferred-challenges dns certonly
-</code></pre>
-
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># certbot -d yulrizka.com --manual --preferred-challenges dns certonly</span></code></pre></td></tr></table>
+</div>
+</div>
 <p>You will be asked to add TXT record of <code>_acme-challenge.yulrizka.com</code>.</p>
 
 <p>After updating that DNS record, wait couple of minutes and proceed.</p>

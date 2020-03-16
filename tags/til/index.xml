@@ -19,7 +19,7 @@
       <description>Sometimes you are checking out mutltiple different git branches and want to navigate back to previous branch.
 You can use git checkout - to do it
 example :
-$ git checkout ay/convert-errors-lib Updating files: 100% (2480/2480), done. Switched to branch &#39;ay/convert-errors-lib&#39; $ git checkout - Updating files: 100% (2480/2480), done. Switched to branch &#39;master&#39; Your branch is up to date with &#39;origin/master&#39;.  If you want to checkout 2 branches a go.</description>
+1 2 3 4 5 6 7 8  $ git checkout ay/convert-errors-lib Updating files: 100% (2480/2480), done. Switched to branch &amp;#39;ay/convert-errors-lib&amp;#39; $ git checkout - Updating files: 100% (2480/2480), done. Switched to branch &amp;#39;master&amp;#39; Your branch is up to date with &amp;#39;origin/master&amp;#39;.</description>
     </item>
     
     <item>

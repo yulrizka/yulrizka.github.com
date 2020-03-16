@@ -19,7 +19,7 @@
       <description>Sometimes you are checking out mutltiple different git branches and want to navigate back to previous branch.
 You can use git checkout - to do it
 example :
-$ git checkout ay/convert-errors-lib Updating files: 100% (2480/2480), done. Switched to branch &#39;ay/convert-errors-lib&#39; $ git checkout - Updating files: 100% (2480/2480), done. Switched to branch &#39;master&#39; Your branch is up to date with &#39;origin/master&#39;.  If you want to checkout 2 branches a go.</description>
+1 2 3 4 5 6 7 8  $ git checkout ay/convert-errors-lib Updating files: 100% (2480/2480), done. Switched to branch &amp;#39;ay/convert-errors-lib&amp;#39; $ git checkout - Updating files: 100% (2480/2480), done. Switched to branch &amp;#39;master&amp;#39; Your branch is up to date with &amp;#39;origin/master&amp;#39;.</description>
     </item>
     
     <item>
@@ -31,7 +31,7 @@ $ git checkout ay/convert-errors-lib Updating files: 100% (2480/2480), done. Swi
       <description>I started not to use my real email for git commit. Instead i uses the one that is provided by github
 After enabling Block command line pushes that expose my email on Block command line pushes that expose my email, it will reject all email that exposes public email adress.
 So in order to rewrite git history and change the author email, I found this github help
-#!/bin/sh git filter-branch --env-filter &#39; OLD_EMAIL=&amp;quot;your-old-email@example.</description>
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!</description>
     </item>
     
     <item>

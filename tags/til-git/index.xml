@@ -19,7 +19,7 @@
       <description>I started not to use my real email for git commit. Instead i uses the one that is provided by github
 After enabling Block command line pushes that expose my email on Block command line pushes that expose my email, it will reject all email that exposes public email adress.
 So in order to rewrite git history and change the author email, I found this github help
-#!/bin/sh git filter-branch --env-filter &#39; OLD_EMAIL=&amp;quot;your-old-email@example.</description>
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17  #!</description>
     </item>
     
   </channel>
