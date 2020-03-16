@@ -10,7 +10,7 @@ keywords: unix,linux,sort
 ---
 
 We can sort file by using `sort` command for example:
-```
+```bash
 $ sort a.txt
 
 # or
@@ -19,11 +19,11 @@ $ cat a.txt | sort
 ```
 
 But this will only output to stdout. Some time you want the file to be sorted. Instead you can do
-```
+```bash
 $ sort a.txt -o a.txt
 ```
 
 note that this DOEST work and it will TRUNCATE the file
-```
+```bash
 $ sort a.txt > a.txt
 ```

@@ -16,7 +16,7 @@ all email that exposes public email adress.
 
 So in order to rewrite git history and change the author email, I found this [github help](https://help.github.com/articles/changing-author-info/)
 
-```
+```bash
 #!/bin/sh
 
 git filter-branch --env-filter '
@@ -38,7 +38,7 @@ fi
 
 Another neat way (after you change your email with git config), you can also do this:
 
-```
+```bash
 $ git rebase -i -p --exec 'git commit --amend --reset-author --no-edit'
 ```
 

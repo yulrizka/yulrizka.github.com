@@ -1,6 +1,6 @@
 {{ define "main" }}
 
-{{ range (.Paginate (where .Pages "Section" "in" "en,id")).Pages }}
+{{ range (.Paginate (where .Pages "Section" "in" "en,id,til")).Pages }}
 <article>
   <a href="{{ .Permalink }}">
     <h2>

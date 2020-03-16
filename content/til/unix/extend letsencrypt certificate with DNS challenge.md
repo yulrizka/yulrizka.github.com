@@ -11,12 +11,12 @@ keywords: https ssl letsencrypt
 
 Assuming the domain name is `yulrizka.com` and the certificate was created with
 
-```
+```bash
 $ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com
 ```
 
 To extend this certificate with DNS challenge 
-```
+```bash
 # certbot -d yulrizka.com --manual --preferred-challenges dns certonly
 ```
 
