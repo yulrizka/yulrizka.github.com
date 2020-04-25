@@ -36,6 +36,41 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/">
+    <h2>
+      pandas - format custom date in data frame
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-07 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>say you have a data frame like this</p>
+
+<pre><code>[
+  {foo: 1, created_date:&quot;2016-06-04 03:00:01.727&quot;},
+  ...
+]
+</code></pre>
+
+<p>the timestamp doesn&rsquo;t recognize immediately. To make this field as timestamp and as index we could do</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># assuming df contains the data frame</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">be</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S.</span><span class="si">%f</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/file-size-older-than-x-days/">
     <h2>
       file size older than x days
@@ -376,59 +411,6 @@ Enjoy!
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/">
-    <h2>
-      git mergetool and diff with p4merge
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-04-03 ::
-    ( 1 minutes reading )
-  </div>
-
-  
-
-<p>Some time you want visually merge conflict in git. To use p4merge
-<a href="https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge">https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge</a></p>
-
-<h2 id="git-mergetool">git mergetool</h2>
-
-<h3 id="linux">Linux</h3>
-
-<pre><code>$ git config --global merge.tool p4mergetool
-$ git config --global mergetool.p4mergetool.cmd \
-$ &quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
-$ git config --global mergetool.p4mergetool.trustExitCode false
-$ git config --global mergetool.keepBackup false
-</code></pre>
-
-<h3 id="mac">Mac</h3>
-
-<pre><code>$ git config --global merge.tool p4mergetool
-$ git config --global mergetool.p4mergetool.cmd \
-&quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
-$ git config --global mergetool.p4mergetool.trustExitCode false
-$ git config --global mergetool.keepBackup false
-</code></pre>
-
-<h2 id="set-as-diff-tool">Set as diff tool</h2>
-
-<h3 id="linux-1">Linux</h3>
-
-<p>$ git config &ndash;global merge.tool p4mergetool
-$ git config &ndash;global mergetool.p4mergetool.cmd <br />
-&rdquo;/opt/p4v/bin/p4merge \$LOCAL \$REMOTE&rdquo;</p>
-
-<h3 id="mac-1">Mac</h3>
-
-<p>$ git config &ndash;global diff.tool p4mergetool
-$ git config &ndash;global difftool.p4mergetool.cmd <br />
-&rdquo;/Applications/p4merge.app/Contents/Resources/launchp4merge \$LOCAL \$REMOTE&rdquo;</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -545,6 +527,10 @@ $ git config &ndash;global difftool.p4mergetool.cmd <br />
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behave differently depending on the size of the element</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
             </li>
           
@@ -578,10 +564,6 @@ $ git config &ndash;global difftool.p4mergetool.cmd <br />
           
             <li>
               <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
             </li>
           
           </ul>

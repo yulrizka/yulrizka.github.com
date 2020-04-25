@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.55.6" />
 
-<title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
-<meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
+<title>Why for-range behave differently depending on the size of the element - labs.yulrizka.com</title>
+<meta name="description" content="Understanding the go SSA optimization using for-range example">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<meta name="keywords" content="golang, ssa, optimization">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/">
+<link rel="canonical" href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">
 
 
 
@@ -33,20 +32,11 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-
-
-<article>
-  <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">
-    <h2>
-      Why for-range behave differently depending on the size of the element
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-04-25 ::
-    ( 8 minutes reading )
-  </div>
-
-  
+<h1>Why for-range behave differently depending on the size of the element</h1>
+<div class="posted_at">
+	2020-04-25 ::
+	( 8 minutes reading )
+</div>
 
 <p>It&rsquo;s all started when my colleague asked this question.</p>
 <div class="highlight"><div class="chroma">
@@ -429,489 +419,26 @@ and reduce the number of loop.</p>
 a different machine code for the larger struct where at a later pass it did not detect unused variable. The opposite happen
 for the smaller struct. At a later pass, it detected that some variable is not being used so it removes the copy of element
 instruction on each iteration.</p>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">
-    <h2>
-      Checkout Last Branch
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-03-16 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Sometimes you are checking out mutltiple different git branches and want to navigate back to previous branch.</p>
-
-<p>You can use <code>git checkout -</code> to do it</p>
-
-<p>example :</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ git checkout ay/convert-errors-lib
-Updating files: <span class="m">100</span>% <span class="o">(</span><span class="m">2480</span>/2480<span class="o">)</span>, <span class="k">done</span>.
-Switched to branch <span class="s1">&#39;ay/convert-errors-lib&#39;</span>
-
-$ git checkout -
-Updating files: <span class="m">100</span>% <span class="o">(</span><span class="m">2480</span>/2480<span class="o">)</span>, <span class="k">done</span>.
-Switched to branch <span class="s1">&#39;master&#39;</span>
-Your branch is up to date with <span class="s1">&#39;origin/master&#39;</span>.</code></pre></td></tr></table>
-</div>
-</div>
-<p>If you want to checkout 2 branches a go. you can do</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ git checkout @<span class="o">{</span>-2<span class="o">}</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>Basically <code>git checkout -</code> is equql to <code>git checkout @{-1}</code></p>
-
-<p>If you want to list all of the checked out branch (history) you can use this script</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="k">for</span> i in <span class="o">{</span><span class="m">1</span>..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> -n <span class="s2">&#34;[</span><span class="nv">$i</span><span class="s2">] &#34;</span><span class="p">;</span> git rev-parse --symbolic-full-name @<span class="o">{</span>-<span class="nv">$i</span><span class="o">}</span><span class="p">;</span> <span class="k">done</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>I added this as a git command on my zsh. have a look at <a href="https://github.com/yulrizka/oh-my-zsh/commit/2b730e3bf2777f83e6a215da4a03e51e67145ff3">this commit</a></p>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">
-    <h2>
-      Replacing Last Command and Execute It
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-03-08 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>For example</p>
-
-<pre><code>$ echo &quot;hello world world world&quot;                   
-hello world world world
-</code></pre>
-
-<p>If you want to replace <code>world</code> with <code>universe</code> you can do</p>
-
-<pre><code># If you use ZSH you can press `tab` at the end of the line and it will replace
-# the whole line with the actuall command
-$ ^world^universe
-$ echo &quot;hello universe world world&quot;
-</code></pre>
-
-<p>As you can see, it only replace the first matching word.</p>
-
-<p>If you want it to replace the whole match:</p>
-
-<pre><code># zsh
-$ ^world^universe^:G
-
-# bash
-$^world^universe^&amp;
-</code></pre>
-
-<p><strong>Don&rsquo;t use it in production</strong><br />
-I tend to use <code>fc</code> command which allow me to edit the command in my editor first</p>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/">
-    <h2>
-      Open Last Command in the Editor With Fc
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-03-08 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Some time you have a long command and you want to edit multiple word in it.  for example: <code>$ cat foo.txt | grep foo | grep -v bar &gt; foo_output.txt</code></p>
-
-<p>Say you want to execute this 5 times and each replacing <code>foo</code> and <code>bar</code> with something else.</p>
-
-<p>for that you can use the <code>fc</code> command.</p>
-
-<pre><code>$ fc
-</code></pre>
-
-<p>It will open a text editor (vim for me. I&rsquo;m guessing it will look at $EDITOR env variable).<br />
-After that you can edit or duplicate the line easily. Each line will be treated as a single command.</p>
-
-<p>You can as well do something like</p>
-
-<pre><code>$ fc foo=baz
-</code></pre>
-
-<p>It will replace all instance of <code>foo</code> in the command and replace it with <code>baz</code></p>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">
-    <h2>
-      Regex for Validating Password
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-10-25 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>This regex can be use to validate password</p>
-
-<pre><code>((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,20})
-</code></pre>
-
-<p>description:</p>
-
-<pre><code>(                   # Start of group
-  (?=.*\d)          # must contains one digit from 0-9
-  (?=.*[a-z])       # must contains one lowercase characters
-  (?=.*[\W])        # must contains at least one special character
-  .                 # match anything with previous condition checking
-  {8,20}            # length at least 8 characters and maximum of 20 
-)                   # End of group
-</code></pre>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">
-    <h2>
-      Sort file inline
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-09-26 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>We can sort file by using <code>sort</code> command for example:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt
-
-<span class="c1"># or</span>
-
-$ cat a.txt <span class="p">|</span> sort</code></pre></td></tr></table>
-</div>
-</div>
-<p>But this will only output to stdout. Some time you want the file to be sorted. Instead you can do</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt -o a.txt</code></pre></td></tr></table>
-</div>
-</div>
-<p>note that this DOEST work and it will TRUNCATE the file</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt &gt; a.txt</code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">
-    <h2>
-      Show Hidden File
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-09-22 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Tho show hidden file (file with <code>x</code>):</p>
-
-<p><strong>Mojave</strong>:</p>
-
-<p>In finder <code>CMD + Shift + .</code> to toggle it</p>
-
-<p><strong>Before Mojave</strong>:</p>
-
-<p>Show</p>
-
-<pre><code>defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app
-</code></pre>
-
-<p>Hide</p>
-
-<pre><code>defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app
-</code></pre>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">
-    <h2>
-      Bash Forloop
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-09-16 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Example of forloop syntax</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span>
-<span class="k">do</span>
-   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
-<span class="k">done</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>with range</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="o">{</span><span class="m">1</span>..5<span class="o">}</span>
-<span class="k">do</span>
-   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
-<span class="k">done</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>cutomize increment</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="o">{</span><span class="m">0</span>..10..2<span class="o">}</span>
-<span class="k">do</span> 
-   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
-<span class="k">done</span></code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">
-    <h2>
-      Zsh Ctrl P Same Behavior as Up Arrow
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-09-13 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>By default Ctrl-P just jump back to the history while up arrow behave a little bit smarter.</p>
-
-<p>For example if you have history like this</p>
-
-<pre><code>ssh a.com
-ls
-cd
-ssh b.com
-cat
-grep
-</code></pre>
-
-<p>Normaly if you type <code>$ ssh</code> and <code>Ctrl-P</code> afterwares, it will give you <code>grep</code> not <code>ssh b.com</code></p>
-
-<p>to change this behavior, you can put this in your .zshrc</p>
-
-<pre><code>bindkey &quot;^P&quot; up-line-or-beginning-search
-bindkey &quot;^N&quot; down-line-or-beginning-search
-</code></pre>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">
-    <h2>
-      extend letsencrypt certificate with DNS challenge
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-04-03 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Assuming the domain name is <code>yulrizka.com</code> and the certificate was created with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com</code></pre></td></tr></table>
-</div>
-</div>
-<p>To extend this certificate with DNS challenge</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># certbot -d yulrizka.com --manual --preferred-challenges dns certonly</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>You will be asked to add TXT record of <code>_acme-challenge.yulrizka.com</code>.</p>
-
-<p>After updating that DNS record, wait couple of minutes and proceed.</p>
-
-</article>
-<hr/>
-
-
-
-
-<ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item disabled">
-    <a href="" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
     
     
     
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
-    
-    
-    <li class="page-item">
-    <a href="/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
-</ul>
-
-
-
-
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
         </div>
       </div>
@@ -1069,8 +596,8 @@ bindkey &quot;^N&quot; down-line-or-beginning-search
           <div class="nav-link nav-collapse">
             <ul class="nav">
 
-              <li class="active banner"><a href="/">Home</a></li>
-              <li class=""><a href="/en/">EN</a></li>
+              <li class=""><a href="/">Home</a></li>
+              <li class="active banner"><a href="/en/">EN</a></li>
               <li class=""><a href="/id/">ID</a></li>
               <li class=""><a href="/til/">Today I Learned</a></li>
               

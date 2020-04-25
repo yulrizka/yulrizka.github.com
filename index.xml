@@ -5,10 +5,20 @@
     <link>https://labs.yulrizka.com/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 16 Mar 2020 14:44:17 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2020 15:47:49 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Why for-range behave differently depending on the size of the element</title>
+      <link>https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/</link>
+      <pubDate>Sat, 25 Apr 2020 15:47:49 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/</guid>
+      <description>It&amp;rsquo;s all started when my colleague asked this question.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39  package main import &amp;#34;testing&amp;#34; const size = 1000000 type SomeStruct struct { ID0 int64 ID1 int64 ID2 int64 ID3 int64 ID4 int64 ID5 int64 ID6 int64 ID7 int64 ID8 int64 } func BenchmarkForVar(b *testing.</description>
+    </item>
     
     <item>
       <title>Checkout Last Branch</title>

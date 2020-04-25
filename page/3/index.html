@@ -36,6 +36,32 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/unix/sending-curl-post-with-file/">
+    <h2>
+      sending curl POST with file
+    </h2>
+  </a>
+  <div class="posted_at">
+    2017-10-15 ::
+    ( 1 minutes reading )
+  </div>
+
+  <pre><code>curl -X POST -d @myfilename http://www.url.com
+``
+
+or
+
+``
+curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
+{
+  &quot;query&quot;: { &quot;match_phrase&quot;: { &quot;address&quot;: &quot;mill lane&quot; } }
+}'
+</code></pre>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/jq-extracting-properties-to-arrays-from-json-row-line/">
     <h2>
       jq extracting properties to arrays from JSON row line
@@ -351,41 +377,6 @@ For example log file in json format</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/">
-    <h2>
-      pandas - format custom date in data frame
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-06-07 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>say you have a data frame like this</p>
-
-<pre><code>[
-  {foo: 1, created_date:&quot;2016-06-04 03:00:01.727&quot;},
-  ...
-]
-</code></pre>
-
-<p>the timestamp doesn&rsquo;t recognize immediately. To make this field as timestamp and as index we could do</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># assuming df contains the data frame</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">be</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S.</span><span class="si">%f</span><span class="s2">&#34;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
 
 
 
@@ -500,6 +491,10 @@ For example log file in json format</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behave differently depending on the size of the element</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
             </li>
           
@@ -533,10 +528,6 @@ For example log file in json format</p>
           
             <li>
               <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/">Jekyll error utf-8 caracter</a>
             </li>
           
           </ul>
