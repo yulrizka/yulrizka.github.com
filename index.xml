@@ -23,6 +23,40 @@ example :
     </item>
     
     <item>
+      <title>Replacing Last Command and Execute It</title>
+      <link>https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/</link>
+      <pubDate>Sun, 08 Mar 2020 13:23:49 +0100</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/</guid>
+      <description>For example
+$ echo &amp;quot;hello world world world&amp;quot; hello world world world  If you want to replace world with universe you can do
+# If you use ZSH you can press `tab` at the end of the line and it will replace # the whole line with the actuall command $ ^world^universe $ echo &amp;quot;hello universe world world&amp;quot;  As you can see, it only replace the first matching word.</description>
+    </item>
+    
+    <item>
+      <title>Open Last Command in the Editor With Fc</title>
+      <link>https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/</link>
+      <pubDate>Sun, 08 Mar 2020 13:18:33 +0100</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/</guid>
+      <description>Some time you have a long command and you want to edit multiple word in it. for example: $ cat foo.txt | grep foo | grep -v bar &amp;gt; foo_output.txt
+Say you want to execute this 5 times and each replacing foo and bar with something else.
+for that you can use the fc command.
+$ fc  It will open a text editor (vim for me. I&amp;rsquo;m guessing it will look at $EDITOR env variable).</description>
+    </item>
+    
+    <item>
+      <title>Regex for Validating Password</title>
+      <link>https://labs.yulrizka.com/til/unix/regex-for-validating-password/</link>
+      <pubDate>Fri, 25 Oct 2019 11:55:53 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/unix/regex-for-validating-password/</guid>
+      <description>This regex can be use to validate password
+((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,20})  description:
+( # Start of group (?=.*\d) # must contains one digit from 0-9 (?=.*[a-z]) # must contains one lowercase characters (?=.*[\W]) # must contains at least one special character . # match anything with previous condition checking {8,20} # length at least 8 characters and maximum of 20 ) # End of group  </description>
+    </item>
+    
+    <item>
       <title>Sort file inline</title>
       <link>https://labs.yulrizka.com/til/unix/sort-file-inline/</link>
       <pubDate>Thu, 26 Sep 2019 11:44:50 +0200</pubDate>
