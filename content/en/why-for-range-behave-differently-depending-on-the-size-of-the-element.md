@@ -1,5 +1,5 @@
 ---
-title: "Why for-range behave differently depending on the size of the element"
+title: "Why for-range behave differently depending on the size of the element (A peek into go compiler optimization)"
 date: 2020-04-25T15:47:49+02:00
 draft: false
 language: en
@@ -65,7 +65,7 @@ PASS
 ok  	_/test1	2.685s
 ```
 
-It's pretty much the same. However if we increase the size of the struct by adding another field `ID9 int64`
+It's pretty much the same. However, if we increase the size of the struct by adding another field `ID9 int64`
 The result becomes significantly different.
 
 ```
@@ -77,10 +77,15 @@ BenchmarkForCounter-4   	    4363	    269761 ns/op	       0 B/op	       0 allocs
 PASS
 ok  	_/test1	3.255s
 ```
+<br />
+This problem become intriguing, so I dig a little deeper. I would like to point out that the code is a contrived example.
+It would probably not applied in a production code. I am **not** going to focus on the benchmark or which for-range works
+better but rather exploring how Go compiles and demonstrating useful Go tools in the process.
 
-This problem become intriguing, so I dig a little deeper and  focus on the `for _, s = range slice` loop (ForVar).
+The code below also contains some assembly code. I am not going into too much detail, so I would not worry if you are not familiar with it.
+My intention is to show how the generated code differs and what could be the reason for it.
 
-To make it simpler I create a `main.go` and `struct.go`
+I am going to focus on `for _, s = range slice` loop (ForVar). To make it simpler I create a `main.go` and `struct.go`
 
 **main.go**
 ```go
@@ -99,21 +104,21 @@ func main() {
 I'll skip the `struct.go` here since it's pretty trivial.
 
 ## Generating Assembly Code
-To look into what are the instructions are actually generated, we look into the assembly with `go tool compile -S`
+To look into what instructions are generated, we can use `go tool compile -S`. This will print out the generated
+assembly code to stdout. I also Skipped some lines that are not directly related to our code.
+ 
+according to [asm package doc](https://golang.org/doc/asm)
+
+> The FUNCDATA and PCDATA directives contain information for use by the garbage collector; they are introduced by the compiler. 
+
 ```bash
 $  go tool compile -S main.go type.go | grep -v FUNCDATA | grep -v PCDATA
 ```
 
-according to [asm package doc](https://golang.org/doc/asm)
-
-> The FUNCDATA and PCDATA directives contain information for use by the garbage collector; they are introduced by the compiler. 
-So that's why we can skip it.
-
-<br/>
-
 Here are the generated assembly code for both version.
 
 **version with 9 int64**
+
 This struct contains 9 int64 and has the size 72 bytes
 
 ```asm
@@ -126,14 +131,15 @@ This struct contains 9 int64 and has the size 72 bytes
 	0x003f 00063 (main_var.go:6)	XORL	AX, AX       # set AX = 0
 	0x0041 00065 (main_var.go:7)	INCQ	AX           # AX++
 	0x0044 00068 (main_var.go:7)	CMPQ	AX, $1000000 # AX < 1000000
-	0x004a 00074 (main_var.go:7)	JLT	65               # LOOP
+	0x004a 00074 (main_var.go:7)	JLT	65               # JUMP to 00065 (next iteration)
     ...
 ```
 Here you can see that at line `00065`, the loop does nothing except increasing the counter. Let's compare it with the
-larger struct
+larger struct.
 
 <br/>
 **version with 10 int64**
+
 The struct now contains 10 int64 and has the size 80 bytes
 ```asm
 0x0000 00000 (main_var.go:3)	TEXT	"".main(SB), ABIInternal, $120-0
@@ -167,7 +173,7 @@ The short version is the compiler does:
 4. Iteratively optimize the IR with [multiple pass](https://github.com/golang/go/blob/go1.14.1/src/cmd/compile/internal/ssa/compile.go#L398-L451)
 
 <br/>
-Fortunately GO provides amazing tool to provide visibility into the optimization process.
+Fortunately GO provides amazing tool that helps us getting more insight into the optimization process.
 We can generate the SSA output for each stage of transformation with:
 
 ```bash
@@ -175,10 +181,10 @@ $ GOSSAFUNC=main go tool compile -S main_var.go type_small.go
 ```
 
 <br/>
-The command will generate `ssa.HTML`.
+The command will generate `ssa.html` in the same folder.
 
-Each column represents the optimization pass and the result of the IR code.
-When we click on a block, variable, or line, it will colorize the associated element so we can track the change easily.
+Each column represents the optimization pass, and the result of the IR code.
+When we click on a block, variable, or line. It will colorize the associated element, so we can track changes easily.
 
 <a href="forVar_small_ssa.png">
 ![Generated SSA HTML](forVar_small_ssa.png)
@@ -187,9 +193,9 @@ When we click on a block, variable, or line, it will colorize the associated ele
 <br/>
 
 After comparing each step, I found out that the generated code was identical until the `writebarrier` pass.
-let's focus on b6
+let's focus on block `b6`
 
-**`writebarrier`**
+**`writebarrier`** (identical on both versions)
 ```
 b6: ← b3 b4
     v22 (7) = Phi <*SomeStruct> v14 v45
@@ -201,11 +207,11 @@ b6: ← b3 b4
     v26 (7) = LocalAddr <*SomeStruct> {.autotmp_7} v2 v25
     v27 (+7) = Move <mem> {SomeStruct} [72] v26 v22 v25
 ```
-If you see on `v26 & v27` Move (or Copy) the content of the struct to local variable `autotmp_7`. 
+If you see on `v26 & v27`, it does `Move` (or Copy) the content of the struct to local variable `autotmp_7`. 
 
 The `lower` pass basically convert the IR code into specific architecture low level code. Let's have a look at the generated output.
-Don't be affraid if you don't really understand the assembly. What I wanted to show is the different code that was generated during
-the `lower` pass
+Don't be afraid if you don't really understand the assembly. What I wanted to show is the different code that was generated during
+the `lower` pass.
 
 **`lower` with 9 int64**
 ```
@@ -229,7 +235,7 @@ b6: ← b3 b4
     v17 (+7) = ADDQconst <*SomeStruct> [24] v22
     v39 (7) = SETL <bool> v44
     v42 (7) = TESTB <flags> v39 v39
-    v30 (+7) = MOVQstore <mem> {.autotmp_7} v2 v29 v25  # <-- start translated Move
+    v30 (+7) = MOVQstore <mem> {.autotmp_7} v2 v29 v25  # <-- start translated Move instruction
     v41 (+7) = MOVOload <int128> [8] v22 v30
     v20 (+7) = MOVOstore <mem> {.autotmp_7} [8] v2 v41 v30
     v34 (+7) = MOVOload <int128> [24] v22 v20
@@ -279,9 +285,9 @@ to Move a large byte on memory.
 <br/>
 
 At a later SSA pass (`elim unread autos`) the compiler can detect that there are unused temporary
-variable for the first version (9 int64 struct). Thus the `Move` instruction can be removed .
+variable for the first version (9 int64 struct). Thus, the `Move` instruction can be removed.
 This is not the case with for the `DUFFCOPY' version.
-That's why the generated machine code is less optimized than the former. 
+That's why the generated machine code is less optimized than the previous. 
 
 Note: 
 A [Duff Device](https://en.wikipedia.org/wiki/Duff%27s_device) is a loop optimization by splitting the task
@@ -290,5 +296,5 @@ and reduce the number of loop.
 ## Conclusion
 `for-range` behaves differently depending on the struct size is due to Compiler SSA optimization. The compiler generated
 a different machine code for the larger struct where at a later pass it did not detect unused variable. The opposite happen
-for the smaller struct. At a later pass, it detected that some variable is not being used so it removes the copy of element
+for the smaller struct. At a later pass, it detected that some variables are un used. It removes the copy of element
 instruction on each iteration.
