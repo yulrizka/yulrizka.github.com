@@ -11,7 +11,7 @@
     
     
     <item>
-      <title>Why for-range behave differently depending on the size of the element (A peek into go compiler optimization)</title>
+      <title>Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</title>
       <link>https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/</link>
       <pubDate>Sat, 25 Apr 2020 15:47:49 +0200</pubDate>
       
