@@ -1,5 +1,5 @@
 ---
-title: "Why for-range behave differently depending on the size of the element (A peek into go compiler optimization)"
+title: "Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)"
 date: 2020-04-25T15:47:49+02:00
 draft: false
 language: en
@@ -7,6 +7,13 @@ comments: true
 tags: golang
 description: Understanding the go SSA optimization using for-range example
 keywords: golang, ssa, optimization
+
+twitter:
+  card: "summary"
+  site: "@yulrizka"
+  title: "Why for-range behaves differently (A peek into go compiler optimization)"
+  description: "Understanding the go SSA optimization using for-range example"
+  image: "https://labs.yulrizka.com/images/twitter-go-card.jpg"
 ---
 
 It's all started when my colleague asked this question.
@@ -153,9 +160,9 @@ The struct now contains 10 int64 and has the size 80 bytes
 	0x0051 00081 (main_var.go:7)	MOVQ	AX, SI
 	0x0054 00084 (main_var.go:7)	PCDATA	$0, $1
 	0x0054 00084 (main_var.go:7)	DUFFCOPY	$826 # copy content of the struct
-	0x0067 00103 (main_var.go:7)	INCQ	CX
-	0x006a 00106 (main_var.go:7)	CMPQ	CX, $1000000
-	0x0071 00113 (main_var.go:7)	JLT	72
+	0x0067 00103 (main_var.go:7)	INCQ	CX           # CX++
+	0x006a 00106 (main_var.go:7)	CMPQ	CX, $1000000 # CX < 1000000
+	0x0071 00113 (main_var.go:7)	JLT	72               # JUMP to 0072 (next iteration)
     ...
 ```
 The conclusion is that with 80 bytes struct, every iteration copies the value of the element.
