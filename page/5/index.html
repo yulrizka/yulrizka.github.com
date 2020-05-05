@@ -38,6 +38,61 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/osx/sign-application-with-self-certificate/">
+    <h2>
+      sign application with self certificate
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-04-04 ::
+    ( 2 minutes reading )
+  </div>
+
+  <p>When compiling binary that open port, (depending on your settings) it will ask to allow if the process can make the connection.</p>
+
+<p>We can sign our binary with certificate to avoid this.</p>
+
+<p>From <a href="http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010">http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010</a></p>
+
+<p>While RedYeti&rsquo;s link is useful, just to save a few clicks for others let me recap how to generate a code-signing cert and to use it for code (re-)signing:</p>
+
+<pre><code>1. Create your own code signing cert:
+In Keychain Access, Keychain Access &gt; Certificate Assistant &gt; Create a certificate. This launches the Certificate Assistant:
+
+Name: Enter some arbitrary string here that you can remember. Avoid spaces otherwise you'll need to escape the cert's name when using codesign from the command line.
+
+Identity type: Self Signed Root
+
+Certificate Type: Code Signing
+
+Check the box &quot;Let me override defaults&quot;, this is quite important
+
+Serial number: 1 (OK as long as the cert name/serial no. combination is unique)
+
+Validity Period: 3650 (gives you 10 years)
+
+Email, Name, etc. fill out as you wish.
+
+Key pair info: set to RSA, 2048 bits. Does not really matter IMHO.
+
+From &quot;Key usage extension&quot; up to &quot;Subject Alternate Name Extension&quot;: accept the defaults.
+
+Location: login keychain.
+
+Once it is created, set to &quot;Always trust&quot; in the Login keychain.
+
+
+2. Re-signing an app: codesign -f -s &lt;certname&gt; /path/to/app --deep
+
+3. Verify that it worked: codesign -dvvvv /path/to/app
+
+Enjoy!
+</code></pre>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/">
     <h2>
       git mergetool and diff with p4merge
@@ -449,33 +504,6 @@ $ echo !:-3 # -&gt; echo echo 1 2 3
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/pbcopy-alternative-for-copying-to-clipboard/">
-    <h2>
-      pbcopy alternative for copying to clipboard
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-02-13 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>in osx we have <a href="https://github.com/yulrizka/til/blob/master/osx/pipe%20output%20to%20clipboard%20with%20pbcopy%20and%20pbpaste.md">pbcopy &amp; pbpaste</a></p>
-
-<p>we can have something similar in linux. Put this is your shell profile (<code>~/.bashrc</code> or <code>~/.zshrc</code> if you are using zsh)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">pbcopy</span><span class="o">=</span><span class="s1">&#39;xclip -selection clipboard&#39;</span>
-<span class="nb">alias</span> <span class="nv">pbpaste</span><span class="o">=</span><span class="s1">&#39;xclip -selection clipboard -o&#39;</span></code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
 
 
 
@@ -653,6 +681,10 @@ $ echo !:-3 # -&gt; echo echo 1 2 3
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">Checkout Last Branch</a>
             </li>
           
@@ -686,10 +718,6 @@ $ echo !:-3 # -&gt; echo echo 1 2 3
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/rename-tmux-window/">rename tmux window</a>
             </li>
           
           </ul>

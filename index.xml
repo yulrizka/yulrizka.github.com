@@ -5,10 +5,24 @@
     <link>https://labs.yulrizka.com/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 25 Apr 2020 15:47:49 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2020 15:23:46 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Convert PDF to Text Using OCR</title>
+      <link>https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/</link>
+      <pubDate>Tue, 05 May 2020 15:23:46 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/</guid>
+      <description>make sure you have imagemagick and tesseract are installed
+$ sudo apt install imagemagick tesseract-ocr  It&amp;rsquo;s a 2 step process:
+ Convert PDF to .tiff using convert from imagemagick
+$ convert -density 300 input.pdf -depth 8 output.tiff  convert .tiff to text using tesseract
+generate out.txt
+$ tesseract output.tiff out   </description>
+    </item>
     
     <item>
       <title>Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</title>

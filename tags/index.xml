@@ -5,10 +5,19 @@
     <link>https://labs.yulrizka.com/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 25 Apr 2020 15:47:49 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 05 May 2020 15:23:46 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>til unix</title>
+      <link>https://labs.yulrizka.com/tags/til-unix/</link>
+      <pubDate>Tue, 05 May 2020 15:23:46 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/tags/til-unix/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>golang</title>
@@ -34,15 +43,6 @@
       <pubDate>Sun, 08 Mar 2020 13:23:49 +0100</pubDate>
       
       <guid>https://labs.yulrizka.com/tags/unix-til/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>til unix</title>
-      <link>https://labs.yulrizka.com/tags/til-unix/</link>
-      <pubDate>Sun, 08 Mar 2020 13:18:33 +0100</pubDate>
-      
-      <guid>https://labs.yulrizka.com/tags/til-unix/</guid>
       <description></description>
     </item>
     

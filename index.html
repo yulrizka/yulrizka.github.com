@@ -38,6 +38,40 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">
+    <h2>
+      Convert PDF to Text Using OCR
+    </h2>
+  </a>
+  <div class="posted_at">
+    2020-05-05 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>make sure you have imagemagick and tesseract are installed</p>
+
+<pre><code>$ sudo apt install imagemagick tesseract-ocr
+</code></pre>
+
+<p>It&rsquo;s a 2 step process:</p>
+
+<ol>
+<li><p>Convert PDF to .tiff using <code>convert</code> from imagemagick</p>
+
+<pre><code>$ convert -density 300 input.pdf -depth 8 output.tiff
+</code></pre></li>
+
+<li><p>convert .tiff to text using <code>tesseract</code><br />
+generate <code>out.txt</code></p>
+
+<pre><code>$  tesseract output.tiff out 
+</code></pre></li>
+</ol>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">
     <h2>
       Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)
@@ -783,42 +817,6 @@ bindkey &quot;^N&quot; down-line-or-beginning-search
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">
-    <h2>
-      extend letsencrypt certificate with DNS challenge
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-04-03 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Assuming the domain name is <code>yulrizka.com</code> and the certificate was created with</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com</code></pre></td></tr></table>
-</div>
-</div>
-<p>To extend this certificate with DNS challenge</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># certbot -d yulrizka.com --manual --preferred-challenges dns certonly</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>You will be asked to add TXT record of <code>_acme-challenge.yulrizka.com</code>.</p>
-
-<p>After updating that DNS record, wait couple of minutes and proceed.</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -992,6 +990,10 @@ bindkey &quot;^N&quot; down-line-or-beginning-search
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">Checkout Last Branch</a>
             </li>
           
@@ -1025,10 +1027,6 @@ bindkey &quot;^N&quot; down-line-or-beginning-search
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/rename-tmux-window/">rename tmux window</a>
             </li>
           
           </ul>

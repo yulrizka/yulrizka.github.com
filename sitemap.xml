@@ -4,18 +4,35 @@
   
   <url>
     <loc>https://labs.yulrizka.com/</loc>
-    <lastmod>2020-04-25T15:47:49+02:00</lastmod>
+    <lastmod>2020-05-05T15:23:46+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/unix/</loc>
+    <lastmod>2020-05-05T15:23:46+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/</loc>
+    <lastmod>2020-05-05T15:23:46+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/</loc>
+    <lastmod>2020-05-05T15:23:46+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/til-unix/</loc>
+    <lastmod>2020-05-05T15:23:46+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/en/</loc>
-    <lastmod>2020-04-25T15:47:49+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/</loc>
     <lastmod>2020-04-25T15:47:49+02:00</lastmod>
     <priority>0</priority>
   </url>
@@ -49,12 +66,6 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/til/unix/</loc>
-    <lastmod>2020-03-08T13:23:49+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/</loc>
     <lastmod>2020-03-08T13:23:49+01:00</lastmod>
   </url>
@@ -68,12 +79,6 @@
   <url>
     <loc>https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/</loc>
     <lastmod>2020-03-08T13:18:33+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/til-unix/</loc>
-    <lastmod>2020-03-08T13:18:33+01:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

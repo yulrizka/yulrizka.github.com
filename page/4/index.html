@@ -38,6 +38,49 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/analytics/convert-json-perline-to-panads-data-frame/">
+    <h2>
+      convert json perline to panads data frame
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-07 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Sometimes we have a file that contains a json object per line.
+For example log file in json format</p>
+
+<pre><code>{foo: 1, bar: 2}
+{foo: 3, bar: 4}
+</code></pre>
+
+<p>if we want to read this in python pandas we need to convert it to</p>
+
+<pre><code>[
+  {foo: 1, bar: 2},
+  {foo: 3, bar: 4}
+]
+</code></pre>
+
+<p>easy way to do this is with <code>jq --slurp</code></p>
+
+<pre><code>$ cat file.json | jq --slurp . &gt; one_array.json
+</code></pre>
+
+<p>then you can read it in python pandas (notebook) like this</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">sf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="s1">&#39;one_array.json&#39;</span><span class="p">)</span></code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/">
     <h2>
       pandas - format custom date in data frame
@@ -358,61 +401,6 @@ where you can add more or disable programs.</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/osx/sign-application-with-self-certificate/">
-    <h2>
-      sign application with self certificate
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-04-04 ::
-    ( 2 minutes reading )
-  </div>
-
-  <p>When compiling binary that open port, (depending on your settings) it will ask to allow if the process can make the connection.</p>
-
-<p>We can sign our binary with certificate to avoid this.</p>
-
-<p>From <a href="http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010">http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010</a></p>
-
-<p>While RedYeti&rsquo;s link is useful, just to save a few clicks for others let me recap how to generate a code-signing cert and to use it for code (re-)signing:</p>
-
-<pre><code>1. Create your own code signing cert:
-In Keychain Access, Keychain Access &gt; Certificate Assistant &gt; Create a certificate. This launches the Certificate Assistant:
-
-Name: Enter some arbitrary string here that you can remember. Avoid spaces otherwise you'll need to escape the cert's name when using codesign from the command line.
-
-Identity type: Self Signed Root
-
-Certificate Type: Code Signing
-
-Check the box &quot;Let me override defaults&quot;, this is quite important
-
-Serial number: 1 (OK as long as the cert name/serial no. combination is unique)
-
-Validity Period: 3650 (gives you 10 years)
-
-Email, Name, etc. fill out as you wish.
-
-Key pair info: set to RSA, 2048 bits. Does not really matter IMHO.
-
-From &quot;Key usage extension&quot; up to &quot;Subject Alternate Name Extension&quot;: accept the defaults.
-
-Location: login keychain.
-
-Once it is created, set to &quot;Always trust&quot; in the Login keychain.
-
-
-2. Re-signing an app: codesign -f -s &lt;certname&gt; /path/to/app --deep
-
-3. Verify that it worked: codesign -dvvvv /path/to/app
-
-Enjoy!
-</code></pre>
-
-</article>
-<hr/>
-
 
 
 
@@ -590,6 +578,10 @@ Enjoy!
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">Checkout Last Branch</a>
             </li>
           
@@ -623,10 +615,6 @@ Enjoy!
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/rename-tmux-window/">rename tmux window</a>
             </li>
           
           </ul>
