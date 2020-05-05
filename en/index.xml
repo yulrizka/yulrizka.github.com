@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ens on </title>
@@ -36,7 +36,7 @@
       
       <guid>https://labs.yulrizka.com/en/osx-push-to-talk-app/</guid>
       <description>Push To Talk app for OSX
-PushToTalk App installer   As a part of scrum teams, every day I need to give updates to my team via Google Hangout. We have a team here in the Netherlands and also in Indonesia. Some times I am in the same room as a colleague of mine. This sometimes quite annoying because I can hear my self (with a delay) from his mic.</description>
+As a part of scrum teams, every day I need to give updates to my team via Google Hangout. We have a team here in the Netherlands and also in Indonesia. Some times I am in the same room as a colleague of mine. This sometimes quite annoying because I can hear my self (with a delay) from his mic. This somehow messed up my brain.</description>
     </item>
     
     <item>
@@ -45,7 +45,8 @@ PushToTalk App installer   As a part of scrum teams, every day I need to give up
       <pubDate>Fri, 16 Jan 2015 23:35:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/</guid>
-      <description>Disect the rocket, image by ProudloveNathan Proudlove  I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the CommonSense iOS library. One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch. The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</description>
+      <description>I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the CommonSense iOS library. One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch. The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.
+Now this is a good example where git bisect is very useful.</description>
     </item>
     
     <item>
@@ -96,7 +97,7 @@ Some simple approach would we communicating the password directly with a person 
       <pubDate>Tue, 26 Feb 2013 20:33:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</guid>
-      <description>I&amp;rsquo;ve been tinkering with my raspberry-pi for quite some time now. What I like about it because it is cheap ($25), it&amp;rsquo;s run Linux (especially debian based) and most of all it&amp;rsquo;s have General Purpose Input Output pin. Since I was a kid, I always wanted to control electronic appliance remotely. Luckily my friend @pimnijdam thought me how to control a relay board. Basically it&amp;rsquo;s just like an electric switch that connect/disconnect current when you supply a low voltage.</description>
+      <description>So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is quite awesome.</description>
     </item>
     
     <item>

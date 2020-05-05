@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>go on </title>
     <link>https://labs.yulrizka.com/tags/go/</link>
     <description>Recent content in go on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 29 Aug 2015 17:28:00 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 25 Apr 2020 15:47:49 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
     

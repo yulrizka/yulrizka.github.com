@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -39,11 +39,10 @@
 	2015-02-12 ::
 	( 1 minutes reading )
 </div><p><code>&lt;( )</code> operator executes command inside the parenthesis and output the file descriptor</p>
-
 <p>example</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -64,24 +63,24 @@ world
 
 <span class="c1"># is practically the same with</span>
 
-$ <span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span> &gt; <span class="m">1</span>.txt
-$ <span class="nb">echo</span> <span class="s1">&#39;world&#39;</span> &gt; <span class="m">2</span>.txt
-$ cat <span class="m">1</span>.txt <span class="m">2</span>.txt
+$ <span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span> &gt; 1.txt
+$ <span class="nb">echo</span> <span class="s1">&#39;world&#39;</span> &gt; 2.txt
+$ cat 1.txt 2.txt
 
 <span class="c1"># replace cat with ls</span>
 $ ls &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span><span class="o">)</span> &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;world&#39;</span><span class="o">)</span>
-/proc/self/fd/11  /proc/self/fd/12</code></pre></td></tr></table>
+/proc/self/fd/11  /proc/self/fd/12
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>you can use this command for example to compare 2 directory and find only uniq file</p>
-
+</div><p>you can use this command for example to compare 2 directory and find only uniq file</p>
 <p>example:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ comm -3 &lt;<span class="o">(</span>ls -1 dir1<span class="o">)</span> &lt;<span class="o">(</span>ls -1 dir2<span class="o">)</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ comm -3 &lt;<span class="o">(</span>ls -1 dir1<span class="o">)</span> &lt;<span class="o">(</span>ls -1 dir2<span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div><div id="disqus_thread"></div>
 <script type="application/javascript">

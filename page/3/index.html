@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.55.6" />
+	<meta name="generator" content="Hugo 0.69.2" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -19,7 +19,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -49,26 +49,18 @@
   </div>
 
   <p>We can find it out by using <code>ps</code>. For example</p>
-
 <pre><code>$ ps aux  | grep cassandra
 ...
 cassand+ 24615 40.5 41.9 12064088 5033964 ?    SLl  14:28   5:15 java -ea -javaagent:/usr/share/cassandra/lib/jamm-0.3.0.jar -XX:+CMSClassUnloadingEnabled -XX:+UseThreadPriorities -XX:ThreadPriorityPolicy=42 -Xms4096M -Xmx4096M -Xmn1024M -XX:+PreserveFramePointer -Xss256k -XX:StringTableSize=1000003 -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:SurvivorRatio=2 -XX:MaxTenuringThreshold=15 -XX:CMSInitiatingOccupancyFraction=25 -XX:+UseCMSInitiatingOccupancyOnly -XX:+UseTLAB -XX:CompileCommandFile=/etc/cassandra/hotspot_compiler -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -XX:+UnlockDiagnosticVMOptions -XX:-UseBiasedLocking -XX:+UseGCTaskAffinity -XX:+BindGCTaskThreadsToCPUs -XX:ConcGCThreads=16 -XX:ParallelGCThreads=16 -XX:ParGCCardsPerStrideChunk=4096 -XX:+ParallelRefProcEnabled -XX:CMSMaxAbortablePrecleanTime=60000 -XX:CMSWaitDuration=30000 -XX:+AlwaysPreTouch -XX:+UseTLAB -XX:+ResizeTLAB -Dcassandra.max_local_pause_in_ms=40000 -XX:+CMSParallelInitialMarkEnabled -XX:+CMSEdenChunksRecordAlways -XX:+UseCondCardMark -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintPromotionFailure -XX:PrintFLSStatistics=1 -XX:+PrintAdaptiveSizePolicy -XX:+PrintSafepointStatistics -XX:+PrintClassHistogramBeforeFullGC -XX:+PrintClassHistogramAfterFullGC -Xloggc:/var/log/cassandra/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=50M -Djava.net.preferIPv4Stack=true -Dcom.sun.management.jmxremote.port=7199 -Dcom.sun.management.jmxremote.rmi.port=7199 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -javaagent:/usr/lib/jolokia/jolokia-jvm.jar=port=8089,host=0.0.0.0 -Dcassandra.metricsReporterConfigFile=/etc/cassandra/graphite.yaml -Dlogback.configurationFile=logback.xml -Dcassandra.logdir=/var/log/cassandra -Dcassandra.storagedir=/var/lib/cassandra -Dcassandra-pidfile=/var/run/cassandra/cassandra.pid -cp /etc/cassandra:/usr/share/cassandra/lib/airline-0.6.jar:/usr/share/cassandra/lib/antlr-runtime-3.5.2.jar:/usr/share/cassandra/lib/asm-5.0.4.jar:/usr/share/cassandra/lib/cassandra-driver-core-3.0.1-shaded.jar:/usr/share/cassandra/lib/commons-cli-1.1.jar:/usr/share/cassandra/lib/commons-codec-1.2.jar:/usr/share/cassandra/lib/commons-lang3-3.1.jar:/usr/share/cassandra/lib/commons-math3-3.2.jar:/usr/share/cassandra/lib/compress-lzf-0.8.4.jar:/usr/share/cassandra/lib/concurrentlinkedhashmap-lru-1.4.jar:/usr/share/cassandra/lib/disruptor-3.0.1.jar:/usr/share/cassandra/lib/ecj-4.4.2.jar:/usr/share/cassandra/lib/guava-18.0.jar:/usr/share/cassandra/lib/high-scale-lib-1.0.6.jar:/usr/share/cassandra/lib/jackson-core-asl-1.9.2.jar:/usr/share/cassandra/lib/jackson-mapper-asl-1.9.2.jar:/usr/share/cassandra/lib/jamm-0.3.0.jar:/usr/share/cassandra/lib/javax.inject.jar:/usr/share/cassandra/lib/jbcrypt-0.3m.jar:/usr/share/cassandra/lib/jcl-over-slf4j-1.7.7.jar:/usr/share/cassandra/lib/jna-4.4.0.jar:/usr/share/cassandra/lib/joda-time-2.4.jar:/usr/share/cassandra/lib/json-simple-1.1.jar:/usr/share/cassandra/lib/jstackjunit-0.0.1.jar:/usr/share/cassandra/lib/libthrift-0.9.2.jar:/usr/share/cassandra/lib/log4j-over-slf4j-1.7.7.jar:/usr/share/cassandra/lib/logback-classic-1.1.3.jar:/usr/share/cassandra/lib/logback-core-1.1.3.jar:/usr/share/cassandra/lib/lz4-1.3.0.jar:/usr/share/cassandra/lib/metrics-core-3.1.0.jar:/usr/share/cassandra/lib/metrics-graphite-3.1.0.jar:/usr/share/cassandra/lib/metrics-jvm-3.1.0.jar:/usr/share/cassandra/lib/metrics-logback-3.1.0.jar:/usr/share/cassandra/lib/netty-all-4.0.44.Final.jar:/usr/share/cassandra/lib/ohc-core-0.4.3.jar:/usr/share/cassandra/lib/ohc-core-j8-0.4.3.jar:/usr/share/cassandra/lib/reporter-config3-3.0.0.jar:/usr/share/cassandra/lib/reporter-config-base-3.0.0.jar:/usr/share/cassandra/lib/sigar-1.6.4.jar:/usr/share/cassandra/lib/slf4j-api-1.7.7.jar:/usr/share/cassandra/lib/snakeyaml-1.11.jar:/usr/share/cassandra/lib/snappy-java-1.1.1.7.jar:/usr/share/cassandra/lib/ST4-4.0.8.jar:/usr/share/cassandra/lib/stream-2.5.2.jar:/usr/share/cassandra/lib/thrift-server-0.3.7.jar:/usr/share/cassandra/apache-
 ...
-</code></pre>
-
-<p>The output is truncated. This is the same if you cat <code>/proc/[pid]/cmdline</code></p>
-
+</code></pre><p>The output is truncated. This is the same if you cat <code>/proc/[pid]/cmdline</code></p>
 <p>According to <a href="this">http://praveen.kumar.in/2010/02/24/getting-untruncated-command-line-options-passed-to-a-solaris-process/</a> (at least for solaris) the kernel only keep up until certain lenght.</p>
-
 <p>some tool can read into memory of the program to get the ARGS value.</p>
-
 <p>for linux we can use <code>ps eww -p &lt;PID&gt;</code></p>
-
 <pre><code>root@cass001:/proc/5367# ps eww -p 24615
   PID TTY      STAT   TIME COMMAND
 24615 ?        SLl   10:00 java -ea -javaagent:/usr/share/cassandra/lib/jamm-0.3.0.jar -XX:+CMSClassUnloadingEnabled -XX:+UseThreadPriorities -XX:ThreadPriorityPolicy=42 -Xms4096M -Xmx4096M -Xmn1024M -XX:+PreserveFramePointer -Xss256k -XX:StringTableSize=1000003 -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:SurvivorRatio=2 -XX:MaxTenuringThreshold=15 -XX:CMSInitiatingOccupancyFraction=25 -XX:+UseCMSInitiatingOccupancyOnly -XX:+UseTLAB -XX:CompileCommandFile=/etc/cassandra/hotspot_compiler -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -XX:+UnlockDiagnosticVMOptions -XX:-UseBiasedLocking -XX:+UseGCTaskAffinity -XX:+BindGCTaskThreadsToCPUs -XX:ConcGCThreads=16 -XX:ParallelGCThreads=16 -XX:ParGCCardsPerStrideChunk=4096 -XX:+ParallelRefProcEnabled -XX:CMSMaxAbortablePrecleanTime=60000 -XX:CMSWaitDuration=30000 -XX:+AlwaysPreTouch -XX:+UseTLAB -XX:+ResizeTLAB -Dcassandra.max_local_pause_in_ms=40000 -XX:+CMSParallelInitialMarkEnabled -XX:+CMSEdenChunksRecordAlways -XX:+UseCondCardMark -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintHeapAtGC -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+PrintPromotionFailure -XX:PrintFLSStatistics=1 -XX:+PrintAdaptiveSizePolicy -XX:+PrintSafepointStatistics -XX:+PrintClassHistogramBeforeFullGC -XX:+PrintClassHistogramAfterFullGC -Xloggc:/var/log/cassandra/gc.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=50M -Djava.net.preferIPv4Stack=true -Dcom.sun.management.jmxremote.port=7199 -Dcom.sun.management.jmxremote.rmi.port=7199 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -javaagent:/usr/lib/jolokia/jolokia-jvm.jar=port=8089,host=0.0.0.0 -Dcassandra.metricsReporterConfigFile=/etc/cassandra/graphite.yaml -Dlogback.configurationFile=logback.xml -Dcassandra.logdir=/var/log/cassandra -Dcassandra.storagedir=/var/lib/cassandra -Dcassandra-pidfile=/var/run/cassandra/cassandra.pid -cp /etc/cassandra:/usr/share/cassandra/lib/airline-0.6.jar:/usr/share/cassandra/lib/antlr-runtime-3.5.2.jar:/usr/share/cassandra/lib/asm-5.0.4.jar:/usr/share/cassandra/lib/cassandra-driver-core-3.0.1-shaded.jar:/usr/share/cassandra/lib/commons-cli-1.1.jar:/usr/share/cassandra/lib/commons-codec-1.2.jar:/usr/share/cassandra/lib/commons-lang3-3.1.jar:/usr/share/cassandra/lib/commons-math3-3.2.jar:/usr/share/cassandra/lib/compress-lzf-0.8.4.jar:/usr/share/cassandra/lib/concurrentlinkedhashmap-lru-1.4.jar:/usr/share/cassandra/lib/disruptor-3.0.1.jar:/usr/share/cassandra/lib/ecj-4.4.2.jar:/usr/share/cassandra/lib/guava-18.0.jar:/usr/share/cassandra/lib/high-scale-lib-1.0.6.jar:/usr/share/cassandra/lib/jackson-core-asl-1.9.2.jar:/usr/share/cassandra/lib/jackson-mapper-asl-1.9.2.jar:/usr/share/cassandra/lib/jamm-0.3.0.jar:/usr/share/cassandra/lib/javax.inject.jar:/usr/share/cassandra/lib/jbcrypt-0.3m.jar:/usr/share/cassandra/lib/jcl-over-slf4j-1.7.7.jar:/usr/share/cassandra/lib/jna-4.4.0.jar:/usr/share/cassandra/lib/joda-time-2.4.jar:/usr/share/cassandra/lib/json-simple-1.1.jar:/usr/share/cassandra/lib/jstackjunit-0.0.1.jar:/usr/share/cassandra/lib/libthrift-0.9.2.jar:/usr/share/cassandra/lib/log4j-over-slf4j-1.7.7.jar:/usr/share/cassandra/lib/logback-classic-1.1.3.jar:/usr/share/cassandra/lib/logback-core-1.1.3.jar:/usr/share/cassandra/lib/lz4-1.3.0.jar:/usr/share/cassandra/lib/metrics-core-3.1.0.jar:/usr/share/cassandra/lib/metrics-graphite-3.1.0.jar:/usr/share/cassandra/lib/metrics-jvm-3.1.0.jar:/usr/share/cassandra/lib/metrics-logback-3.1.0.jar:/usr/share/cassandra/lib/netty-all-4.0.44.Final.jar:/usr/share/cassandra/lib/ohc-core-0.4.3.jar:/usr/share/cassandra/lib/ohc-core-j8-0.4.3.jar:/usr/share/cassandra/lib/reporter-config3-3.0.0.jar:/usr/share/cassandra/lib/reporter-config-base-3.0.0.jar:/usr/share/cassandra/lib/sigar-1.6.4.jar:/usr/share/cassandra/lib/slf4j-api-1.7.7.jar:/usr/share/cassandra/lib/snakeyaml-1.11.jar:/usr/share/cassandra/lib/snappy-java-1.1.1.7.jar:/usr/share/cassandra/lib/ST4-4.0.8.jar:/usr/share/cassandra/lib/stream-2.5.2.jar:/usr/share/cassandra/lib/thrift-server-0.3.7.jar:/usr/share/cassandra/apache- TERM=xterm-256color SHELL=/bin/bash USER=root LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lz=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.axv=01;35:*.anx=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36: SUDO_USER=root SUDO_UID=0 MALLOC_ARENA_MAX=4 USERNAME=root PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin MAIL=/var/mail/root PWD=/ LANG=en_US.UTF-8 HOME=/var/lib/cassandra SUDO_COMMAND=/etc/init.d/cassandra restart SHLVL=1 LOGNAME=root SUDO_GID=0
 </code></pre>
-
 </article>
 <hr/>
 
@@ -94,7 +86,6 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
   &quot;query&quot;: { &quot;match_phrase&quot;: { &quot;address&quot;: &quot;mill lane&quot; } }
 }'
 </code></pre>
-
 </article>
 <hr/>
 
@@ -110,25 +101,16 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
   </div>
 
   <p>For example if we have a file that contains JSON object like</p>
-
 <pre><code>{&quot;a&quot;: 1, &quot;b&quot;:{&quot;c&quot;: 11}
 {&quot;a&quot;: 2, &quot;b&quot;:{&quot;c&quot;: 22}}
 {&quot;a&quot;: 3, &quot;b&quot;:{&quot;c&quot;: 33}}
-</code></pre>
-
-<p>And you want to construct something like</p>
-
+</code></pre><p>And you want to construct something like</p>
 <pre><code>[&quot;1&quot;, &quot;11&quot;]
 [&quot;2&quot;, &quot;22&quot;]
 [&quot;3&quot;, &quot;33&quot;]
-</code></pre>
-
-<p>You can do that with jq</p>
-
+</code></pre><p>You can do that with jq</p>
 <pre><code>$ cat filename.json | jq -c '[.a, .b.c]'
-</code></pre>
-
-<p>this is particularly usefull to grep something from JSON log</p>
+</code></pre><p>this is particularly usefull to grep something from JSON log</p>
 
 </article>
 <hr/>
@@ -144,18 +126,11 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
     ( 1 minutes reading )
   </div>
 
-  
-
-<h1 id="list-open-port">list open port</h1>
-
+  <h1 id="list-open-port">list open port</h1>
 <pre><code>$ sudo netstat -atp tcp| grep -i listen
-</code></pre>
-
-<p>or</p>
-
+</code></pre><p>or</p>
 <pre><code>$ sudo lsof -i -P | grep -i listen
 </code></pre>
-
 </article>
 <hr/>
 
@@ -171,23 +146,14 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
   </div>
 
   <p>To get current unix timestamp we can do</p>
-
 <pre><code>$ date +%s
 1471365644
-</code></pre>
-
-<p>But how do we parse a file which contain epoch timestamp to date?</p>
-
+</code></pre><p>But how do we parse a file which contain epoch timestamp to date?</p>
 <pre><code>$ echo 1471365644 | perl -pe 's/(\d+)/localtime($1)/e' 
-</code></pre>
-
-<p>if we have it in milliseconds, we could remove the milliseconds part with</p>
-
+</code></pre><p>if we have it in milliseconds, we could remove the milliseconds part with</p>
 <pre><code>$ echo 1471365644000 | cut -c -10 |  perl -pe 's/(\d+)/localtime($1)/e'
 Tue Aug 16 18:40:44 2016
-</code></pre>
-
-<p>Assuming your epoch seconds is 10 character. But if you have more or less, you need to do some other string processing first</p>
+</code></pre><p>Assuming your epoch seconds is 10 character. But if you have more or less, you need to do some other string processing first</p>
 
 </article>
 <hr/>
@@ -204,18 +170,13 @@ Tue Aug 16 18:40:44 2016
   </div>
 
   <p>I have a use-case where 1 have single file that contain 20K line. I need to have another file with 1 million line with just content of the first file repeated 50 time.</p>
-
 <p>Solution: form <a href="http://askubuntu.com/questions/521465/how-can-i-repeat-the-content-of-a-file-n-times">stack overflow</a></p>
-
 <pre><code>$ perl -0777pe '$_=$_ x 50' input_file.txt &gt; output_file.txt
-</code></pre>
-
-<p>arguments:</p>
-
+</code></pre><p>arguments:</p>
 <ul>
 <li>0777 : -0 sets sets the input record separator (perl special variable $/ which is a newline by default). Setting this to a value greater than 0400 will cause Perl to slurp the entire input file into memory.</li>
 <li>pe : the -p means &ldquo;print each input line after applying the script given by -e to it&rdquo;.</li>
-<li>$<em>=$</em> x 50 : $_ is the current input line. Since we&rsquo;re reading the entire file at once because of -0700, this means the entire file. The x 50 will result in 50 copies of the entire file being printed.</li>
+<li>$_=$_ x 50 : $_ is the current input line. Since we&rsquo;re reading the entire file at once because of -0700, this means the entire file. The x 50 will result in 50 copies of the entire file being printed.</li>
 </ul>
 
 </article>
@@ -233,11 +194,8 @@ Tue Aug 16 18:40:44 2016
   </div>
 
   <p>Sometimes you need to paste yanked text while performing command. For example subtituting yanked text with some words.</p>
-
 <p>yanked text are stored in the <code>0</code> and <code>&quot;</code> register.</p>
-
 <p>in the command mode you can paste this with <code>ctrl-R [registe]</code> example in our cases this would be <code>ctrl-R 0</code></p>
-
 <p>so full command would be for example <code>:%s/[press ctrl-R then 0]/replacement/gc</code></p>
 
 </article>
@@ -254,72 +212,55 @@ Tue Aug 16 18:40:44 2016
     ( 1 minutes reading )
   </div>
 
-  
-
-<p>There are couple of way to rename multiple files.</p>
-
+  <p>There are couple of way to rename multiple files.</p>
 <p>From <a href="http://unix.stackexchange.com/questions/1136/batch-renaming-files">http://unix.stackexchange.com/questions/1136/batch-renaming-files</a></p>
-
 <p>example we have files</p>
-
 <pre><code>image0001.png
 image0002.png
 image0003.png
 ...
-</code></pre>
-
-<p>And we would like to rename it to</p>
-
+</code></pre><p>And we would like to rename it to</p>
 <pre><code>0001.png
 0002.png
 0003.png
 ...
-</code></pre>
-
-<h2 id="with-for-loop">with for loop</h2>
-
+</code></pre><h2 id="with-for-loop">with for loop</h2>
 <p>this works with linux and mac without installing anything</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> f in *.png<span class="p">;</span> <span class="k">do</span> mv <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">f</span><span class="p">#image</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">done</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> f in *.png<span class="p">;</span> <span class="k">do</span> mv <span class="s2">&#34;</span><span class="nv">$f</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">f</span><span class="p">#image</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">done</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="with-zsh">With ZSH</h2>
-
+</div><h2 id="with-zsh">With ZSH</h2>
 <p>This is my favorite way since I&rsquo;m using <a href="http://www.zsh.org/">ZSH</a> and <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>.
 Check it now, it&rsquo;s awesome</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash">$ autoload zmv
-zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;</span></code></pre></td></tr></table>
+zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>or let zsh automatically define $1, $2 etc</p>
+</div><p>or let zsh automatically define $1, $2 etc</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">zmv -w <span class="s1">&#39;image*.png&#39;</span> <span class="s1">&#39;$1.png&#39;</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">zmv -w <span class="s1">&#39;image*.png&#39;</span> <span class="s1">&#39;$1.png&#39;</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="using-your-editor">Using your editor</h2>
-
+</div><h2 id="using-your-editor">Using your editor</h2>
 <p>for more complex operation, sometimes it easier to rename the file on your editor.</p>
-
 <p>there is <code>qmv</code> from renameutils</p>
-
 <pre><code>$ qmv *.png
-</code></pre>
-
-<p>it will open editor with 2 columns, you can edit the right size rename that file</p>
+</code></pre><p>it will open editor with 2 columns, you can edit the right size rename that file</p>
 
 </article>
 <hr/>
@@ -336,15 +277,10 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
   </div>
 
   <p>from <a href="http://superuser.com/questions/305128/how-to-specify-level-of-compression-when-using-tar-zcvf">http://superuser.com/questions/305128/how-to-specify-level-of-compression-when-using-tar-zcvf</a></p>
-
 <pre><code>GZIP=-9 tar cvzf file.tar.gz /path/to/directory
-</code></pre>
-
-<p>or</p>
-
+</code></pre><p>or</p>
 <pre><code>tar cvf - /path/to/file0 /path/to/file1 | gzip -9 - &gt; files.tar.gz
 </code></pre>
-
 </article>
 <hr/>
 
@@ -360,13 +296,9 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
   </div>
 
   <p><em>WARNING: make sure the memory is enough to put the data back from swap, else system will start killing processes</em></p>
-
 <p>To clear up swap space (put the data back into memory) we can do</p>
-
 <pre><code># swapoff -a &amp;&amp; swapon -a
-</code></pre>
-
-<p>Because this is quite slow process, it&rsquo;s a good idea to run this inside screen session.</p>
+</code></pre><p>Because this is quite slow process, it&rsquo;s a good idea to run this inside screen session.</p>
 
 </article>
 <hr/>
@@ -470,6 +402,7 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
     </li>
     
 </ul>
+
 
 
 

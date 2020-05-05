@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>til osx on </title>
     <link>https://labs.yulrizka.com/tags/til-osx/</link>
     <description>Recent content in til osx on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 16 Mar 2017 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 22 Sep 2019 16:20:01 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/tags/til-osx/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,8 +16,8 @@
       <pubDate>Thu, 16 Mar 2017 00:00:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/til/osx/list-open-port/</guid>
-      <description> list open port $ sudo netstat -atp tcp| grep -i listen  or
-$ sudo lsof -i -P | grep -i listen  </description>
+      <description>list open port $ sudo netstat -atp tcp| grep -i listen or
+$ sudo lsof -i -P | grep -i listen </description>
     </item>
     
     <item>
@@ -72,7 +72,7 @@ Let say you copy fil the contents of A, B, C, D. After you copy file D you want 
       <guid>https://labs.yulrizka.com/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/</guid>
       <description>Using terminal and needs to copy the result of command to clipboard ? use pbcopy
 1  $ cat somefile.txt | pbcopy   Or the other way around, paste from clipboard and pipe it to other program
-1  $ pbpaste | grep foo  </description>
+1  $ pbpaste | grep foo   </description>
     </item>
     
   </channel>

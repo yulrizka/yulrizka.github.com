@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>til unix gpg on </title>
@@ -18,7 +18,7 @@
       <guid>https://labs.yulrizka.com/til/unix/encription-with-gpg/</guid>
       <description>Generate key 1  $ gpg --gen-key   List keys 1  $ gpg --list-keys   Encrypt Data With a passprhare
 1  $ gpg -ca -o output.txt.gpg input.txt   with a certificate and from STDOUT
-1  $ gpg -ea    or if you know the name already (can be key, name or email)
+1  $ gpg -ea   or if you know the name already (can be key, name or email)
 1  $ gpg -ea -r &amp;#34;Ahmy&amp;#34;   Decrypt Data 1  $ gpg -d file.</description>
     </item>
     

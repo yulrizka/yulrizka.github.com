@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://labs.yulrizka.com/</loc>
     <lastmod>2020-05-05T15:23:46+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/til/unix/</loc>
     <lastmod>2020-05-05T15:23:46+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -22,19 +20,36 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/</loc>
     <lastmod>2020-05-05T15:23:46+02:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/til/</loc>
+    <lastmod>2020-05-05T15:23:46+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/tags/til-unix/</loc>
     <lastmod>2020-05-05T15:23:46+02:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/</loc>
+    <lastmod>2020-05-05T15:23:46+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/en/</loc>
     <lastmod>2020-04-25T15:47:49+02:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/go/</loc>
+    <lastmod>2020-04-25T15:47:49+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/golang/</loc>
+    <lastmod>2020-04-25T15:47:49+02:00</lastmod>
   </url>
   
   <url>
@@ -43,26 +58,13 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/golang/</loc>
-    <lastmod>2020-04-25T15:47:49+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://labs.yulrizka.com/til/git/</loc>
     <lastmod>2020-03-16T14:44:17+01:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/til/git/checkout-last-branch/</loc>
     <lastmod>2020-03-16T14:44:17+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/til/</loc>
-    <lastmod>2020-03-16T14:44:17+01:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -73,7 +75,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/unix-til/</loc>
     <lastmod>2020-03-08T13:23:49+01:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -94,7 +95,6 @@
   <url>
     <loc>https://labs.yulrizka.com/til/osx/</loc>
     <lastmod>2019-09-22T16:20:01+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -103,9 +103,13 @@
   </url>
   
   <url>
+    <loc>https://labs.yulrizka.com/tags/til-osx/</loc>
+    <lastmod>2019-09-22T16:20:01+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://labs.yulrizka.com/tags/til-osx-hiden/</loc>
     <lastmod>2019-09-22T16:20:01+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -131,13 +135,11 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-unix-tmux/</loc>
     <lastmod>2019-01-17T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/til/net/</loc>
     <lastmod>2019-01-13T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -153,13 +155,11 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-git/</loc>
     <lastmod>2019-01-13T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/tags/til-net/</loc>
     <lastmod>2019-01-13T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -170,7 +170,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-unix-gpg/</loc>
     <lastmod>2019-01-06T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -186,13 +185,11 @@
   <url>
     <loc>https://labs.yulrizka.com/til/linux/</loc>
     <lastmod>2018-10-24T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/tags/til-linux/</loc>
     <lastmod>2018-10-24T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -203,7 +200,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-linux-zfs/</loc>
     <lastmod>2018-10-22T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -239,18 +235,11 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-unix-jq/</loc>
     <lastmod>2017-10-09T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/til/osx/list-open-port/</loc>
     <lastmod>2017-03-16T00:00:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/til-osx/</loc>
-    <lastmod>2017-03-16T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -261,7 +250,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-unix-cli/</loc>
     <lastmod>2016-08-16T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -272,7 +260,6 @@
   <url>
     <loc>https://labs.yulrizka.com/til/vim/</loc>
     <lastmod>2016-08-12T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -283,7 +270,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-vim/</loc>
     <lastmod>2016-08-12T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -304,7 +290,6 @@
   <url>
     <loc>https://labs.yulrizka.com/til/analytics/</loc>
     <lastmod>2016-06-07T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -370,7 +355,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-unix-git/</loc>
     <lastmod>2016-04-03T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -401,13 +385,11 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-unix-slack/</loc>
     <lastmod>2016-03-15T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/til/go/</loc>
     <lastmod>2016-03-13T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -418,7 +400,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/til-go/</loc>
     <lastmod>2016-03-13T00:00:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -452,12 +433,6 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/go/</loc>
-    <lastmod>2015-08-29T17:28:00+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://labs.yulrizka.com/en/osx-push-to-talk-app/</loc>
     <lastmod>2015-03-22T00:26:00+02:00</lastmod>
   </url>
@@ -465,7 +440,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/web/</loc>
     <lastmod>2015-03-22T00:26:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -474,25 +448,23 @@
   </url>
   
   <url>
+    <loc>https://labs.yulrizka.com/tags/git/</loc>
+    <lastmod>2015-01-16T23:35:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/</loc>
     <lastmod>2015-01-16T23:35:00+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/git/</loc>
-    <lastmod>2015-01-16T23:35:00+02:00</lastmod>
-    <priority>0</priority>
+    <loc>https://labs.yulrizka.com/tags/golang-testing/</loc>
+    <lastmod>2014-10-27T16:42:00+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/</loc>
     <lastmod>2014-10-27T16:42:00+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/golang-testing/</loc>
-    <lastmod>2014-10-27T16:42:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -506,20 +478,23 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/ruby-web/</loc>
+    <loc>https://labs.yulrizka.com/tags/ruby/</loc>
     <lastmod>2013-07-21T23:26:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/</loc>
-    <lastmod>2013-07-08T16:24:00+02:00</lastmod>
+    <loc>https://labs.yulrizka.com/tags/ruby-web/</loc>
+    <lastmod>2013-07-21T23:26:00+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/tags/linux-web/</loc>
     <lastmod>2013-07-08T16:24:00+02:00</lastmod>
-    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/</loc>
+    <lastmod>2013-07-08T16:24:00+02:00</lastmod>
   </url>
   
   <url>
@@ -530,7 +505,6 @@
   <url>
     <loc>https://labs.yulrizka.com/tags/raspberrypi/</loc>
     <lastmod>2013-02-26T20:33:00+02:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -544,24 +518,16 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/ruby/</loc>
-    <lastmod>2012-01-14T17:32:00+02:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://labs.yulrizka.com/en/testing-ruby-code-with-benchmark-suite/</loc>
     <lastmod>2012-01-14T12:05:00+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/categories/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://labs.yulrizka.com/id/</loc>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -574,11 +540,6 @@
   
   <url>
     <loc>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</loc>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/til/</loc>
-    <priority>0</priority>
   </url>
   
 </urlset>

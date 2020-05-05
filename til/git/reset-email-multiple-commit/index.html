@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -39,14 +39,12 @@
 	2019-01-13 ::
 	( 1 minutes reading )
 </div><p>I started not to use my real email for git commit. Instead i uses the one that is provided by <a href="https://help.github.com/articles/about-commit-email-addresses/">github</a></p>
-
 <p>After enabling <strong>Block command line pushes that expose my email</strong> on <a href="https://github.com/settings/emails">Block command line pushes that expose my email</a>, it will reject
 all email that exposes public email adress.</p>
-
 <p>So in order to rewrite git history and change the author email, I found this <a href="https://help.github.com/articles/changing-author-info/">github help</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -81,16 +79,17 @@ git filter-branch --env-filter <span class="s1">&#39;
 </span><span class="s1">    export GIT_AUTHOR_NAME=&#34;$CORRECT_NAME&#34;
 </span><span class="s1">    export GIT_AUTHOR_EMAIL=&#34;$CORRECT_EMAIL&#34;
 </span><span class="s1">fi
-</span><span class="s1">&#39;</span> --tag-name-filter cat -- --branches --tags</code></pre></td></tr></table>
+</span><span class="s1">&#39;</span> --tag-name-filter cat -- --branches --tags
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Another neat way (after you change your email with git config), you can also do this:</p>
+</div><p>Another neat way (after you change your email with git config), you can also do this:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ git rebase -i -p --exec <span class="s1">&#39;git commit --amend --reset-author --no-edit&#39;</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git rebase -i -p --exec <span class="s1">&#39;git commit --amend --reset-author --no-edit&#39;</span>
+</code></pre></td></tr></table>
 </div>
 </div><div id="disqus_thread"></div>
 <script type="application/javascript">

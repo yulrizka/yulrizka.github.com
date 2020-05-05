@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -38,11 +38,9 @@
 <div class="posted_at">
 	2016-03-11 ::
 	( 1 minutes reading )
-</div>
-
-<div class="highlight"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -63,34 +61,27 @@ $ <span class="nb">echo</span> <span class="m">3</span>
 $ <span class="nb">echo</span> <span class="m">4</span>
 <span class="m">4</span>
 $ <span class="nb">echo</span> <span class="m">5</span>
-<span class="m">5</span></code></pre></td></tr></table>
+<span class="m">5</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>use <code>alt + .</code> will reuse the last program argument in descending order</p>
-
+</div><p>use <code>alt + .</code> will reuse the last program argument in descending order</p>
 <pre><code>$ echo (press alt + .)
 $ echo 5 (press alt + . again)
 $ echo 4 (press alt + . again)
 ...
-</code></pre>
-
-<h2 id="selective-arguments">selective arguments</h2>
-
+</code></pre><h2 id="selective-arguments">selective arguments</h2>
 <ul>
 <li><code>!:1</code> gives you the first argument</li>
 <li><code>!:2-3</code> gives you 2nd and third argument and</li>
-
-<li><p><code>!:-3</code>  gives you binary name + first 3 arguments</p>
-
+<li><code>!:-3</code>  gives you binary name + first 3 arguments</li>
+</ul>
 <pre><code>$ echo 1 2 3 4 5
 $ echo !:1 # -&gt; echo 1
 $ echo 1 2 3 4 5
 $ echo !:2-3 # -&gt; echo 2 3
 $ echo 1 2 3 4 5
 $ echo !:-3 # -&gt; echo echo 1 2 3
-</code></pre></li>
-</ul>
-<div id="disqus_thread"></div>
+</code></pre><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

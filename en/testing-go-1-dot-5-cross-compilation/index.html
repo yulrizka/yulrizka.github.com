@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -44,11 +44,10 @@ I also like to tinker with my raspberry-pi. On my previous project I use either 
 or python for building some stuff. One annoying thing is dependency, setup and compilation
 is usually quite slow. Would be cool if I could just create some stuff in desktop and just
 <em>scp</em> the binary to pi and everything should work!</p>
-
 <p>There is <a href="http://dave.cheney.net/2015/03/03/cross-compilation-just-got-a-whole-lot-better-in-go-1-5">this nice</a> article that explain the process. Let&rsquo;s start there and create simple application</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -69,13 +68,13 @@ is usually quite slow. Would be cool if I could just create some stuff in deskto
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Hello. I&#39;m running %s on %s architecture\n&#34;</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOOS</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOARCH</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Let&rsquo;s try to build it</p>
+</div><p>Let&rsquo;s try to build it</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -86,13 +85,13 @@ is usually quite slow. Would be cool if I could just create some stuff in deskto
 $ env <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>arm <span class="nv">GOARM</span><span class="o">=</span><span class="m">6</span> go build main.go
 
 <span class="c1"># transfer the binary to pi</span>
-$ scp main pi:</code></pre></td></tr></table>
+$ scp main pi:
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Now, crossing my finger, and run it on my pi</p>
+</div><p>Now, crossing my finger, and run it on my pi</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -103,13 +102,13 @@ $ scp main pi:</code></pre></td></tr></table>
 
 pi@raspbmc:~$ ./main 
 Hello. I<span class="err">&#39;</span>m running linux on arm architecture
-pi@raspbmc:~$ </code></pre></td></tr></table>
+pi@raspbmc:~$ 
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Holy crap, it&rsquo;s that easy. I&rsquo;m excited. Let&rsquo;s see if go routine works</p>
+</div><p>Holy crap, it&rsquo;s that easy. I&rsquo;m excited. Let&rsquo;s see if go routine works</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -178,13 +177,13 @@ pi@raspbmc:~$ </code></pre></td></tr></table>
 
 	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;That&#39;s super awesome!!, cee ya!&#34;</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Again, build and <em>scp</em>, and cross some more fingers</p>
+</div><p>Again, build and <em>scp</em>, and cross some more fingers</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -198,34 +197,34 @@ pi@raspbmc:~$ </code></pre></td></tr></table>
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">@raspbmc:~$ ls -alh main
--rwxr-xr-- <span class="m">1</span> pi pi <span class="m">1</span>.9M Aug <span class="m">29</span> <span class="m">18</span>:08 main
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+@raspbmc:~$ ls -alh main
+-rwxr-xr-- <span class="m">1</span> pi pi 1.9M Aug <span class="m">29</span> 18:08 main
 pi@raspbmc:~$ ./main 
-worker <span class="m">1</span>: msg item sequence <span class="m">0</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">1</span>
-worker <span class="m">1</span>: msg item sequence <span class="m">2</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">3</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">4</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">5</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">6</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">7</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">8</span>
-worker <span class="m">1</span>: msg item sequence <span class="m">9</span>
-That<span class="err">&#39;</span>s super awesome!!, cee ya!</code></pre></td></tr></table>
+worker 1: msg item sequence <span class="m">0</span>
+worker 0: msg item sequence <span class="m">1</span>
+worker 1: msg item sequence <span class="m">2</span>
+worker 0: msg item sequence <span class="m">3</span>
+worker 0: msg item sequence <span class="m">4</span>
+worker 0: msg item sequence <span class="m">5</span>
+worker 0: msg item sequence <span class="m">6</span>
+worker 0: msg item sequence <span class="m">7</span>
+worker 0: msg item sequence <span class="m">8</span>
+worker 1: msg item sequence <span class="m">9</span>
+That<span class="err">&#39;</span>s super awesome!!, cee ya!
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Super awesome indeed, it just works!. Oh and the binary is not that big <em>1.9M</em>
+</div><p>Super awesome indeed, it just works!. Oh and the binary is not that big <em>1.9M</em>
 considering it statically include the library.</p>
-
 <p>Hmm let&rsquo;s try something fun that fiddle with the <em>gpio</em> pin. Let&rsquo;s create something that
 what raspberry-pi made for.. blinking led :p</p>
-
 <p>There is already <a href="https://github.com/davecheney/gpio">library</a>. Let&rsquo;s starts there.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -312,21 +311,15 @@ what raspberry-pi made for.. blinking led :p</p>
 		<span class="nx">pin</span><span class="p">.</span><span class="nf">Clear</span><span class="p">()</span>
 		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Dayuumm.. It&rsquo;s that easy. No more pip install or bundle install on pi. Just <em>scp</em> the binary!</p>
-
+</div><p>Dayuumm.. It&rsquo;s that easy. No more pip install or bundle install on pi. Just <em>scp</em> the binary!</p>
 <p>Of course we&rsquo;ve got this far, we must try to control it remotely via HTTP.</p>
-
-<p><div class="row">
-  <div class="span8 offset1">
-<iframe width="628" height="400" src="https://www.youtube.com/embed/QkHu2-cgauU" frameborder="0" allowfullscreen></iframe align="center">
-  </div>
-</div><br/></p>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -463,27 +456,21 @@ what raspberry-pi made for.. blinking led :p</p>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Received request&#34;</span><span class="p">)</span>
 	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nf">Query</span><span class="p">().</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;s&#34;</span><span class="p">)</span>
 	<span class="nx">ctrlChan</span> <span class="o">&lt;-</span> <span class="nx">s</span> <span class="o">==</span> <span class="s">&#34;1&#34;</span> <span class="c1">// tell dance to enable or not
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Look at that. All it takes to do that is just 67 lines of code. The main
+</div><p>Look at that. All it takes to do that is just 67 lines of code. The main
 logic just about 31 lines. That&rsquo;s including the fancy dancing blinking.
 No framework, only <em>gpio</em> dependency. Everything else is go <em>stdlib</em>.</p>
-
 <p>Ok, let&rsquo;s do one other thing. The reverse!
 Trigger something when button is pressed. For this let&rsquo;s just use
 <em>websocket</em>, and see how hard it is to implement this. What this mean that
 if you have websocket client (web browser) you could listen to event and stream it
-  directly from your raspberry-pi to your computer.</p>
-
-<p><div class="row">
-  <div class="span8 offset1">
-<iframe width="628" height="400" src="https://www.youtube.com/embed/w1IrlUdEgPk" frameborder="0" allowfullscreen></iframe align="center">
-  </div>
-</div><br/></p>
+directly from your raspberry-pi to your computer.</p>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -618,14 +605,13 @@ if you have websocket client (web browser) you could listen to event and stream 
 		<span class="p">}</span>
 		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">150</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>You see there I connect 2 client. One browser and the other one is <em>cli app</em> that I created.
+</div><p>You see there I connect 2 client. One browser and the other one is <em>cli app</em> that I created.
 Notice that they got their messages alternately between each other. This is because
 they are sharing the same channel. I will leave it to you my kind reader as an exercise
 to make it broadcast the message instead of distributing them :)</p>
-
 <p>all source are available at <a href="https://github.com/yulrizka/go-pi-experiments">https://github.com/yulrizka/go-pi-experiments</a></p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">

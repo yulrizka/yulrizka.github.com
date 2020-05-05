@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.55.6" />
+	<meta name="generator" content="Hugo 0.69.2" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -19,7 +19,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -49,16 +49,16 @@
   </div>
 
   <p>in osx we have <a href="https://github.com/yulrizka/til/blob/master/osx/pipe%20output%20to%20clipboard%20with%20pbcopy%20and%20pbpaste.md">pbcopy &amp; pbpaste</a></p>
-
 <p>we can have something similar in linux. Put this is your shell profile (<code>~/.bashrc</code> or <code>~/.zshrc</code> if you are using zsh)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">pbcopy</span><span class="o">=</span><span class="s1">&#39;xclip -selection clipboard&#39;</span>
-<span class="nb">alias</span> <span class="nv">pbpaste</span><span class="o">=</span><span class="s1">&#39;xclip -selection clipboard -o&#39;</span></code></pre></td></tr></table>
+<span class="nb">alias</span> <span class="nv">pbpaste</span><span class="o">=</span><span class="s1">&#39;xclip -selection clipboard -o&#39;</span>
+</code></pre></td></tr></table>
 </div>
 </div>
 </article>
@@ -76,7 +76,6 @@
   </div>
 
   <p><a href="http://jumpcut.sourceforge.net/">Jumpcut</a> is clipboard manager that allows you to select your copy history.</p>
-
 <p>Let say you copy fil the contents of A, B, C, D. After you copy file D you want to paste the file B.
 Usually you have to go back to copy the content of file, but now you don&rsquo;t have too.</p>
 
@@ -97,19 +96,20 @@ Usually you have to go back to copy the content of file, but now you don&rsquo;t
   <p>Using terminal and needs to copy the result of command to clipboard ? use pbcopy</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat somefile.txt <span class="p">|</span> pbcopy</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat somefile.txt <span class="p">|</span> pbcopy
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Or the other way around, paste from clipboard and pipe it to other program</p>
+</div><p>Or the other way around, paste from clipboard and pipe it to other program</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ pbpaste <span class="p">|</span> grep foo</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ pbpaste <span class="p">|</span> grep foo
+</code></pre></td></tr></table>
 </div>
 </div>
 </article>
@@ -132,11 +132,10 @@ I also like to tinker with my raspberry-pi. On my previous project I use either 
 or python for building some stuff. One annoying thing is dependency, setup and compilation
 is usually quite slow. Would be cool if I could just create some stuff in desktop and just
 <em>scp</em> the binary to pi and everything should work!</p>
-
 <p>There is <a href="http://dave.cheney.net/2015/03/03/cross-compilation-just-got-a-whole-lot-better-in-go-1-5">this nice</a> article that explain the process. Let&rsquo;s start there and create simple application</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -157,13 +156,13 @@ is usually quite slow. Would be cool if I could just create some stuff in deskto
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Hello. I&#39;m running %s on %s architecture\n&#34;</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOOS</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOARCH</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Let&rsquo;s try to build it</p>
+</div><p>Let&rsquo;s try to build it</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -174,13 +173,13 @@ is usually quite slow. Would be cool if I could just create some stuff in deskto
 $ env <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>arm <span class="nv">GOARM</span><span class="o">=</span><span class="m">6</span> go build main.go
 
 <span class="c1"># transfer the binary to pi</span>
-$ scp main pi:</code></pre></td></tr></table>
+$ scp main pi:
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Now, crossing my finger, and run it on my pi</p>
+</div><p>Now, crossing my finger, and run it on my pi</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -191,13 +190,13 @@ $ scp main pi:</code></pre></td></tr></table>
 
 pi@raspbmc:~$ ./main 
 Hello. I<span class="err">&#39;</span>m running linux on arm architecture
-pi@raspbmc:~$ </code></pre></td></tr></table>
+pi@raspbmc:~$ 
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Holy crap, it&rsquo;s that easy. I&rsquo;m excited. Let&rsquo;s see if go routine works</p>
+</div><p>Holy crap, it&rsquo;s that easy. I&rsquo;m excited. Let&rsquo;s see if go routine works</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -266,13 +265,13 @@ pi@raspbmc:~$ </code></pre></td></tr></table>
 
 	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;That&#39;s super awesome!!, cee ya!&#34;</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Again, build and <em>scp</em>, and cross some more fingers</p>
+</div><p>Again, build and <em>scp</em>, and cross some more fingers</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -286,34 +285,34 @@ pi@raspbmc:~$ </code></pre></td></tr></table>
 </span><span class="lnt">12
 </span><span class="lnt">13
 </span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">@raspbmc:~$ ls -alh main
--rwxr-xr-- <span class="m">1</span> pi pi <span class="m">1</span>.9M Aug <span class="m">29</span> <span class="m">18</span>:08 main
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+@raspbmc:~$ ls -alh main
+-rwxr-xr-- <span class="m">1</span> pi pi 1.9M Aug <span class="m">29</span> 18:08 main
 pi@raspbmc:~$ ./main 
-worker <span class="m">1</span>: msg item sequence <span class="m">0</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">1</span>
-worker <span class="m">1</span>: msg item sequence <span class="m">2</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">3</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">4</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">5</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">6</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">7</span>
-worker <span class="m">0</span>: msg item sequence <span class="m">8</span>
-worker <span class="m">1</span>: msg item sequence <span class="m">9</span>
-That<span class="err">&#39;</span>s super awesome!!, cee ya!</code></pre></td></tr></table>
+worker 1: msg item sequence <span class="m">0</span>
+worker 0: msg item sequence <span class="m">1</span>
+worker 1: msg item sequence <span class="m">2</span>
+worker 0: msg item sequence <span class="m">3</span>
+worker 0: msg item sequence <span class="m">4</span>
+worker 0: msg item sequence <span class="m">5</span>
+worker 0: msg item sequence <span class="m">6</span>
+worker 0: msg item sequence <span class="m">7</span>
+worker 0: msg item sequence <span class="m">8</span>
+worker 1: msg item sequence <span class="m">9</span>
+That<span class="err">&#39;</span>s super awesome!!, cee ya!
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Super awesome indeed, it just works!. Oh and the binary is not that big <em>1.9M</em>
+</div><p>Super awesome indeed, it just works!. Oh and the binary is not that big <em>1.9M</em>
 considering it statically include the library.</p>
-
 <p>Hmm let&rsquo;s try something fun that fiddle with the <em>gpio</em> pin. Let&rsquo;s create something that
 what raspberry-pi made for.. blinking led :p</p>
-
 <p>There is already <a href="https://github.com/davecheney/gpio">library</a>. Let&rsquo;s starts there.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -400,21 +399,15 @@ what raspberry-pi made for.. blinking led :p</p>
 		<span class="nx">pin</span><span class="p">.</span><span class="nf">Clear</span><span class="p">()</span>
 		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Dayuumm.. It&rsquo;s that easy. No more pip install or bundle install on pi. Just <em>scp</em> the binary!</p>
-
+</div><p>Dayuumm.. It&rsquo;s that easy. No more pip install or bundle install on pi. Just <em>scp</em> the binary!</p>
 <p>Of course we&rsquo;ve got this far, we must try to control it remotely via HTTP.</p>
-
-<p><div class="row">
-  <div class="span8 offset1">
-<iframe width="628" height="400" src="https://www.youtube.com/embed/QkHu2-cgauU" frameborder="0" allowfullscreen></iframe align="center">
-  </div>
-</div><br/></p>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -551,27 +544,21 @@ what raspberry-pi made for.. blinking led :p</p>
 	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Received request&#34;</span><span class="p">)</span>
 	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nf">Query</span><span class="p">().</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;s&#34;</span><span class="p">)</span>
 	<span class="nx">ctrlChan</span> <span class="o">&lt;-</span> <span class="nx">s</span> <span class="o">==</span> <span class="s">&#34;1&#34;</span> <span class="c1">// tell dance to enable or not
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Look at that. All it takes to do that is just 67 lines of code. The main
+</div><p>Look at that. All it takes to do that is just 67 lines of code. The main
 logic just about 31 lines. That&rsquo;s including the fancy dancing blinking.
 No framework, only <em>gpio</em> dependency. Everything else is go <em>stdlib</em>.</p>
-
 <p>Ok, let&rsquo;s do one other thing. The reverse!
 Trigger something when button is pressed. For this let&rsquo;s just use
 <em>websocket</em>, and see how hard it is to implement this. What this mean that
 if you have websocket client (web browser) you could listen to event and stream it
-  directly from your raspberry-pi to your computer.</p>
-
-<p><div class="row">
-  <div class="span8 offset1">
-<iframe width="628" height="400" src="https://www.youtube.com/embed/w1IrlUdEgPk" frameborder="0" allowfullscreen></iframe align="center">
-  </div>
-</div><br/></p>
+directly from your raspberry-pi to your computer.</p>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -706,14 +693,13 @@ if you have websocket client (web browser) you could listen to event and stream 
 		<span class="p">}</span>
 		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">150</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>You see there I connect 2 client. One browser and the other one is <em>cli app</em> that I created.
+</div><p>You see there I connect 2 client. One browser and the other one is <em>cli app</em> that I created.
 Notice that they got their messages alternately between each other. This is because
 they are sharing the same channel. I will leave it to you my kind reader as an exercise
 to make it broadcast the message instead of distributing them :)</p>
-
 <p>all source are available at <a href="https://github.com/yulrizka/go-pi-experiments">https://github.com/yulrizka/go-pi-experiments</a></p>
 
 </article>
@@ -731,48 +717,28 @@ to make it broadcast the message instead of distributing them :)</p>
   </div>
 
   <p>Push To Talk app for OSX</p>
-
-<div class="thumbnail" align="center">
-  <img src="/images/post/ptt/ptt-installer.png" alt="PushToTalk App">
-  <div class="caption">PushToTalk App installer</div>
-</div>
-<br/>
-
-As a part of scrum teams, every day I need to give updates to my team via Google Hangout.
+<!-- raw HTML omitted -->
+<p>As a part of scrum teams, every day I need to give updates to my team via Google Hangout.
 We have a team here in the Netherlands and also in Indonesia.
 Some times I am in the same room as a colleague of mine. This sometimes quite annoying
 because I can hear my self (with a delay) from his mic. This somehow messed up my brain.
-Google Hangout already has a 'auto adjust mic volume' that is really great which cancel the noise.
-But we still have a problem and end-up muting each other when we want to talk.
-
-There are currently an App that does this already on Apple store, and pretty cheap too. 
+Google Hangout already has a &lsquo;auto adjust mic volume&rsquo; that is really great which cancel the noise.
+But we still have a problem and end-up muting each other when we want to talk.</p>
+<p>There are currently an App that does this already on Apple store, and pretty cheap too.
 Nevertheless I could not find the one that is suitable for my needs. And I would like to develop an OSX app
 since I never done it before. Even though i have a hate-love relationship with XCode,
-I have to give credits to XCode. It's quite easy to create an app like this. 
-
-<div class="" align="center">
-  <img src="/images/post/ptt/ptt-off.png" alt="PushToTalk Off state">
-  <br>
-  <img src="/images/post/ptt/ptt-on.png" alt="PushToTalk on State">
-  <div class="caption">Status bar indicator</div>
-</div>
-
+I have to give credits to XCode. It&rsquo;s quite easy to create an app like this.</p>
+<!-- raw HTML omitted -->
 <p>The app sits on status-bar (tray icon ?). By default it muted the microphone and show
 translucent mic icon. If you hold down the <strong>Right Options</strong> key, it will un-mute the microphone as long as you pressed it.  when you release the key, it will mute the microphone until you press the key again or quit the application.</p>
-
 <p>Everything is at <a href="https://github.com/yulrizka/osx-push-to-talk">github.com/yulrizka/osx-push-to-talk</a>:</p>
-
 <ul>
 <li><a href="https://github.com/yulrizka/osx-push-to-talk/releases">DMG Installer</a></li>
 <li><a href="https://github.com/yulrizka/osx-push-to-talk">Source</a></li>
 </ul>
-
 <p>I&rsquo;ve only tested this app on my MacBook running Yosemite.</p>
-
 <p>If you are on Linux, there is also a phython GTK <a href="https://github.com/coddingtonbear/linux-push-to-talk">app</a> that does this really nicely.</p>
-
 <p>If you are on windows, well Godspeed my friend :)</p>
-
 <p>veel succes!</p>
 
 </article>
@@ -790,11 +756,10 @@ translucent mic icon. If you hold down the <strong>Right Options</strong> key, i
   </div>
 
   <p><code>&lt;( )</code> operator executes command inside the parenthesis and output the file descriptor</p>
-
 <p>example</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -815,24 +780,24 @@ world
 
 <span class="c1"># is practically the same with</span>
 
-$ <span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span> &gt; <span class="m">1</span>.txt
-$ <span class="nb">echo</span> <span class="s1">&#39;world&#39;</span> &gt; <span class="m">2</span>.txt
-$ cat <span class="m">1</span>.txt <span class="m">2</span>.txt
+$ <span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span> &gt; 1.txt
+$ <span class="nb">echo</span> <span class="s1">&#39;world&#39;</span> &gt; 2.txt
+$ cat 1.txt 2.txt
 
 <span class="c1"># replace cat with ls</span>
 $ ls &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span><span class="o">)</span> &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;world&#39;</span><span class="o">)</span>
-/proc/self/fd/11  /proc/self/fd/12</code></pre></td></tr></table>
+/proc/self/fd/11  /proc/self/fd/12
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>you can use this command for example to compare 2 directory and find only uniq file</p>
-
+</div><p>you can use this command for example to compare 2 directory and find only uniq file</p>
 <p>example:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ comm -3 &lt;<span class="o">(</span>ls -1 dir1<span class="o">)</span> &lt;<span class="o">(</span>ls -1 dir2<span class="o">)</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ comm -3 &lt;<span class="o">(</span>ls -1 dir1<span class="o">)</span> &lt;<span class="o">(</span>ls -1 dir2<span class="o">)</span>
+</code></pre></td></tr></table>
 </div>
 </div>
 </article>
@@ -849,24 +814,31 @@ $ ls &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&
     ( 4 minutes reading )
   </div>
 
-  <div class="thumbnail" align="center">
-  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
-  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
-</div>
-
+  <!-- raw HTML omitted -->
 <p>I&rsquo;ve been involved with a iOS project this past week. I&rsquo;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
 One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
 The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
-
 <p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
-bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>&rsquo;. Then every time you mark a commit as good / bad,
+bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>'. Then every time you mark a commit as good / bad,
 it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
 whether the bugs exist or not.</p>
-
 <p>Here is an example</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># let&#39;s start  bisecting, Im in unstable branch,</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect start
+
+</code></pre></td></tr></table>
+</div>
+</div><p>the prompt <code>sense-ios-library</code> shows the current folder, and <code>git:(unstable)</code> show current commit. it&rsquo;s part of <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> plugin</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -927,26 +899,9 @@ whether the bugs exist or not.</p>
 </span><span class="lnt">59
 </span><span class="lnt">60
 </span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># let&#39;s start  bisecting, Im in unstable branch,</span>
-➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect start
-
-<span class="sb">````</span>
-
-the prompt <span class="sb">`</span>sense-ios-library<span class="sb">`</span> shows the current folder, and <span class="sb">`</span>git:<span class="o">(</span>unstable<span class="o">)</span><span class="sb">`</span> show current commit. it<span class="s1">&#39;s part of [oh-my-zsh][oh-my-zsh] plugin
-</span><span class="s1">
-</span><span class="s1">
-</span><span class="s1">``` bash
-</span><span class="s1"># I open the xcode, and it took quite a long time. so let&#39;</span>s marks current revision as bad
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># I open the xcode, and it took quite a long time. so let&#39;s marks current revision as bad</span>
 ➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect bad
 
 <span class="c1"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</span>
@@ -998,27 +953,25 @@ git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9
 e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit
 commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1
 Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;
-Date:   Thu Jan <span class="m">8</span> <span class="m">14</span>:38:07 <span class="m">2015</span> +0100
+Date:   Thu Jan <span class="m">8</span> 14:38:07 <span class="m">2015</span> +0100
 
     Updated functionality and tests of getting <span class="nb">local</span> data
 
 :040000 <span class="m">040000</span> 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests
 :040000 <span class="m">040000</span> 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj
 :040000 <span class="m">040000</span> a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests
-:040000 <span class="m">040000</span> 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform</code></pre></td></tr></table>
-</div>
-</div>
-<p>Now that you know when was the bugs introduced. you can now start looking at the problem.</p>
+:040000 <span class="m">040000</span> 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform
 
+</code></pre></td></tr></table>
+</div>
+</div><p>Now that you know when was the bugs introduced. you can now start looking at the problem.</p>
 <p>I found out there is something that doesn&rsquo;t feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>.
 There is a reference to <code>Xcode.app</code> in one of the folder. So every time I open the project,
 or switch branch, it will try to look into things inside <code>Xcode.app</code>.
 So removing the reference indeed solve the problem.</p>
-
 <p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced.
 You can even automate the test so you don&rsquo;t have to check each bisect commit your self.
 The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command and also an example on how to automate the test.</p>
-
 <p>Now go on catch and squash those annoying bug!</p>
 
 </article>
@@ -1035,19 +988,15 @@ The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</
     ( 6 minutes reading )
   </div>
 
-  
-
-<p>Sometimes it&rsquo;s really hard to test functionality that involve with system time.
+  <p>Sometimes it&rsquo;s really hard to test functionality that involve with system time.
 Especially when we want to test the function with a specific time. For example testing
 whether today is end of month or test 2 different behavior at a different time</p>
-
 <p>Below we look into different ways we can mock or stub the time. Each with it&rsquo;s own
 advantages and disadvantages.</p>
-
 <h2 id="passing-the-time-instance">Passing the time instance</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1072,31 +1021,24 @@ advantages and disadvantages.</p>
 <span class="c1">// for test
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>This way you can either pass <code>time.Now()</code> in your main pacakge
+</div><p>This way you can either pass <code>time.Now()</code> in your main pacakge
 or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.</p>
-
 <p>Advantages:</p>
-
 <ul>
 <li>Simple, no extra generator necessary</li>
-<li>Easy to test, no need to wire mock function or struct
-<br />
-<br /></li>
+<li>Easy to test, no need to wire mock function or struct</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>Caller need to pass instance of everywhere</li>
 </ul>
-
 <h2 id="passing-a-function-that-generate-time">Passing a function that generate time</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1113,6 +1055,7 @@ or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
+</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
@@ -1131,29 +1074,24 @@ or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 
 		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">loc</span><span class="p">)</span>
 	<span class="p">}</span>
 	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">timeFn</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>Advantages:</p>
+<span class="p">}</span>
 
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
 <ul>
 <li>This method allows you to have more control over how and when the time is generated.
 For example the time is generated inside the <code>CheckEndOfMonth</code> not at the <em>caller</em>.</li>
-<li>Allows the mock function to use closure inside the function
-<br />
-<br /></li>
+<li>Allows the mock function to use closure inside the function</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>Caller needs to pass function</li>
 </ul>
-
 <h2 id="abstract-the-time-generator-as-an-interface">Abstract the time generator as an interface</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1184,13 +1122,13 @@ For example the time is generated inside the <code>CheckEndOfMonth</code> not at
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">realClock</span><span class="p">{})</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>on the test code</p>
+</div><p>on the test code</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1221,34 +1159,26 @@ For example the time is generated inside the <code>CheckEndOfMonth</code> not at
 <span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nx">mc</span> <span class="o">:=</span> <span class="nf">NewMockClock</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
 	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">mc</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Advantages:</p>
-
+</div><p>Advantages:</p>
 <ul>
 <li>Control the generator method</li>
 <li>Interface can be defined small with only needed functions</li>
-<li>Easily switch to different implementation
-<br />
-<br /></li>
+<li>Easily switch to different implementation</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>Caller need to pass instance that implements the interface</li>
 </ul>
-
 <h2 id="package-level-time-generator">Package level time generator</h2>
-
 <p>Previous examples require you to pass in either concrete instance or a function on the caller.</p>
-
 <p>Another approach you can use is to create a package level function to generate current time.
 You can change the implementation during test.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1303,13 +1233,13 @@ You can change the implementation during test.</p>
 <span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span> <span class="p">{</span>
 	<span class="c1">// ...
 </span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>now in your test you could do something like this:</p>
+</div><p>now in your test you could do something like this:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1334,31 +1264,25 @@ You can change the implementation during test.</p>
     
     <span class="nf">CheckEndOfMonth</span><span class="p">()</span>
     <span class="c1">//...
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Advantages:</p>
-
+</div><p>Advantages:</p>
 <ul>
-<li>No need to pass instance of time or generator
-<br /></li>
+<li>No need to pass instance of time or generator</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>Caller need to pass instance</li>
 <li>Global variable</li>
 <li>Not thread safe</li>
 <li>Need to remember to call <code>resetClockImplementation</code></li>
 </ul>
-
 <h2 id="embed-time-generator-in-struct">Embed time generator in struct</h2>
-
 <p>If you are lucky enough to work in a <em>struct</em>, you can do this</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1407,13 +1331,13 @@ You can change the implementation during test.</p>
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span>
 	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>And the test can be</p>
+</div><p>And the test can be</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1428,18 +1352,17 @@ You can change the implementation during test.</p>
 			<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
 	<span class="p">}}</span>
 	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>I like this method because you don&rsquo;t have to pass instance of time or function all over the place
+</div><p>I like this method because you don&rsquo;t have to pass instance of time or function all over the place
 but still have it easily create an arbitrary time mock/stub</p>
-
-<p><strong>Make this pattern reusable</strong><br />
+<p><strong>Make this pattern reusable</strong><br>
 If you do this more often, you can also easily reuse the functionality into other struct
 by creating embeddable</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1504,13 +1427,13 @@ by creating embeddable</p>
 <span class="kd">func</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span> <span class="c1">// empty clock field gives implementation with standard lib
 </span><span class="c1"></span>    <span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>in test</p>
+</div><p>in test</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1529,32 +1452,26 @@ by creating embeddable</p>
 		<span class="p">},</span>
 	<span class="p">}}</span>
 	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Advantages:</p>
-
+</div><p>Advantages:</p>
 <ul>
 <li>No need to pass instance of time or generator</li>
 <li>Fall back to default standard library time implementation</li>
 <li>Easily extend <code>TimeMock</code> by adding more function that is needed</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>The caller needs to be a struct</li>
 </ul>
-
 <h2 id="better-way-to-write-test-function-with-time">Better way to write test function with time</h2>
-
 <p>Function with time is usually hard to test because it dependency with  on <em>time</em> package.</p>
-
 <p>A different way to test is to separate the function that generate the time with the function
 that process the time value. For example</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1571,13 +1488,13 @@ that process the time value. For example</p>
 	<span class="k">if</span> <span class="nx">now</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
 		<span class="c1">// do some business logic
 </span><span class="c1"></span>	<span class="p">}</span> 
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Instead of testing that function, extract the logic of processing time</p>
+</div><p>Instead of testing that function, extract the logic of processing time</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1602,10 +1519,10 @@ that process the time value. For example</p>
 	<span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
 		<span class="c1">// do some business logic
 </span><span class="c1"></span>	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>this way you don&rsquo;t test the <code>CheckEndOfMonth()</code> but <code>processEndOfMonth</code>. This way you can easily
+</div><p>this way you don&rsquo;t test the <code>CheckEndOfMonth()</code> but <code>processEndOfMonth</code>. This way you can easily
 mock time without the need to do some wiring.</p>
 
 </article>
@@ -1622,55 +1539,33 @@ mock time without the need to do some wiring.</p>
     ( 3 minutes reading )
   </div>
 
-  
-
-<div align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/1.jpg" align="center">
-</div>
-
+  <!-- raw HTML omitted -->
 <p>You are probably familiar with above images. Some random friend sent you an email which you can instantly
 recognize as a spam because it only contains one link.
 Couple days ago I receive this email which is not the first time for me. But this time it was different.
 It actually came from my own Yahoo! account which I never use since more that one year ago.</p>
-
 <p>My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the <em>sent mail</em> folder and there it is.
-One email message containing a spam that I actually sent to my friends and family.
-<div align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/2.jpg" align="center">
-</div></p>
-
+One email message containing a spam that I actually sent to my friends and family.</p>
+<!-- raw HTML omitted -->
 <p>Did some digging to my authentication history and found out that somebody from Romania has access my account.
 How could this be. I&rsquo;ve never use the account since one or more year ago, I&rsquo;m an IT guy so I know a little bit
 about security. I don&rsquo;t click some random suspicious link. I don&rsquo;t install any annoying-spyware-browser-toolbar.
 The password is 12 character long with apla-numeric and random symbol. Thank god that I don&rsquo;t use the same
 password for all of my account.</p>
-
-<div align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/3.jpg" align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/4.jpg" align="center">
-</div>
-
+<!-- raw HTML omitted -->
 <p>I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through
 bunch of proxy all over the world to cover my track. Or probably they don&rsquo;t even bother because they just
-using it for spam.
-<div align="center">
-  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/5.jpg" align="center">
-</div></p>
-
+using it for spam.</p>
+<!-- raw HTML omitted -->
 <p>Interesting part is I stumble upon this article saying about Romania has became a <a href="http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/">Global Hub for hackers and online crooks</a>.
 According to the article that it&rsquo;s became a commonplace for some hacker to harness people personal information
 and use it for illegal activity.</p>
-
 <p>Luckily I don&rsquo;t store any sensitive information on my email. It would have some serious impact if I store password
 or bank account information.</p>
-
 <p>Also something that I notice is most of this spam email came from my friends account which also uses Yahoo! mail.
 Or probably I just never notice.</p>
-
 <h2 id="what-can-you-do-when-this-happened-to-you">What can you do when this happened to you</h2>
-
 <p>If you ever received / sent this email. I would suggest you to:</p>
-
 <ol>
 <li>Tell the person to reset their account password</li>
 <li>Don&rsquo;t store or send sensitive information unencrypted with email like: password, keys, bank account info</li>
@@ -1697,12 +1592,11 @@ Or probably I just never notice.</p>
 
   <p>Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
 think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p>
-
 <p>I faced this core dump error while doing <code>berks upload</code>. That command will actualy
 push some cookbook to a chef server.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1721,7 +1615,7 @@ push some cookbook to a chef server.</p>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash">$ berks upload
 /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault
-ruby <span class="m">1</span>.9.3p362 <span class="o">(</span><span class="m">2012</span>-12-25 revision <span class="m">38607</span><span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
+ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
 
 -- Control frame information -----------------------------------------------
 c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
@@ -1733,10 +1627,10 @@ c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
 /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;
 </span><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span>
 
-....</code></pre></td></tr></table>
+....
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
+</div><p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
 
 </article>
 <hr/>
@@ -1842,6 +1736,7 @@ c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
     </li>
     
 </ul>
+
 
 
 

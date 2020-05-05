@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
@@ -17,11 +17,9 @@
       
       <guid>https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/</guid>
       <description>make sure you have imagemagick and tesseract are installed
-$ sudo apt install imagemagick tesseract-ocr  It&amp;rsquo;s a 2 step process:
- Convert PDF to .tiff using convert from imagemagick
-$ convert -density 300 input.pdf -depth 8 output.tiff  convert .tiff to text using tesseract
-generate out.txt
-$ tesseract output.tiff out   </description>
+$ sudo apt install imagemagick tesseract-ocr It&amp;rsquo;s a 2 step process:
+ Convert PDF to .tiff using convert from imagemagick  $ convert -density 300 input.pdf -depth 8 output.tiff convert .tiff to text using tesseract
+generate out.txt  $ tesseract output.tiff out </description>
     </item>
     
     <item>
@@ -53,8 +51,9 @@ example :
       
       <guid>https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/</guid>
       <description>For example
-$ echo &amp;quot;hello world world world&amp;quot; hello world world world  If you want to replace world with universe you can do
-# If you use ZSH you can press `tab` at the end of the line and it will replace # the whole line with the actuall command $ ^world^universe $ echo &amp;quot;hello universe world world&amp;quot;  As you can see, it only replace the first matching word.</description>
+$ echo &amp;quot;hello world world world&amp;quot; hello world world world If you want to replace world with universe you can do
+# If you use ZSH you can press `tab` at the end of the line and it will replace # the whole line with the actuall command $ ^world^universe $ echo &amp;quot;hello universe world world&amp;quot; As you can see, it only replace the first matching word.
+If you want it to replace the whole match:</description>
     </item>
     
     <item>
@@ -66,7 +65,7 @@ $ echo &amp;quot;hello world world world&amp;quot; hello world world world  If y
       <description>Some time you have a long command and you want to edit multiple word in it. for example: $ cat foo.txt | grep foo | grep -v bar &amp;gt; foo_output.txt
 Say you want to execute this 5 times and each replacing foo and bar with something else.
 for that you can use the fc command.
-$ fc  It will open a text editor (vim for me. I&amp;rsquo;m guessing it will look at $EDITOR env variable).</description>
+$ fc It will open a text editor (vim for me. I&amp;rsquo;m guessing it will look at $EDITOR env variable).</description>
     </item>
     
     <item>
@@ -76,8 +75,8 @@ $ fc  It will open a text editor (vim for me. I&amp;rsquo;m guessing it will loo
       
       <guid>https://labs.yulrizka.com/til/unix/regex-for-validating-password/</guid>
       <description>This regex can be use to validate password
-((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,20})  description:
-( # Start of group (?=.*\d) # must contains one digit from 0-9 (?=.*[a-z]) # must contains one lowercase characters (?=.*[\W]) # must contains at least one special character . # match anything with previous condition checking {8,20} # length at least 8 characters and maximum of 20 ) # End of group  </description>
+((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,20}) description:
+( # Start of group (?=.*\d) # must contains one digit from 0-9 (?=.*[a-z]) # must contains one lowercase characters (?=.*[\W]) # must contains at least one special character . # match anything with previous condition checking {8,20} # length at least 8 characters and maximum of 20 ) # End of group </description>
     </item>
     
     <item>
@@ -103,8 +102,8 @@ Mojave:
 In finder CMD + Shift + . to toggle it
 Before Mojave:
 Show
-defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app  Hide
-defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app  </description>
+defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app Hide
+defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app </description>
     </item>
     
     <item>
@@ -116,7 +115,7 @@ defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Lib
       <description>Example of forloop syntax
 1 2 3 4  for i in 1 2 3 4 5 do echo &amp;#34;i=$i&amp;#34; done   with range
 1 2 3 4  for i in {1..5} do echo &amp;#34;i=$i&amp;#34; done   cutomize increment
-1 2 3 4  for i in {0..10..2} do echo &amp;#34;i=$i&amp;#34; done  </description>
+1 2 3 4  for i in {0..10..2} do echo &amp;#34;i=$i&amp;#34; done   </description>
     </item>
     
     <item>
@@ -127,9 +126,9 @@ defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Lib
       <guid>https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/</guid>
       <description>By default Ctrl-P just jump back to the history while up arrow behave a little bit smarter.
 For example if you have history like this
-ssh a.com ls cd ssh b.com cat grep  Normaly if you type $ ssh and Ctrl-P afterwares, it will give you grep not ssh b.com
+ssh a.com ls cd ssh b.com cat grep Normaly if you type $ ssh and Ctrl-P afterwares, it will give you grep not ssh b.com
 to change this behavior, you can put this in your .zshrc
-bindkey &amp;quot;^P&amp;quot; up-line-or-beginning-search bindkey &amp;quot;^N&amp;quot; down-line-or-beginning-search  </description>
+bindkey &amp;quot;^P&amp;quot; up-line-or-beginning-search bindkey &amp;quot;^N&amp;quot; down-line-or-beginning-search </description>
     </item>
     
     <item>
@@ -150,7 +149,7 @@ After updating that DNS record, wait couple of minutes and proceed.</description
       <pubDate>Thu, 17 Jan 2019 00:00:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/til/unix/rename-tmux-window/</guid>
-      <description>C-a A  That&amp;rsquo;s Control-a A</description>
+      <description>C-a A That&amp;rsquo;s Control-a A</description>
     </item>
     
     <item>
@@ -182,7 +181,7 @@ So in order to rewrite git history and change the author email, I found this git
       <guid>https://labs.yulrizka.com/til/unix/encription-with-gpg/</guid>
       <description>Generate key 1  $ gpg --gen-key   List keys 1  $ gpg --list-keys   Encrypt Data With a passprhare
 1  $ gpg -ca -o output.txt.gpg input.txt   with a certificate and from STDOUT
-1  $ gpg -ea    or if you know the name already (can be key, name or email)
+1  $ gpg -ea   or if you know the name already (can be key, name or email)
 1  $ gpg -ea -r &amp;#34;Ahmy&amp;#34;   Decrypt Data 1  $ gpg -d file.</description>
     </item>
     
@@ -192,8 +191,8 @@ So in order to rewrite git history and change the author email, I found this git
       <pubDate>Wed, 31 Oct 2018 00:00:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/til/net/ldap-list-users/</guid>
-      <description> ldap list users On ldap connected machine
-$ genet group groupname groupname*:2141:usera,userb,userc,userd  </description>
+      <description>ldap list users On ldap connected machine
+$ genet group groupname groupname*:2141:usera,userb,userc,userd </description>
     </item>
     
     <item>
@@ -202,10 +201,10 @@ $ genet group groupname groupname*:2141:usera,userb,userc,userd  </description>
       <pubDate>Wed, 24 Oct 2018 00:00:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/til/linux/zfs-external-backup-drive-with-snapshot-and-encryption/</guid>
-      <description>main source
-Get device id $ ls /dev/disk/by-id -alh ... lrwxrwxrwx 1 root root 10 okt 24 06:06 ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4 -&amp;gt; ../../sda4 ...  For example, I&amp;rsquo;m going to use /dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4
-Setup disk encryption with LUKS setup LuKS
-$ sudo apt install cryptsetup $ cryptsetup luksFormat --cipher aes-xts-plain64 --key-size 512 --iter-time 10000 --use-random -y /dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4   --cipher encryption algorithm --key-size encryption key size --iter-time Number of millisecond to spend P8KDF passphrase processing --use-random use /dev/random -y verify passphrase  Disk device can now be opened.</description>
+      <description>[main source][1]
+Get device id $ ls /dev/disk/by-id -alh ... lrwxrwxrwx 1 root root 10 okt 24 06:06 ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4 -&amp;gt; ../../sda4 ... For example, I&amp;rsquo;m going to use /dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4
+Setup disk encryption with LUKS setup [LuKS][1]
+$ sudo apt install cryptsetup $ cryptsetup luksFormat --cipher aes-xts-plain64 --key-size 512 --iter-time 10000 --use-random -y /dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4  --cipher encryption algorithm --key-size encryption key size --iter-time Number of millisecond to spend P8KDF passphrase processing --use-random use /dev/random -y verify passphrase  Disk device can now be opened.</description>
     </item>
     
     <item>
@@ -216,10 +215,10 @@ $ sudo apt install cryptsetup $ cryptsetup luksFormat --cipher aes-xts-plain64 -
       <guid>https://labs.yulrizka.com/til/linux/zfs-auto-snapshot/</guid>
       <description>Having ZFS snapshot saved me once when I acidentally rm -f /home/myuser.
 There is a simple package that easily make auto snapshot.
-$ sudo apt install zfs-auto-snapshot  This will install the script and the cron job associated with it.
+$ sudo apt install zfs-auto-snapshot This will install the script and the cron job associated with it.
 By default it will backup all filesystem and volumes. You can disable the filesystems completely by
-$ sudo zfs set com.sun:auto-snapshot=false tank/data-set-name  or only for specific interval
-sudo zfs set com.</description>
+$ sudo zfs set com.sun:auto-snapshot=false tank/data-set-name or only for specific interval
+sudo zfs set com.sun:auto-snapshot=true tank/data-set-name sudo zfs set com.</description>
     </item>
     
     <item>
@@ -229,11 +228,11 @@ sudo zfs set com.</description>
       
       <guid>https://labs.yulrizka.com/til/linux/connect-bluetooth-device-from-cli/</guid>
       <description>We use bluetoothctl tool which is command-line to BlueZ
-$ sudo bluetoothctl  Enable authentication agent
-[bluetooth]# agent on  Run the scan process
-[bluetooth]# scan on  Pair with the device
-[bluetooth]# pair 00:25:56:D1:36:6B  Connect to the device
-[bluetooth]# connect 00:25:56:D1:36:6B  more information https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound</description>
+$ sudo bluetoothctl Enable authentication agent
+[bluetooth]# agent on Run the scan process
+[bluetooth]# scan on Pair with the device
+[bluetooth]# pair 00:25:56:D1:36:6B Connect to the device
+[bluetooth]# connect 00:25:56:D1:36:6B more information https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound</description>
     </item>
     
     <item>
@@ -243,7 +242,7 @@ $ sudo bluetoothctl  Enable authentication agent
       
       <guid>https://labs.yulrizka.com/til/unix/diff-output-of-2-command/</guid>
       <description>for example, I want to compare output of 2 different curl comand
-$ diff &amp;lt;(curl -s http://host.com/a) &amp;lt;(curl -s http://anotherhost.com/a)  </description>
+$ diff &amp;lt;(curl -s http://host.com/a) &amp;lt;(curl -s http://anotherhost.com/a) </description>
     </item>
     
     <item>
@@ -262,7 +261,7 @@ $ ps aux | grep cassandra ... cassand+ 24615 40.5 41.9 12064088 5033964 ? SLl 14
       <pubDate>Sun, 15 Oct 2017 00:00:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/til/unix/sending-curl-post-with-file/</guid>
-      <description>curl -X POST -d @myfilename http://www.url.com `` or `` curl -XPOST &#39;localhost:9200/bank/_search?pretty&#39; -d &#39; { &amp;quot;query&amp;quot;: { &amp;quot;match_phrase&amp;quot;: { &amp;quot;address&amp;quot;: &amp;quot;mill lane&amp;quot; } } }&#39;  </description>
+      <description>curl -X POST -d @myfilename http://www.url.com `` or `` curl -XPOST &#39;localhost:9200/bank/_search?pretty&#39; -d &#39; { &amp;quot;query&amp;quot;: { &amp;quot;match_phrase&amp;quot;: { &amp;quot;address&amp;quot;: &amp;quot;mill lane&amp;quot; } } }&#39; </description>
     </item>
     
     <item>
@@ -272,9 +271,9 @@ $ ps aux | grep cassandra ... cassand+ 24615 40.5 41.9 12064088 5033964 ? SLl 14
       
       <guid>https://labs.yulrizka.com/til/unix/jq-extracting-properties-to-arrays-from-json-row-line/</guid>
       <description>For example if we have a file that contains JSON object like
-{&amp;quot;a&amp;quot;: 1, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 11} {&amp;quot;a&amp;quot;: 2, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 22}} {&amp;quot;a&amp;quot;: 3, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 33}}  And you want to construct something like
-[&amp;quot;1&amp;quot;, &amp;quot;11&amp;quot;] [&amp;quot;2&amp;quot;, &amp;quot;22&amp;quot;] [&amp;quot;3&amp;quot;, &amp;quot;33&amp;quot;]  You can do that with jq
-$ cat filename.json | jq -c &#39;[.a, .b.c]&#39;  this is particularly usefull to grep something from JSON log</description>
+{&amp;quot;a&amp;quot;: 1, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 11} {&amp;quot;a&amp;quot;: 2, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 22}} {&amp;quot;a&amp;quot;: 3, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 33}} And you want to construct something like
+[&amp;quot;1&amp;quot;, &amp;quot;11&amp;quot;] [&amp;quot;2&amp;quot;, &amp;quot;22&amp;quot;] [&amp;quot;3&amp;quot;, &amp;quot;33&amp;quot;] You can do that with jq
+$ cat filename.json | jq -c &#39;[.a, .b.c]&#39; this is particularly usefull to grep something from JSON log</description>
     </item>
     
     <item>
@@ -283,8 +282,8 @@ $ cat filename.json | jq -c &#39;[.a, .b.c]&#39;  this is particularly usefull t
       <pubDate>Thu, 16 Mar 2017 00:00:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/til/osx/list-open-port/</guid>
-      <description> list open port $ sudo netstat -atp tcp| grep -i listen  or
-$ sudo lsof -i -P | grep -i listen  </description>
+      <description>list open port $ sudo netstat -atp tcp| grep -i listen or
+$ sudo lsof -i -P | grep -i listen </description>
     </item>
     
     <item>
@@ -294,9 +293,9 @@ $ sudo lsof -i -P | grep -i listen  </description>
       
       <guid>https://labs.yulrizka.com/til/unix/parsing-epoch-timestamp-to-date/</guid>
       <description>To get current unix timestamp we can do
-$ date +%s 1471365644  But how do we parse a file which contain epoch timestamp to date?
-$ echo 1471365644 | perl -pe &#39;s/(\d+)/localtime($1)/e&#39;  if we have it in milliseconds, we could remove the milliseconds part with
-$ echo 1471365644000 | cut -c -10 | perl -pe &#39;s/(\d+)/localtime($1)/e&#39; Tue Aug 16 18:40:44 2016  Assuming your epoch seconds is 10 character.</description>
+$ date +%s 1471365644 But how do we parse a file which contain epoch timestamp to date?
+$ echo 1471365644 | perl -pe &#39;s/(\d+)/localtime($1)/e&#39; if we have it in milliseconds, we could remove the milliseconds part with
+$ echo 1471365644000 | cut -c -10 | perl -pe &#39;s/(\d+)/localtime($1)/e&#39; Tue Aug 16 18:40:44 2016 Assuming your epoch seconds is 10 character. But if you have more or less, you need to do some other string processing first</description>
     </item>
     
     <item>
@@ -307,7 +306,7 @@ $ echo 1471365644000 | cut -c -10 | perl -pe &#39;s/(\d+)/localtime($1)/e&#39; T
       <guid>https://labs.yulrizka.com/til/unix/repeat-content-of-text-x-time/</guid>
       <description>I have a use-case where 1 have single file that contain 20K line. I need to have another file with 1 million line with just content of the first file repeated 50 time.
 Solution: form stack overflow
-$ perl -0777pe &#39;$_=$_ x 50&#39; input_file.txt &amp;gt; output_file.txt  arguments:
+$ perl -0777pe &#39;$_=$_ x 50&#39; input_file.txt &amp;gt; output_file.txt arguments:
  0777 : -0 sets sets the input record separator (perl special variable $/ which is a newline by default). Setting this to a value greater than 0400 will cause Perl to slurp the entire input file into memory.</description>
     </item>
     
@@ -332,9 +331,9 @@ so full command would be for example :%s/[press ctrl-R then 0]/replacement/gc</d
       <description>There are couple of way to rename multiple files.
 From http://unix.stackexchange.com/questions/1136/batch-renaming-files
 example we have files
-image0001.png image0002.png image0003.png ...  And we would like to rename it to
-0001.png 0002.png 0003.png ...  with for loop this works with linux and mac without installing anything
-1  for f in *.png; do mv &amp;#34;$f&amp;#34; &amp;#34;${f#image}&amp;#34;; done   With ZSH This is my favorite way since I&amp;rsquo;m using ZSH and oh-my-zsh.</description>
+image0001.png image0002.png image0003.png ... And we would like to rename it to
+0001.png 0002.png 0003.png ... with for loop this works with linux and mac without installing anything
+1  for f in *.png; do mv &amp;#34;$f&amp;#34; &amp;#34;${f#image}&amp;#34;; done   With ZSH This is my favorite way since I&amp;rsquo;m using ZSH and oh-my-zsh. Check it now, it&amp;rsquo;s awesome</description>
     </item>
     
     <item>
@@ -344,8 +343,8 @@ image0001.png image0002.png image0003.png ...  And we would like to rename it to
       
       <guid>https://labs.yulrizka.com/til/unix/specify-compression-level-in-tar-gzip/</guid>
       <description>from http://superuser.com/questions/305128/how-to-specify-level-of-compression-when-using-tar-zcvf
-GZIP=-9 tar cvzf file.tar.gz /path/to/directory  or
-tar cvf - /path/to/file0 /path/to/file1 | gzip -9 - &amp;gt; files.tar.gz  </description>
+GZIP=-9 tar cvzf file.tar.gz /path/to/directory or
+tar cvf - /path/to/file0 /path/to/file1 | gzip -9 - &amp;gt; files.tar.gz </description>
     </item>
     
     <item>
@@ -356,7 +355,7 @@ tar cvf - /path/to/file0 /path/to/file1 | gzip -9 - &amp;gt; files.tar.gz  </des
       <guid>https://labs.yulrizka.com/til/linux/clearing-up-swap-space/</guid>
       <description>WARNING: make sure the memory is enough to put the data back from swap, else system will start killing processes
 To clear up swap space (put the data back into memory) we can do
-# swapoff -a &amp;amp;&amp;amp; swapon -a  Because this is quite slow process, it&amp;rsquo;s a good idea to run this inside screen session.</description>
+# swapoff -a &amp;amp;&amp;amp; swapon -a Because this is quite slow process, it&amp;rsquo;s a good idea to run this inside screen session.</description>
     </item>
     
     <item>
@@ -366,9 +365,9 @@ To clear up swap space (put the data back into memory) we can do
       
       <guid>https://labs.yulrizka.com/til/analytics/convert-json-perline-to-panads-data-frame/</guid>
       <description>Sometimes we have a file that contains a json object per line. For example log file in json format
-{foo: 1, bar: 2} {foo: 3, bar: 4}  if we want to read this in python pandas we need to convert it to
-[ {foo: 1, bar: 2}, {foo: 3, bar: 4} ]  easy way to do this is with jq --slurp
-$ cat file.json | jq --slurp . &amp;gt; one_array.</description>
+{foo: 1, bar: 2} {foo: 3, bar: 4} if we want to read this in python pandas we need to convert it to
+[ {foo: 1, bar: 2}, {foo: 3, bar: 4} ] easy way to do this is with jq --slurp
+$ cat file.json | jq --slurp . &amp;gt; one_array.json then you can read it in python pandas (notebook) like this</description>
     </item>
     
     <item>
@@ -378,8 +377,8 @@ $ cat file.json | jq --slurp . &amp;gt; one_array.</description>
       
       <guid>https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/</guid>
       <description>say you have a data frame like this
-[ {foo: 1, created_date:&amp;quot;2016-06-04 03:00:01.727&amp;quot;}, ... ]  the timestamp doesn&amp;rsquo;t recognize immediately. To make this field as timestamp and as index we could do
-1 2 3  # assuming df contains the data frame df[&amp;#39;timestamp&amp;#39;] = pd.to_datetime(be.timestamp, format=&amp;#34;%Y-%m-%d%H:%M:%S.%f&amp;#34;) df.set_index(df[&amp;#39;timestamp&amp;#39;], inplace=True)  </description>
+[ {foo: 1, created_date:&amp;quot;2016-06-04 03:00:01.727&amp;quot;}, ... ] the timestamp doesn&amp;rsquo;t recognize immediately. To make this field as timestamp and as index we could do
+1 2 3  # assuming df contains the data frame df[&amp;#39;timestamp&amp;#39;] = pd.to_datetime(be.timestamp, format=&amp;#34;%Y-%m-%d%H:%M:%S.%f&amp;#34;) df.set_index(df[&amp;#39;timestamp&amp;#39;], inplace=True)   </description>
     </item>
     
     <item>
@@ -390,9 +389,9 @@ $ cat file.json | jq --slurp . &amp;gt; one_array.</description>
       <guid>https://labs.yulrizka.com/til/unix/file-size-older-than-x-days/</guid>
       <description>from http://stackoverflow.com/a/17419690/546750
 to list all file that modified more than more than X days, we can use
-$ find . -mtime +[number of days]  if you use - sign than it became file is modified since X days
+$ find . -mtime +[number of days] if you use - sign than it became file is modified since X days
 Combine it with akw, we can get total file size
-$ find . -mtime +180 -exec du -ks {} \; | cut -f1 | awk &#39;{total=total+$1}END{print total/1024}&#39;  </description>
+$ find . -mtime +180 -exec du -ks {} \; | cut -f1 | awk &#39;{total=total+$1}END{print total/1024}&#39; </description>
     </item>
     
     <item>
@@ -415,7 +414,7 @@ When you delete a file it removes one link to the underlying inode. The inode is
       <guid>https://labs.yulrizka.com/til/unix/filtering-json-with-jq/</guid>
       <description>jq is a fantastic command line tools to parse and filter json in command line. It works for linux, osx and maybe windows.
 example, to format json
-$ json=&#39;[{&amp;quot;genre&amp;quot;:&amp;quot;deep house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot;}]&#39; $ echo $json [{&amp;quot;genre&amp;quot;:&amp;quot;deep house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot;}] $ echo $json | jq . [ { &amp;quot;genre&amp;quot;: &amp;quot;deep house&amp;quot; }, { &amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot; }, { &amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot; } ]  To output a particular field</description>
+$ json=&#39;[{&amp;quot;genre&amp;quot;:&amp;quot;deep house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot;}]&#39; $ echo $json [{&amp;quot;genre&amp;quot;:&amp;quot;deep house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot;}, {&amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot;}] $ echo $json | jq . [ { &amp;quot;genre&amp;quot;: &amp;quot;deep house&amp;quot; }, { &amp;quot;genre&amp;quot;: &amp;quot;progressive house&amp;quot; }, { &amp;quot;genre&amp;quot;: &amp;quot;dubstep&amp;quot; } ] To output a particular field</description>
     </item>
     
     <item>
@@ -425,7 +424,7 @@ $ json=&#39;[{&amp;quot;genre&amp;quot;:&amp;quot;deep house&amp;quot;}, {&amp;q
       
       <guid>https://labs.yulrizka.com/til/unix/keep-n-recent-item-in-folder/</guid>
       <description>Sometimes you create a script that generate something but you wanted to only keep N last item. There is couple way to achive this. This version works both on OSX and Linux.
-$ (ls -t|head -n 5;ls)|sort|uniq -u|xargs rm  Basically it the (..) will capture together the output
+$ (ls -t|head -n 5;ls)|sort|uniq -u|xargs rm Basically it the (..) will capture together the output
  ls -t | head -n 5 will list files sort by time and get first 5 items The second ls will list all file.</description>
     </item>
     
@@ -446,7 +445,7 @@ We can add one or more program to start when we are logged in. Use system prefer
       
       <guid>https://labs.yulrizka.com/til/unix/find-out-what-is-using-swap/</guid>
       <description>from http://northernmost.org/blog/find-out-what-is-using-your-swap/
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash # Get current swap usage for all running processes # Erik Ljungstrom 27/05/2011 SUM=0 OVERALL=0 for DIR in `find /proc/ -maxdepth 1 -type d | egrep &amp;#34;^/proc/[0-9]&amp;#34;` ; do PID=`echo $DIR | cut -d / -f 3` PROGNAME=`ps -p $PID -o comm --no-headers` for SWAP in `grep Swap $DIR/smaps 2&amp;gt;/dev/null| awk &amp;#39;{ print $2 }&amp;#39;` do let SUM=$SUM+$SWAP done echo &amp;#34;PID=$PID- Swap used: $SUM- ($PROGNAME)&amp;#34; let OVERALL=$OVERALL+$SUM SUM=0 done echo &amp;#34;Overall swap used: $OVERALL&amp;#34;  </description>
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18  #!/bin/bash # Get current swap usage for all running processes # Erik Ljungstrom 27/05/2011 SUM=0 OVERALL=0 for DIR in `find /proc/ -maxdepth 1 -type d | egrep &amp;#34;^/proc/[0-9]&amp;#34;` ; do PID=`echo $DIR | cut -d / -f 3` PROGNAME=`ps -p $PID -o comm --no-headers` for SWAP in `grep Swap $DIR/smaps 2&amp;gt;/dev/null| awk &amp;#39;{ print $2 }&amp;#39;` do let SUM=$SUM+$SWAP done echo &amp;#34;PID=$PID- Swap used: $SUM- ($PROGNAME)&amp;#34; let OVERALL=$OVERALL+$SUM SUM=0 done echo &amp;#34;Overall swap used: $OVERALL&amp;#34;   </description>
     </item>
     
     <item>
@@ -456,7 +455,7 @@ We can add one or more program to start when we are logged in. Use system prefer
       
       <guid>https://labs.yulrizka.com/til/unix/prompt-confirmation-in-bash/</guid>
       <description>From http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script
-1 2 3 4 5 6  read -p &amp;#34;Are you sure? &amp;#34; -n 1 -r echo # (optional) move to a new line if [[ ! $REPLY =~ ^[Yy]$ ]] then exit 1 fi  </description>
+1 2 3 4 5 6  read -p &amp;#34;Are you sure? &amp;#34; -n 1 -r echo # (optional) move to a new line if [[ ! $REPLY =~ ^[Yy]$ ]] then exit 1 fi   </description>
     </item>
     
     <item>
@@ -467,10 +466,10 @@ We can add one or more program to start when we are logged in. Use system prefer
       <guid>https://labs.yulrizka.com/til/unix/get-all-line-except-n-last-one/</guid>
       <description>with head -n &amp;lt;negative number&amp;gt; we can get the output except n lines
 example
-cat a.txt | head -n -1  will gives as the content of a.txt except the last one
+cat a.txt | head -n -1 will gives as the content of a.txt except the last one
 Let say we have file 1 2 3 4 5, and with grep we want to only get 1 2 3.
 we can achive this with ls and grep
-$ ls | grep 4 -B 100000000 | head -n -1  the -B show 100000000 lines before matched line, and the head -n -1 removes the matched</description>
+$ ls | grep 4 -B 100000000 | head -n -1 the -B show 100000000 lines before matched line, and the head -n -1 removes the matched</description>
     </item>
     
     <item>
@@ -493,7 +492,7 @@ While RedYeti&amp;rsquo;s link is useful, just to save a few clicks for others l
       
       <guid>https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/</guid>
       <description>Some time you want visually merge conflict in git. To use p4merge https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge
-git mergetool Linux $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ $ &amp;quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.p4mergetool.trustExitCode false $ git config --global mergetool.keepBackup false  Mac $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ &amp;quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.</description>
+git mergetool Linux $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ $ &amp;quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.p4mergetool.trustExitCode false $ git config --global mergetool.keepBackup false Mac $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ &amp;quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.p4mergetool.trustExitCode false $ git config --global mergetool.</description>
     </item>
     
     <item>
@@ -526,8 +525,8 @@ One of the feature is broadcast where you can send command to multiple window. I
       <guid>https://labs.yulrizka.com/til/unix/formatting-or-parse-json-in-command-line/</guid>
       <description>To easily format json or command line there jq
 example
-$ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;titles&amp;quot;:[&amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot;]}&#39; | jq . { &amp;quot;user&amp;quot;: &amp;quot;stedolan&amp;quot;, &amp;quot;titles&amp;quot;: [ &amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot; ] }  or just print specific value
-$ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;titles&amp;quot;:[&amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot;]}&#39; | jq .titles[0] &amp;quot;JQ Primer&amp;quot;  </description>
+$ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;titles&amp;quot;:[&amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot;]}&#39; | jq . { &amp;quot;user&amp;quot;: &amp;quot;stedolan&amp;quot;, &amp;quot;titles&amp;quot;: [ &amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot; ] } or just print specific value
+$ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;titles&amp;quot;:[&amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot;]}&#39; | jq .titles[0] &amp;quot;JQ Primer&amp;quot; </description>
     </item>
     
     <item>
@@ -537,7 +536,7 @@ $ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;tit
       
       <guid>https://labs.yulrizka.com/til/unix/grep-print-only-matched/</guid>
       <description>you can use the -o flag to only print matched value. Example
-$ echo &amp;quot;Hello fellow unix fan&amp;quot; | grep --color -o nix nix $ echo &amp;quot;Hello fellow unix fan&amp;quot; | grep --color -o nux $ echo $? 1  </description>
+$ echo &amp;quot;Hello fellow unix fan&amp;quot; | grep --color -o nix nix $ echo &amp;quot;Hello fellow unix fan&amp;quot; | grep --color -o nux $ echo $? 1 </description>
     </item>
     
     <item>
@@ -549,8 +548,8 @@ $ echo &amp;quot;Hello fellow unix fan&amp;quot; | grep --color -o nix nix $ ech
       <description>Install Incomming webhook to your channel https://api.slack.com/incoming-webhooks#sending_messages
 you will then get some url https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 create /usr/local/bin/notifyme
-#!/bin/sh curl -X POST --data-urlencode &amp;quot;payload={\&amp;quot;channel\&amp;quot;: \&amp;quot;#alert\&amp;quot;, \&amp;quot;username\&amp;quot;: \&amp;quot;mybot\&amp;quot;, \&amp;quot;text\&amp;quot;: \&amp;quot;$*\&amp;quot;, \&amp;quot;icon_emoji\&amp;quot;: \&amp;quot;:name_badge:\&amp;quot;}&amp;quot; https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX  and send message via your command line
-$ chmod +x /usr/local/bin/notifyme $ notifyme hello world! # or after some command $ sleep 5; notifyme process is finished  </description>
+#!/bin/sh curl -X POST --data-urlencode &amp;quot;payload={\&amp;quot;channel\&amp;quot;: \&amp;quot;#alert\&amp;quot;, \&amp;quot;username\&amp;quot;: \&amp;quot;mybot\&amp;quot;, \&amp;quot;text\&amp;quot;: \&amp;quot;$*\&amp;quot;, \&amp;quot;icon_emoji\&amp;quot;: \&amp;quot;:name_badge:\&amp;quot;}&amp;quot; https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX and send message via your command line
+$ chmod +x /usr/local/bin/notifyme $ notifyme hello world! # or after some command $ sleep 5; notifyme process is finished </description>
     </item>
     
     <item>
@@ -572,7 +571,7 @@ we can use the pacakge&amp;rsquo;s method to have thread safe random number gene
       <guid>https://labs.yulrizka.com/til/linux/removing-old-kernel/</guid>
       <description>When upgrading ubuntu, sometimes it failed because of insufficient disk on boot. This could be caused by too many kernel installed on the machine.
 Command to remove old kernel from here
-dpkg --list | grep linux-image | awk &#39;{ print $2 }&#39; | sort -V | sed -n &#39;/&#39;`uname -r`&#39;/q;p&#39; | xargs sudo apt-get -y purge  dpkg &amp;ndash;list | grep linux-image | awk &amp;lsquo;{ print $2 }&amp;rsquo; | sort -V | sed -n &amp;lsquo;/&amp;rsquo;uname -r&amp;rsquo;/q;p&amp;rsquo; | xargs sudo apt-get -y purgenation (remember, | uses the output of the previous command as the input to the next)</description>
+dpkg --list | grep linux-image | awk &#39;{ print $2 }&#39; | sort -V | sed -n &#39;/&#39;`uname -r`&#39;/q;p&#39; | xargs sudo apt-get -y purge dpkg &amp;ndash;list | grep linux-image | awk &amp;lsquo;{ print $2 }&amp;rsquo; | sort -V | sed -n &amp;lsquo;/&amp;lsquo;uname -r&amp;rsquo;/q;p&amp;rsquo; | xargs sudo apt-get -y purgenation (remember, | uses the output of the previous command as the input to the next)</description>
     </item>
     
     <item>
@@ -582,7 +581,7 @@ dpkg --list | grep linux-image | awk &#39;{ print $2 }&#39; | sort -V | sed -n &
       
       <guid>https://labs.yulrizka.com/til/unix/reusing-last-command-argument/</guid>
       <description>1 2 3 4 5 6 7 8 9 10  $ echo 1 1 $ echo 2 2 $ echo 3 3 $ echo 4 4 $ echo 5 5   use alt + . will reuse the last program argument in descending order
-$ echo (press alt + .) $ echo 5 (press alt + . again) $ echo 4 (press alt + . again) ...  selective arguments  !</description>
+$ echo (press alt + .) $ echo 5 (press alt + . again) $ echo 4 (press alt + . again) ... selective arguments  !</description>
     </item>
     
     <item>
@@ -593,7 +592,7 @@ $ echo (press alt + .) $ echo 5 (press alt + . again) $ echo 4 (press alt + . ag
       <guid>https://labs.yulrizka.com/til/unix/pbcopy-alternative-for-copying-to-clipboard/</guid>
       <description>in osx we have pbcopy &amp;amp; pbpaste
 we can have something similar in linux. Put this is your shell profile (~/.bashrc or ~/.zshrc if you are using zsh)
-1 2  alias pbcopy=&amp;#39;xclip -selection clipboard&amp;#39; alias pbpaste=&amp;#39;xclip -selection clipboard -o&amp;#39;  </description>
+1 2  alias pbcopy=&amp;#39;xclip -selection clipboard&amp;#39; alias pbpaste=&amp;#39;xclip -selection clipboard -o&amp;#39;   </description>
     </item>
     
     <item>
@@ -614,7 +613,7 @@ Let say you copy fil the contents of A, B, C, D. After you copy file D you want 
       <guid>https://labs.yulrizka.com/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/</guid>
       <description>Using terminal and needs to copy the result of command to clipboard ? use pbcopy
 1  $ cat somefile.txt | pbcopy   Or the other way around, paste from clipboard and pipe it to other program
-1  $ pbpaste | grep foo  </description>
+1  $ pbpaste | grep foo   </description>
     </item>
     
     <item>
@@ -633,7 +632,7 @@ Let say you copy fil the contents of A, B, C, D. After you copy file D you want 
       
       <guid>https://labs.yulrizka.com/en/osx-push-to-talk-app/</guid>
       <description>Push To Talk app for OSX
-PushToTalk App installer   As a part of scrum teams, every day I need to give updates to my team via Google Hangout. We have a team here in the Netherlands and also in Indonesia. Some times I am in the same room as a colleague of mine. This sometimes quite annoying because I can hear my self (with a delay) from his mic.</description>
+As a part of scrum teams, every day I need to give updates to my team via Google Hangout. We have a team here in the Netherlands and also in Indonesia. Some times I am in the same room as a colleague of mine. This sometimes quite annoying because I can hear my self (with a delay) from his mic. This somehow messed up my brain.</description>
     </item>
     
     <item>
@@ -653,7 +652,8 @@ example
       <pubDate>Fri, 16 Jan 2015 23:35:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/</guid>
-      <description>Disect the rocket, image by ProudloveNathan Proudlove  I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the CommonSense iOS library. One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch. The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</description>
+      <description>I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the CommonSense iOS library. One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch. The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.
+Now this is a good example where git bisect is very useful.</description>
     </item>
     
     <item>
@@ -704,7 +704,7 @@ Some simple approach would we communicating the password directly with a person 
       <pubDate>Tue, 26 Feb 2013 20:33:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</guid>
-      <description>I&amp;rsquo;ve been tinkering with my raspberry-pi for quite some time now. What I like about it because it is cheap ($25), it&amp;rsquo;s run Linux (especially debian based) and most of all it&amp;rsquo;s have General Purpose Input Output pin. Since I was a kid, I always wanted to control electronic appliance remotely. Luckily my friend @pimnijdam thought me how to control a relay board. Basically it&amp;rsquo;s just like an electric switch that connect/disconnect current when you supply a low voltage.</description>
+      <description>So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is quite awesome.</description>
     </item>
     
     <item>
@@ -745,7 +745,7 @@ So there is this challenge to capitalize first letter of every word. I want to c
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/</guid>
-      <description>Fibers are light-weight (green) threads with manual, cooperative scheduling, rather than the preemptive scheduling of Ruby 1.8&#39;s threads. Since Ruby 1.9&#39;s threads exist at the system level, fibers are, in a way, Ruby 1.9&#39;s answer to Ruby 1.8&#39;s green threads, but lacking the pre-emptive scheduling  rubyinside.com    Thread Untuk dapat mengerti mengenai fiber, sebelumnya kita harus memahami thread. Suatu (instance) program yang sedang berjalan disebut dengan proses.</description>
+      <description>Ambil contoh program Web Server yang diimplementasi menggunakan thread. Fungsi Web Server (WS) adalah menerima request dan memberikan response kepada web browser. Misalkan WS tersebut hanya memiliki 1 proses, maka apabila ada 10 user yang melakukan request, maka mereka harus mengantri untuk menerima response dari server. Hal ini bisa diatasi salah satunya dengan menggunakan thread. Apabila terdapat suatu request, maka proses utama membuat (spawn) suatu thread untuk menangani request tersebut. Misalkan ada 10 request disaat yang bersamaan, maka terdapat 10 thread yang jalan disaat yang bersamaan.</description>
     </item>
     
     <item>
@@ -754,7 +754,8 @@ So there is this challenge to capitalize first letter of every word. I want to c
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/</guid>
-      <description>TL;DR Proses Horizontal Partitioning pada MongoDB melibatkan suatu konsep Chunk dimana data dibagi menjadi beberapa chunk sesuai dengan suatu shard key. Artikel ini membahas bagaimana melakukan sharding pada mongodb  Introduksi MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database, kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis</description>
+      <description>Introduksi MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database, kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis
+Sebelum mengeksplorasi mongodb, ada beberapa konsep yang harus kita pahami tentang mongo. yaitu:</description>
     </item>
     
     <item>
@@ -764,7 +765,7 @@ So there is this challenge to capitalize first letter of every word. I want to c
       
       <guid>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</guid>
       <description>Disclaimer: Tulias ini berisi pengalaman penulis menggunakan VoIP dari belanda. Hasilnya mungkin berbeda dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang ditimbulkan apabila pembaca memutuskan untuk menggunakan VoIP
-   Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra. Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia dengan mudah
+  Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra. Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia dengan mudah
 Servis gratis misalkan:
  Skype Google Hangouts Whatsapp calling  Namun kadang-kadang berkomunikasi dengan aplikasi diatas kadang sulit.</description>
     </item>

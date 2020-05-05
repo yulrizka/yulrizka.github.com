@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -38,78 +38,45 @@
 <div class="posted_at">
 	2018-10-24 ::
 	( 1 minutes reading )
-</div>
-
-<p><a href="http://ryan.himmelwright.net/post/zfs-backups-to-luks-external/">main source</a></p>
-
+</div><p>[main source][1]</p>
 <h2 id="get-device-id">Get device id</h2>
-
 <pre><code>$ ls /dev/disk/by-id -alh
 ...
 lrwxrwxrwx 1 root root  10 okt 24 06:06 ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4 -&gt; ../../sda4
 ...
-</code></pre>
-
-<p>For example, I&rsquo;m going to use <code>/dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4</code></p>
-
+</code></pre><p>For example, I&rsquo;m going to use <code>/dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4</code></p>
 <h2 id="setup-disk-encryption-with-luks">Setup disk encryption with LUKS</h2>
-
-<p>setup <a href="http://ryan.himmelwright.net/post/zfs-backups-to-luks-external/">LuKS</a></p>
-
+<p>setup [LuKS][1]</p>
 <pre><code>$ sudo apt install cryptsetup
 $ cryptsetup luksFormat --cipher aes-xts-plain64 --key-size 512 --iter-time 10000 --use-random -y /dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li><code>--cipher</code> encryption algorithm</li>
 <li><code>--key-size</code> encryption key size</li>
 <li><code>--iter-time</code> Number of millisecond to spend P8KDF passphrase processing</li>
 <li><code>--use-random</code> use /dev/random</li>
 <li><code>-y</code> verify passphrase</li>
 </ul>
-
 <p>Disk device can now be opened.</p>
-
 <pre><code>$ sudo cryptsetup luksOpen /dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4 luks1
-</code></pre>
-
-<h2 id="create-new-zfs-pool">Create new zfs pool</h2>
-
+</code></pre><h2 id="create-new-zfs-pool">Create new zfs pool</h2>
 <pre><code>$ sudo zpool create ext-backup /dev/mapper/luks1
-</code></pre>
-
-<h2 id="create-initial-snapshot">Create initial snapshot</h2>
-
+</code></pre><h2 id="create-initial-snapshot">Create initial snapshot</h2>
 <p>Example i have data set <code>tank/ROOT/home</code></p>
-
 <pre><code>$ sudo zfs snapshot tank/ROOT/home@ext-backup
-</code></pre>
-
-<h2 id="send-the-backup">Send the backup</h2>
-
+</code></pre><h2 id="send-the-backup">Send the backup</h2>
 <pre><code>$ sudo zfs send tank/ROOT/home@ext-backup | pv | sudo zfs recv ext-backup/home
-</code></pre>
-
-<p>Or with incremental-backup</p>
-
+</code></pre><p>Or with incremental-backup</p>
 <pre><code>$ sudo zfs snapshot tank/ROOT/home@ext-backup20180101
 $ sudo zfs send -R -i tank/ROOT/home@ext-backup tank/ROOT/home@ext-backup20180101 | sudo zfs recv ext-backup/hom
-</code></pre>
-
-<p>A good idea is to set the external drive to be read-only</p>
-
+</code></pre><p>A good idea is to set the external drive to be read-only</p>
 <pre><code>$ sudo zfs set readonly=on ext-backup
-</code></pre>
-
-<h2 id="safely-close-and-remove-external-drive">Safely close and remove external drive</h2>
-
+</code></pre><h2 id="safely-close-and-remove-external-drive">Safely close and remove external drive</h2>
 <p>After finished sending the snapshot, close the disk and export the pool</p>
-
 <pre><code>$ sudo zpool export ext-backup
 $ sudo cryptsetup luksClose ext-backup
-</code></pre>
-
-<p>Reference:</p>
+</code></pre><p>Reference:<br>
+[1]: <a href="http://ryan.himmelwright.net/post/zfs-backups-to-luks-external/">http://ryan.himmelwright.net/post/zfs-backups-to-luks-external/</a><br>
+[2]: <a href="https://gitlab.com/cryptsetup/cryptsetup/blob/master/README.md">https://gitlab.com/cryptsetup/cryptsetup/blob/master/README.md</a></p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {

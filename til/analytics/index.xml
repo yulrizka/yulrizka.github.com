@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
@@ -17,9 +17,9 @@
       
       <guid>https://labs.yulrizka.com/til/analytics/convert-json-perline-to-panads-data-frame/</guid>
       <description>Sometimes we have a file that contains a json object per line. For example log file in json format
-{foo: 1, bar: 2} {foo: 3, bar: 4}  if we want to read this in python pandas we need to convert it to
-[ {foo: 1, bar: 2}, {foo: 3, bar: 4} ]  easy way to do this is with jq --slurp
-$ cat file.json | jq --slurp . &amp;gt; one_array.</description>
+{foo: 1, bar: 2} {foo: 3, bar: 4} if we want to read this in python pandas we need to convert it to
+[ {foo: 1, bar: 2}, {foo: 3, bar: 4} ] easy way to do this is with jq --slurp
+$ cat file.json | jq --slurp . &amp;gt; one_array.json then you can read it in python pandas (notebook) like this</description>
     </item>
     
     <item>
@@ -29,8 +29,8 @@ $ cat file.json | jq --slurp . &amp;gt; one_array.</description>
       
       <guid>https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/</guid>
       <description>say you have a data frame like this
-[ {foo: 1, created_date:&amp;quot;2016-06-04 03:00:01.727&amp;quot;}, ... ]  the timestamp doesn&amp;rsquo;t recognize immediately. To make this field as timestamp and as index we could do
-1 2 3  # assuming df contains the data frame df[&amp;#39;timestamp&amp;#39;] = pd.to_datetime(be.timestamp, format=&amp;#34;%Y-%m-%d%H:%M:%S.%f&amp;#34;) df.set_index(df[&amp;#39;timestamp&amp;#39;], inplace=True)  </description>
+[ {foo: 1, created_date:&amp;quot;2016-06-04 03:00:01.727&amp;quot;}, ... ] the timestamp doesn&amp;rsquo;t recognize immediately. To make this field as timestamp and as index we could do
+1 2 3  # assuming df contains the data frame df[&amp;#39;timestamp&amp;#39;] = pd.to_datetime(be.timestamp, format=&amp;#34;%Y-%m-%d%H:%M:%S.%f&amp;#34;) df.set_index(df[&amp;#39;timestamp&amp;#39;], inplace=True)   </description>
     </item>
     
   </channel>

@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -39,23 +39,14 @@
 	2020-03-08 ::
 	( 1 minutes reading )
 </div><p>Some time you have a long command and you want to edit multiple word in it.  for example: <code>$ cat foo.txt | grep foo | grep -v bar &gt; foo_output.txt</code></p>
-
 <p>Say you want to execute this 5 times and each replacing <code>foo</code> and <code>bar</code> with something else.</p>
-
 <p>for that you can use the <code>fc</code> command.</p>
-
 <pre><code>$ fc
-</code></pre>
-
-<p>It will open a text editor (vim for me. I&rsquo;m guessing it will look at $EDITOR env variable).<br />
+</code></pre><p>It will open a text editor (vim for me. I&rsquo;m guessing it will look at $EDITOR env variable).<br>
 After that you can edit or duplicate the line easily. Each line will be treated as a single command.</p>
-
 <p>You can as well do something like</p>
-
 <pre><code>$ fc foo=baz
-</code></pre>
-
-<p>It will replace all instance of <code>foo</code> in the command and replace it with <code>baz</code></p>
+</code></pre><p>It will replace all instance of <code>foo</code> in the command and replace it with <code>baz</code></p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {

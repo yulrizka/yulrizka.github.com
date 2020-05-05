@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.55.6" />
+	<meta name="generator" content="Hugo 0.69.2" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -19,7 +19,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -51,23 +51,22 @@
   <p>Assuming the domain name is <code>yulrizka.com</code> and the certificate was created with</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ certbot certonly --standalone --preferred-challenges dns -d yulrizka.com
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>To extend this certificate with DNS challenge</p>
+</div><p>To extend this certificate with DNS challenge</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># certbot -d yulrizka.com --manual --preferred-challenges dns certonly</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># certbot -d yulrizka.com --manual --preferred-challenges dns certonly</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>You will be asked to add TXT record of <code>_acme-challenge.yulrizka.com</code>.</p>
-
+</div><p>You will be asked to add TXT record of <code>_acme-challenge.yulrizka.com</code>.</p>
 <p>After updating that DNS record, wait couple of minutes and proceed.</p>
 
 </article>
@@ -85,9 +84,7 @@
   </div>
 
   <pre><code>C-a A
-</code></pre>
-
-<p>That&rsquo;s Control-a A</p>
+</code></pre><p>That&rsquo;s Control-a A</p>
 
 </article>
 <hr/>
@@ -103,16 +100,11 @@
     ( 1 minutes reading )
   </div>
 
-  
-
-<h1 id="dnssec">DNSSEC</h1>
-
+  <h1 id="dnssec">DNSSEC</h1>
 <blockquote>
-<p>DNSSEC is a technology that was developed to, among other things, protect against such attacks by digitally &lsquo;signing&rsquo; data so you can be assured it is valid. However, in order to eliminate the vulnerability from the Internet, it must be deployed at each step in the lookup from root zone to final domain name (e.g., www.icann.org). Signing the root (deploying DNSSEC on the root zone) is a necessary step in this overall processii. Importantly it does not encrypt data. It just attests to the validity of the address of the site you visit.</p>
+<p>DNSSEC is a technology that was developed to, among other things, protect against such attacks by digitally &lsquo;signing&rsquo; data so you can be assured it is valid. However, in order to eliminate the vulnerability from the Internet, it must be deployed at each step in the lookup from root zone to final domain name (e.g., <a href="http://www.icann.org">www.icann.org</a>). Signing the root (deploying DNSSEC on the root zone) is a necessary step in this overall processii. Importantly it does not encrypt data. It just attests to the validity of the address of the site you visit.</p>
 </blockquote>
-
 <p>It&rsquo;s basically backward compatible addition to the protocol where DNS server can verify the authenticity of the record using asymetric key certificate</p>
-
 <p>There is also as concept of KSK (Key Signing key) a long term key and ZSK (Zone Signing Key) a short term key. They rotate the ZSK using KSK so that it&rsquo;s harder to bruteforce to key</p>
 
 </article>
@@ -130,14 +122,12 @@
   </div>
 
   <p>I started not to use my real email for git commit. Instead i uses the one that is provided by <a href="https://help.github.com/articles/about-commit-email-addresses/">github</a></p>
-
 <p>After enabling <strong>Block command line pushes that expose my email</strong> on <a href="https://github.com/settings/emails">Block command line pushes that expose my email</a>, it will reject
 all email that exposes public email adress.</p>
-
 <p>So in order to rewrite git history and change the author email, I found this <a href="https://help.github.com/articles/changing-author-info/">github help</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -172,16 +162,17 @@ git filter-branch --env-filter <span class="s1">&#39;
 </span><span class="s1">    export GIT_AUTHOR_NAME=&#34;$CORRECT_NAME&#34;
 </span><span class="s1">    export GIT_AUTHOR_EMAIL=&#34;$CORRECT_EMAIL&#34;
 </span><span class="s1">fi
-</span><span class="s1">&#39;</span> --tag-name-filter cat -- --branches --tags</code></pre></td></tr></table>
+</span><span class="s1">&#39;</span> --tag-name-filter cat -- --branches --tags
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Another neat way (after you change your email with git config), you can also do this:</p>
+</div><p>Another neat way (after you change your email with git config), you can also do this:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ git rebase -i -p --exec <span class="s1">&#39;git commit --amend --reset-author --no-edit&#39;</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git rebase -i -p --exec <span class="s1">&#39;git commit --amend --reset-author --no-edit&#39;</span>
+</code></pre></td></tr></table>
 </div>
 </div>
 </article>
@@ -198,124 +189,118 @@ git filter-branch --env-filter <span class="s1">&#39;
     ( 1 minutes reading )
   </div>
 
-  
-
-<h2 id="generate-key">Generate key</h2>
+  <h2 id="generate-key">Generate key</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --gen-key</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --gen-key
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="list-keys">List keys</h2>
+</div><h2 id="list-keys">List keys</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --list-keys</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --list-keys
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="encrypt-data">Encrypt Data</h2>
-
+</div><h2 id="encrypt-data">Encrypt Data</h2>
 <p>With a passprhare</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ca -o output.txt.gpg input.txt</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ca -o output.txt.gpg input.txt
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>with a certificate and from STDOUT</p>
+</div><p>with a certificate and from STDOUT</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ea </code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ea 
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>or if you know the name already (can be key, name or email)</p>
+</div><p>or if you know the name already (can be key, name or email)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ea -r <span class="s2">&#34;Ahmy&#34;</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -ea -r <span class="s2">&#34;Ahmy&#34;</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="decrypt-data">Decrypt Data</h2>
+</div><h2 id="decrypt-data">Decrypt Data</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -d file.txt.gpg</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg -d file.txt.gpg
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="export">Export</h2>
-
+</div><h2 id="export">Export</h2>
 <p>Public key</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export -a <span class="s2">&#34;name&#34;</span> &gt; public.key</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export -a <span class="s2">&#34;name&#34;</span> &gt; public.key
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><code>-a</code> is to create armored ascii output.</p>
-
+</div><p><code>-a</code> is to create armored ascii output.</p>
 <p>Private Key</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export-secret-key -a <span class="s2">&#34;name&#34;</span> &gt; private.key</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export-secret-key -a <span class="s2">&#34;name&#34;</span> &gt; private.key
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="import">Import</h2>
-
+</div><h2 id="import">Import</h2>
 <p>Public key</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export-secret-key -a <span class="s2">&#34;rtCamp&#34;</span> &gt; private.key</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --export-secret-key -a <span class="s2">&#34;rtCamp&#34;</span> &gt; private.key
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Private Key</p>
+</div><p>Private Key</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --allow-secret-key-import --import private.key</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --allow-secret-key-import --import private.key
+</code></pre></td></tr></table>
 </div>
-</div>
-<h2 id="deleting">Deleting</h2>
-
+</div><h2 id="deleting">Deleting</h2>
 <p>Public Key</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --delete-key <span class="s2">&#34;Real Name&#34;</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --delete-key <span class="s2">&#34;Real Name&#34;</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Private Key</p>
+</div><p>Private Key</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --delete-secret-key <span class="s2">&#34;Real Name&#34;</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --delete-secret-key <span class="s2">&#34;Real Name&#34;</span>
+</code></pre></td></tr></table>
 </div>
 </div>
 </article>
@@ -332,16 +317,11 @@ git filter-branch --env-filter <span class="s1">&#39;
     ( 1 minutes reading )
   </div>
 
-  
-
-<h1 id="ldap-list-users">ldap list users</h1>
-
+  <h1 id="ldap-list-users">ldap list users</h1>
 <p>On ldap connected machine</p>
-
 <pre><code>$ genet group groupname
 groupname*:2141:usera,userb,userc,userd
 </code></pre>
-
 </article>
 <hr/>
 
@@ -356,78 +336,45 @@ groupname*:2141:usera,userb,userc,userd
     ( 1 minutes reading )
   </div>
 
-  
-
-<p><a href="http://ryan.himmelwright.net/post/zfs-backups-to-luks-external/">main source</a></p>
-
+  <p>[main source][1]</p>
 <h2 id="get-device-id">Get device id</h2>
-
 <pre><code>$ ls /dev/disk/by-id -alh
 ...
 lrwxrwxrwx 1 root root  10 okt 24 06:06 ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4 -&gt; ../../sda4
 ...
-</code></pre>
-
-<p>For example, I&rsquo;m going to use <code>/dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4</code></p>
-
+</code></pre><p>For example, I&rsquo;m going to use <code>/dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4</code></p>
 <h2 id="setup-disk-encryption-with-luks">Setup disk encryption with LUKS</h2>
-
-<p>setup <a href="http://ryan.himmelwright.net/post/zfs-backups-to-luks-external/">LuKS</a></p>
-
+<p>setup [LuKS][1]</p>
 <pre><code>$ sudo apt install cryptsetup
 $ cryptsetup luksFormat --cipher aes-xts-plain64 --key-size 512 --iter-time 10000 --use-random -y /dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4
-</code></pre>
-
-<ul>
+</code></pre><ul>
 <li><code>--cipher</code> encryption algorithm</li>
 <li><code>--key-size</code> encryption key size</li>
 <li><code>--iter-time</code> Number of millisecond to spend P8KDF passphrase processing</li>
 <li><code>--use-random</code> use /dev/random</li>
 <li><code>-y</code> verify passphrase</li>
 </ul>
-
 <p>Disk device can now be opened.</p>
-
 <pre><code>$ sudo cryptsetup luksOpen /dev/disk/by-id/ata-WDC_WD10EZEX-08M2NA0_WD-WMC3F1471486-part4 luks1
-</code></pre>
-
-<h2 id="create-new-zfs-pool">Create new zfs pool</h2>
-
+</code></pre><h2 id="create-new-zfs-pool">Create new zfs pool</h2>
 <pre><code>$ sudo zpool create ext-backup /dev/mapper/luks1
-</code></pre>
-
-<h2 id="create-initial-snapshot">Create initial snapshot</h2>
-
+</code></pre><h2 id="create-initial-snapshot">Create initial snapshot</h2>
 <p>Example i have data set <code>tank/ROOT/home</code></p>
-
 <pre><code>$ sudo zfs snapshot tank/ROOT/home@ext-backup
-</code></pre>
-
-<h2 id="send-the-backup">Send the backup</h2>
-
+</code></pre><h2 id="send-the-backup">Send the backup</h2>
 <pre><code>$ sudo zfs send tank/ROOT/home@ext-backup | pv | sudo zfs recv ext-backup/home
-</code></pre>
-
-<p>Or with incremental-backup</p>
-
+</code></pre><p>Or with incremental-backup</p>
 <pre><code>$ sudo zfs snapshot tank/ROOT/home@ext-backup20180101
 $ sudo zfs send -R -i tank/ROOT/home@ext-backup tank/ROOT/home@ext-backup20180101 | sudo zfs recv ext-backup/hom
-</code></pre>
-
-<p>A good idea is to set the external drive to be read-only</p>
-
+</code></pre><p>A good idea is to set the external drive to be read-only</p>
 <pre><code>$ sudo zfs set readonly=on ext-backup
-</code></pre>
-
-<h2 id="safely-close-and-remove-external-drive">Safely close and remove external drive</h2>
-
+</code></pre><h2 id="safely-close-and-remove-external-drive">Safely close and remove external drive</h2>
 <p>After finished sending the snapshot, close the disk and export the pool</p>
-
 <pre><code>$ sudo zpool export ext-backup
 $ sudo cryptsetup luksClose ext-backup
-</code></pre>
-
-<p>Reference:</p>
+</code></pre><p>Reference:<br>
+[1]: <a href="http://ryan.himmelwright.net/post/zfs-backups-to-luks-external/">http://ryan.himmelwright.net/post/zfs-backups-to-luks-external/</a><br>
+[2]: <a href="https://gitlab.com/cryptsetup/cryptsetup/blob/master/README.md">https://gitlab.com/cryptsetup/cryptsetup/blob/master/README.md</a></p>
 
 </article>
 <hr/>
@@ -444,21 +391,12 @@ $ sudo cryptsetup luksClose ext-backup
   </div>
 
   <p>Having ZFS snapshot saved me once when I acidentally <code>rm -f /home/myuser</code>.</p>
-
 <p>There is a simple package that easily make auto snapshot.</p>
-
 <pre><code>$ sudo apt install zfs-auto-snapshot
-</code></pre>
-
-<p>This will install the script and the cron job associated with it.</p>
-
+</code></pre><p>This will install the script and the cron job associated with it.</p>
 <p>By default it will backup all filesystem and volumes. You can disable the filesystems completely by</p>
-
 <pre><code>$ sudo zfs set com.sun:auto-snapshot=false tank/data-set-name
-</code></pre>
-
-<p>or only for specific interval</p>
-
+</code></pre><p>or only for specific interval</p>
 <pre><code>sudo zfs set com.sun:auto-snapshot=true tank/data-set-name
 sudo zfs set com.sun:auto-snapshot:monthly=false tank/data-set-name
 sudo zfs set com.sun:auto-snapshot:weekly=false tank/data-set-name
@@ -466,7 +404,6 @@ sudo zfs set com.sun:auto-snapshot:daily=true tank/data-set-name
 sudo zfs set com.sun:auto-snapshot:hourly=false tank/data-set-name
 sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
 </code></pre>
-
 </article>
 <hr/>
 
@@ -482,31 +419,16 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
   </div>
 
   <p>We use bluetoothctl tool which is command-line to BlueZ</p>
-
 <pre><code>$ sudo bluetoothctl
-</code></pre>
-
-<p>Enable authentication agent</p>
-
+</code></pre><p>Enable authentication agent</p>
 <pre><code>[bluetooth]# agent on
-</code></pre>
-
-<p>Run the scan process</p>
-
+</code></pre><p>Run the scan process</p>
 <pre><code>[bluetooth]# scan on
-</code></pre>
-
-<p>Pair with the device</p>
-
+</code></pre><p>Pair with the device</p>
 <pre><code>[bluetooth]# pair 00:25:56:D1:36:6B
-</code></pre>
-
-<p>Connect to the device</p>
-
+</code></pre><p>Connect to the device</p>
 <pre><code>[bluetooth]# connect 00:25:56:D1:36:6B
-</code></pre>
-
-<p>more information <a href="https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound">https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound</a></p>
+</code></pre><p>more information <a href="https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound">https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound</a></p>
 
 </article>
 <hr/>
@@ -523,10 +445,8 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
   </div>
 
   <p>for example, I want to compare output of 2 different curl comand</p>
-
 <pre><code>$ diff &lt;(curl -s http://host.com/a) &lt;(curl -s http://anotherhost.com/a)
 </code></pre>
-
 </article>
 <hr/>
 
@@ -627,6 +547,7 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
     </li>
     
 </ul>
+
 
 
 

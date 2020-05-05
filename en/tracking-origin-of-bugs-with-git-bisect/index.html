@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -38,24 +38,31 @@
 <div class="posted_at">
 	2015-01-16 ::
 	( 4 minutes reading )
-</div><div class="thumbnail" align="center">
-  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
-  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
-</div>
-
+</div><!-- raw HTML omitted -->
 <p>I&rsquo;ve been involved with a iOS project this past week. I&rsquo;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
 One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
 The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
-
 <p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
-bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>&rsquo;. Then every time you mark a commit as good / bad,
+bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>'. Then every time you mark a commit as good / bad,
 it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
 whether the bugs exist or not.</p>
-
 <p>Here is an example</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># let&#39;s start  bisecting, Im in unstable branch,</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect start
+
+</code></pre></td></tr></table>
+</div>
+</div><p>the prompt <code>sense-ios-library</code> shows the current folder, and <code>git:(unstable)</code> show current commit. it&rsquo;s part of <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> plugin</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -116,26 +123,9 @@ whether the bugs exist or not.</p>
 </span><span class="lnt">59
 </span><span class="lnt">60
 </span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># let&#39;s start  bisecting, Im in unstable branch,</span>
-➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect start
-
-<span class="sb">````</span>
-
-the prompt <span class="sb">`</span>sense-ios-library<span class="sb">`</span> shows the current folder, and <span class="sb">`</span>git:<span class="o">(</span>unstable<span class="o">)</span><span class="sb">`</span> show current commit. it<span class="s1">&#39;s part of [oh-my-zsh][oh-my-zsh] plugin
-</span><span class="s1">
-</span><span class="s1">
-</span><span class="s1">``` bash
-</span><span class="s1"># I open the xcode, and it took quite a long time. so let&#39;</span>s marks current revision as bad
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># I open the xcode, and it took quite a long time. so let&#39;s marks current revision as bad</span>
 ➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect bad
 
 <span class="c1"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</span>
@@ -187,27 +177,25 @@ git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9
 e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit
 commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1
 Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;
-Date:   Thu Jan <span class="m">8</span> <span class="m">14</span>:38:07 <span class="m">2015</span> +0100
+Date:   Thu Jan <span class="m">8</span> 14:38:07 <span class="m">2015</span> +0100
 
     Updated functionality and tests of getting <span class="nb">local</span> data
 
 :040000 <span class="m">040000</span> 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests
 :040000 <span class="m">040000</span> 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj
 :040000 <span class="m">040000</span> a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests
-:040000 <span class="m">040000</span> 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform</code></pre></td></tr></table>
-</div>
-</div>
-<p>Now that you know when was the bugs introduced. you can now start looking at the problem.</p>
+:040000 <span class="m">040000</span> 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform
 
+</code></pre></td></tr></table>
+</div>
+</div><p>Now that you know when was the bugs introduced. you can now start looking at the problem.</p>
 <p>I found out there is something that doesn&rsquo;t feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>.
 There is a reference to <code>Xcode.app</code> in one of the folder. So every time I open the project,
 or switch branch, it will try to look into things inside <code>Xcode.app</code>.
 So removing the reference indeed solve the problem.</p>
-
 <p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced.
 You can even automate the test so you don&rsquo;t have to check each bisect commit your self.
 The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command and also an example on how to automate the test.</p>
-
 <p>Now go on catch and squash those annoying bug!</p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">

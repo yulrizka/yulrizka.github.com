@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -46,12 +46,10 @@
 <div class="posted_at">
 	2020-04-25 ::
 	( 8 minutes reading )
-</div>
-
-<p>It&rsquo;s all started when my colleague asked this question.</p>
+</div><p>It&rsquo;s all started when my colleague asked this question.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -130,11 +128,10 @@
             <span class="nx">_</span> <span class="p">=</span> <span class="nx">s</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Which one do you think is faster?</p>
-
+</div><p>Which one do you think is faster?</p>
 <pre><code>$ go test -bench .
 goos: linux
 goarch: amd64
@@ -142,11 +139,8 @@ BenchmarkForVar-4       	    4363	    269711 ns/op	       0 B/op	       0 allocs
 BenchmarkForCounter-4   	    4195	    285952 ns/op	       0 B/op	       0 allocs/op
 PASS
 ok  	_/test1	2.685s
-</code></pre>
-
-<p>It&rsquo;s pretty much the same. However, if we increase the size of the struct by adding another field <code>ID9 int64</code>
+</code></pre><p>It&rsquo;s pretty much the same. However, if we increase the size of the struct by adding another field <code>ID9 int64</code>
 The result becomes significantly different.</p>
-
 <pre><code>$ go test -bench .
 goos: linux
 goarch: amd64
@@ -154,22 +148,17 @@ BenchmarkForVar-4       	     282	   4264872 ns/op	       0 B/op	       0 allocs
 BenchmarkForCounter-4   	    4363	    269761 ns/op	       0 B/op	       0 allocs/op
 PASS
 ok  	_/test1	3.255s
-</code></pre>
-
-<p><br />
+</code></pre><p><!-- raw HTML omitted -->
 This problem become intriguing, so I dig a little deeper. I would like to point out that the code is a contrived example.
 It would probably not applied in a production code. I am <strong>not</strong> going to focus on the benchmark or which for-range works
 better but rather exploring how Go compiles and demonstrating useful Go tools in the process.</p>
-
 <p>The code below also contains some assembly code. I am not going into too much detail, so I would not worry if you are not familiar with it.
 My intention is to show how the generated code differs and what could be the reason for it.</p>
-
 <p>I am going to focus on <code>for _, s = range slice</code> loop (ForVar). To make it simpler I create a <code>main.go</code> and <code>struct.go</code></p>
-
 <p><strong>main.go</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -190,37 +179,31 @@ My intention is to show how the generated code differs and what could be the rea
 	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">slice</span> <span class="p">{</span>
 		<span class="nx">_</span> <span class="p">=</span> <span class="nx">s</span>
 	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>I&rsquo;ll skip the <code>struct.go</code> here since it&rsquo;s pretty trivial.</p>
-
+</div><p>I&rsquo;ll skip the <code>struct.go</code> here since it&rsquo;s pretty trivial.</p>
 <h2 id="generating-assembly-code">Generating Assembly Code</h2>
-
 <p>To look into what instructions are generated, we can use <code>go tool compile -S</code>. This will print out the generated
 assembly code to stdout. I also Skipped some lines that are not directly related to our code.</p>
-
 <p>according to <a href="https://golang.org/doc/asm">asm package doc</a></p>
-
 <blockquote>
 <p>The FUNCDATA and PCDATA directives contain information for use by the garbage collector; they are introduced by the compiler.</p>
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$  go tool compile -S main.go type.go <span class="p">|</span> grep -v FUNCDATA <span class="p">|</span> grep -v PCDATA</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$  go tool compile -S main.go type.go <span class="p">|</span> grep -v FUNCDATA <span class="p">|</span> grep -v PCDATA
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Here are the generated assembly code for both version.</p>
-
+</div><p>Here are the generated assembly code for both version.</p>
 <p><strong>version with 9 int64</strong></p>
-
 <p>This struct contains 9 int64 and has the size 72 bytes</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-asm" data-lang="asm"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -243,19 +226,16 @@ assembly code to stdout. I also Skipped some lines that are not directly related
 </span><span class="c"></span>	<span class="mi">0x0041</span> <span class="mi">00065</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">INCQ</span>	<span class="no">AX</span>           <span class="c"># AX++
 </span><span class="c"></span>	<span class="mi">0x0044</span> <span class="mi">00068</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">CMPQ</span>	<span class="no">AX</span><span class="p">,</span> <span class="no">$1000000</span> <span class="c"># AX &lt; 1000000
 </span><span class="c"></span>	<span class="mi">0x004a</span> <span class="mi">00074</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">JLT</span>	<span class="mi">65</span>               <span class="c"># JUMP to 00065 (next iteration)
-</span><span class="c"></span>    <span class="no">...</span></code></pre></td></tr></table>
+</span><span class="c"></span>    <span class="no">...</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Here you can see that at line <code>00065</code>, the loop does nothing except increasing the counter. Let&rsquo;s compare it with the
+</div><p>Here you can see that at line <code>00065</code>, the loop does nothing except increasing the counter. Let&rsquo;s compare it with the
 larger struct.</p>
-
-<p><br/>
-<strong>version with 10 int64</strong></p>
-
+<!-- raw HTML omitted -->
 <p>The struct now contains 10 int64 and has the size 80 bytes</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-asm" data-lang="asm"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -286,54 +266,38 @@ larger struct.</p>
 </span><span class="c"></span>	<span class="mi">0x0067</span> <span class="mi">00103</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">INCQ</span>	<span class="no">CX</span>           <span class="c"># CX++
 </span><span class="c"></span>	<span class="mi">0x006a</span> <span class="mi">00106</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">CMPQ</span>	<span class="no">CX</span><span class="p">,</span> <span class="no">$1000000</span> <span class="c"># CX &lt; 1000000
 </span><span class="c"></span>	<span class="mi">0x0071</span> <span class="mi">00113</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">JLT</span>	<span class="mi">72</span>               <span class="c"># JUMP to 0072 (next iteration)
-</span><span class="c"></span>    <span class="no">...</span></code></pre></td></tr></table>
+</span><span class="c"></span>    <span class="no">...</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>The conclusion is that with 80 bytes struct, every iteration copies the value of the element.</p>
-
+</div><p>The conclusion is that with 80 bytes struct, every iteration copies the value of the element.</p>
 <h2 id="ssa-optimization">SSA Optimization</h2>
-
 <p>To understand how this code is generated, we first need to understand how GO compile a source code.</p>
-
 <p><em>Stream</em> wrote a very good introduction to the topic on
-<a href="https://getstream.io/blog/how-a-go-program-compiles-down-to-machine-code/">How a Go Program Compiles down to Machine Code</a>.<br />
+<a href="https://getstream.io/blog/how-a-go-program-compiles-down-to-machine-code/">How a Go Program Compiles down to Machine Code</a>.<br>
 The short version is the compiler does:</p>
-
 <ol>
 <li>break up the source code content into tokens (Scanning)</li>
 <li>Construct Abstract Syntax Tree using the tokens (Parsing)</li>
 <li>Generate Intermediate Representation (IR) with <a href="https://en.wikipedia.org/wiki/Static_single_assignment_form">Static Single Assignment (SSA) form</a></li>
 <li>Iteratively optimize the IR with <a href="https://github.com/golang/go/blob/go1.14.1/src/cmd/compile/internal/ssa/compile.go#L398-L451">multiple pass</a></li>
 </ol>
-
-<p><br/>
-Fortunately GO provides amazing tool that helps us getting more insight into the optimization process.
-We can generate the SSA output for each stage of transformation with:</p>
+<!-- raw HTML omitted -->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nv">GOSSAFUNC</span><span class="o">=</span>main go tool compile -S main_var.go type_small.go</code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nv">GOSSAFUNC</span><span class="o">=</span>main go tool compile -S main_var.go type_small.go
+</code></pre></td></tr></table>
 </div>
-</div>
-<p><br/>
-The command will generate <code>ssa.html</code> in the same folder.</p>
-
+</div><!-- raw HTML omitted -->
 <p>Each column represents the optimization pass, and the result of the IR code.
 When we click on a block, variable, or line. It will colorize the associated element, so we can track changes easily.</p>
-
-<p><a href="forVar_small_ssa.png">
-<img src="forVar_small_ssa.png" alt="Generated SSA HTML" />
-</a></p>
-
-<p><br/></p>
-
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
 <p>After comparing each step, I found out that the generated code was identical until the <code>writebarrier</code> pass.
 let&rsquo;s focus on block <code>b6</code></p>
-
 <p><strong><code>writebarrier</code></strong> (identical on both versions)</p>
-
 <pre><code>b6: ← b3 b4
     v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
     v28 (7) = Phi &lt;int&gt; v16 v37
@@ -343,16 +307,11 @@ let&rsquo;s focus on block <code>b6</code></p>
     v25 (7) = VarDef &lt;mem&gt; {.autotmp_7} v23
     v26 (7) = LocalAddr &lt;*SomeStruct&gt; {.autotmp_7} v2 v25
     v27 (+7) = Move &lt;mem&gt; {SomeStruct} [72] v26 v22 v25
-</code></pre>
-
-<p>If you see on <code>v26 &amp; v27</code>, it does <code>Move</code> (or Copy) the content of the struct to local variable <code>autotmp_7</code>.</p>
-
+</code></pre><p>If you see on <code>v26 &amp; v27</code>, it does <code>Move</code> (or Copy) the content of the struct to local variable <code>autotmp_7</code>.</p>
 <p>The <code>lower</code> pass basically convert the IR code into specific architecture low level code. Let&rsquo;s have a look at the generated output.
 Don&rsquo;t be afraid if you don&rsquo;t really understand the assembly. What I wanted to show is the different code that was generated during
 the <code>lower</code> pass.</p>
-
 <p><strong><code>lower</code> with 9 int64</strong></p>
-
 <pre><code>b6: ← b3 b4
 
     v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
@@ -382,11 +341,7 @@ the <code>lower</code> pass.</p>
     v38 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [40] v2 v33 v19
     v47 (+7) = MOVOload &lt;int128&gt; [56] v22 v38
     v27 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [56] v2 v47 v38
-</code></pre>
-
-<p><br/>
-<strong><code>lower</code> with 10 int64</strong></p>
-
+</code></pre><!-- raw HTML omitted -->
 <pre><code>b6: ← b3 b4
 
     v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
@@ -405,32 +360,22 @@ the <code>lower</code> pass.</p>
     v27 (+7) = DUFFCOPY &lt;mem&gt; [826] v32 v31 v30
 
 LT v44 → b4 b2 (likely) (7)
-</code></pre>
-
-<p><br/></p>
-
+</code></pre><!-- raw HTML omitted -->
 <p>The later version uses <code>DUFFCOPY</code> to perform the Move operation. This logic I believe is due to a rewrite rule
 <a href="https://golang.org/src/cmd/compile/internal/ssa/rewriteAMD64.go#L54445">rewriteAMD64.go</a>. It&rsquo;s an optimization
 to Move a large byte on memory.</p>
-
 <pre><code>// match: (Move [s] dst src mem)
 // cond: s &gt; 64 &amp;&amp; s &lt;= 16*64 &amp;&amp; s%16 == 0 &amp;&amp; !config.noDuffDevice
 // result: (DUFFCOPY [14*(64-s/16)] dst src mem)
-</code></pre>
-
-<p><br/></p>
-
+</code></pre><!-- raw HTML omitted -->
 <p>At a later SSA pass (<code>elim unread autos</code>) the compiler can detect that there are unused temporary
 variable for the first version (9 int64 struct). Thus, the <code>Move</code> instruction can be removed.
 This is not the case with for the `DUFFCOPY&rsquo; version.
 That&rsquo;s why the generated machine code is less optimized than the previous.</p>
-
 <p>Note:
 A <a href="https://en.wikipedia.org/wiki/Duff%27s_device">Duff Device</a> is a loop optimization by splitting the task
 and reduce the number of loop.</p>
-
 <h2 id="conclusion">Conclusion</h2>
-
 <p><code>for-range</code> behaves differently depending on the struct size is due to Compiler SSA optimization. The compiler generated
 a different machine code for the larger struct where at a later pass it did not detect unused variable. The opposite happen
 for the smaller struct. At a later pass, it detected that some variables are un used. It removes the copy of element

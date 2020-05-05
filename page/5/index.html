@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.55.6" />
+	<meta name="generator" content="Hugo 0.69.2" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -19,7 +19,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -49,13 +49,9 @@
   </div>
 
   <p>When compiling binary that open port, (depending on your settings) it will ask to allow if the process can make the connection.</p>
-
 <p>We can sign our binary with certificate to avoid this.</p>
-
 <p>From <a href="http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010">http://apple.stackexchange.com/questions/3271/how-to-get-rid-of-firewall-accept-incoming-connections-dialog/121010#121010</a></p>
-
 <p>While RedYeti&rsquo;s link is useful, just to save a few clicks for others let me recap how to generate a code-signing cert and to use it for code (re-)signing:</p>
-
 <pre><code>1. Create your own code signing cert:
 In Keychain Access, Keychain Access &gt; Certificate Assistant &gt; Create a certificate. This launches the Certificate Assistant:
 
@@ -88,7 +84,6 @@ Once it is created, set to &quot;Always trust&quot; in the Login keychain.
 
 Enjoy!
 </code></pre>
-
 </article>
 <hr/>
 
@@ -103,44 +98,30 @@ Enjoy!
     ( 1 minutes reading )
   </div>
 
-  
-
-<p>Some time you want visually merge conflict in git. To use p4merge
+  <p>Some time you want visually merge conflict in git. To use p4merge
 <a href="https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge">https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge</a></p>
-
 <h2 id="git-mergetool">git mergetool</h2>
-
 <h3 id="linux">Linux</h3>
-
 <pre><code>$ git config --global merge.tool p4mergetool
 $ git config --global mergetool.p4mergetool.cmd \
 $ &quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
 $ git config --global mergetool.p4mergetool.trustExitCode false
 $ git config --global mergetool.keepBackup false
-</code></pre>
-
-<h3 id="mac">Mac</h3>
-
+</code></pre><h3 id="mac">Mac</h3>
 <pre><code>$ git config --global merge.tool p4mergetool
 $ git config --global mergetool.p4mergetool.cmd \
 &quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
 $ git config --global mergetool.p4mergetool.trustExitCode false
 $ git config --global mergetool.keepBackup false
-</code></pre>
-
-<h2 id="set-as-diff-tool">Set as diff tool</h2>
-
+</code></pre><h2 id="set-as-diff-tool">Set as diff tool</h2>
 <h3 id="linux-1">Linux</h3>
-
 <p>$ git config &ndash;global merge.tool p4mergetool
-$ git config &ndash;global mergetool.p4mergetool.cmd <br />
-&rdquo;/opt/p4v/bin/p4merge \$LOCAL \$REMOTE&rdquo;</p>
-
+$ git config &ndash;global mergetool.p4mergetool.cmd<br>
+&ldquo;/opt/p4v/bin/p4merge $LOCAL $REMOTE&rdquo;</p>
 <h3 id="mac-1">Mac</h3>
-
 <p>$ git config &ndash;global diff.tool p4mergetool
-$ git config &ndash;global difftool.p4mergetool.cmd <br />
-&rdquo;/Applications/p4merge.app/Contents/Resources/launchp4merge \$LOCAL \$REMOTE&rdquo;</p>
+$ git config &ndash;global difftool.p4mergetool.cmd<br>
+&ldquo;/Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE&rdquo;</p>
 
 </article>
 <hr/>
@@ -158,7 +139,6 @@ $ git config &ndash;global difftool.p4mergetool.cmd <br />
 
   <p>Some times you are working on some feature but then you need to check or fix something on some other branch.
 The normal way to do it is that we do:</p>
-
 <ol>
 <li>git stash</li>
 <li>switch to other branch</li>
@@ -166,15 +146,10 @@ The normal way to do it is that we do:</p>
 <li>swith to previous branch</li>
 <li>git stash pop</li>
 </ol>
-
 <p>This can be complicated especially you have multiple stash. You can&rsquo;t easily understand which stash belongs where.</p>
-
 <p>After version 2.5.2 there is new command called <code>git worktree</code></p>
-
 <p>Basically it can create new directory which checkout different branch</p>
-
 <p>example</p>
-
 <pre><code>$ git worktree add ../branch-temp some-branch
 $ cd ../branch-temp
 
@@ -187,9 +162,7 @@ $ rm -rf ../branch-temp
 // cleanup
 
 $ git worktree prune
-</code></pre>
-
-<p>more detail about the command are available at <a href="https://git-scm.com/docs/git-worktree">https://git-scm.com/docs/git-worktree</a></p>
+</code></pre><p>more detail about the command are available at <a href="https://git-scm.com/docs/git-worktree">https://git-scm.com/docs/git-worktree</a></p>
 
 </article>
 <hr/>
@@ -207,9 +180,7 @@ $ git worktree prune
 
   <p>I&rsquo;m a fan of cluster ssh. It allows you to control multiple ssh session with one keyboard.
 I tried <a href="https://github.com/brockgr/csshx">csshx</a> which uses the default osx terminal, but I love iterm2.</p>
-
 <p>But today I found <a href="https://github.com/wouterdebie/i2cssh">i2cssh</a> which does that for iterm2</p>
-
 <p>One of the feature is broadcast where you can send command to multiple window.
 It&rsquo;s basically the same with csshx but their approach is to create another extra window
 that receive an input and send it to all other windows. I like  i2cssh approach better with shortcut.</p>
@@ -229,9 +200,7 @@ that receive an input and send it to all other windows. I like  i2cssh approach 
   </div>
 
   <p>To easily format json or command line there <a href="https://stedolan.github.io/jq/">jq</a></p>
-
 <p>example</p>
-
 <pre><code>$ echo '{&quot;user&quot;:&quot;stedolan&quot;,&quot;titles&quot;:[&quot;JQ Primer&quot;, &quot;More JQ&quot;]}' | jq .
 {
     &quot;user&quot;: &quot;stedolan&quot;,
@@ -240,14 +209,10 @@ that receive an input and send it to all other windows. I like  i2cssh approach 
               &quot;More JQ&quot;
                 ]
 }
-</code></pre>
-
-<p>or just print specific value</p>
-
+</code></pre><p>or just print specific value</p>
 <pre><code>$ echo '{&quot;user&quot;:&quot;stedolan&quot;,&quot;titles&quot;:[&quot;JQ Primer&quot;, &quot;More JQ&quot;]}' | jq .titles[0]
 &quot;JQ Primer&quot;
 </code></pre>
-
 </article>
 <hr/>
 
@@ -263,14 +228,12 @@ that receive an input and send it to all other windows. I like  i2cssh approach 
   </div>
 
   <p>you can use the <code>-o</code> flag to only print matched value. Example</p>
-
 <pre><code>$ echo &quot;Hello fellow unix fan&quot; | grep --color -o nix
 nix
 $ echo &quot;Hello fellow unix fan&quot; | grep --color -o nux 
 $ echo $?
 1
 </code></pre>
-
 </article>
 <hr/>
 
@@ -286,25 +249,18 @@ $ echo $?
   </div>
 
   <p>Install Incomming webhook to your channel <a href="https://api.slack.com/incoming-webhooks#sending_messages">https://api.slack.com/incoming-webhooks#sending_messages</a></p>
-
 <p>you will then get some url <code>https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code></p>
-
 <p>create <code>/usr/local/bin/notifyme</code></p>
-
 <pre><code>#!/bin/sh
 
 curl -X POST --data-urlencode &quot;payload={\&quot;channel\&quot;: \&quot;#alert\&quot;, \&quot;username\&quot;: \&quot;mybot\&quot;, \&quot;text\&quot;: \&quot;$*\&quot;, \&quot;icon_emoji\&quot;: \&quot;:name_badge:\&quot;}&quot; https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-</code></pre>
-
-<p>and send message via your command line</p>
-
+</code></pre><p>and send message via your command line</p>
 <pre><code>$ chmod +x /usr/local/bin/notifyme
 $ notifyme hello world!
 
 # or after some command
 $ sleep 5; notifyme process is finished
 </code></pre>
-
 </article>
 <hr/>
 
@@ -320,11 +276,10 @@ $ sleep 5; notifyme process is finished
   </div>
 
   <p>Default pacakge rand uses Source that is thread safe with default seed <code>1</code></p>
-
 <p>we can use the pacakge&rsquo;s method to have thread safe random number generation</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -351,15 +306,15 @@ $ sleep 5; notifyme process is finished
   <span class="nx">seed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">()</span>
   <span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="nx">seed</span><span class="p">)</span>
   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">Int63</span><span class="p">())</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>But the <code>rand.NewSource()</code> offers thread unsafe implementation.
+</div><p>But the <code>rand.NewSource()</code> offers thread unsafe implementation.
 One of the reason to choose the unsafe implementation to avoid
 synchronization, especially when you have only single go routine.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -386,7 +341,8 @@ synchronization, especially when you have only single go routine.</p>
   <span class="nx">seed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">()</span>
   <span class="nx">r</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">NewSource</span><span class="p">(</span><span class="nx">seed</span><span class="p">))</span>
   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nf">Int63</span><span class="p">())</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
 </div>
 </article>
@@ -405,14 +361,9 @@ synchronization, especially when you have only single go routine.</p>
 
   <p>When upgrading ubuntu, sometimes it failed because of insufficient disk on boot.
 This could be caused by too many kernel installed on the machine.</p>
-
 <p>Command to remove old kernel from <a href="http://askubuntu.com/questions/2793/how-do-i-remove-old-kernel-versions-to-clean-up-the-boot-menu">here</a></p>
-
 <pre><code>dpkg --list | grep linux-image | awk '{ print $2 }' | sort -V | sed -n '/'`uname -r`'/q;p' | xargs sudo apt-get -y purge
-</code></pre>
-
-<p>dpkg &ndash;list | grep linux-image | awk &lsquo;{ print $2 }&rsquo; | sort -V | sed -n &lsquo;/&rsquo;<code>uname -r</code>&rsquo;/q;p&rsquo; | xargs sudo apt-get -y purgenation (remember, <code>|</code> uses the output of the previous command as the input to the next)</p>
-
+</code></pre><p>dpkg &ndash;list | grep linux-image | awk &lsquo;{ print $2 }&rsquo; | sort -V | sed -n &lsquo;/&lsquo;<code>uname -r</code>&rsquo;/q;p&rsquo; | xargs sudo apt-get -y purgenation (remember, <code>|</code> uses the output of the previous command as the input to the next)</p>
 <ul>
 <li><code>dpkg --list</code> lists all installed packages</li>
 <li><code>grep linux-image</code> looks for the installed linux images</li>
@@ -421,9 +372,7 @@ This could be caused by too many kernel installed on the machine.</p>
 <li><code>sed -n '/'`uname -r`'/q;p'</code> prints the lines before the current kernel</li>
 <li><code>xargs sudo apt-get -y purge</code> purges the found kernels</li>
 </ul>
-
 <p>Unwinding the <code>sed</code> invocation:</p>
-
 <ul>
 <li><code>-n</code> tells <code>sed</code> to be quiet</li>
 <li><code>`uname -r`</code> outputs the current installed kernel release - we include it in backticks so that the output is includes as part of the command (you might also see this as <code>$(uname -r)</code></li>
@@ -431,7 +380,6 @@ This could be caused by too many kernel installed on the machine.</p>
 <li><code>p</code> is print</li>
 <li>the <code>;</code> is the command separtor, so <code>/something/q;p</code> says quit when you match something, else print</li>
 </ul>
-
 <p>altogether, <code>sed -n '/'`uname -r`'/q;p'</code> is print the lines until it matches with the current kernel name.</p>
 
 </article>
@@ -448,11 +396,9 @@ This could be caused by too many kernel installed on the machine.</p>
     ( 1 minutes reading )
   </div>
 
-  
-
-<div class="highlight"><div class="chroma">
+  <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -473,34 +419,27 @@ $ <span class="nb">echo</span> <span class="m">3</span>
 $ <span class="nb">echo</span> <span class="m">4</span>
 <span class="m">4</span>
 $ <span class="nb">echo</span> <span class="m">5</span>
-<span class="m">5</span></code></pre></td></tr></table>
+<span class="m">5</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>use <code>alt + .</code> will reuse the last program argument in descending order</p>
-
+</div><p>use <code>alt + .</code> will reuse the last program argument in descending order</p>
 <pre><code>$ echo (press alt + .)
 $ echo 5 (press alt + . again)
 $ echo 4 (press alt + . again)
 ...
-</code></pre>
-
-<h2 id="selective-arguments">selective arguments</h2>
-
+</code></pre><h2 id="selective-arguments">selective arguments</h2>
 <ul>
 <li><code>!:1</code> gives you the first argument</li>
 <li><code>!:2-3</code> gives you 2nd and third argument and</li>
-
-<li><p><code>!:-3</code>  gives you binary name + first 3 arguments</p>
-
+<li><code>!:-3</code>  gives you binary name + first 3 arguments</li>
+</ul>
 <pre><code>$ echo 1 2 3 4 5
 $ echo !:1 # -&gt; echo 1
 $ echo 1 2 3 4 5
 $ echo !:2-3 # -&gt; echo 2 3
 $ echo 1 2 3 4 5
 $ echo !:-3 # -&gt; echo echo 1 2 3
-</code></pre></li>
-</ul>
-
+</code></pre>
 </article>
 <hr/>
 
@@ -605,6 +544,7 @@ $ echo !:-3 # -&gt; echo echo 1 2 3
     </li>
     
 </ul>
+
 
 
 

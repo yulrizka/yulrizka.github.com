@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -39,18 +39,13 @@
 	2016-08-15 ::
 	( 1 minutes reading )
 </div><p>I have a use-case where 1 have single file that contain 20K line. I need to have another file with 1 million line with just content of the first file repeated 50 time.</p>
-
 <p>Solution: form <a href="http://askubuntu.com/questions/521465/how-can-i-repeat-the-content-of-a-file-n-times">stack overflow</a></p>
-
 <pre><code>$ perl -0777pe '$_=$_ x 50' input_file.txt &gt; output_file.txt
-</code></pre>
-
-<p>arguments:</p>
-
+</code></pre><p>arguments:</p>
 <ul>
 <li>0777 : -0 sets sets the input record separator (perl special variable $/ which is a newline by default). Setting this to a value greater than 0400 will cause Perl to slurp the entire input file into memory.</li>
 <li>pe : the -p means &ldquo;print each input line after applying the script given by -e to it&rdquo;.</li>
-<li>$<em>=$</em> x 50 : $_ is the current input line. Since we&rsquo;re reading the entire file at once because of -0700, this means the entire file. The x 50 will result in 50 copies of the entire file being printed.</li>
+<li>$_=$_ x 50 : $_ is the current input line. Since we&rsquo;re reading the entire file at once because of -0700, this means the entire file. The x 50 will result in 50 copies of the entire file being printed.</li>
 </ul>
 <div id="disqus_thread"></div>
 <script type="application/javascript">

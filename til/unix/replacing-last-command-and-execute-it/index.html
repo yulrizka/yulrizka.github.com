@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -39,31 +39,21 @@
 	2020-03-08 ::
 	( 1 minutes reading )
 </div><p>For example</p>
-
 <pre><code>$ echo &quot;hello world world world&quot;                   
 hello world world world
-</code></pre>
-
-<p>If you want to replace <code>world</code> with <code>universe</code> you can do</p>
-
+</code></pre><p>If you want to replace <code>world</code> with <code>universe</code> you can do</p>
 <pre><code># If you use ZSH you can press `tab` at the end of the line and it will replace
 # the whole line with the actuall command
 $ ^world^universe
 $ echo &quot;hello universe world world&quot;
-</code></pre>
-
-<p>As you can see, it only replace the first matching word.</p>
-
+</code></pre><p>As you can see, it only replace the first matching word.</p>
 <p>If you want it to replace the whole match:</p>
-
 <pre><code># zsh
 $ ^world^universe^:G
 
 # bash
 $^world^universe^&amp;
-</code></pre>
-
-<p><strong>Don&rsquo;t use it in production</strong><br />
+</code></pre><p><strong>Don&rsquo;t use it in production</strong><br>
 I tend to use <code>fc</code> command which allow me to edit the command in my editor first</p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>til linux zfs on </title>
@@ -18,10 +18,10 @@
       <guid>https://labs.yulrizka.com/til/linux/zfs-auto-snapshot/</guid>
       <description>Having ZFS snapshot saved me once when I acidentally rm -f /home/myuser.
 There is a simple package that easily make auto snapshot.
-$ sudo apt install zfs-auto-snapshot  This will install the script and the cron job associated with it.
+$ sudo apt install zfs-auto-snapshot This will install the script and the cron job associated with it.
 By default it will backup all filesystem and volumes. You can disable the filesystems completely by
-$ sudo zfs set com.sun:auto-snapshot=false tank/data-set-name  or only for specific interval
-sudo zfs set com.</description>
+$ sudo zfs set com.sun:auto-snapshot=false tank/data-set-name or only for specific interval
+sudo zfs set com.sun:auto-snapshot=true tank/data-set-name sudo zfs set com.</description>
     </item>
     
   </channel>

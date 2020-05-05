@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -39,25 +39,18 @@
 	2019-09-13 ::
 	( 1 minutes reading )
 </div><p>By default Ctrl-P just jump back to the history while up arrow behave a little bit smarter.</p>
-
 <p>For example if you have history like this</p>
-
 <pre><code>ssh a.com
 ls
 cd
 ssh b.com
 cat
 grep
-</code></pre>
-
-<p>Normaly if you type <code>$ ssh</code> and <code>Ctrl-P</code> afterwares, it will give you <code>grep</code> not <code>ssh b.com</code></p>
-
+</code></pre><p>Normaly if you type <code>$ ssh</code> and <code>Ctrl-P</code> afterwares, it will give you <code>grep</code> not <code>ssh b.com</code></p>
 <p>to change this behavior, you can put this in your .zshrc</p>
-
 <pre><code>bindkey &quot;^P&quot; up-line-or-beginning-search
 bindkey &quot;^N&quot; down-line-or-beginning-search
-</code></pre>
-<div id="disqus_thread"></div>
+</code></pre><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

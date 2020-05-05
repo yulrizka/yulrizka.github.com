@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>til unix jq on </title>
@@ -17,9 +17,9 @@
       
       <guid>https://labs.yulrizka.com/til/unix/jq-extracting-properties-to-arrays-from-json-row-line/</guid>
       <description>For example if we have a file that contains JSON object like
-{&amp;quot;a&amp;quot;: 1, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 11} {&amp;quot;a&amp;quot;: 2, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 22}} {&amp;quot;a&amp;quot;: 3, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 33}}  And you want to construct something like
-[&amp;quot;1&amp;quot;, &amp;quot;11&amp;quot;] [&amp;quot;2&amp;quot;, &amp;quot;22&amp;quot;] [&amp;quot;3&amp;quot;, &amp;quot;33&amp;quot;]  You can do that with jq
-$ cat filename.json | jq -c &#39;[.a, .b.c]&#39;  this is particularly usefull to grep something from JSON log</description>
+{&amp;quot;a&amp;quot;: 1, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 11} {&amp;quot;a&amp;quot;: 2, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 22}} {&amp;quot;a&amp;quot;: 3, &amp;quot;b&amp;quot;:{&amp;quot;c&amp;quot;: 33}} And you want to construct something like
+[&amp;quot;1&amp;quot;, &amp;quot;11&amp;quot;] [&amp;quot;2&amp;quot;, &amp;quot;22&amp;quot;] [&amp;quot;3&amp;quot;, &amp;quot;33&amp;quot;] You can do that with jq
+$ cat filename.json | jq -c &#39;[.a, .b.c]&#39; this is particularly usefull to grep something from JSON log</description>
     </item>
     
     <item>
@@ -30,8 +30,8 @@ $ cat filename.json | jq -c &#39;[.a, .b.c]&#39;  this is particularly usefull t
       <guid>https://labs.yulrizka.com/til/unix/formatting-or-parse-json-in-command-line/</guid>
       <description>To easily format json or command line there jq
 example
-$ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;titles&amp;quot;:[&amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot;]}&#39; | jq . { &amp;quot;user&amp;quot;: &amp;quot;stedolan&amp;quot;, &amp;quot;titles&amp;quot;: [ &amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot; ] }  or just print specific value
-$ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;titles&amp;quot;:[&amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot;]}&#39; | jq .titles[0] &amp;quot;JQ Primer&amp;quot;  </description>
+$ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;titles&amp;quot;:[&amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot;]}&#39; | jq . { &amp;quot;user&amp;quot;: &amp;quot;stedolan&amp;quot;, &amp;quot;titles&amp;quot;: [ &amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot; ] } or just print specific value
+$ echo &#39;{&amp;quot;user&amp;quot;:&amp;quot;stedolan&amp;quot;,&amp;quot;titles&amp;quot;:[&amp;quot;JQ Primer&amp;quot;, &amp;quot;More JQ&amp;quot;]}&#39; | jq .titles[0] &amp;quot;JQ Primer&amp;quot; </description>
     </item>
     
   </channel>

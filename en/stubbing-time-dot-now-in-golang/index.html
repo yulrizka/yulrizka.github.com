@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -38,19 +38,15 @@
 <div class="posted_at">
 	2014-10-27 ::
 	( 6 minutes reading )
-</div>
-
-<p>Sometimes it&rsquo;s really hard to test functionality that involve with system time.
+</div><p>Sometimes it&rsquo;s really hard to test functionality that involve with system time.
 Especially when we want to test the function with a specific time. For example testing
 whether today is end of month or test 2 different behavior at a different time</p>
-
 <p>Below we look into different ways we can mock or stub the time. Each with it&rsquo;s own
 advantages and disadvantages.</p>
-
 <h2 id="passing-the-time-instance">Passing the time instance</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -75,31 +71,24 @@ advantages and disadvantages.</p>
 <span class="c1">// for test
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>This way you can either pass <code>time.Now()</code> in your main pacakge
+</div><p>This way you can either pass <code>time.Now()</code> in your main pacakge
 or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.</p>
-
 <p>Advantages:</p>
-
 <ul>
 <li>Simple, no extra generator necessary</li>
-<li>Easy to test, no need to wire mock function or struct
-<br />
-<br /></li>
+<li>Easy to test, no need to wire mock function or struct</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>Caller need to pass instance of everywhere</li>
 </ul>
-
 <h2 id="passing-a-function-that-generate-time">Passing a function that generate time</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -116,6 +105,7 @@ or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
+</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
@@ -134,29 +124,24 @@ or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 
 		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">loc</span><span class="p">)</span>
 	<span class="p">}</span>
 	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">timeFn</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
-</div>
-</div>
-<p>Advantages:</p>
+<span class="p">}</span>
 
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
 <ul>
 <li>This method allows you to have more control over how and when the time is generated.
 For example the time is generated inside the <code>CheckEndOfMonth</code> not at the <em>caller</em>.</li>
-<li>Allows the mock function to use closure inside the function
-<br />
-<br /></li>
+<li>Allows the mock function to use closure inside the function</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>Caller needs to pass function</li>
 </ul>
-
 <h2 id="abstract-the-time-generator-as-an-interface">Abstract the time generator as an interface</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -187,13 +172,13 @@ For example the time is generated inside the <code>CheckEndOfMonth</code> not at
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">realClock</span><span class="p">{})</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>on the test code</p>
+</div><p>on the test code</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -224,34 +209,26 @@ For example the time is generated inside the <code>CheckEndOfMonth</code> not at
 <span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
 	<span class="nx">mc</span> <span class="o">:=</span> <span class="nf">NewMockClock</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
 	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">mc</span><span class="p">)</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Advantages:</p>
-
+</div><p>Advantages:</p>
 <ul>
 <li>Control the generator method</li>
 <li>Interface can be defined small with only needed functions</li>
-<li>Easily switch to different implementation
-<br />
-<br /></li>
+<li>Easily switch to different implementation</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>Caller need to pass instance that implements the interface</li>
 </ul>
-
 <h2 id="package-level-time-generator">Package level time generator</h2>
-
 <p>Previous examples require you to pass in either concrete instance or a function on the caller.</p>
-
 <p>Another approach you can use is to create a package level function to generate current time.
 You can change the implementation during test.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -306,13 +283,13 @@ You can change the implementation during test.</p>
 <span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span> <span class="p">{</span>
 	<span class="c1">// ...
 </span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>now in your test you could do something like this:</p>
+</div><p>now in your test you could do something like this:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -337,31 +314,25 @@ You can change the implementation during test.</p>
     
     <span class="nf">CheckEndOfMonth</span><span class="p">()</span>
     <span class="c1">//...
-</span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Advantages:</p>
-
+</div><p>Advantages:</p>
 <ul>
-<li>No need to pass instance of time or generator
-<br /></li>
+<li>No need to pass instance of time or generator</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>Caller need to pass instance</li>
 <li>Global variable</li>
 <li>Not thread safe</li>
 <li>Need to remember to call <code>resetClockImplementation</code></li>
 </ul>
-
 <h2 id="embed-time-generator-in-struct">Embed time generator in struct</h2>
-
 <p>If you are lucky enough to work in a <em>struct</em>, you can do this</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -410,13 +381,13 @@ You can change the implementation during test.</p>
 <span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span>
 	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>And the test can be</p>
+</div><p>And the test can be</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -431,18 +402,17 @@ You can change the implementation during test.</p>
 			<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
 	<span class="p">}}</span>
 	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>I like this method because you don&rsquo;t have to pass instance of time or function all over the place
+</div><p>I like this method because you don&rsquo;t have to pass instance of time or function all over the place
 but still have it easily create an arbitrary time mock/stub</p>
-
-<p><strong>Make this pattern reusable</strong><br />
+<p><strong>Make this pattern reusable</strong><br>
 If you do this more often, you can also easily reuse the functionality into other struct
 by creating embeddable</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -507,13 +477,13 @@ by creating embeddable</p>
 <span class="kd">func</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span> <span class="c1">// empty clock field gives implementation with standard lib
 </span><span class="c1"></span>    <span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>in test</p>
+</div><p>in test</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -532,32 +502,26 @@ by creating embeddable</p>
 		<span class="p">},</span>
 	<span class="p">}}</span>
 	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Advantages:</p>
-
+</div><p>Advantages:</p>
 <ul>
 <li>No need to pass instance of time or generator</li>
 <li>Fall back to default standard library time implementation</li>
 <li>Easily extend <code>TimeMock</code> by adding more function that is needed</li>
 </ul>
-
 <p>Disadvantages:</p>
-
 <ul>
 <li>The caller needs to be a struct</li>
 </ul>
-
 <h2 id="better-way-to-write-test-function-with-time">Better way to write test function with time</h2>
-
 <p>Function with time is usually hard to test because it dependency with  on <em>time</em> package.</p>
-
 <p>A different way to test is to separate the function that generate the time with the function
 that process the time value. For example</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -574,13 +538,13 @@ that process the time value. For example</p>
 	<span class="k">if</span> <span class="nx">now</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
 		<span class="c1">// do some business logic
 </span><span class="c1"></span>	<span class="p">}</span> 
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>Instead of testing that function, extract the logic of processing time</p>
+</div><p>Instead of testing that function, extract the logic of processing time</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+<pre class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -605,10 +569,10 @@ that process the time value. For example</p>
 	<span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
 		<span class="c1">// do some business logic
 </span><span class="c1"></span>	<span class="p">}</span>
-<span class="p">}</span></code></pre></td></tr></table>
+<span class="p">}</span>
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>this way you don&rsquo;t test the <code>CheckEndOfMonth()</code> but <code>processEndOfMonth</code>. This way you can easily
+</div><p>this way you don&rsquo;t test the <code>CheckEndOfMonth()</code> but <code>processEndOfMonth</code>. This way you can easily
 mock time without the need to do some wiring.</p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">

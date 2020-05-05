@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
@@ -41,7 +41,7 @@ So in order to rewrite git history and change the author email, I found this git
       
       <guid>https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/</guid>
       <description>Some time you want visually merge conflict in git. To use p4merge https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge
-git mergetool Linux $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ $ &amp;quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.p4mergetool.trustExitCode false $ git config --global mergetool.keepBackup false  Mac $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ &amp;quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.</description>
+git mergetool Linux $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ $ &amp;quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.p4mergetool.trustExitCode false $ git config --global mergetool.keepBackup false Mac $ git config --global merge.tool p4mergetool $ git config --global mergetool.p4mergetool.cmd \ &amp;quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&amp;quot; $ git config --global mergetool.p4mergetool.trustExitCode false $ git config --global mergetool.</description>
     </item>
     
     <item>

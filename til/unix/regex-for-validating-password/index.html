@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -39,12 +39,8 @@
 	2019-10-25 ::
 	( 1 minutes reading )
 </div><p>This regex can be use to validate password</p>
-
 <pre><code>((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,20})
-</code></pre>
-
-<p>description:</p>
-
+</code></pre><p>description:</p>
 <pre><code>(                   # Start of group
   (?=.*\d)          # must contains one digit from 0-9
   (?=.*[a-z])       # must contains one lowercase characters
@@ -52,8 +48,7 @@
   .                 # match anything with previous condition checking
   {8,20}            # length at least 8 characters and maximum of 20 
 )                   # End of group
-</code></pre>
-<div id="disqus_thread"></div>
+</code></pre><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

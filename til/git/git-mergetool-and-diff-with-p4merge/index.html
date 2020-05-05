@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -38,44 +38,30 @@
 <div class="posted_at">
 	2016-04-03 ::
 	( 1 minutes reading )
-</div>
-
-<p>Some time you want visually merge conflict in git. To use p4merge
+</div><p>Some time you want visually merge conflict in git. To use p4merge
 <a href="https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge">https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge</a></p>
-
 <h2 id="git-mergetool">git mergetool</h2>
-
 <h3 id="linux">Linux</h3>
-
 <pre><code>$ git config --global merge.tool p4mergetool
 $ git config --global mergetool.p4mergetool.cmd \
 $ &quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
 $ git config --global mergetool.p4mergetool.trustExitCode false
 $ git config --global mergetool.keepBackup false
-</code></pre>
-
-<h3 id="mac">Mac</h3>
-
+</code></pre><h3 id="mac">Mac</h3>
 <pre><code>$ git config --global merge.tool p4mergetool
 $ git config --global mergetool.p4mergetool.cmd \
 &quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
 $ git config --global mergetool.p4mergetool.trustExitCode false
 $ git config --global mergetool.keepBackup false
-</code></pre>
-
-<h2 id="set-as-diff-tool">Set as diff tool</h2>
-
+</code></pre><h2 id="set-as-diff-tool">Set as diff tool</h2>
 <h3 id="linux-1">Linux</h3>
-
 <p>$ git config &ndash;global merge.tool p4mergetool
-$ git config &ndash;global mergetool.p4mergetool.cmd <br />
-&rdquo;/opt/p4v/bin/p4merge \$LOCAL \$REMOTE&rdquo;</p>
-
+$ git config &ndash;global mergetool.p4mergetool.cmd<br>
+&ldquo;/opt/p4v/bin/p4merge $LOCAL $REMOTE&rdquo;</p>
 <h3 id="mac-1">Mac</h3>
-
 <p>$ git config &ndash;global diff.tool p4mergetool
-$ git config &ndash;global difftool.p4mergetool.cmd <br />
-&rdquo;/Applications/p4merge.app/Contents/Resources/launchp4merge \$LOCAL \$REMOTE&rdquo;</p>
+$ git config &ndash;global difftool.p4mergetool.cmd<br>
+&ldquo;/Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE&rdquo;</p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {

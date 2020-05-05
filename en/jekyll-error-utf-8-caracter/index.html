@@ -18,7 +18,7 @@
 
 
  
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.d068cd27d959f563f29df6f05a40b4ddb21d747441ad88e4310470787bc3f861.css" media="screen, projection" type="text/css">
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
 
 
 
@@ -40,22 +40,20 @@
 	( 1 minutes reading )
 </div><p>If you having a problem in jekyll when it didn&rsquo;t generate a post and there is no error in the log file.
 you might want to check the content if there is any UTF-8 character encoding such as this <strong>±</strong></p>
-
 <p>The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
 it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
-
 <p>to solve this. I added this line to <code>.bashrc</code> or <code>zshrc</code> if you are using zsh</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+<pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-bash" data-lang="bash">  <span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
-  <span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8</code></pre></td></tr></table>
+  <span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+</code></pre></td></tr></table>
 </div>
-</div>
-<p>It should fix the problem now.</p>
+</div><p>It should fix the problem now.</p>
 <div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
