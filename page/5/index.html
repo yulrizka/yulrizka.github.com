@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.69.2" />
+	<meta name="generator" content="Hugo 0.68.3" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,29 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/get-all-line-except-n-last-one/">
+    <h2>
+      get all line except n last one
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-18 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>with <code>head -n &lt;negative number&gt;</code> we can get the output except n lines</p>
+<p>example</p>
+<pre><code>cat a.txt | head -n -1
+</code></pre><p>will gives as the content of a.txt except the last one</p>
+<p>Let say we have file 1 2 3 4 5, and with grep we want to only get 1 2 3.</p>
+<p>we can achive this with ls and grep</p>
+<pre><code>$ ls | grep 4 -B 100000000 | head -n -1
+</code></pre><p>the -B show 100000000 lines before matched line, and the head -n -1 removes the matched</p>
+
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/osx/sign-application-with-self-certificate/">
@@ -385,64 +408,6 @@ This could be caused by too many kernel installed on the machine.</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/reusing-last-command-argument/">
-    <h2>
-      Reusing last command arguments
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-03-11 ::
-    ( 1 minutes reading )
-  </div>
-
-  <div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">echo</span> <span class="m">1</span>
-<span class="m">1</span>
-$ <span class="nb">echo</span> <span class="m">2</span>
-<span class="m">2</span>
-$ <span class="nb">echo</span> <span class="m">3</span>
-<span class="m">3</span>
-$ <span class="nb">echo</span> <span class="m">4</span>
-<span class="m">4</span>
-$ <span class="nb">echo</span> <span class="m">5</span>
-<span class="m">5</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>use <code>alt + .</code> will reuse the last program argument in descending order</p>
-<pre><code>$ echo (press alt + .)
-$ echo 5 (press alt + . again)
-$ echo 4 (press alt + . again)
-...
-</code></pre><h2 id="selective-arguments">selective arguments</h2>
-<ul>
-<li><code>!:1</code> gives you the first argument</li>
-<li><code>!:2-3</code> gives you 2nd and third argument and</li>
-<li><code>!:-3</code>  gives you binary name + first 3 arguments</li>
-</ul>
-<pre><code>$ echo 1 2 3 4 5
-$ echo !:1 # -&gt; echo 1
-$ echo 1 2 3 4 5
-$ echo !:2-3 # -&gt; echo 2 3
-$ echo 1 2 3 4 5
-$ echo !:-3 # -&gt; echo echo 1 2 3
-</code></pre>
-</article>
-<hr/>
-
 
 
 
@@ -560,6 +525,10 @@ $ echo !:-3 # -&gt; echo echo 1 2 3
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a>
             </li>
           
@@ -593,10 +562,6 @@ $ echo !:-3 # -&gt; echo echo 1 2 3
           
             <li>
               <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
             </li>
           
           </ul>

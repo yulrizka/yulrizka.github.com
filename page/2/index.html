@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.69.2" />
+	<meta name="generator" content="Hugo 0.68.3" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,33 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">
+    <h2>
+      Zsh Ctrl P Same Behavior as Up Arrow
+    </h2>
+  </a>
+  <div class="posted_at">
+    2019-09-13 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>By default Ctrl-P just jump back to the history while up arrow behave a little bit smarter.</p>
+<p>For example if you have history like this</p>
+<pre><code>ssh a.com
+ls
+cd
+ssh b.com
+cat
+grep
+</code></pre><p>Normaly if you type <code>$ ssh</code> and <code>Ctrl-P</code> afterwares, it will give you <code>grep</code> not <code>ssh b.com</code></p>
+<p>to change this behavior, you can put this in your .zshrc</p>
+<pre><code>bindkey &quot;^P&quot; up-line-or-beginning-search
+bindkey &quot;^N&quot; down-line-or-beginning-search
+</code></pre>
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">
@@ -433,23 +460,6 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/diff-output-of-2-command/">
-    <h2>
-      diff output of 2 command
-    </h2>
-  </a>
-  <div class="posted_at">
-    2018-10-04 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>for example, I want to compare output of 2 different curl comand</p>
-<pre><code>$ diff &lt;(curl -s http://host.com/a) &lt;(curl -s http://anotherhost.com/a)
-</code></pre>
-</article>
-<hr/>
-
 
 
 
@@ -563,6 +573,10 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a>
             </li>
           
@@ -596,10 +610,6 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
           
             <li>
               <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
             </li>
           
           </ul>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>intellij on </title>
+    <link>https://labs.yulrizka.com/tags/intellij/</link>
+    <description>Recent content in intellij on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 21 May 2020 19:31:50 +0200</lastBuildDate>
+    
+	<atom:link href="https://labs.yulrizka.com/tags/intellij/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Convert Intellij Live Template to vscode Snippet</title>
+      <link>https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/</link>
+      <pubDate>Thu, 21 May 2020 19:31:50 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/</guid>
+      <description>If you are in the need of converting your custom intellij live tempate, you can use this method to transform it.
+Locate the template file The first thing you need to is is to locate the template file. You can find it inside the intellij settings directory which is vary per operating system. See this documentation to locate it.
+For example for my golang templte in linux, I find it under</description>
+    </item>
+    
+  </channel>
+</rss>

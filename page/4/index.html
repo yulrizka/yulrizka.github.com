@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.69.2" />
+	<meta name="generator" content="Hugo 0.68.3" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,25 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/linux/clearing-up-swap-space/">
+    <h2>
+      clearing up swap space
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-06-15 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p><em>WARNING: make sure the memory is enough to put the data back from swap, else system will start killing processes</em></p>
+<p>To clear up swap space (put the data back into memory) we can do</p>
+<pre><code># swapoff -a &amp;&amp; swapon -a
+</code></pre><p>Because this is quite slow process, it&rsquo;s a good idea to run this inside screen session.</p>
+
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/analytics/convert-json-perline-to-panads-data-frame/">
@@ -335,29 +354,6 @@ where you can add more or disable programs.</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/get-all-line-except-n-last-one/">
-    <h2>
-      get all line except n last one
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-05-18 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>with <code>head -n &lt;negative number&gt;</code> we can get the output except n lines</p>
-<p>example</p>
-<pre><code>cat a.txt | head -n -1
-</code></pre><p>will gives as the content of a.txt except the last one</p>
-<p>Let say we have file 1 2 3 4 5, and with grep we want to only get 1 2 3.</p>
-<p>we can achive this with ls and grep</p>
-<pre><code>$ ls | grep 4 -B 100000000 | head -n -1
-</code></pre><p>the -B show 100000000 lines before matched line, and the head -n -1 removes the matched</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -475,6 +471,10 @@ where you can add more or disable programs.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a>
             </li>
           
@@ -508,10 +508,6 @@ where you can add more or disable programs.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
             </li>
           
           </ul>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.69.2" />
+	<meta name="generator" content="Hugo 0.68.3" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,64 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/reusing-last-command-argument/">
+    <h2>
+      Reusing last command arguments
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-03-11 ::
+    ( 1 minutes reading )
+  </div>
+
+  <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">echo</span> <span class="m">1</span>
+<span class="m">1</span>
+$ <span class="nb">echo</span> <span class="m">2</span>
+<span class="m">2</span>
+$ <span class="nb">echo</span> <span class="m">3</span>
+<span class="m">3</span>
+$ <span class="nb">echo</span> <span class="m">4</span>
+<span class="m">4</span>
+$ <span class="nb">echo</span> <span class="m">5</span>
+<span class="m">5</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>use <code>alt + .</code> will reuse the last program argument in descending order</p>
+<pre><code>$ echo (press alt + .)
+$ echo 5 (press alt + . again)
+$ echo 4 (press alt + . again)
+...
+</code></pre><h2 id="selective-arguments">selective arguments</h2>
+<ul>
+<li><code>!:1</code> gives you the first argument</li>
+<li><code>!:2-3</code> gives you 2nd and third argument and</li>
+<li><code>!:-3</code>  gives you binary name + first 3 arguments</li>
+</ul>
+<pre><code>$ echo 1 2 3 4 5
+$ echo !:1 # -&gt; echo 1
+$ echo 1 2 3 4 5
+$ echo !:2-3 # -&gt; echo 2 3
+$ echo 1 2 3 4 5
+$ echo !:-3 # -&gt; echo echo 1 2 3
+</code></pre>
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/unix/pbcopy-alternative-for-copying-to-clipboard/">
@@ -1579,62 +1637,6 @@ Or probably I just never notice.</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">
-    <h2>
-      berks upload core dump
-    </h2>
-  </a>
-  <div class="posted_at">
-    2013-07-21 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
-think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p>
-<p>I faced this core dump error while doing <code>berks upload</code>. That command will actualy
-push some cookbook to a chef server.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ berks upload
-/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault
-ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
-
--- Control frame information -----------------------------------------------
-c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
-c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11
-c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH
-c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
-
--- Ruby level backtrace information ----------------------------------------
-/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;
-</span><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span>
-
-....
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -1752,6 +1754,10 @@ c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a>
             </li>
           
@@ -1785,10 +1791,6 @@ c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
           
             <li>
               <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
             </li>
           
           </ul>

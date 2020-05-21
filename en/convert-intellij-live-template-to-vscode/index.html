@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<title>Convert Intellij Live Template to vscode Snippet - labs.yulrizka.com</title>
+<meta name="description" content="converting intellij live template to visual studio (vscode) snippet">
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="keywords" content="intellij vscode template snippet">
+<meta name="author" content="Ahmy Yulrizka">
+<link rel="canonical" href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">
+
+
+
+
+
+ 
+<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
+
+
+
+
+<link href='https://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+
+
+
+</head>
+<body>
+<div id="container" class="sidebar-right">
+  <div class="container-fluid" id="main">
+    <div class="row-fluid">
+      <div id="content-wrapper" class="span9 ">
+        <div class="content">
+<h1>Convert Intellij Live Template to vscode Snippet</h1>
+<div class="posted_at">
+	2020-05-21 ::
+	( 3 minutes reading )
+</div><p>If you are in the need of converting your custom intellij live tempate,
+you can use this method to transform it.</p>
+<h2 id="locate-the-template-file">Locate the template file</h2>
+<p>The first thing you need to is is to locate the template file. You can find it inside
+the intellij settings directory which is vary per operating system. See this <a href="https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs">documentation</a>
+to locate it.</p>
+<p>For example for my golang templte in linux, I find it under</p>
+<pre><code>/home/username/.config/JetBrains/IntelliJIdea2020.1/jba_config/templates/Golang.xml
+</code></pre><h2 id="convert-it-into-vscode-snippet">Convert it into vscode snippet</h2>
+<p>You can use tihs gocode</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;encoding/json&#34;</span>
+	<span class="s">&#34;encoding/xml&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;io/ioutil&#34;</span>
+	<span class="s">&#34;log&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+	<span class="s">&#34;regexp&#34;</span>
+	<span class="s">&#34;strings&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">TemplateSet</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">XMLName</span>  <span class="nx">xml</span><span class="p">.</span><span class="nx">Name</span>       <span class="s">`xml:&#34;templateSet&#34;`</span>
+	<span class="nx">Text</span>     <span class="kt">string</span>         <span class="s">`xml:&#34;,chardata&#34;`</span>
+	<span class="nx">Group</span>    <span class="kt">string</span>         <span class="s">`xml:&#34;group,attr&#34;`</span>
+	<span class="nx">Template</span> <span class="p">[]</span><span class="nx">ideaTemplate</span> <span class="s">`xml:&#34;template&#34;`</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">ideaTemplate</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Text</span>             <span class="kt">string</span> <span class="s">`xml:&#34;,chardata&#34;`</span>
+	<span class="nx">Name</span>             <span class="kt">string</span> <span class="s">`xml:&#34;name,attr&#34;`</span>
+	<span class="nx">Value</span>            <span class="kt">string</span> <span class="s">`xml:&#34;value,attr&#34;`</span>
+	<span class="nx">Description</span>      <span class="kt">string</span> <span class="s">`xml:&#34;description,attr&#34;`</span>
+	<span class="nx">ToReformat</span>       <span class="kt">string</span> <span class="s">`xml:&#34;toReformat,attr&#34;`</span>
+	<span class="nx">ToShortenFQNames</span> <span class="kt">string</span> <span class="s">`xml:&#34;toShortenFQNames,attr&#34;`</span>
+	<span class="nx">Variable</span>         <span class="p">[]</span><span class="kd">struct</span> <span class="p">{</span>
+		<span class="nx">Text</span>         <span class="kt">string</span> <span class="s">`xml:&#34;,chardata&#34;`</span>
+		<span class="nx">Name</span>         <span class="kt">string</span> <span class="s">`xml:&#34;name,attr&#34;`</span>
+		<span class="nx">Expression</span>   <span class="kt">string</span> <span class="s">`xml:&#34;expression,attr&#34;`</span>
+		<span class="nx">DefaultValue</span> <span class="kt">string</span> <span class="s">`xml:&#34;defaultValue,attr&#34;`</span>
+		<span class="nx">AlwaysStopAt</span> <span class="kt">string</span> <span class="s">`xml:&#34;alwaysStopAt,attr&#34;`</span>
+	<span class="p">}</span> <span class="s">`xml:&#34;variable&#34;`</span>
+	<span class="nx">Context</span> <span class="kd">struct</span> <span class="p">{</span>
+		<span class="nx">Text</span>   <span class="kt">string</span> <span class="s">`xml:&#34;,chardata&#34;`</span>
+		<span class="nx">Option</span> <span class="kd">struct</span> <span class="p">{</span>
+			<span class="nx">Text</span>  <span class="kt">string</span> <span class="s">`xml:&#34;,chardata&#34;`</span>
+			<span class="nx">Name</span>  <span class="kt">string</span> <span class="s">`xml:&#34;name,attr&#34;`</span>
+			<span class="nx">Value</span> <span class="kt">string</span> <span class="s">`xml:&#34;value,attr&#34;`</span>
+		<span class="p">}</span> <span class="s">`xml:&#34;option&#34;`</span>
+	<span class="p">}</span> <span class="s">`xml:&#34;context&#34;`</span>
+<span class="p">}</span>
+
+<span class="c1">// &#34;Print to console&#34;: {
+</span><span class="c1">// 	&#34;prefix&#34;: &#34;log&#34;,
+</span><span class="c1">// 	&#34;body&#34;: [
+</span><span class="c1">// 		&#34;console.log(&#39;$1&#39;);&#34;,
+</span><span class="c1">// 		&#34;$2&#34;
+</span><span class="c1">// 	],
+</span><span class="c1">// 	&#34;description&#34;: &#34;Log output to console&#34;
+</span><span class="c1">// }
+</span><span class="c1"></span>
+<span class="kd">type</span> <span class="nx">snippet</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">Prefix</span>      <span class="kt">string</span>   <span class="s">`json:&#34;prefix,omitempty&#34;`</span>
+	<span class="nx">Body</span>        <span class="p">[]</span><span class="kt">string</span> <span class="s">`json:&#34;body,omitempty&#34;`</span>
+	<span class="nx">Description</span> <span class="kt">string</span>   <span class="s">`json:&#34;description,omitempty&#34;`</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;Golang.xml&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">defer</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+
+	<span class="nx">raw</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">ts</span> <span class="nx">TemplateSet</span>
+	<span class="nx">xml</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">(</span><span class="nx">raw</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">ts</span><span class="p">)</span>
+
+	<span class="nx">snippets</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">snippet</span><span class="p">{}</span>
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">t</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">ts</span><span class="p">.</span><span class="nx">Template</span> <span class="p">{</span>
+		<span class="nx">s</span> <span class="o">:=</span> <span class="nx">snippet</span><span class="p">{</span>
+			<span class="nx">Prefix</span><span class="p">:</span>      <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span><span class="p">,</span>
+			<span class="nx">Body</span><span class="p">:</span>        <span class="nf">getBody</span><span class="p">(</span><span class="nx">t</span><span class="p">),</span>
+			<span class="nx">Description</span><span class="p">:</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Description</span><span class="p">,</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">snippets</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Description</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+			<span class="nx">log</span><span class="p">.</span><span class="nf">Fatalf</span><span class="p">(</span><span class="s">&#34;duplicate key %d:%s %s&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Description</span><span class="p">,</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">snippets</span><span class="p">[</span><span class="nx">t</span><span class="p">.</span><span class="nx">Description</span><span class="p">]</span> <span class="p">=</span> <span class="nx">s</span>
+	<span class="p">}</span>
+
+	<span class="nx">raw</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">json</span><span class="p">.</span><span class="nf">MarshalIndent</span><span class="p">(</span><span class="nx">snippets</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="s">&#34;\t&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">log</span><span class="p">.</span><span class="nf">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="nx">raw</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="p">(</span>
+	<span class="nx">rx</span> <span class="p">=</span> <span class="nx">regexp</span><span class="p">.</span><span class="nf">MustCompile</span><span class="p">(</span><span class="s">`\$\w+\$`</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">getBody</span><span class="p">(</span><span class="nx">t</span> <span class="nx">ideaTemplate</span><span class="p">)</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Value</span>
+
+	<span class="nx">params</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
+	<span class="nx">match</span> <span class="o">:=</span> <span class="nx">rx</span><span class="p">.</span><span class="nf">FindAllString</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+	<span class="nx">varIdx</span> <span class="o">:=</span> <span class="mi">1</span>
+
+<span class="nx">MATCH</span><span class="p">:</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">match</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">params</span><span class="p">[</span><span class="nx">v</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+			<span class="c1">// already process the parameter
+</span><span class="c1"></span>			<span class="k">continue</span>
+		<span class="p">}</span>
+		<span class="nx">varname</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ReplaceAll</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="s">&#34;$&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+
+		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ideaVar</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">t</span><span class="p">.</span><span class="nx">Variable</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">ideaVar</span><span class="p">.</span><span class="nx">Name</span> <span class="o">==</span> <span class="nx">varname</span> <span class="p">{</span>
+				<span class="nx">defaultValue</span> <span class="o">:=</span> <span class="nx">ideaVar</span><span class="p">.</span><span class="nx">DefaultValue</span>
+				<span class="k">if</span> <span class="nx">defaultValue</span> <span class="o">!=</span> <span class="s">&#34;&#34;</span> <span class="p">{</span>
+					<span class="c1">// process default
+</span><span class="c1"></span>					<span class="nx">replacement</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;${%d:another}&#34;</span><span class="p">,</span> <span class="nx">varIdx</span><span class="p">)</span>
+					<span class="nx">varIdx</span><span class="o">++</span>
+					<span class="nx">params</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="p">=</span> <span class="nx">replacement</span>
+					<span class="k">continue</span> <span class="nx">MATCH</span>
+				<span class="p">}</span>
+
+				<span class="c1">// no variable found
+</span><span class="c1"></span>				<span class="nx">replacement</span> <span class="o">:=</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;$%d&#34;</span><span class="p">,</span> <span class="nx">varIdx</span><span class="p">)</span>
+				<span class="nx">varIdx</span><span class="o">++</span>
+				<span class="nx">params</span><span class="p">[</span><span class="nx">v</span><span class="p">]</span> <span class="p">=</span> <span class="nx">replacement</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+
+	<span class="p">}</span>
+
+	<span class="c1">// replace all parameters
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">varname</span><span class="p">,</span> <span class="nx">p</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">params</span> <span class="p">{</span>
+		<span class="nx">s</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ReplaceAll</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">varname</span><span class="p">,</span> <span class="nx">p</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">s</span> <span class="p">=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ReplaceAll</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&#34;$END$&#34;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&#34;\n&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Copy the output of the file. On vscode, <code>Ctrl+p</code> to bring the command and search for <code>Configure User Snippet</code>. Chose the language and then paste it.</p>
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        </div>
+      </div>
+      <div id="sidebar-wrapper" class="span3">
+        <div class="sidebar">
+          <aside>
+          <h2>Archives</h2>
+          <h3>English</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
+            </li>
+          
+          </ul>
+          <h3>Indonesia</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">Ruby Fiber apaan sih ?</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">Scale MongoDB dengan Sharding</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/">Telepon murah ke Indonesia dengan voip</a>
+            </li>
+          
+          </ul>
+
+          <h3>Today I Learned</h3>
+          <ul>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">Checkout Last Branch</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">Replacing Last Command and Execute It</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/">Open Last Command in the Editor With Fc</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
+            </li>
+          
+          </ul>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div><header>
+  <div id="banner">
+    <div id="carousel-banner" class="wrapper carousel">
+      <div class="carousel-inner excerpt">
+      </div>
+    </div> 
+  </div>
+  
+  <div class="navbar navbar-fixed-top relative">  
+    <div class="navbar-inner">    
+      <div class="fill">
+        <div class="container">
+          <a href="/"><span class="brand">Labs.Yulrizka.com</span></a>
+          <div id="social-icon" class="pull-right">
+            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
+            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
+            <a href="https://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
+          </div>
+          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div id="page-view">
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
+                data-original-title="Sidebar position" data-placement="left">
+                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
+                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
+                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>            
+          <div class="nav-link nav-collapse">
+            <ul class="nav">
+
+              <li class=""><a href="/">Home</a></li>
+              <li class="active banner"><a href="/en/">EN</a></li>
+              <li class=""><a href="/id/">ID</a></li>
+              <li class=""><a href="/til/">Today I Learned</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<footer>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
+        <div class="footer">
+          <p>
+            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
+            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
+          </p>
+        </div>
+      </div>
+    </div>
+ </div>
+</footer>
+</div> 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
+
+
+<script src="https://labs.yulrizka.com/javascript/global.js"></script>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22308054-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+</body>
+</html>

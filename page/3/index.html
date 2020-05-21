@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.69.2" />
+	<meta name="generator" content="Hugo 0.68.3" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,23 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/diff-output-of-2-command/">
+    <h2>
+      diff output of 2 command
+    </h2>
+  </a>
+  <div class="posted_at">
+    2018-10-04 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>for example, I want to compare output of 2 different curl comand</p>
+<pre><code>$ diff &lt;(curl -s http://host.com/a) &lt;(curl -s http://anotherhost.com/a)
+</code></pre>
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/linux/get-full-argument-from-a-process/">
@@ -284,25 +301,6 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/linux/clearing-up-swap-space/">
-    <h2>
-      clearing up swap space
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-06-15 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p><em>WARNING: make sure the memory is enough to put the data back from swap, else system will start killing processes</em></p>
-<p>To clear up swap space (put the data back into memory) we can do</p>
-<pre><code># swapoff -a &amp;&amp; swapon -a
-</code></pre><p>Because this is quite slow process, it&rsquo;s a good idea to run this inside screen session.</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -418,6 +416,10 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a>
             </li>
           
@@ -451,10 +453,6 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
           
             <li>
               <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/responsive-design/">Responsive Design</a>
             </li>
           
           </ul>

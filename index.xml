@@ -5,10 +5,21 @@
     <link>https://labs.yulrizka.com/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 05 May 2020 15:23:46 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2020 19:31:50 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Convert Intellij Live Template to vscode Snippet</title>
+      <link>https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/</link>
+      <pubDate>Thu, 21 May 2020 19:31:50 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/</guid>
+      <description>If you are in the need of converting your custom intellij live tempate, you can use this method to transform it.
+Locate the template file The first thing you need to is is to locate the template file. You can find it inside the intellij settings directory which is vary per operating system. See this documentation to locate it.
+For example for my golang templte in linux, I find it under</description>
+    </item>
     
     <item>
       <title>Convert PDF to Text Using OCR</title>
