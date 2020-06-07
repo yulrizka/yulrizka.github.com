@@ -4,3 +4,6 @@ pygmentsOptions = "linenos=table"
 pygmentsUseClasses = true
 disqusShortname = "labs-yulrizka"
 baseURL = "https://labs.yulrizka.com/"
+
+[markup.goldmark.renderer]
+unsafe = true
