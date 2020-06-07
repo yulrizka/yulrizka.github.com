@@ -38,6 +38,32 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/linux/connect-bluetooth-device-from-cli/">
+    <h2>
+      connect bluetooth device from cli
+    </h2>
+  </a>
+  <div class="posted_at">
+    2018-10-20 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>We use bluetoothctl tool which is command-line to BlueZ</p>
+<pre><code>$ sudo bluetoothctl
+</code></pre><p>Enable authentication agent</p>
+<pre><code>[bluetooth]# agent on
+</code></pre><p>Run the scan process</p>
+<pre><code>[bluetooth]# scan on
+</code></pre><p>Pair with the device</p>
+<pre><code>[bluetooth]# pair 00:25:56:D1:36:6B
+</code></pre><p>Connect to the device</p>
+<pre><code>[bluetooth]# connect 00:25:56:D1:36:6B
+</code></pre><p>more information <a href="https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound">https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound</a></p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/diff-output-of-2-command/">
     <h2>
       diff output of 2 command
@@ -282,25 +308,6 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/specify-compression-level-in-tar-gzip/">
-    <h2>
-      specify compression level in tar gzip
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-06-30 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>from <a href="http://superuser.com/questions/305128/how-to-specify-level-of-compression-when-using-tar-zcvf">http://superuser.com/questions/305128/how-to-specify-level-of-compression-when-using-tar-zcvf</a></p>
-<pre><code>GZIP=-9 tar cvzf file.tar.gz /path/to/directory
-</code></pre><p>or</p>
-<pre><code>tar cvf - /path/to/file0 /path/to/file1 | gzip -9 - &gt; files.tar.gz
-</code></pre>
-</article>
-<hr/>
-
 
 
 
@@ -416,6 +423,10 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
             </li>
           
@@ -449,10 +460,6 @@ zmv <span class="s1">&#39;image(*.png)&#39;</span> <span class="s1">&#39;$1&#39;
           
             <li>
               <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
             </li>
           
           </ul>

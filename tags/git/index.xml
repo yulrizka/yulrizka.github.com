@@ -16,8 +16,7 @@
       <pubDate>Fri, 16 Jan 2015 23:35:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/</guid>
-      <description>I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the CommonSense iOS library. One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch. The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.
-Now this is a good example where git bisect is very useful.</description>
+      <description>Disect the rocket, image by ProudloveNathan Proudlove  I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the CommonSense iOS library. One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch. The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</description>
     </item>
     
   </channel>

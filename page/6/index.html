@@ -38,6 +38,43 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/linux/removing-old-kernel/">
+    <h2>
+      Removing old kernel
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-03-12 ::
+    ( 2 minutes reading )
+  </div>
+
+  <p>When upgrading ubuntu, sometimes it failed because of insufficient disk on boot.
+This could be caused by too many kernel installed on the machine.</p>
+<p>Command to remove old kernel from <a href="http://askubuntu.com/questions/2793/how-do-i-remove-old-kernel-versions-to-clean-up-the-boot-menu">here</a></p>
+<pre><code>dpkg --list | grep linux-image | awk '{ print $2 }' | sort -V | sed -n '/'`uname -r`'/q;p' | xargs sudo apt-get -y purge
+</code></pre><p>dpkg &ndash;list | grep linux-image | awk &lsquo;{ print $2 }&rsquo; | sort -V | sed -n &lsquo;/&lsquo;<code>uname -r</code>&rsquo;/q;p&rsquo; | xargs sudo apt-get -y purgenation (remember, <code>|</code> uses the output of the previous command as the input to the next)</p>
+<ul>
+<li><code>dpkg --list</code> lists all installed packages</li>
+<li><code>grep linux-image</code> looks for the installed linux images</li>
+<li><code>awk '{ print $2 }'</code> just outputs the 2nd column (which is the package name)</li>
+<li><code>sort -V</code> puts the items in order by version number</li>
+<li><code>sed -n '/'`uname -r`'/q;p'</code> prints the lines before the current kernel</li>
+<li><code>xargs sudo apt-get -y purge</code> purges the found kernels</li>
+</ul>
+<p>Unwinding the <code>sed</code> invocation:</p>
+<ul>
+<li><code>-n</code> tells <code>sed</code> to be quiet</li>
+<li><code>`uname -r`</code> outputs the current installed kernel release - we include it in backticks so that the output is includes as part of the command (you might also see this as <code>$(uname -r)</code></li>
+<li><code>/something/q</code> says stop when you match &lsquo;something&rsquo; (in this case, something is output of <code>uname -r</code>) - the <code>/</code> surround a regular expression</li>
+<li><code>p</code> is print</li>
+<li>the <code>;</code> is the command separtor, so <code>/something/q;p</code> says quit when you match something, else print</li>
+</ul>
+<p>altogether, <code>sed -n '/'`uname -r`'/q;p'</code> is print the lines until it matches with the current kernel name.</p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/reusing-last-command-argument/">
     <h2>
       Reusing last command arguments
@@ -462,7 +499,11 @@ what raspberry-pi made for.. blinking led :p</p>
 </div>
 </div><p>Dayuumm.. It&rsquo;s that easy. No more pip install or bundle install on pi. Just <em>scp</em> the binary!</p>
 <p>Of course we&rsquo;ve got this far, we must try to control it remotely via HTTP.</p>
-<!-- raw HTML omitted -->
+<div class="row">
+  <div class="span8 offset1">
+<iframe width="628" height="400" src="https://www.youtube.com/embed/QkHu2-cgauU" frameborder="0" allowfullscreen></iframe align="center">
+  </div>
+</div><br/>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -613,7 +654,11 @@ Trigger something when button is pressed. For this let&rsquo;s just use
 <em>websocket</em>, and see how hard it is to implement this. What this mean that
 if you have websocket client (web browser) you could listen to event and stream it
 directly from your raspberry-pi to your computer.</p>
-<!-- raw HTML omitted -->
+<div class="row">
+  <div class="span8 offset1">
+<iframe width="628" height="400" src="https://www.youtube.com/embed/w1IrlUdEgPk" frameborder="0" allowfullscreen></iframe align="center">
+  </div>
+</div><br/>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -775,7 +820,11 @@ to make it broadcast the message instead of distributing them :)</p>
   </div>
 
   <p>Push To Talk app for OSX</p>
-<!-- raw HTML omitted -->
+<div class="thumbnail" align="center">
+  <img src="/images/post/ptt/ptt-installer.png" alt="PushToTalk App">
+  <div class="caption">PushToTalk App installer</div>
+</div>
+<br/>
 <p>As a part of scrum teams, every day I need to give updates to my team via Google Hangout.
 We have a team here in the Netherlands and also in Indonesia.
 Some times I am in the same room as a colleague of mine. This sometimes quite annoying
@@ -786,7 +835,12 @@ But we still have a problem and end-up muting each other when we want to talk.</
 Nevertheless I could not find the one that is suitable for my needs. And I would like to develop an OSX app
 since I never done it before. Even though i have a hate-love relationship with XCode,
 I have to give credits to XCode. It&rsquo;s quite easy to create an app like this.</p>
-<!-- raw HTML omitted -->
+<div class="" align="center">
+  <img src="/images/post/ptt/ptt-off.png" alt="PushToTalk Off state">
+  <br>
+  <img src="/images/post/ptt/ptt-on.png" alt="PushToTalk on State">
+  <div class="caption">Status bar indicator</div>
+</div>
 <p>The app sits on status-bar (tray icon ?). By default it muted the microphone and show
 translucent mic icon. If you hold down the <strong>Right Options</strong> key, it will un-mute the microphone as long as you pressed it.  when you release the key, it will mute the microphone until you press the key again or quit the application.</p>
 <p>Everything is at <a href="https://github.com/yulrizka/osx-push-to-talk">github.com/yulrizka/osx-push-to-talk</a>:</p>
@@ -872,7 +926,10 @@ $ ls &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&
     ( 4 minutes reading )
   </div>
 
-  <!-- raw HTML omitted -->
+  <div class="thumbnail" align="center">
+  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
+  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
+</div>
 <p>I&rsquo;ve been involved with a iOS project this past week. I&rsquo;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
 One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
 The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
@@ -1586,57 +1643,6 @@ mock time without the need to do some wiring.</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">
-    <h2>
-      My account just got hacked by Romanian (Possibly)
-    </h2>
-  </a>
-  <div class="posted_at">
-    2013-07-27 ::
-    ( 3 minutes reading )
-  </div>
-
-  <!-- raw HTML omitted -->
-<p>You are probably familiar with above images. Some random friend sent you an email which you can instantly
-recognize as a spam because it only contains one link.
-Couple days ago I receive this email which is not the first time for me. But this time it was different.
-It actually came from my own Yahoo! account which I never use since more that one year ago.</p>
-<p>My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the <em>sent mail</em> folder and there it is.
-One email message containing a spam that I actually sent to my friends and family.</p>
-<!-- raw HTML omitted -->
-<p>Did some digging to my authentication history and found out that somebody from Romania has access my account.
-How could this be. I&rsquo;ve never use the account since one or more year ago, I&rsquo;m an IT guy so I know a little bit
-about security. I don&rsquo;t click some random suspicious link. I don&rsquo;t install any annoying-spyware-browser-toolbar.
-The password is 12 character long with apla-numeric and random symbol. Thank god that I don&rsquo;t use the same
-password for all of my account.</p>
-<!-- raw HTML omitted -->
-<p>I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through
-bunch of proxy all over the world to cover my track. Or probably they don&rsquo;t even bother because they just
-using it for spam.</p>
-<!-- raw HTML omitted -->
-<p>Interesting part is I stumble upon this article saying about Romania has became a <a href="http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/">Global Hub for hackers and online crooks</a>.
-According to the article that it&rsquo;s became a commonplace for some hacker to harness people personal information
-and use it for illegal activity.</p>
-<p>Luckily I don&rsquo;t store any sensitive information on my email. It would have some serious impact if I store password
-or bank account information.</p>
-<p>Also something that I notice is most of this spam email came from my friends account which also uses Yahoo! mail.
-Or probably I just never notice.</p>
-<h2 id="what-can-you-do-when-this-happened-to-you">What can you do when this happened to you</h2>
-<p>If you ever received / sent this email. I would suggest you to:</p>
-<ol>
-<li>Tell the person to reset their account password</li>
-<li>Don&rsquo;t store or send sensitive information unencrypted with email like: password, keys, bank account info</li>
-<li>If you need to send sensitive information, try encrypting it first. I go into details of doing that in <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a>. I&rsquo;m start doing this from now on.</li>
-<li>Use some secure password, and don&rsquo;t use the same password for all of your account.</li>
-<li>If you can, try to change the password on a regular basis. or use service like <a href="https://lastpass.com/">LastPass</a></li>
-<li>When this is your work email that sometimes contain private information. Use service that offer <em>two factor authentication</em> like gmail does <a href="http://www.google.com/landing/2step/">you need to enable it</a>.</li>
-<li>Stay safe friends, internet is a dangerous place</li>
-</ol>
-
-</article>
-<hr/>
-
 
 
 
@@ -1754,6 +1760,10 @@ Or probably I just never notice.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
             </li>
           
@@ -1787,10 +1797,6 @@ Or probably I just never notice.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
             </li>
           
           </ul>

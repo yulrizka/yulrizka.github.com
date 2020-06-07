@@ -34,9 +34,12 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content"><h1 id="ahmy-yulrizka---senior-software-engineer">Ahmy yulrizka - Senior Software Engineer</h1>
-<p><!-- raw HTML omitted -->Download as PDF<!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<p><a id="downloadLink" href="/cv/Ahmy_Yulrizka_-_Senior_Software_Engineer.pdf" download style="font-size: 1.5em">Download as PDF</a></p>
+<script> 
+    var downloadTimeout = setTimeout(function () {
+        window.location = 'https://raw.githubusercontent.com/yulrizka/yulrizka.github.com/master/cv/Ahmy_Yulrizka_-_Senior_Software_Engineer.pdf';
+    }, 1000);
+</script>
 <p>I have more than 11 years of experience in software development. I involved in designing, architect, and implementing high throughput systems serving traffic for one of the top popular sites in the Netherlands.</p>
 <p>As part of a team, my potential contributions would be to collaborate with the team and business to rapidly iterate on a design and implementation of new functionalities as well as maintaining, improving, and scaling the current system.</p>
 <p>Main skill set<br>
@@ -45,10 +48,16 @@
 <strong>Queues</strong>: Kafka, ActiveMQ, RabbitMQ<br>
 <strong>Deployments</strong>: Hashistack (Nomad, Terraform, Consul), Openstack, salt, puppet</p>
 <h2 id="personal-information">Personal Information</h2>
-<p>Email: <!-- raw HTML omitted --><!-- raw HTML omitted --><br>
+<p>Email: <span id="email"></span><br>
 City: Utrecht, The Netherlands</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<script type="text/javascript">
+var user = 'yulrizka',
+    domain = 'gmail.com',
+    element = document.getElementById('email');
+
+    element.innerHTML = user + '@' + domain;
+	
+</script>
 <ul>
 <li>linkedin : <a href="https://www.linkedin.com/in/yulrizka">https://www.linkedin.com/in/yulrizka</a></li>
 <li>github: <a href="https://github.com/yulrizka">https://github.com/yulrizka</a></li>
@@ -68,7 +77,7 @@ Amsterdam, The Netherlands</p>
 <li>Involved in designing a high throughput analytic engine.</li>
 <li>Represent my team in the Architect Group.</li>
 </ul>
-<!-- raw HTML omitted -->
+<br/>
 <h3 id="software-engineer-at-sense-observation-systems">Software Engineer at Sense Observation Systems</h3>
 <p>Jun 2012 - July 2015 (3 years 2 months)<br>
 Rotterdam, The Netherlands</p>
@@ -88,7 +97,7 @@ Rotterdam, The Netherlands</p>
 <li>Take part in mobile development both Android and iOS.</li>
 <li>Fronted development for dashboard application.</li>
 </ul>
-<!-- raw HTML omitted -->
+<br/>
 <h3 id="chief-technology-officer-at-pt-starqle-indonesia">Chief Technology Officer at PT Starqle Indonesia</h3>
 <p>Jan 2009 - Jan 2012 (3 years 1 month)<br>
 Bandung, Indonesia</p>
@@ -101,7 +110,7 @@ Bandung, Indonesia</p>
 <li>Establish policy and development workflow with test-driven development.</li>
 <li>Identify and explore new technology and project management that would be suitable for projects.</li>
 </ul>
-<!-- raw HTML omitted -->
+<br/>
 <h3 id="software-developer-at-pt-zamrud-khatulistiwa-technology">Software Developer at PT. Zamrud Khatulistiwa Technology</h3>
 <p>Mar 2008 - Jan 2009 (11 months)<br>
 Bandung, Indonesia</p>
@@ -114,7 +123,7 @@ Bandung, Indonesia</p>
 <li>As a developer of administration support systems used by one of the national agencies.</li>
 <li>Establish policies and software version control systems to enable collaborative development.</li>
 </ul>
-<!-- raw HTML omitted -->
+<br/>
 <h2 id="education">Education</h2>
 <h3 id="master-of-information-system-at-institut-teknologi-bandung">Master of Information System at Institut Teknologi Bandung</h3>
 <p>2008 - 2011<br>
@@ -126,7 +135,7 @@ Bandung, Indonesia</p>
 <li>Management of Information System, Information System Governance.</li>
 <li>Risk Management of Information System, Project &amp; Change Management</li>
 </ul>
-<!-- raw HTML omitted -->
+<br/>
 <h3 id="bachelor-of-informatics-at-institut-teknologi-bandung">Bachelor of Informatics at Institut Teknologi Bandung</h3>
 <p>2004 - 2008<br>
 Bandung, Indonesia</p>
@@ -138,7 +147,7 @@ Bandung, Indonesia</p>
 <li>Software Engineering, Software Project Management</li>
 <li>Wireless Mobile Computing</li>
 </ul>
-<!-- raw HTML omitted -->
+<br/>
 <h2 id="licenses--certificates">Licenses &amp; Certificates</h2>
 <h3 id="datastax-certified-professional-on-datastax-enterprise-cassandra-spark-dse-search-dse-graph">DataStax Certified Professional on DataStax Enterprise (Cassandra, Spark, DSE Search, DSE Graph)</h3>
 <p>DataStax<br>
@@ -155,7 +164,7 @@ December 2017 - Present</p>
 November 2013 - November 2015</p>
 <p>Credential ID: AWS-ASA-1810<br>
 <a href="http://aws.amazon.com/certification/">http://aws.amazon.com/certification/</a></p>
-<!-- raw HTML omitted -->
+<br/>
 <h2 id="honors-and-awards">Honors and Awards</h2>
 <h3 id="1st-place-bandung-open-data-summit--challenge-boscha-2015">1st place Bandung Open Data Summit &amp; Challenge “BOSCHA 2015&rdquo;</h3>
 <p>Bandung Open Data
@@ -198,6 +207,10 @@ August 2014</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
             </li>
           
@@ -231,10 +244,6 @@ August 2014</p>
           
             <li>
               <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
             </li>
           
           </ul>

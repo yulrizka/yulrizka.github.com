@@ -38,6 +38,25 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">
+    <h2>
+      My Desktop With i3, polybar, conky, and rofi
+    </h2>
+  </a>
+  <div class="posted_at">
+    2020-06-07 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>This weekend i&rsquo;ve been playing with my i3 desktop settings. Here are the result
+<a href="google.com">google</a>
+<a href="desktop0.png"><img src="desktop0.jpg" alt="screenshot plain"></a></p>
+<p><a href="desktop1.png"><img src="desktop1.jpg" alt="screenshot plain"></a></p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">
     <h2>
       Convert Intellij Live Template to vscode Snippet
@@ -495,7 +514,7 @@ BenchmarkForVar-4       	     282	   4264872 ns/op	       0 B/op	       0 allocs
 BenchmarkForCounter-4   	    4363	    269761 ns/op	       0 B/op	       0 allocs/op
 PASS
 ok  	_/test1	3.255s
-</code></pre><p><!-- raw HTML omitted -->
+</code></pre><p><br />
 This problem become intriguing, so I dig a little deeper. I would like to point out that the code is a contrived example.
 It would probably not applied in a production code. I am <strong>not</strong> going to focus on the benchmark or which for-range works
 better but rather exploring how Go compiles and demonstrating useful Go tools in the process.</p>
@@ -578,7 +597,8 @@ assembly code to stdout. I also Skipped some lines that are not directly related
 </div>
 </div><p>Here you can see that at line <code>00065</code>, the loop does nothing except increasing the counter. Let&rsquo;s compare it with the
 larger struct.</p>
-<!-- raw HTML omitted -->
+<br/>
+**version with 10 int64**
 <p>The struct now contains 10 int64 and has the size 80 bytes</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -628,7 +648,9 @@ The short version is the compiler does:</p>
 <li>Generate Intermediate Representation (IR) with <a href="https://en.wikipedia.org/wiki/Static_single_assignment_form">Static Single Assignment (SSA) form</a></li>
 <li>Iteratively optimize the IR with <a href="https://github.com/golang/go/blob/go1.14.1/src/cmd/compile/internal/ssa/compile.go#L398-L451">multiple pass</a></li>
 </ol>
-<!-- raw HTML omitted -->
+<br/>
+Fortunately GO provides amazing tool that helps us getting more insight into the optimization process.
+We can generate the SSA output for each stage of transformation with:
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -637,11 +659,14 @@ The short version is the compiler does:</p>
 <pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nv">GOSSAFUNC</span><span class="o">=</span>main go tool compile -S main_var.go type_small.go
 </code></pre></td></tr></table>
 </div>
-</div><!-- raw HTML omitted -->
+</div><br/>
+The command will generate `ssa.html` in the same folder.
 <p>Each column represents the optimization pass, and the result of the IR code.
 When we click on a block, variable, or line. It will colorize the associated element, so we can track changes easily.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<a href="forVar_small_ssa.png">
+![Generated SSA HTML](forVar_small_ssa.png)
+</a>
+<br/>
 <p>After comparing each step, I found out that the generated code was identical until the <code>writebarrier</code> pass.
 let&rsquo;s focus on block <code>b6</code></p>
 <p><strong><code>writebarrier</code></strong> (identical on both versions)</p>
@@ -688,7 +713,8 @@ the <code>lower</code> pass.</p>
     v38 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [40] v2 v33 v19
     v47 (+7) = MOVOload &lt;int128&gt; [56] v22 v38
     v27 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [56] v2 v47 v38
-</code></pre><!-- raw HTML omitted -->
+</code></pre><br/>
+**`lower` with 10 int64**
 <pre><code>b6: ← b3 b4
 
     v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
@@ -707,14 +733,14 @@ the <code>lower</code> pass.</p>
     v27 (+7) = DUFFCOPY &lt;mem&gt; [826] v32 v31 v30
 
 LT v44 → b4 b2 (likely) (7)
-</code></pre><!-- raw HTML omitted -->
+</code></pre><br/>
 <p>The later version uses <code>DUFFCOPY</code> to perform the Move operation. This logic I believe is due to a rewrite rule
 <a href="https://golang.org/src/cmd/compile/internal/ssa/rewriteAMD64.go#L54445">rewriteAMD64.go</a>. It&rsquo;s an optimization
 to Move a large byte on memory.</p>
 <pre><code>// match: (Move [s] dst src mem)
 // cond: s &gt; 64 &amp;&amp; s &lt;= 16*64 &amp;&amp; s%16 == 0 &amp;&amp; !config.noDuffDevice
 // result: (DUFFCOPY [14*(64-s/16)] dst src mem)
-</code></pre><!-- raw HTML omitted -->
+</code></pre><br/>
 <p>At a later SSA pass (<code>elim unread autos</code>) the compiler can detect that there are unused temporary
 variable for the first version (9 int64 struct). Thus, the <code>Move</code> instruction can be removed.
 This is not the case with for the `DUFFCOPY&rsquo; version.
@@ -945,66 +971,6 @@ $ cat a.txt <span class="p">|</span> sort
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">
-    <h2>
-      Bash Forloop
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-09-16 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Example of forloop syntax</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span>
-<span class="k">do</span>
-   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
-<span class="k">done</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>with range</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="o">{</span>1..5<span class="o">}</span>
-<span class="k">do</span>
-   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
-<span class="k">done</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>cutomize increment</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="o">{</span>0..10..2<span class="o">}</span>
-<span class="k">do</span> 
-   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
-<span class="k">done</span>
-</code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
 
 
 
@@ -1118,6 +1084,10 @@ $ cat a.txt <span class="p">|</span> sort
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
             </li>
           
@@ -1151,10 +1121,6 @@ $ cat a.txt <span class="p">|</span> sort
           
             <li>
               <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
             </li>
           
           </ul>

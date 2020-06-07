@@ -16,7 +16,7 @@
       <pubDate>Tue, 26 Feb 2013 20:33:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</guid>
-      <description>So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is quite awesome.</description>
+      <description>I&#39;ve been tinkering with my [raspberry-pi][raspberry-pi] for quite some time now. What I like about it because it is cheap ($25), it&#39;s run Linux (especially debian based) and most of all it&#39;s have General Purpose Input Output pin. Since I was a kid, I always wanted to control electronic appliance remotely. Luckily my friend [@pimnijdam][pimnijdam] thought me how to control a relay board. Basically it&#39;s just like an electric switch that connect/disconnect current when you supply a low voltage.</description>
     </item>
     
   </channel>

@@ -38,6 +38,66 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">
+    <h2>
+      Bash Forloop
+    </h2>
+  </a>
+  <div class="posted_at">
+    2019-09-16 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Example of forloop syntax</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span>
+<span class="k">do</span>
+   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
+<span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>with range</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="o">{</span>1..5<span class="o">}</span>
+<span class="k">do</span>
+   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
+<span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>cutomize increment</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="k">for</span> i in <span class="o">{</span>0..10..2<span class="o">}</span>
+<span class="k">do</span> 
+   <span class="nb">echo</span> <span class="s2">&#34;i=</span><span class="nv">$i</span><span class="s2">&#34;</span>
+<span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">
     <h2>
       Zsh Ctrl P Same Behavior as Up Arrow
@@ -434,32 +494,6 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/linux/connect-bluetooth-device-from-cli/">
-    <h2>
-      connect bluetooth device from cli
-    </h2>
-  </a>
-  <div class="posted_at">
-    2018-10-20 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>We use bluetoothctl tool which is command-line to BlueZ</p>
-<pre><code>$ sudo bluetoothctl
-</code></pre><p>Enable authentication agent</p>
-<pre><code>[bluetooth]# agent on
-</code></pre><p>Run the scan process</p>
-<pre><code>[bluetooth]# scan on
-</code></pre><p>Pair with the device</p>
-<pre><code>[bluetooth]# pair 00:25:56:D1:36:6B
-</code></pre><p>Connect to the device</p>
-<pre><code>[bluetooth]# connect 00:25:56:D1:36:6B
-</code></pre><p>more information <a href="https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound">https://docs.ubuntu.com/core/en/stacks/bluetooth/bluez/docs/reference/pairing/outbound</a></p>
-
-</article>
-<hr/>
-
 
 
 
@@ -573,6 +607,10 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
             </li>
           
@@ -606,10 +644,6 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
           
             <li>
               <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
             </li>
           
           </ul>

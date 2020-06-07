@@ -38,6 +38,40 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/unix/prompt-confirmation-in-bash/">
+    <h2>
+      prompt confirmation in bash
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-24 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>From <a href="http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script">http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">read</span> -p <span class="s2">&#34;Are you sure? &#34;</span> -n <span class="m">1</span> -r
+<span class="nb">echo</span>    <span class="c1"># (optional) move to a new line</span>
+<span class="k">if</span> <span class="o">[[</span> ! <span class="nv">$REPLY</span> <span class="o">=</span>~ ^<span class="o">[</span>Yy<span class="o">]</span>$ <span class="o">]]</span>
+<span class="k">then</span>
+    <span class="nb">exit</span> <span class="m">1</span>
+<span class="k">fi</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/get-all-line-except-n-last-one/">
     <h2>
       get all line except n last one
@@ -371,43 +405,6 @@ synchronization, especially when you have only single go routine.</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/linux/removing-old-kernel/">
-    <h2>
-      Removing old kernel
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-03-12 ::
-    ( 2 minutes reading )
-  </div>
-
-  <p>When upgrading ubuntu, sometimes it failed because of insufficient disk on boot.
-This could be caused by too many kernel installed on the machine.</p>
-<p>Command to remove old kernel from <a href="http://askubuntu.com/questions/2793/how-do-i-remove-old-kernel-versions-to-clean-up-the-boot-menu">here</a></p>
-<pre><code>dpkg --list | grep linux-image | awk '{ print $2 }' | sort -V | sed -n '/'`uname -r`'/q;p' | xargs sudo apt-get -y purge
-</code></pre><p>dpkg &ndash;list | grep linux-image | awk &lsquo;{ print $2 }&rsquo; | sort -V | sed -n &lsquo;/&lsquo;<code>uname -r</code>&rsquo;/q;p&rsquo; | xargs sudo apt-get -y purgenation (remember, <code>|</code> uses the output of the previous command as the input to the next)</p>
-<ul>
-<li><code>dpkg --list</code> lists all installed packages</li>
-<li><code>grep linux-image</code> looks for the installed linux images</li>
-<li><code>awk '{ print $2 }'</code> just outputs the 2nd column (which is the package name)</li>
-<li><code>sort -V</code> puts the items in order by version number</li>
-<li><code>sed -n '/'`uname -r`'/q;p'</code> prints the lines before the current kernel</li>
-<li><code>xargs sudo apt-get -y purge</code> purges the found kernels</li>
-</ul>
-<p>Unwinding the <code>sed</code> invocation:</p>
-<ul>
-<li><code>-n</code> tells <code>sed</code> to be quiet</li>
-<li><code>`uname -r`</code> outputs the current installed kernel release - we include it in backticks so that the output is includes as part of the command (you might also see this as <code>$(uname -r)</code></li>
-<li><code>/something/q</code> says stop when you match &lsquo;something&rsquo; (in this case, something is output of <code>uname -r</code>) - the <code>/</code> surround a regular expression</li>
-<li><code>p</code> is print</li>
-<li>the <code>;</code> is the command separtor, so <code>/something/q;p</code> says quit when you match something, else print</li>
-</ul>
-<p>altogether, <code>sed -n '/'`uname -r`'/q;p'</code> is print the lines until it matches with the current kernel name.</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -525,6 +522,10 @@ This could be caused by too many kernel installed on the machine.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
             </li>
           
@@ -558,10 +559,6 @@ This could be caused by too many kernel installed on the machine.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/">Homeward light indicator with RaspberryPi and CommonSense</a>
             </li>
           
           </ul>
