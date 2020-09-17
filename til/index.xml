@@ -10,17 +10,5 @@
 	<atom:link href="https://labs.yulrizka.com/til/index.xml" rel="self" type="application/rss+xml" />
     
     
-    <item>
-      <title>View kubernetes secret</title>
-      <link>https://labs.yulrizka.com/til/k8s/view-secret/</link>
-      <pubDate>Thu, 17 Sep 2020 13:58:03 +0200</pubDate>
-      
-      <guid>https://labs.yulrizka.com/til/k8s/view-secret/</guid>
-      <description>List secrets
-$ kubecetl get secrets View particular secret
-$ kubectl describe secret foo Name: foo Namespace: foonamespac Labels: &amp;lt;none&amp;gt; Annotations: Type: Opaque Data ==== DB_PASSWORD: 25 bytes to view the content of a secret
-kubectl get secret foo -o jsonpath=&amp;quot;{.data.DB_PASSWORD}&amp;quot; | base64 --decode someSecurePassword </description>
-    </item>
-    
   </channel>
 </rss>
