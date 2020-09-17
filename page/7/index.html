@@ -38,6 +38,183 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">
+    <h2>
+      Tracking origin of bugs with git bisect
+    </h2>
+  </a>
+  <div class="posted_at">
+    2015-01-16 ::
+    ( 4 minutes reading )
+  </div>
+
+  <div class="thumbnail" align="center">
+  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
+  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
+</div>
+<p>I&rsquo;ve been involved with a iOS project this past week. I&rsquo;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
+One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
+The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
+<p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
+bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>'. Then every time you mark a commit as good / bad,
+it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
+whether the bugs exist or not.</p>
+<p>Here is an example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># let&#39;s start  bisecting, Im in unstable branch,</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect start
+
+</code></pre></td></tr></table>
+</div>
+</div><p>the prompt <code>sense-ios-library</code> shows the current folder, and <code>git:(unstable)</code> show current commit. it&rsquo;s part of <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> plugin</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># I open the xcode, and it took quite a long time. so let&#39;s marks current revision as bad</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect bad
+
+<span class="c1"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect good master 
+
+Bisecting: <span class="m">9</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">3</span> steps<span class="o">)</span>
+<span class="o">[</span>c1841c0f99a4fa788c14c7437fac7c9547c768c9<span class="o">]</span> Merge pull request <span class="c1">#45 from senseobservationsystems/feature-KeepDataLocally</span>
+
+<span class="c1"># now I&#39;m in c1841 commit, I tested again with xcode, and found no problem, mark it as good</span>
+
+➜  sense2 git:<span class="o">(</span>c1841c0<span class="o">)</span> $ git bisect good
+
+Bisecting: <span class="m">4</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">2</span> steps<span class="o">)</span>
+<span class="o">[</span>06bbd23c4af8f7008abfb814e1375b271e0b23e9<span class="o">]</span> Update interface and write tests lsit<span class="o">(</span> APPEND CMAKE_CXX_FLAGS <span class="s2">&#34;-std=c++0x&#34;</span><span class="o">)</span>
+
+<span class="c1"># tested again, it&#39;s good</span>
+➜  sense2 git:<span class="o">(</span>06bbd23<span class="o">)</span> $ git bisect good
+
+Bisecting: <span class="m">2</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">1</span> step<span class="o">)</span>
+<span class="o">[</span>71517b7923143a8cf1ce205341dd6942c9468198<span class="o">]</span> Added threshold <span class="k">for</span> checking to remove old data from <span class="nb">local</span> storage to save battery life
+
+<span class="c1"># Tested again, Now I&#39;m beginning to see the problem. Let&#39;s mark this bad</span>
+➜  sense2 git:<span class="o">(</span>71517b7<span class="o">)</span> $ git bisect bad
+
+Bisecting: <span class="m">0</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">0</span> steps<span class="o">)</span>
+<span class="o">[</span>e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1<span class="o">]</span> Updated functionality and tests of getting <span class="nb">local</span> data
+
+<span class="c1"># ....</span> 
+<span class="c1"># and we keep doing this until we find the first commit when it was introduced.</span>
+
+<span class="c1"># Now let&#39;s check our progress using log</span>
+
+➜  sense-ios-library git:<span class="o">(</span>71517b7<span class="o">)</span> $ git bisect log
+
+git bisect start
+<span class="c1"># bad: [af42213324297e1234767f9224ec1af326514292] Merge pull request #48 from senseobservationsystems/feature-LocalStorageInterface</span>
+git bisect bad af42213324297e1234767f9224ec1af326514292
+<span class="c1"># good: [19f751627d152b89d3f2ecadb144507fcf9293fc] Merge pull request #43 from senseobservationsystems/unstable</span>
+git bisect good 19f751627d152b89d3f2ecadb144507fcf9293fc
+<span class="c1"># good: [c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</span>
+git bisect good c1841c0f99a4fa788c14c7437fac7c9547c768c9
+<span class="c1"># good: [06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &#34;-std=c++0x&#34;)</span>
+git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9
+
+<span class="c1"># when you reach the final commit, you will be shown the commit log and modified file</span>
+
+➜  sense2 git:<span class="o">(</span>e5c40d4<span class="o">)</span> $ git bisect bad
+
+e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit
+commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1
+Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;
+Date:   Thu Jan <span class="m">8</span> 14:38:07 <span class="m">2015</span> +0100
+
+    Updated functionality and tests of getting <span class="nb">local</span> data
+
+:040000 <span class="m">040000</span> 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests
+:040000 <span class="m">040000</span> 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj
+:040000 <span class="m">040000</span> a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests
+:040000 <span class="m">040000</span> 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Now that you know when was the bugs introduced. you can now start looking at the problem.</p>
+<p>I found out there is something that doesn&rsquo;t feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>.
+There is a reference to <code>Xcode.app</code> in one of the folder. So every time I open the project,
+or switch branch, it will try to look into things inside <code>Xcode.app</code>.
+So removing the reference indeed solve the problem.</p>
+<p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced.
+You can even automate the test so you don&rsquo;t have to check each bisect commit your self.
+The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command and also an example on how to automate the test.</p>
+<p>Now go on catch and squash those annoying bug!</p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">
     <h2>
       Stubbing Time.Now() in golang
@@ -1281,618 +1458,6 @@ mendemonstrasikan alur penggunaan fiber
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">
-    <h2>
-      Scale MongoDB dengan Sharding
-    </h2>
-  </a>
-  <div class="posted_at">
-    0001-01-01 ::
-    ( 10 minutes reading )
-  </div>
-
-  <div class="alert alert-success">
-  <span class="label label-success" >TL;DR</span>
-  Proses <em>Horizontal Partitioning</em> pada MongoDB melibatkan suatu konsep <em>Chunk</em> dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
-  <em>shard key</em>. Artikel ini membahas bagaimana melakukan sharding pada mongodb
-</div>
-<h2 id="introduksi-">Introduksi</h2>
-<p>MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format
-BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database,
-kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis</p>
-<p>Sebelum mengeksplorasi mongodb, ada beberapa konsep yang harus kita pahami tentang mongo. yaitu:</p>
-<ul>
-<li>Mongod</li>
-<li>Replicas</li>
-<li>Shards</li>
-<li>Shard Keys</li>
-<li>Chunks</li>
-<li>Config DB Process (config server)</li>
-<li>Routing Process (mongos)</li>
-</ul>
-<div class="row">
-  <a href="https://www.mongodb.org/display/DOCS/Sharding+Introduction" class="thumbnail span7 offset2">
-    <img src="https://www.mongodb.org/download/attachments/2097393/sharding.PNG?version=2&nbsp;modificationDate=1267724627656"/>
-    <h5>Skema Sharding - MongoDB Sharding Introduction</h5>
-  </a>
-</div>
-<h3 id="mongod-">mongod</h3>
-<p>mongod adalah core dari mongoDB. mongod adalah satu instance server mongo. Saya sendiri tidak tau kepanjangan dari mongod tapi kalau menebak,
-mungkin yang dimaksud adalah mongo daemon. Kalau di analogikan, 1 mongod adalah 1 server database (misalkan sama dengan 1 server mysql). Sehingga
-satu aplikasi sedehana cukup dibuat dengan 1 application server yang berkomunikasi dengan 1 mongod</p>
-<h3 id="replica-">Replica</h3>
-<p>Replica set adalah suatu bentuk Master/slave database. 1 replika terdiri dari 2 atau lebih proses mongod yang memiliki data yang sama.
-Replica bertujuan untuk <em>failover</em>, <em>reducancy</em> juga sebagai <em>distribution read load</em>
-. Artinya apabila terdapat beberapa request read terhadap data yang sama, maka request tersebut bisa di handle oleh lebih dari satu server</p>
-<p>Contoh, misalkan kita mempunyai 3 data center: Jakarta, Bandung dan Surabaya. maka kita dapat membentuk replika sebagai berikut.</p>
-<div class="row">
-  <div style="text-align: center">
-    <table class="table table-striped table-bordered table-condensed span5">
-      <thead>
-        <tr>
-          <td></td><td>Replica-1</td><td>Replica-2</td><td>Replica-3</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Jakarta</td>
-          <td>mongod</td>
-          <td>mongod</td>
-          <td>mongod</td>
-        </tr>
-        <tr>
-          <td>Bandung</td>
-          <td>mongod</td>
-          <td>mongod</td>
-          <td>mongod</td>
-        </tr>
-        <tr>
-          <td>Surabaya</td>
-          <td>mongod</td>
-          <td>mongod</td>
-          <td>mongod</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-### Shards ###
-Dalam database kita dapat melakukan partisi terhadap data. Partisi tersebut bisa dilakukan dalam dua arah: Vertikal dan Horizontal. Vertical
-dilakukan dengan membagi data berdasarkan kolom, misalkan melalui proses denormalisasi. Sedangkan *horizontal partitioning* dilakukan dengan
-membagi data secara horizontal.
-<p>Contoh horizontal partitioning misalkan kita memiliki data center seperti diatas. Maka kita dapat menyimpan semua data user jakarta ke data
-center jakarta, bandung ke bandung dan lainya ke surabaya. Apabila terdapat request terhadap data bandung maka cukup server bandung yang melayani
-data tersebut.</p>
-<p>Shard dalam mongoDB teridiri dari beberapa server (mongod). Beberapa server tersebut dalam shard membentuk replika set. sehingga dapat kita katakan
-suatu replika set berada pada suatu sharding.</p>
-<h3 id="shard-key-">shard key</h3>
-<p>Untuk membagi-bagi suatu data, maka dibutuhkan suatu <em>key</em> yang menentukan data tersebut akan masuk ke shard yang mana. Key tersebut disebut dengan
-<strong>shard key</strong>. untuk contoh diatas <em>shard key</em> adalah lokasi. Pada contoh lain kita dapat membuat email sebagai <em>shard key</em>. sehingga data suatu
-user akan dikelompokkan pada suatu shard yang sama.</p>
-<p>Pemilihan <em>shard key</em> sangat bergantung dengan bagaimana cara aplikasi berintarksi untuk mengakses data. Sehingga pemilihan <em>shard key</em> dapat
-mempengaruhi performa dari sistem. Pemilihan <em>shard key</em> yang salah dapat menyebabkan database beroperasi lebih lambat dari <em>single instance</em>
-database.</p>
-<p>Untuk kriteria pemilihan <em>shard key</em> dapat dilihat pada artikel <a href="http://www.mongodb.org/display/DOCS/Choosing+a+Shard+Key"><em>Choosing a shard key</em></a></p>
-<h3 id="chunks-">Chunks</h3>
-<p><em>Chunk</em> adalah <em>continuous range of data for a particular collection</em>. Misalkan kita melakukan partisi data berdasarkan ID. dan ID tersebut
-merupakan bilangan integer antara 1..1000. Kita dapat membagi data tersebut dalam beberapa bagian (chunk) dengan ukuran yang sama. Secara
-default ukuran 1 <em>chunk</em> dalam mongoDB adalah 64MB (meskipun bisa dikonfigurasi). Untuk contoh kasus data tersebut bisa dibagi menjadi 10 chunk.
-dengan:</p>
-<ul>
-<li>chunk-1: 1..100</li>
-<li>chunk-2: 101..200</li>
-<li>&hellip;</li>
-<li>chunk-10: 901..1000</li>
-</ul>
-<p>Suatu Chunk disimpan pada suatu shard tertentu. Keistimewaan mongoDB salah satunya adalah auto sharding. Artinya suatu chunk dapat di transfer
-dari suatu shard ke shard yang lain.</p>
-<p>Misalkan contoh diatas, 3 shard. Pada shard pertama terdapat 10 chunk. MongoDB akan melakukan balancing dengan melakukan transfer ke 2 shard
-yang lain sampai ukuran chunk pada tiap shard menjadi seimbang. Hal ini dilakukan secara automatis, meskipun kita juga dapat melakukannya secara
-manual.</p>
-<h3 id="config-db-process-config-server-">Config DB Process (Config server)</h3>
-<p>Selain mongod, dalam proses sharding dibutuhkan suatu prosess (program) yang bertugas untuk menyimpan informasi mengenai shard-server dan chunk
-didalam shard tersebut. informasi tersebut dikenal dengan meta-data. Kita dapat menjalankan 1 atau 3 <em>Config Server</em>. Tentu pada production
-dibutuhkan 3 config server. Ketika satu mati maka masih tersisa 2 cadangan <em>Config server</em>.</p>
-<p>Tidak seperti mongod, <em>Config Server</em> tidak berkomunikasi antara satu dengan yang lain. Ketika satu proses mati, biasanya dihidupkan dengan
-melakukan restore terhadap dump dari server yang lain. Ketika server ini mati.</p>
-<h3 id="routing-process-mongos-">Routing Process (mongos)</h3>
-<p>Selain mongod dan <em>config server</em>, element lain yang penting adalah <strong>mongos</strong>. Fungsi utama dari mongos adalah melakukan routing terhadap
-request ke shard yang memiliki data tersebut. Pada saat aplikasi ini dijalankan. ia akan mengambil data dari <em>config server</em>. Aplikasi yang
-kita miliki berkomunikasi layaknya dengan server database biasa. Misalkan sebelumnya aplikasi kita setup ke url mongod, sekarang setelah
-kita melakukan konfigurasi pada sharding, kita cukup mengarahkan url ke proses mongos.</p>
-<p>Proses mongos ini relativ lebih kecil. Kadang kita dapat menjalankan mongos pada server aplikasi kita. Ada juga yang menjalankan proses mongos
-di mesin yang sama dengan mongod.</p>
-<h2 id="implementasi-">Implementasi</h2>
-<p>Ok, setelah kita mengerti beberapa konsep mengenai sharding, mari kita membuat suatu contoh kasus bagaimana melakukan implementasi terhadap
-sharding berikut. Untuk kemudahan, maka semua <em>instance</em> server ktia letakkan pada server yang sama (localhost). Hal ini berlaku untuk
-mongod, Config Server, mongos dan server aplikasi.</p>
-<p>Pada contoh kasus ini kita akan menjalankan beberpa server sebagai berikut</p>
-<ul>
-<li>2 Monogod. port 10000 &amp; 10001</li>
-<li>1 Config Server. port 20000</li>
-<li>1 Mongos</li>
-</ul>
-<h3 id="mongod--1">Mongod</h3>
-<p>Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo server. Untuk menjalankan 2 proses mongod, jalankan perintah berikut</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  $ mkdir a b
-  <span class="c1"># jalankan instance pertama</span>
-  $ mongod --shardsvr --dbpath <span class="nv">$PWD</span>/a --port <span class="m">10000</span> &gt; /tmp/sharda.log <span class="p">&amp;</span>
-  $ cat /tmp/sharda.log <span class="c1"># pastikan process tersebut berjalan</span>
-  <span class="c1"># jalankan instance kedua</span>
-  $ mongod --shardsvr --dbpath <span class="nv">$PWD</span>/b --port <span class="m">10001</span> &gt; /tmp/shardb.log <span class="p">&amp;</span>
-  $ cat /tmp/shardb.log <span class="c1"># pastikan process tersebut berjalan</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="configuration-server--mongos-">Configuration Server &amp; Mongos</h3>
-<p>Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos dengan perintah berikut</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  $ mkdir config
-  <span class="c1"># start config server</span>
-  $ mongod --configsvr --dbpath <span class="nv">$PWD</span>/config --port <span class="m">20000</span> &gt; /tmp/configdb.log <span class="p">&amp;</span>
-  $ cat /tmp/configdb.log <span class="c1"># pastikan server berjalan</span>
-  <span class="c1"># start mongos</span>
-  $ mongos --configdb localhost:20000 --chunkSize <span class="m">1</span> &gt; /tmp/mongos.log <span class="p">&amp;</span>
-  $ cat /tmp/mongos.log <span class="c1"># pastikan server tersebut berjalan</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>pada contoh diatas, mongos tidak membutuhkan <code>--dbpath</code>, karena mongo tidak memerlukan <em>persistance</em> (penyimpanan data). Perintah <code>mongos</code> diatas
-akan menjalankan mongos pada port default (sama serperti port default mongod) yaitu 27017</p>
-<p><code>--chinkSize 1</code> merupakan opsi untuk menentukan ukuran chunk 1MB (defaultnya 64MB). Hal ini bertujuan untuk explorasi saja. sehingga kita tidak
-perlu memassukkan data berukuran 64MB untuk membuat satu chuck baru.</p>
-<h2 id="setup-cluster-">Setup Cluster</h2>
-<p>Sampai tahap ini yang telah kita lakukan adalah mejalankan 2 <em>process</em> mongod, 1 <em>process config server</em> dan 1 <em>process</em> mongos. Berikutnya
-yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berkomunikasi.</p>
-<h3 id="konfigurasi-shard-server-pada-mongos-">Konfigurasi Shard Server pada mongos</h3>
-<p>Berikutnya yang kita lakukan adalah setup mongos agar menambahkan 2 shard server yang berjalan pada port 10000 &amp; 10001.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ mongo
-MongoDB shell version: 1.8.2
-connecting to: <span class="nb">test</span>
-&gt; use admin
-switched to db admin
-&gt; db.runCommand<span class="o">(</span> <span class="o">{</span> addshard: <span class="s2">&#34;localhost:10000&#34;</span><span class="o">}</span> <span class="o">)</span>
-<span class="o">{</span> <span class="s2">&#34;shardAdded&#34;</span> : <span class="s2">&#34;shard0000&#34;</span>, <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-&gt; db.runCommand<span class="o">(</span> <span class="o">{</span> addshard: <span class="s2">&#34;localhost:10001&#34;</span><span class="o">}</span> <span class="o">)</span>
-<span class="o">{</span> <span class="s2">&#34;shardAdded&#34;</span> : <span class="s2">&#34;shard0001&#34;</span>, <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-&gt;
-</code></pre></td></tr></table>
-</div>
-</div><p>Berikutnya, kita set agar server tersebut dalam mode sharding pada database test. Setelah itu kita akan menambahkan sharding pada <em>collection</em> <em>people</em> dengan
-<em>shard key</em> <em>email</em>. Meskipun pada tahap ini kita belum memiliki <em>people Collection</em></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; db.runCommand<span class="o">(</span> <span class="o">{</span> enablesharding: <span class="s2">&#34;test&#34;</span> <span class="o">}</span> <span class="o">)</span>
-  <span class="o">{</span> <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-  &gt; db.runCommand<span class="o">(</span> <span class="o">{</span> shardcollection: <span class="s2">&#34;test.people&#34;</span>, key: <span class="o">{</span>email: 1<span class="o">}</span> <span class="o">}</span> <span class="o">)</span>
-  <span class="o">{</span> <span class="s2">&#34;collectionsharded&#34;</span> : <span class="s2">&#34;test.people&#34;</span>, <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-  &gt; use <span class="nb">test</span>
-  &gt; show collections
-</code></pre></td></tr></table>
-</div>
-</div><p>Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjadi 1 MB</p>
-<div class="alert alert-info">
-  Entah mengapa parameter --chunkSize 1 tidak mengubah ukuran chunk, oleh karena itu kita ubah dari database
-</div>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; use config
-  switched to db config
-  &gt; show collections
-  changelog
-  chunks
-  collections
-  databases
-  lockpings
-  locks
-  mongos
-  settings
-  shards
-  system.indexes
-  version
-  &gt; db.settings.find<span class="o">()</span>
-  <span class="o">{</span> <span class="s2">&#34;_id&#34;</span> : <span class="s2">&#34;chunksize&#34;</span>, <span class="s2">&#34;value&#34;</span> : <span class="m">64</span> <span class="o">}</span>
-  &gt; db.settings.save<span class="o">({</span>_id:<span class="s2">&#34;chunksize&#34;</span>, value: 1<span class="o">})</span>
-  &gt; db.settings.find<span class="o">()</span>
-  <span class="o">{</span> <span class="s2">&#34;_id&#34;</span> : <span class="s2">&#34;chunksize&#34;</span>, <span class="s2">&#34;value&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-  &gt;
-</code></pre></td></tr></table>
-</div>
-</div><p>Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.</p>
-<p>Ok, sampai tahap ini kita telah selesai melakukan shard terhadap server tersebut</p>
-<h2 id="lets-play-">Let&rsquo;s Play</h2>
-<p>Sekarang saatnya kita melakukan percobaan dengan shard dan chunk.</p>
-<h3 id="tambahkan-data-pada-collection-">Tambahkan data pada collection</h3>
-<p>Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collection tersebut.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; use <span class="nb">test</span>
-  switched to db <span class="nb">test</span>
-  &gt; db.people.save<span class="o">(</span> <span class="o">{</span> name: <span class="s2">&#34;Person test&#34;</span>, email: <span class="s2">&#34;test@foo.com&#34;</span> <span class="o">}</span> <span class="o">)</span>
-  &gt; db.people.find<span class="o">()</span>
-  <span class="o">{</span> <span class="s2">&#34;_id&#34;</span> : ObjectId<span class="o">(</span><span class="s2">&#34;4f5742cc580bd77a9d9ec6d6&#34;</span><span class="o">)</span>, <span class="s2">&#34;email&#34;</span> : <span class="s2">&#34;test@foo.com&#34;</span>, <span class="s2">&#34;name&#34;</span> : <span class="s2">&#34;Person test&#34;</span> <span class="o">}</span>
-  &gt; db.people.dataSize<span class="o">()</span>
-  <span class="m">68</span>
-  &gt; db.people.totalSize<span class="o">()</span>
-  <span class="m">24576</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>Dapat dilihat pada hasil diatas bahwa kita telah memasukkan 1 dokumen pada <em>collection</em> people dan untuk 1 dokumen kita memerlukan 68 byte.
-Ingat bahwa pada contoh diatas, kita menetapkan ukuran 1 chunk adalah 1MB (1024 byte). Skarang kita coba untuk memasukan data sehingga ukuran
-data menjadi 3 chuck</p>
-<p>Mari kita tambahkan record (dokumen) sebanyak 20000.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; <span class="k">for</span> <span class="o">(</span>var <span class="nv">i</span> <span class="o">=</span> 1<span class="p">;</span> i &lt;<span class="o">=</span> 20000<span class="p">;</span> i++<span class="o">)</span> <span class="o">{</span>
-  ...   var <span class="nv">person_name</span> <span class="o">=</span> <span class="s2">&#34;Person #&#34;</span> + i<span class="p">;</span>
-  ...   var <span class="nv">person_email</span> <span class="o">=</span> <span class="s2">&#34;email-&#34;</span> + i + <span class="s2">&#34;@foo.com&#34;</span><span class="p">;</span>
-  ...   db.people.save <span class="o">({</span> name: person_name, email: person_email <span class="o">})</span><span class="p">;</span>
-  ... <span class="o">}</span>
-  &gt; db.people.totalSize<span class="o">()</span>
-  <span class="m">6776064</span>
-  &gt; db.people.dataSize<span class="o">()</span>
-  <span class="m">1559608</span>
-  &gt;
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="melihat-informasi-jumlah-shard-">Melihat informasi jumlah shard</h3>
-<p>untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; use admin
-  switched to db admin
-  &gt; db.runCommand<span class="o">({</span> listshards: 1<span class="o">})</span>
-  <span class="o">{</span>
-  	<span class="s2">&#34;shards&#34;</span> : <span class="o">[</span>
-  		<span class="o">{</span>
-  			<span class="s2">&#34;_id&#34;</span> : <span class="s2">&#34;shard0000&#34;</span>,
-  			<span class="s2">&#34;host&#34;</span> : <span class="s2">&#34;localhost:10000&#34;</span>
-  		<span class="o">}</span>,
-  		<span class="o">{</span>
-  			<span class="s2">&#34;_id&#34;</span> : <span class="s2">&#34;shard0001&#34;</span>,
-  			<span class="s2">&#34;host&#34;</span> : <span class="s2">&#34;localhost:10001&#34;</span>
-  		<span class="o">}</span>
-  	<span class="o">]</span>,
-  	<span class="s2">&#34;ok&#34;</span> : <span class="m">1</span>
-  <span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="melihat-informasi-chunk-">Melihat informasi Chunk</h3>
-<p>Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; use config
-  switched to db config
-  &gt; db.chunks.find<span class="o">()</span>
-  <span class="o">{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_MinKey&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:2000,
-        <span class="s2">&#34;i&#34;</span>:0
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="o">{</span>
-           <span class="nv">$minKey</span>:1
-        <span class="o">}</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-10000@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0001&#34;</span>
-  <span class="o">}{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_\&#34;email-10000@foo.com\&#34;&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:2000,
-        <span class="s2">&#34;i&#34;</span>:2
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-10000@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-9@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0000&#34;</span>
-  <span class="o">}{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_\&#34;email-9@foo.com\&#34;&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:2000,
-        <span class="s2">&#34;i&#34;</span>:3
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-9@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="o">{</span>
-           <span class="nv">$maxKey</span>:1
-        <span class="o">}</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0000&#34;</span>
-  <span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>dari data diatas kita dapat melihat bahwa terdapat 3 chunk:</p>
-<ul>
-<li>test.people-email_MinKey berada pada shard0001</li>
-<li>test.people-email_&quot;email-10000@foo.com&quot; berada pada shard0000</li>
-<li>test.people-email_&quot;email-9@foo.com&quot; berada pada shard0000</li>
-</ul>
-<p>MongoDB ternyata melakukan partisi terhadap <em>shard key</em> dengan memperlakukan key tersebut sebagai string.</p>
-<h3 id="memindahkan-chunk-ke-shard-lain-">Memindahkan Chunk ke shard lain</h3>
-<p>Misalkan pada contoh diatas kita ingin memindahkan chunk <code>test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000</code> dari shard0000 je shard0001. Hal tersebut
-dapat dilakukan dengan perintah berikut</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; db.adminCommand<span class="o">({</span> moveChunk: <span class="s2">&#34;test.people&#34;</span>, find: <span class="o">{</span>email: <span class="s2">&#34;email-9@foo.com&#34;</span><span class="o">}</span>, to: <span class="s1">&#39;shard0001&#39;</span><span class="o">})</span>
-  <span class="o">{</span> <span class="s2">&#34;millis&#34;</span> : 1038, <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-  &gt; db.chunks.find<span class="o">()</span>
-  <span class="o">{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_MinKey&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:2000,
-        <span class="s2">&#34;i&#34;</span>:0
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="o">{</span>
-           <span class="nv">$minKey</span>:1
-        <span class="o">}</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-10000@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0001&#34;</span>
-  <span class="o">}{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_\&#34;email-10000@foo.com\&#34;&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:3000,
-        <span class="s2">&#34;i&#34;</span>:1
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-10000@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-9@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0000&#34;</span>
-  <span class="o">}{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_\&#34;email-9@foo.com\&#34;&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:3000,
-        <span class="s2">&#34;i&#34;</span>:0
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-9@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="o">{</span>
-           <span class="nv">$maxKey</span>:1
-        <span class="o">}</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0001&#34;</span>
-  <span class="o">}</span>
-  &gt;
-</code></pre></td></tr></table>
-</div>
-</div><p>Dari data diatas kita bisa melihat bahwa chunk tersebut sudah pindah dari shard0000 ke sahrd00001</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -2080,6 +1645,10 @@ dapat dilakukan dengan perintah berikut</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
             </li>
           
@@ -2113,10 +1682,6 @@ dapat dilakukan dengan perintah berikut</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
             </li>
           
           </ul>

@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title>reset email multiple git commit - labs.yulrizka.com</title>
-<meta name="description" content="reset email multiple git commit">
+<title>View kubernetes secret - labs.yulrizka.com</title>
+<meta name="description" content="viewing kubernetes secret">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="keywords" content="git">
+<meta name="keywords" content="k8s secret">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/git/reset-email-multiple-commit/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/k8s/view-secret/">
 
 
 
@@ -34,64 +34,28 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-<h1>reset email multiple git commit</h1>
+<h1>View kubernetes secret</h1>
 <div class="posted_at">
-	2019-01-13 ::
+	2020-09-17 ::
 	( 1 minutes reading )
-</div><p>I started not to use my real email for git commit. Instead i uses the one that is provided by <a href="https://help.github.com/articles/about-commit-email-addresses/">github</a></p>
-<p>After enabling <strong>Block command line pushes that expose my email</strong> on <a href="https://github.com/settings/emails">Block command line pushes that expose my email</a>, it will reject
-all email that exposes public email adress.</p>
-<p>So in order to rewrite git history and change the author email, I found this <a href="https://help.github.com/articles/changing-author-info/">github help</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
-</span><span class="cp"></span>
-git filter-branch --env-filter <span class="s1">&#39;
-</span><span class="s1">OLD_EMAIL=&#34;your-old-email@example.com&#34;
-</span><span class="s1">CORRECT_NAME=&#34;Your Correct Name&#34;
-</span><span class="s1">CORRECT_EMAIL=&#34;your-correct-email@example.com&#34;
-</span><span class="s1">if [ &#34;$GIT_COMMITTER_EMAIL&#34; = &#34;$OLD_EMAIL&#34; ]
-</span><span class="s1">then
-</span><span class="s1">    export GIT_COMMITTER_NAME=&#34;$CORRECT_NAME&#34;
-</span><span class="s1">    export GIT_COMMITTER_EMAIL=&#34;$CORRECT_EMAIL&#34;
-</span><span class="s1">fi
-</span><span class="s1">if [ &#34;$GIT_AUTHOR_EMAIL&#34; = &#34;$OLD_EMAIL&#34; ]
-</span><span class="s1">then
-</span><span class="s1">    export GIT_AUTHOR_NAME=&#34;$CORRECT_NAME&#34;
-</span><span class="s1">    export GIT_AUTHOR_EMAIL=&#34;$CORRECT_EMAIL&#34;
-</span><span class="s1">fi
-</span><span class="s1">&#39;</span> --tag-name-filter cat -- --branches --tags
-</code></pre></td></tr></table>
-</div>
-</div><p>Another neat way (after you change your email with git config), you can also do this:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ git rebase -i -p --exec <span class="s1">&#39;git commit --amend --reset-author --no-edit&#39;</span>
-</code></pre></td></tr></table>
-</div>
-</div><div id="disqus_thread"></div>
+</div><p>List secrets</p>
+<pre><code>$ kubecetl get secrets
+</code></pre><p>View particular secret</p>
+<pre><code>$ kubectl describe secret foo
+
+Name:         foo
+Namespace:    foonamespac
+Labels:       &lt;none&gt;
+Annotations:  
+Type:         Opaque
+
+Data
+====
+DB_PASSWORD:  25 bytes
+</code></pre><p>to view the content of a secret</p>
+<pre><code>kubectl get secret foo -o jsonpath=&quot;{.data.DB_PASSWORD}&quot; | base64 --decode
+someSecurePassword
+</code></pre><div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

@@ -38,6 +38,25 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/vim/paste-yanked-text-on-command-buffer/">
+    <h2>
+      paste yanked text on command buffer
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-08-12 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Sometimes you need to paste yanked text while performing command. For example subtituting yanked text with some words.</p>
+<p>yanked text are stored in the <code>0</code> and <code>&quot;</code> register.</p>
+<p>in the command mode you can paste this with <code>ctrl-R [registe]</code> example in our cases this would be <code>ctrl-R 0</code></p>
+<p>so full command would be for example <code>:%s/[press ctrl-R then 0]/replacement/gc</code></p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/bulk-renaming-multiple-file/">
     <h2>
       bulk renaming multiple file
@@ -325,26 +344,6 @@ This version works both on OSX and Linux.</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/osx/starting-program-on-startup-with-login-items/">
-    <h2>
-      starting program on startup with login items
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-05-25 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>I need to start <a href="https://github.com/yulrizka/til/blob/master/osx/manage%20clipboard%20easily%20with%20jumpcut.md">jumpcut</a>
-during startup because I have to start it manually now.</p>
-<p>We can add one or more program to start when we are logged in.
-Use system preference &gt; Users &amp; Groups. Select your username and there should be <em>Login items</em> tabs
-where you can add more or disable programs.</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -532,6 +531,10 @@ where you can add more or disable programs.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
             </li>
           
@@ -565,10 +568,6 @@ where you can add more or disable programs.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
             </li>
           
           </ul>

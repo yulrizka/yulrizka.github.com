@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title>reset email multiple git commit - labs.yulrizka.com</title>
-<meta name="description" content="reset email multiple git commit">
+<title>k8s til - labs.yulrizka.com</title>
+<meta name="description" content="">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="keywords" content="git">
+
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/git/reset-email-multiple-commit/">
+<link rel="canonical" href="https://labs.yulrizka.com/tags/k8s-til/">
 
 
 
@@ -33,84 +33,18 @@
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content">
-<h1>reset email multiple git commit</h1>
-<div class="posted_at">
-	2019-01-13 ::
-	( 1 minutes reading )
-</div><p>I started not to use my real email for git commit. Instead i uses the one that is provided by <a href="https://help.github.com/articles/about-commit-email-addresses/">github</a></p>
-<p>After enabling <strong>Block command line pushes that expose my email</strong> on <a href="https://github.com/settings/emails">Block command line pushes that expose my email</a>, it will reject
-all email that exposes public email adress.</p>
-<p>So in order to rewrite git history and change the author email, I found this <a href="https://help.github.com/articles/changing-author-info/">github help</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
-</span><span class="cp"></span>
-git filter-branch --env-filter <span class="s1">&#39;
-</span><span class="s1">OLD_EMAIL=&#34;your-old-email@example.com&#34;
-</span><span class="s1">CORRECT_NAME=&#34;Your Correct Name&#34;
-</span><span class="s1">CORRECT_EMAIL=&#34;your-correct-email@example.com&#34;
-</span><span class="s1">if [ &#34;$GIT_COMMITTER_EMAIL&#34; = &#34;$OLD_EMAIL&#34; ]
-</span><span class="s1">then
-</span><span class="s1">    export GIT_COMMITTER_NAME=&#34;$CORRECT_NAME&#34;
-</span><span class="s1">    export GIT_COMMITTER_EMAIL=&#34;$CORRECT_EMAIL&#34;
-</span><span class="s1">fi
-</span><span class="s1">if [ &#34;$GIT_AUTHOR_EMAIL&#34; = &#34;$OLD_EMAIL&#34; ]
-</span><span class="s1">then
-</span><span class="s1">    export GIT_AUTHOR_NAME=&#34;$CORRECT_NAME&#34;
-</span><span class="s1">    export GIT_AUTHOR_EMAIL=&#34;$CORRECT_EMAIL&#34;
-</span><span class="s1">fi
-</span><span class="s1">&#39;</span> --tag-name-filter cat -- --branches --tags
-</code></pre></td></tr></table>
-</div>
-</div><p>Another neat way (after you change your email with git config), you can also do this:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ git rebase -i -p --exec <span class="s1">&#39;git commit --amend --reset-author --no-edit&#39;</span>
-</code></pre></td></tr></table>
-</div>
-</div><div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        <div class="content"><h1>
+		
+		
+		
+	</h1>
+
+	
+	<ul>
+		
+	</ul>
+	
+
 
         </div>
       </div>
@@ -271,7 +205,7 @@ git filter-branch --env-filter <span class="s1">&#39;
               <li class=""><a href="/">Home</a></li>
               <li class=""><a href="/en/">EN</a></li>
               <li class=""><a href="/id/">ID</a></li>
-              <li class="active banner"><a href="/til/">Today I Learned</a></li>
+              <li class=""><a href="/til/">Today I Learned</a></li>
               
             </ul>
           </div>

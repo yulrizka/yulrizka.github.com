@@ -38,6 +38,26 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/osx/starting-program-on-startup-with-login-items/">
+    <h2>
+      starting program on startup with login items
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-25 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>I need to start <a href="https://github.com/yulrizka/til/blob/master/osx/manage%20clipboard%20easily%20with%20jumpcut.md">jumpcut</a>
+during startup because I have to start it manually now.</p>
+<p>We can add one or more program to start when we are logged in.
+Use system preference &gt; Users &amp; Groups. Select your username and there should be <em>Login items</em> tabs
+where you can add more or disable programs.</p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/find-out-what-is-using-swap/">
     <h2>
       find out what is using swap
@@ -352,33 +372,6 @@ $ echo $?
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/send-slack-message-from-command-line/">
-    <h2>
-      send slack message from command line
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-03-15 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Install Incomming webhook to your channel <a href="https://api.slack.com/incoming-webhooks#sending_messages">https://api.slack.com/incoming-webhooks#sending_messages</a></p>
-<p>you will then get some url <code>https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX</code></p>
-<p>create <code>/usr/local/bin/notifyme</code></p>
-<pre><code>#!/bin/sh
-
-curl -X POST --data-urlencode &quot;payload={\&quot;channel\&quot;: \&quot;#alert\&quot;, \&quot;username\&quot;: \&quot;mybot\&quot;, \&quot;text\&quot;: \&quot;$*\&quot;, \&quot;icon_emoji\&quot;: \&quot;:name_badge:\&quot;}&quot; https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
-</code></pre><p>and send message via your command line</p>
-<pre><code>$ chmod +x /usr/local/bin/notifyme
-$ notifyme hello world!
-
-# or after some command
-$ sleep 5; notifyme process is finished
-</code></pre>
-</article>
-<hr/>
-
 
 
 
@@ -568,6 +561,10 @@ $ sleep 5; notifyme process is finished
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
             </li>
           
@@ -601,10 +598,6 @@ $ sleep 5; notifyme process is finished
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
             </li>
           
           </ul>

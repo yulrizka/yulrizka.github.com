@@ -4,7 +4,27 @@
   
   <url>
     <loc>https://labs.yulrizka.com/</loc>
-    <lastmod>2020-09-17T13:28:16+02:00</lastmod>
+    <lastmod>2020-09-17T13:58:03+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/k8s-til/</loc>
+    <lastmod>2020-09-17T13:58:03+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/</loc>
+    <lastmod>2020-09-17T13:58:03+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/</loc>
+    <lastmod>2020-09-17T13:58:03+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/k8s/view-secret/</loc>
+    <lastmod>2020-09-17T13:58:03+02:00</lastmod>
   </url>
   
   <url>
@@ -18,17 +38,7 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/</loc>
-    <lastmod>2020-09-17T13:28:16+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://labs.yulrizka.com/tags/til/</loc>
-    <lastmod>2020-09-17T13:28:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/til/</loc>
     <lastmod>2020-09-17T13:28:16+02:00</lastmod>
   </url>
   

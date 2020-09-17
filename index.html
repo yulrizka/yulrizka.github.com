@@ -38,6 +38,38 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/k8s/view-secret/">
+    <h2>
+      View kubernetes secret
+    </h2>
+  </a>
+  <div class="posted_at">
+    2020-09-17 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>List secrets</p>
+<pre><code>$ kubecetl get secrets
+</code></pre><p>View particular secret</p>
+<pre><code>$ kubectl describe secret foo
+
+Name:         foo
+Namespace:    foonamespac
+Labels:       &lt;none&gt;
+Annotations:  
+Type:         Opaque
+
+Data
+====
+DB_PASSWORD:  25 bytes
+</code></pre><p>to view the content of a secret</p>
+<pre><code>kubectl get secret foo -o jsonpath=&quot;{.data.DB_PASSWORD}&quot; | base64 --decode
+someSecurePassword
+</code></pre>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">
     <h2>
       Push Only Current Branch
@@ -965,56 +997,6 @@ After that you can edit or duplicate the line easily. Each line will be treated 
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">
-    <h2>
-      Sort file inline
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-09-26 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>We can sort file by using <code>sort</code> command for example:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt
-
-<span class="c1"># or</span>
-
-$ cat a.txt <span class="p">|</span> sort
-</code></pre></td></tr></table>
-</div>
-</div><p>But this will only output to stdout. Some time you want the file to be sorted. Instead you can do</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt -o a.txt
-</code></pre></td></tr></table>
-</div>
-</div><p>note that this DOEST work and it will TRUNCATE the file</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ sort a.txt &gt; a.txt
-</code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
 
 
 
@@ -1198,6 +1180,10 @@ $ cat a.txt <span class="p">|</span> sort
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
             </li>
           
@@ -1231,10 +1217,6 @@ $ cat a.txt <span class="p">|</span> sort
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
             </li>
           
           </ul>
