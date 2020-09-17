@@ -38,6 +38,29 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">
+    <h2>
+      Show Hidden File
+    </h2>
+  </a>
+  <div class="posted_at">
+    2019-09-22 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Tho show hidden file (file with <code>x</code>):</p>
+<p><strong>Mojave</strong>:</p>
+<p>In finder <code>CMD + Shift + .</code> to toggle it</p>
+<p><strong>Before Mojave</strong>:</p>
+<p>Show</p>
+<pre><code>defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app
+</code></pre><p>Hide</p>
+<pre><code>defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app
+</code></pre>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">
     <h2>
       Bash Forloop
@@ -466,34 +489,6 @@ $ sudo cryptsetup luksClose ext-backup
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/linux/zfs-auto-snapshot/">
-    <h2>
-      zfs auto snapshot
-    </h2>
-  </a>
-  <div class="posted_at">
-    2018-10-22 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Having ZFS snapshot saved me once when I acidentally <code>rm -f /home/myuser</code>.</p>
-<p>There is a simple package that easily make auto snapshot.</p>
-<pre><code>$ sudo apt install zfs-auto-snapshot
-</code></pre><p>This will install the script and the cron job associated with it.</p>
-<p>By default it will backup all filesystem and volumes. You can disable the filesystems completely by</p>
-<pre><code>$ sudo zfs set com.sun:auto-snapshot=false tank/data-set-name
-</code></pre><p>or only for specific interval</p>
-<pre><code>sudo zfs set com.sun:auto-snapshot=true tank/data-set-name
-sudo zfs set com.sun:auto-snapshot:monthly=false tank/data-set-name
-sudo zfs set com.sun:auto-snapshot:weekly=false tank/data-set-name
-sudo zfs set com.sun:auto-snapshot:daily=true tank/data-set-name
-sudo zfs set com.sun:auto-snapshot:hourly=false tank/data-set-name
-sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
-</code></pre>
-</article>
-<hr/>
-
 
 
 
@@ -579,7 +574,16 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/8/">8</a></li>
     
     
     <li class="page-item">
@@ -587,7 +591,7 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
     </li>
     
     <li class="page-item">
-        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>
@@ -668,6 +672,10 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
             </li>
           
@@ -701,10 +709,6 @@ sudo zfs set com.sun:auto-snapshot:frequent=false tank/data-set-name
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
             </li>
           
           </ul>

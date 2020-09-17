@@ -38,6 +38,557 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">
+    <h2>
+      Stubbing Time.Now() in golang
+    </h2>
+  </a>
+  <div class="posted_at">
+    2014-10-27 ::
+    ( 6 minutes reading )
+  </div>
+
+  <p>Sometimes it&rsquo;s really hard to test functionality that involve with system time.
+Especially when we want to test the function with a specific time. For example testing
+whether today is end of month or test 2 different behavior at a different time</p>
+<p>Below we look into different ways we can mock or stub the time. Each with it&rsquo;s own
+advantages and disadvantages.</p>
+<h2 id="passing-the-time-instance">Passing the time instance</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// business process
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="c1">// for test
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>This way you can either pass <code>time.Now()</code> in your main pacakge
+or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.</p>
+<p>Advantages:</p>
+<ul>
+<li>Simple, no extra generator necessary</li>
+<li>Easy to test, no need to wire mock function or struct</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Caller need to pass instance of everywhere</li>
+</ul>
+<h2 id="passing-a-function-that-generate-time">Passing a function that generate time</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span> <span class="c1">// runs at this moment, not at the caller time
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">)</span> <span class="c1">// instead of time.Now()
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// for test
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">loc</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span> <span class="c1">// closure can be used if necessary
+</span><span class="c1"></span>	<span class="nx">timeFn</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">loc</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">timeFn</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
+<ul>
+<li>This method allows you to have more control over how and when the time is generated.
+For example the time is generated inside the <code>CheckEndOfMonth</code> not at the <em>caller</em>.</li>
+<li>Allows the mock function to use closure inside the function</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Caller needs to pass function</li>
+</ul>
+<h2 id="abstract-the-time-generator-as-an-interface">Abstract the time generator as an interface</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Clock</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">realClock</span> <span class="kd">struct</span> <span class="p">{}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">realClock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">clock</span> <span class="nx">Clock</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">clock</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">realClock</span><span class="p">{})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>on the test code</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">mockClock</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">NewMockClock</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">mockClock</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">mocktime</span><span class="p">{</span><span class="nx">t</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">mockClock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nx">t</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">mc</span> <span class="o">:=</span> <span class="nf">NewMockClock</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">mc</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
+<ul>
+<li>Control the generator method</li>
+<li>Interface can be defined small with only needed functions</li>
+<li>Easily switch to different implementation</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Caller need to pass instance that implements the interface</li>
+</ul>
+<h2 id="package-level-time-generator">Package level time generator</h2>
+<p>Previous examples require you to pass in either concrete instance or a function on the caller.</p>
+<p>Another approach you can use is to create a package level function to generate current time.
+You can change the implementation during test.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;time&#34;</span>
+
+<span class="kd">type</span> <span class="nx">nowFuncT</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+
+<span class="kd">var</span> <span class="nx">nowFunc</span> <span class="nx">nowFuncT</span>
+
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">resetClockImplementation</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">resetClockImplementation</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// function to return current time stamp in UTC
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">nowFunc</span><span class="p">().</span><span class="nf">UTC</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>now in your test you could do something like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// change implementation of clock in the beginning of the test
+</span><span class="c1"></span>    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// after finish with the test, reset the time implementation
+</span><span class="c1"></span>    <span class="k">defer</span> <span class="nf">resetClockImplementation</span><span class="p">()</span>
+    
+    <span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+    <span class="c1">//...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
+<ul>
+<li>No need to pass instance of time or generator</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Caller need to pass instance</li>
+<li>Global variable</li>
+<li>Not thread safe</li>
+<li>Need to remember to call <code>resetClockImplementation</code></li>
+</ul>
+<h2 id="embed-time-generator-in-struct">Embed time generator in struct</h2>
+<p>If you are lucky enough to work in a <em>struct</em>, you can do this</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// TimeValidator contains business logic to CheckEndOfMonth
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeValidator</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="c1">// .. your fields
+</span><span class="c1"></span>	<span class="nx">clock</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// now is time generator that by default fall back to standard library
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">clock</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="c1">// default implementation which fall back to standard library
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">clock</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>And the test can be</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{</span>
+		<span class="nx">clock</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+	<span class="p">}}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>I like this method because you don&rsquo;t have to pass instance of time or function all over the place
+but still have it easily create an arbitrary time mock/stub</p>
+<p><strong>Make this pattern reusable</strong><br>
+If you do this more often, you can also easily reuse the functionality into other struct
+by creating embeddable</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// TimeMock embeddable structure that provides ability to inject time to the parent struct
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeMock</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">NowFn</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+
+	<span class="c1">// can be extended to mock other time function
+</span><span class="c1"></span>	<span class="nx">AfterFn</span> <span class="kd">func</span><span class="p">()</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeMock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">NowFn</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="c1">// default implementation
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NowFn</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// Use in the business logic
+</span><span class="c1"></span>
+<span class="c1">// TimeValidator contains business logic that uses time.Now
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeValidator</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">clock</span> <span class="nx">TimeMock</span> 
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">clock</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span> <span class="c1">// empty clock field gives implementation with standard lib
+</span><span class="c1"></span>    <span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>in test</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{</span>
+		<span class="nx">clock</span><span class="p">:</span> <span class="nx">TimeMock</span><span class="p">{</span>
+			<span class="nx">NowFn</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>	
+		<span class="p">},</span>
+	<span class="p">}}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
+<ul>
+<li>No need to pass instance of time or generator</li>
+<li>Fall back to default standard library time implementation</li>
+<li>Easily extend <code>TimeMock</code> by adding more function that is needed</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>The caller needs to be a struct</li>
+</ul>
+<h2 id="better-way-to-write-test-function-with-time">Better way to write test function with time</h2>
+<p>Function with time is usually hard to test because it dependency with  on <em>time</em> package.</p>
+<p>A different way to test is to separate the function that generate the time with the function
+that process the time value. For example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">now</span> <span class="o">:=</span>  <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nf">endOfMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">now</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
+		<span class="c1">// do some business logic
+</span><span class="c1"></span>	<span class="p">}</span> 
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Instead of testing that function, extract the logic of processing time</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">now</span> <span class="o">:=</span>  <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+
+	<span class="nf">processEndOfMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">processEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nf">endOfMonth</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
+		<span class="c1">// do some business logic
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>this way you don&rsquo;t test the <code>CheckEndOfMonth()</code> but <code>processEndOfMonth</code>. This way you can easily
+mock time without the need to do some wiring.</p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">
     <h2>
       My account just got hacked by Romanian (Possibly)
@@ -1342,100 +1893,6 @@ dapat dilakukan dengan perintah berikut</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/">
-    <h2>
-      Telepon murah ke Indonesia dengan voip
-    </h2>
-  </a>
-  <div class="posted_at">
-    0001-01-01 ::
-    ( 3 minutes reading )
-  </div>
-
-  <blockquote>
-<blockquote>
-<p><em>Disclaimer: Tulias ini berisi pengalaman penulis menggunakan VoIP dari belanda. Hasilnya mungkin berbeda
-dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang ditimbulkan apabila pembaca
-memutuskan untuk menggunakan VoIP</em></p>
-</blockquote>
-</blockquote>
-<div class="thumbnail" align="center">
-  <img src="https://blog.allstream.com/wp-content/uploads/2013/05/3822639-xsmall.jpg"/>
-</div>
-<p>Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra.
-Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia dengan mudah</p>
-<p>Servis gratis misalkan:</p>
-<ul>
-<li><a href="http://www.skype.com/en/">Skype</a></li>
-<li><a href="http://www.google.com/+/learnmore/hangouts/">Google Hangouts</a></li>
-<li><a href="http://www.whatsapp.com/faq/en/android/28000016">Whatsapp calling</a></li>
-</ul>
-<p>Namun kadang-kadang berkomunikasi dengan aplikasi diatas kadang sulit. hal ini bisa dikarenakan:</p>
-<ul>
-<li>Tidak ada koneksi internet, atau koneksi yang kurang baik. Sehingga telepon kadang terputus, atau yang ditelepon mejadi suka berbahasa robot</li>
-<li>Tidak ada perangkat komputer atau telepon selurer yang dapat <em>diinstall</em> aplikasi diatas</li>
-<li>Orang yang dituju kadang sedang berada di luar (rumah / kantor) sehingga tidak memiliki akses wifi/internet atau komputer</li>
-</ul>
-<p>Terdapat beberapa alternatif untuk kita dapat menelefon dengan murah ke nomor telepon di Indonesia.</p>
-<p>Contohnya provider selular <a href="http://www.lebara.nl/prepaid/rates">Lebara</a> saat ini tarifnya
-<strong>19ct/menit</strong> untuk landline dan <strong>29ct/menit</strong> untuk mobile. Tapi karena untuk lebara beli 10 dapat 20 euro
-maka praktis harganya menjadi setengahnya. Saya sendiri belum pernah melefon pakai lebara
-sehingga saya tidak bisa mengatakan mengenai kualitas dan delay bila menelpon pakai lebara.</p>
-<p>Nah ada cara lain untuk lebih berhemat sampai <strong>3ct/menit</strong> !!
-Syaratnya teman-teman hanya butuh akses internet dan device yang mendukung VoIP (komputer, smart phone).
-Selain Menelepon kita juga dapat mengirimkan pesan singkat melalui SMS ke nomor Indonesia.
-Namun ada kekuranganna juga, kadang terdapat delay sekitar 1-2 detik tergantung dari kualitas jaringan VoIP tersebut.</p>
-<h2 id="bagaimana-caranya-">Bagaimana caranya ?</h2>
-<p>Tergantung perangkat yang teman-teman miliki disini.</p>
-<p><strong>PENTING</strong>. Pada saat register nanti pastikan provider VoIP yang kita pilih mendukung SIP.</p>
-<p>Kita cukup register ke salah satu provider VoIP dan install aplikasi.</p>
-<p>Setelah register account ke salah satu VoIP provider, anda akan menerima informasi contohnya;</p>
-<pre><code>sip gateway: sip.webcalldirect.com
-username: foo
-password: secret
-</code></pre><p>Informasi ini yang dibutuhkan aplikasi untuk dapat terkoneksi dengan provider tersebut.</p>
-<h3 id="android">Android</h3>
-<p>Saya pakai aplikasi <a href="https://play.google.com/store/apps/details?id=com.zoiper.android.app&amp;hl=en">zoiper</a>.
-Instalasinya juga cukup mudah.
-Anda tinggal memasukkan data account ke aplikasi zoiper dan bisa tinggal langsung menelepon ke indonesia dengan VOIP.</p>
-<p><strong>PENTING</strong> pastikan ketika menelepon anda menggunakan aplikasi tersebut, bukan applikasi telepon android.
-Bila tidak maka anda akan menggunakan pulsa telepon biasa.</p>
-<h3 id="mac">Mac</h3>
-<p>Terdapat aplikasi <a href="https://itunes.apple.com/en/app/telephone/id406825478?mt=12">Telephone</a> yang penggunaanya juga mudah.
-Serupa dengan android, kita hanya perlu memasukkan informasi yang di dapat dari provider ke aplikasi tersebut.</p>
-<h3 id="platform-lainnya">Platform lainnya</h3>
-<p>Windows, linux, iOS (iPhone).</p>
-<p>Berhubung saya jarang menelepon dengan device yang menggunakan sistem operasi diatas jadi saya kurang faham juga :)</p>
-<p>Di website providernya kadang terdapat bagian &lsquo;Download&rsquo; dimana anda bisa langsung mengguakan aplikasi dari mereka:
-contohnya <a href="http://www.dialcheap.com/download/desktop">seperti ini</a></p>
-<p>Tapi caranya pasti sama mudahnya. Kita tinggal <em>googling</em> dengan keywords &ldquo;[windows/linux/iPhone] SIP client&rdquo; anda pasti menemukan
-banyak aplikasi dan tutorial yang cukup mudah.</p>
-<h2 id="registrasi-account-voip--pembelian-credit">Registrasi Account VoIP &amp; Pembelian Credit.</h2>
-<p>Saat ini banyak sekali provider VoIP yang tersedia di Internet. Untuk pembelian credit mereka juga sudah mendukung berbagai metode pembayaran:</p>
-<ul>
-<li>iDeal</li>
-<li>paypal</li>
-<li>kartu kredit</li>
-<li>DSB</li>
-</ul>
-<p>Nah, barusan saya membuat <em>script</em> sederhana untuk melakukan <em>scraping</em>  provider mana yang paling murah.</p>
-<p><em>script</em> ?? <em>scraping</em> ?? :) no worries, yang penting adalah berikut hasil excel sheet provider dan tarif mereka per <strong>5 mei 2015</strong></p>
-<p><a href="/files/voip-list-03052015.xlsx">voip-list-03052015.xlsx</a></p>
-<p>Dari file ditatas kita bisa melihat tarif land-line, tarif selular berdasarkan provider dan negara yang dituju. Pastikan melihat kolom <strong>rate + vat</strong>.</p>
-<p>Saat ini provider yang paling murah telepon ke Indonesia adalah:</p>
-<ul>
-<li><a href="http://www.dialcheap.com/rates/calling-rates">dialcheap.com</a> mobile: 2.9ct/menit, landline: 1.1ct/menit</li>
-<li><a href="http://www.freevoipdeal.com/calling_rates/">freevoipdial.com</a> mobile: 3ct/menit,  landline: 2.5ct/menit</li>
-<li><a href="http://www.voipsmash.com/rates/calling-rates">voipmash.com</a> mobile: 3.1ct/menit, landline: 1.1ct/menit</li>
-<li><a href="http://www.discountcalling.com/rates/calling-rates">discountcalling.com</a> mobile: 4ct/menit, landline: 1.1ct/menit</li>
-</ul>
-<p>Setelah Register dan mendownload aplikasi dari mereka, anda tinggal memasukan data gateway, username password dan lansung menelepon nomor indonesia</p>
-<p>Selamat menikmati :)</p>
-
-</article>
-<hr/>
-
 
 
 
@@ -1526,12 +1983,23 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
     <li class="page-item active"><a class="page-link" href="/page/7/">7</a></li>
     
     
-    <li class="page-item disabled">
-    <a  class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/8/">8</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/page/8/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
     </li>
     
     <li class="page-item">
-        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>
@@ -1612,6 +2080,10 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
             </li>
           
@@ -1645,10 +2117,6 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
             </li>
           
           </ul>

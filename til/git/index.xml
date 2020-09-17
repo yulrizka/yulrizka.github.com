@@ -5,10 +5,21 @@
     <link>https://labs.yulrizka.com/til/git/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 16 Mar 2020 14:44:17 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2020 13:28:16 +0200</lastBuildDate>
     
 	<atom:link href="https://labs.yulrizka.com/til/git/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Push Only Current Branch</title>
+      <link>https://labs.yulrizka.com/til/git/push-only-current-branch/</link>
+      <pubDate>Thu, 17 Sep 2020 13:28:16 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/git/push-only-current-branch/</guid>
+      <description>Git has multiple strategy whey you do git push
+Before git 2.0, it was matching meaning that it will push all the local branch that has the same name as remote. I don&amp;rsquo;t like this because most of the time i just want to push my current branch and avoid mistakenly local branches that is not ready to be push yet.
+After 2.0 it changes to simple it will push the current branch to upstream with added safety so that it will refuse to push if the upstream branch name is different from the local one.</description>
+    </item>
     
     <item>
       <title>Checkout Last Branch</title>

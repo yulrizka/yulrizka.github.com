@@ -38,6 +38,64 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/unix/find-out-what-is-using-swap/">
+    <h2>
+      find out what is using swap
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-24 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>from <a href="http://northernmost.org/blog/find-out-what-is-using-your-swap/">http://northernmost.org/blog/find-out-what-is-using-your-swap/</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="c1"># Get current swap usage for all running processes</span>
+<span class="c1"># Erik Ljungstrom 27/05/2011</span>
+<span class="nv">SUM</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">OVERALL</span><span class="o">=</span><span class="m">0</span>
+<span class="k">for</span> DIR in <span class="sb">`</span>find /proc/ -maxdepth <span class="m">1</span> -type d <span class="p">|</span> egrep <span class="s2">&#34;^/proc/[0-9]&#34;</span><span class="sb">`</span> <span class="p">;</span> <span class="k">do</span>
+        <span class="nv">PID</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$DIR</span> <span class="p">|</span> cut -d / -f 3<span class="sb">`</span>
+        <span class="nv">PROGNAME</span><span class="o">=</span><span class="sb">`</span>ps -p <span class="nv">$PID</span> -o comm --no-headers<span class="sb">`</span>
+        <span class="k">for</span> SWAP in <span class="sb">`</span>grep Swap <span class="nv">$DIR</span>/smaps 2&gt;/dev/null<span class="p">|</span> awk <span class="s1">&#39;{ print $2 }&#39;</span><span class="sb">`</span>
+        <span class="k">do</span>
+                <span class="nb">let</span> <span class="nv">SUM</span><span class="o">=</span><span class="nv">$SUM</span>+<span class="nv">$SWAP</span>
+        <span class="k">done</span>
+        <span class="nb">echo</span> <span class="s2">&#34;PID=</span><span class="nv">$PID</span><span class="s2"> - Swap used: </span><span class="nv">$SUM</span><span class="s2"> - (</span><span class="nv">$PROGNAME</span><span class="s2"> )&#34;</span>
+        <span class="nb">let</span> <span class="nv">OVERALL</span><span class="o">=</span><span class="nv">$OVERALL</span>+<span class="nv">$SUM</span>
+        <span class="nv">SUM</span><span class="o">=</span><span class="m">0</span>
+
+<span class="k">done</span>
+<span class="nb">echo</span> <span class="s2">&#34;Overall swap used: </span><span class="nv">$OVERALL</span><span class="s2">&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/prompt-confirmation-in-bash/">
     <h2>
       prompt confirmation in bash
@@ -321,90 +379,6 @@ $ sleep 5; notifyme process is finished
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/go/default-math.rand.source-is-thread-save-while-rand.newsource-is-not/">
-    <h2>
-      Default math.rand.Source is thread save while rand.New(Source) is not
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-03-13 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Default pacakge rand uses Source that is thread safe with default seed <code>1</code></p>
-<p>we can use the pacakge&rsquo;s method to have thread safe random number generation</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-  <span class="s">&#34;fmt&#34;</span>
-  <span class="s">&#34;math/rand&#34;</span>
-  <span class="s">&#34;time&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">seed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">()</span>
-  <span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="nx">seed</span><span class="p">)</span>
-  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">Int63</span><span class="p">())</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>But the <code>rand.NewSource()</code> offers thread unsafe implementation.
-One of the reason to choose the unsafe implementation to avoid
-synchronization, especially when you have only single go routine.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-  <span class="s">&#34;fmt&#34;</span>
-  <span class="s">&#34;math/rand&#34;</span>
-  <span class="s">&#34;time&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">seed</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">()</span>
-  <span class="nx">r</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">New</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">NewSource</span><span class="p">(</span><span class="nx">seed</span><span class="p">))</span>
-  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nf">Int63</span><span class="p">())</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
 
 
 
@@ -494,7 +468,18 @@ synchronization, especially when you have only single go routine.</p>
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/8/">8</a></li>
     
     
     <li class="page-item">
@@ -502,7 +487,7 @@ synchronization, especially when you have only single go routine.</p>
     </li>
     
     <li class="page-item">
-        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>
@@ -583,6 +568,10 @@ synchronization, especially when you have only single go routine.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
             </li>
           
@@ -616,10 +605,6 @@ synchronization, especially when you have only single go routine.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
             </li>
           
           </ul>

@@ -38,6 +38,66 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">
+    <h2>
+      Push Only Current Branch
+    </h2>
+  </a>
+  <div class="posted_at">
+    2020-09-17 ::
+    ( 3 minutes reading )
+  </div>
+
+  <p>Git has multiple strategy whey you do <code>git push</code></p>
+<p>Before git 2.0, it was <code>matching</code> meaning that it will push all the
+local branch that has the same name as remote. I don&rsquo;t like this because most
+of the time i just want to push my current branch and avoid mistakenly local
+branches that is not ready to be push yet.</p>
+<p>After 2.0 it changes to <code>simple</code> it will push the current branch to upstream
+with added safety so that it will refuse to push if the upstream branch name is
+different from the local one. This is ok but when you created a new branch,
+it will ask you to explicitly set the upstream branch first.</p>
+<p>My workflow is my local branch is going to be always the same name as the
+remote, and if not exist it should be created automatically. this is why
+i like the <code>current</code> strategy. To change this use</p>
+<pre><code>git config --global push.default current
+</code></pre><p>from the git documentation</p>
+<p>push.default</p>
+<p>Defines the action git push should take if no refspec is given (whether from the command-line, config, or elsewhere). Different values are well-suited for specific workflows; for instance, in a purely central workflow
+(i.e. the fetch source is equal to the push destination), upstream is probably what you want. Possible values are:</p>
+<ul>
+<li>
+<p><strong>nothing</strong> - do not push anything (error out) unless a refspec is given. This is primarily meant for people who want to avoid mistakes by always being explicit.</p>
+</li>
+<li>
+<p><strong>current</strong> - push the current branch to update a branch with the same name on the receiving end. Works in both central and non-central workflows.</p>
+</li>
+<li>
+<p><strong>upstream</strong> - push the current branch back to the branch whose changes are usually integrated into the current branch (which is called @{upstream}). This mode only makes sense if you are pushing to the same repository
+you would normally pull from (i.e. central workflow).</p>
+</li>
+<li>
+<p><strong>tracking</strong> - This is a deprecated synonym for upstream.</p>
+</li>
+<li>
+<p><strong>simple</strong> - in centralized workflow, work like upstream with an added safety to refuse to push if the upstream branch’s name is different from the local one.</p>
+<p>When pushing to a remote that is different from the remote you normally pull from, work as current. This is the safest option and is suited for beginners.</p>
+<p>This mode has become the default in Git 2.0.</p>
+</li>
+<li>
+<p><strong>matching</strong> - push all branches having the same name on both ends. This makes the repository you are pushing to remember the set of branches that will be pushed out (e.g. if you always push maint and master there and no
+other branches, the repository you push to will have these two branches, and your local maint and master will be pushed there).</p>
+<p>To use this mode effectively, you have to make sure all the branches you would push out are ready to be pushed out before running git push, as the whole point of this mode is to allow you to push all of the branches
+in one go. If you usually finish work on only one branch and push out the result, while other branches are unfinished, this mode is not for you. Also this mode is not suitable for pushing into a shared central
+repository, as other people may add new branches there, or update the tip of existing branches outside your control.</p>
+<p>This used to be the default, but not since Git 2.0 (simple is the new default).</p>
+</li>
+</ul>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">
     <h2>
       My Desktop With i3, polybar, conky, and rofi
@@ -955,29 +1015,6 @@ $ cat a.txt <span class="p">|</span> sort
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">
-    <h2>
-      Show Hidden File
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-09-22 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Tho show hidden file (file with <code>x</code>):</p>
-<p><strong>Mojave</strong>:</p>
-<p>In finder <code>CMD + Shift + .</code> to toggle it</p>
-<p><strong>Before Mojave</strong>:</p>
-<p>Show</p>
-<pre><code>defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app
-</code></pre><p>Hide</p>
-<pre><code>defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app
-</code></pre>
-</article>
-<hr/>
-
 
 
 
@@ -1063,7 +1100,16 @@ $ cat a.txt <span class="p">|</span> sort
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/8/">8</a></li>
     
     
     <li class="page-item">
@@ -1071,7 +1117,7 @@ $ cat a.txt <span class="p">|</span> sort
     </li>
     
     <li class="page-item">
-        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>
@@ -1152,6 +1198,10 @@ $ cat a.txt <span class="p">|</span> sort
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
             </li>
           
@@ -1185,10 +1235,6 @@ $ cat a.txt <span class="p">|</span> sort
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/zsh-ctrl-p-same-behavior-as-up-arrow/">Zsh Ctrl P Same Behavior as Up Arrow</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/extend-letsencrypt-certificate-with-dns-challenge/">extend letsencrypt certificate with DNS challenge</a>
             </li>
           
           </ul>
