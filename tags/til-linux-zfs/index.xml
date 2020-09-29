@@ -5,11 +5,7 @@
     <link>https://labs.yulrizka.com/tags/til-linux-zfs/</link>
     <description>Recent content in til linux zfs on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 22 Oct 2018 00:00:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://labs.yulrizka.com/tags/til-linux-zfs/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 22 Oct 2018 00:00:00 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/tags/til-linux-zfs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>zfs auto snapshot</title>
       <link>https://labs.yulrizka.com/til/linux/zfs-auto-snapshot/</link>

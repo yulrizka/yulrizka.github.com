@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.68.3" />
+	<meta name="generator" content="Hugo 0.75.1" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,31 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">
+    <h2>
+      Regex for Validating Password
+    </h2>
+  </a>
+  <div class="posted_at">
+    2019-10-25 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>This regex can be use to validate password</p>
+<pre><code>((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,20})
+</code></pre><p>description:</p>
+<pre><code>(                   # Start of group
+  (?=.*\d)          # must contains one digit from 0-9
+  (?=.*[a-z])       # must contains one lowercase characters
+  (?=.*[\W])        # must contains at least one special character
+  .                 # match anything with previous condition checking
+  {8,20}            # length at least 8 characters and maximum of 20 
+)                   # End of group
+</code></pre>
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">
@@ -466,130 +491,36 @@ git filter-branch --env-filter <span class="s1">&#39;
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/net/ldap-list-users/">
-    <h2>
-      ldap list users
-    </h2>
-  </a>
-  <div class="posted_at">
-    2018-10-31 ::
-    ( 1 minutes reading )
-  </div>
-
-  <h1 id="ldap-list-users">ldap list users</h1>
-<p>On ldap connected machine</p>
-<pre><code>$ genet group groupname
-groupname*:2141:usera,userb,userc,userd
-</code></pre>
-</article>
-<hr/>
-
-
 
 
 <ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item">
+  <li class="page-item">
+    <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
     <a href="/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/8/">8</a></li>
-    
-    
-    <li class="page-item">
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/">1</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/3/">3</a>
+  </li>
+  <li class="page-item disabled">
+    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/8/">8</a>
+  </li>
+  <li class="page-item">
     <a href="/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
+  </li>
+  <li class="page-item">
+    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
 </ul>
 
 
@@ -668,6 +599,10 @@ groupname*:2141:usera,userb,userc,userd
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
             </li>
           
@@ -701,10 +636,6 @@ groupname*:2141:usera,userb,userc,userd
           
             <li>
               <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
             </li>
           
           </ul>

@@ -42,7 +42,7 @@
 This could be caused by too many kernel installed on the machine.</p>
 <p>Command to remove old kernel from <a href="http://askubuntu.com/questions/2793/how-do-i-remove-old-kernel-versions-to-clean-up-the-boot-menu">here</a></p>
 <pre><code>dpkg --list | grep linux-image | awk '{ print $2 }' | sort -V | sed -n '/'`uname -r`'/q;p' | xargs sudo apt-get -y purge
-</code></pre><p>dpkg &ndash;list | grep linux-image | awk &lsquo;{ print $2 }&rsquo; | sort -V | sed -n &lsquo;/&lsquo;<code>uname -r</code>&rsquo;/q;p&rsquo; | xargs sudo apt-get -y purgenation (remember, <code>|</code> uses the output of the previous command as the input to the next)</p>
+</code></pre><p>dpkg &ndash;list | grep linux-image | awk &lsquo;{ print $2 }&rsquo; | sort -V | sed -n &lsquo;/'<code>uname -r</code>'/q;p&rsquo; | xargs sudo apt-get -y purgenation (remember, <code>|</code> uses the output of the previous command as the input to the next)</p>
 <ul>
 <li><code>dpkg --list</code> lists all installed packages</li>
 <li><code>grep linux-image</code> looks for the installed linux images</li>
@@ -152,6 +152,10 @@ This could be caused by too many kernel installed on the machine.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
             </li>
           
@@ -185,10 +189,6 @@ This could be caused by too many kernel installed on the machine.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
             </li>
           
           </ul>

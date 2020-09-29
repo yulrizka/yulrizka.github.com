@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.68.3" />
+	<meta name="generator" content="Hugo 0.75.1" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,32 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/keep-n-recent-item-in-folder/">
+    <h2>
+      keep N recent item in folder
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-26 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Sometimes you create a script that generate something
+but you wanted to only keep N last item. There is couple way to achive this.
+This version works both on OSX and Linux.</p>
+<pre><code>$ (ls -t|head -n 5;ls)|sort|uniq -u|xargs rm
+</code></pre><p>Basically it the <code>(..)</code> will capture together the output</p>
+<ol>
+<li><code>ls -t | head -n 5</code> will list files sort by time and get first 5 items</li>
+<li>The second <code>ls</code> will list all file. Now it contains duplicate items for items we want to keep</li>
+<li><code>sort|uniq -u</code> will sort it, and remove those duplicate file in step 1. At this point it will contains only files that we want to delete (everything except files from step 1)</li>
+<li><code>xargs rm</code> will change the resulst into space separated value which is argument for <code>rm</code></li>
+</ol>
+
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/osx/starting-program-on-startup-with-login-items/">
@@ -351,138 +377,45 @@ that receive an input and send it to all other windows. I like  i2cssh approach 
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/grep-print-only-matched/">
-    <h2>
-      grep - print only matched
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-03-16 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>you can use the <code>-o</code> flag to only print matched value. Example</p>
-<pre><code>$ echo &quot;Hello fellow unix fan&quot; | grep --color -o nix
-nix
-$ echo &quot;Hello fellow unix fan&quot; | grep --color -o nux 
-$ echo $?
-1
-</code></pre>
-</article>
-<hr/>
-
-
 
 
 <ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item">
+  <li class="page-item">
+    <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
     <a href="/page/4/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/4/">4</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/page/5/">5</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/6/">6</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/8/">8</a></li>
-    
-    
-    <li class="page-item">
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/">1</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/3/">3</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/4/">4</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/page/5/">5</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/6/">6</a>
+  </li>
+  <li class="page-item disabled">
+    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/8/">8</a>
+  </li>
+  <li class="page-item">
     <a href="/page/6/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
+  </li>
+  <li class="page-item">
+    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
 </ul>
 
 
@@ -561,6 +494,10 @@ $ echo $?
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
             </li>
           
@@ -594,10 +531,6 @@ $ echo $?
           
             <li>
               <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
             </li>
           
           </ul>

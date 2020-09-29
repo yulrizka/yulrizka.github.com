@@ -5,10 +5,15 @@
     <link>https://labs.yulrizka.com/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 17 Sep 2020 13:58:03 +0200</lastBuildDate>
-    
-	<atom:link href="https://labs.yulrizka.com/tags/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 29 Sep 2020 09:37:31 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>til,git</title>
+      <link>https://labs.yulrizka.com/tags/tilgit/</link>
+      <pubDate>Tue, 29 Sep 2020 09:37:31 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/tags/tilgit/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>k8s til</title>
@@ -83,15 +88,6 @@
     </item>
     
     <item>
-      <title>go</title>
-      <link>https://labs.yulrizka.com/tags/go/</link>
-      <pubDate>Sat, 25 Apr 2020 15:47:49 +0200</pubDate>
-      
-      <guid>https://labs.yulrizka.com/tags/go/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>golang</title>
       <link>https://labs.yulrizka.com/tags/golang/</link>
       <pubDate>Sat, 25 Apr 2020 15:47:49 +0200</pubDate>
@@ -106,15 +102,6 @@
       <pubDate>Sun, 08 Mar 2020 13:23:49 +0100</pubDate>
       
       <guid>https://labs.yulrizka.com/tags/unix-til/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>til osx</title>
-      <link>https://labs.yulrizka.com/tags/til-osx/</link>
-      <pubDate>Sun, 22 Sep 2019 16:20:01 +0200</pubDate>
-      
-      <guid>https://labs.yulrizka.com/tags/til-osx/</guid>
       <description></description>
     </item>
     
@@ -191,6 +178,15 @@
     </item>
     
     <item>
+      <title>til osx</title>
+      <link>https://labs.yulrizka.com/tags/til-osx/</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/tags/til-osx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>til unix cli</title>
       <link>https://labs.yulrizka.com/tags/til-unix-cli/</link>
       <pubDate>Tue, 16 Aug 2016 00:00:00 +0200</pubDate>
@@ -236,6 +232,15 @@
     </item>
     
     <item>
+      <title>go</title>
+      <link>https://labs.yulrizka.com/tags/go/</link>
+      <pubDate>Sat, 29 Aug 2015 17:28:00 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>web</title>
       <link>https://labs.yulrizka.com/tags/web/</link>
       <pubDate>Sun, 22 Mar 2015 00:26:00 +0200</pubDate>
@@ -263,15 +268,6 @@
     </item>
     
     <item>
-      <title>ruby</title>
-      <link>https://labs.yulrizka.com/tags/ruby/</link>
-      <pubDate>Sun, 21 Jul 2013 23:26:00 +0200</pubDate>
-      
-      <guid>https://labs.yulrizka.com/tags/ruby/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>ruby, web</title>
       <link>https://labs.yulrizka.com/tags/ruby-web/</link>
       <pubDate>Sun, 21 Jul 2013 23:26:00 +0200</pubDate>
@@ -295,6 +291,15 @@
       <pubDate>Tue, 26 Feb 2013 20:33:00 +0200</pubDate>
       
       <guid>https://labs.yulrizka.com/tags/raspberrypi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ruby</title>
+      <link>https://labs.yulrizka.com/tags/ruby/</link>
+      <pubDate>Sat, 14 Jan 2012 17:32:00 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/tags/ruby/</guid>
       <description></description>
     </item>
     

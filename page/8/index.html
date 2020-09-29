@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.68.3" />
+	<meta name="generator" content="Hugo 0.75.1" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -38,6 +38,114 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">
+    <h2>
+      Ruby Fiber apaan sih ?
+    </h2>
+  </a>
+  <div class="posted_at">
+    0001-01-01 ::
+    ( 3 minutes reading )
+  </div>
+
+  <blockquote>
+  <p>
+    Fibers are light-weight (green) <a href="https://en.wikipedia.org/wiki/Thread_(computing)" alt="wiki Thread (Computing)">
+      threads</a> with manual, cooperative scheduling, rather than the preemptive scheduling
+    of Ruby 1.8's threads. Since Ruby 1.9's threads exist at the system level, fibers are, in a way,
+    Ruby 1.9's answer to Ruby 1.8's green threads, but lacking the pre-emptive scheduling
+  </p>
+  <small>
+    <a href="https://www.rubyinside.com/ruby-fibers-8-useful-reads-on-rubys-new-concurrency-feature-1769.html">
+      rubyinside.com
+    </a>
+  </small>
+</blockquote>
+<h2>Thread</h2>
+Untuk dapat mengerti mengenai fiber, sebelumnya kita harus memahami thread. Suatu (*instance*) program yang sedang berjalan
+disebut dengan proses. thread adalah unit proses (potongan kode) yang dapat dijalankan secara simultan. Jadi sekan-akan
+program tersebut bercabang.
+<p>Ambil contoh program Web Server yang diimplementasi menggunakan thread. Fungsi Web Server (WS) adalah menerima request dan
+memberikan response kepada web browser. Misalkan WS tersebut hanya memiliki 1 proses, maka apabila ada 10 user yang melakukan
+request, maka mereka harus mengantri untuk menerima response dari server. Hal ini bisa diatasi salah satunya dengan menggunakan
+thread. Apabila terdapat suatu request, maka proses utama membuat (<em>spawn</em>) suatu thread untuk menangani request tersebut.
+Misalkan ada 10 request disaat yang bersamaan, maka terdapat 10 thread yang jalan disaat yang bersamaan. Dalam kasus ini
+maka 10 user tersebut akan dilayani pada waktu yang bersamaan.</p>
+<p>Ruby 1.8.7 (MRI) memiliki tipe <em>green thread</em>, yaitu thread yang dikelola oleh <em>Virtual Machine</em> sedangkan normalnya thread
+dikelola oleh <em>Operating System</em> (OS) atau <em>native thread</em>. Namun implementasi threads untuk tiap interpreter berbeda. Misalkan
+pada JRuby dan Rubinius yang menggunakan native threads.</p>
+<p>Eksekusi setiap threads dikelola oleh program yang dinamakan <em>scheduler</em>. <em>preemptive scheduling</em> adalah suatu metode
+yang digunakan <em>scheduler</em> dengan memanfaatkan <em>interrupt</em>. Artinya scheduler mengirimkan <em>interrupt</em> kepada suatu thread
+untuk berhenti dan menjalankan thread lain. secara default MRI menggunakan <em>fair scheduler</em>. Artinya masing-masing thread
+akan dijadwalkan (dijalankan) dengan waktu yang sama.</p>
+<h2>Fiber</h2>
+Fiber adalah fitur yang pertamakali diperkenalkan pada ruby 1.9 (Meskipun ada hack untuk ruby 1.8.{67}).
+Fiber mirip dengan thread. Namun pada fiber, user yang memiliki kontrol terhadap eksekusi kode, bukan *scheduler*.
+setiap fiber memiliki 4Kb memori sehingga cukup "murah" untuk dibuat. Berikut adalah contoh dari (igvita.com).
+<p>Terdapat 2 thread: Thread pertama melakukan io-blocking selama 40ms dan komputasi 10ms. sedangkan
+thread kedua melakukan 50ms komputasi.</p>
+<p>Berikut adalah implementasi dalam thread dan juga fiber:</p>
+<div class="thumbnail">
+  <img src="https://www.igvita.com/posts/09/fibers-vs-threads.png"></img>
+  <div class="caption">
+    Komparasi kode yang dijalankan menggunakan thread &nbsp; fiber.
+    <a href="https://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/">http://www.igvita.com/2009/05/13/fibers-cooperative-scheduling-in-ruby/</a>
+  </div>
+</div><br/>
+<p>Pada contoh pertama, thread 2 memakan waktu 100ms, sedangkan pada contoh yang kedua hanya memakan waktu 60ms.</p>
+<p>Dengan menggunakan fiber, program berjalan sekan-akan sychronous (blocking). Oleh karena itu fiber
+merupakan kandidat yang cocok untuk diterapkan pada pemograman <em>Event-Driven</em> atau <em>Asynchronous programming</em> seperti
+pada <em>EventMachine</em> di ruby</p>
+<h2>Cara Menggunakan Fiber</h2>
+Untuk dapat memahami fiber, kita ambil contoh seperti berikut. Program ini sebenarnya tidak berguna, tapi cukup untuk
+mendemonstrasikan alur penggunaan fiber
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="n">fiber</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
+    <span class="nb">puts</span> <span class="s2">&#34;Fiber: Beginning of fiber&#34;</span>
+    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 11)</span>
+    <span class="nb">puts</span> <span class="s2">&#34;Fiber: Halo main, saya fiber&#34;</span>
+    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 13)</span>
+    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="s2">&#34;Fiber: Sekarang </span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2">&#34;</span>
+  <span class="k">end</span>
+
+  <span class="nb">puts</span> <span class="s2">&#34;Main: Beginning main&#34;</span>
+  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 2)</span>
+  <span class="nb">puts</span> <span class="s2">&#34;Main: Hello saya main thread&#34;</span>
+  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 4)</span>
+  <span class="nb">puts</span> <span class="s2">&#34;Main: Sekarang jam berapa ya ?&#34;</span>
+  <span class="nb">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 6) dan output hasil</span>
+</code></pre></td></tr></table>
+</div>
+</div><pre>
+     Main: Beginning main
+     Fiber: Beginning of fiber
+     Main: Hello saya main thread
+     Fiber: Halo main, saya fiber
+     Main: Sekarang jam berapa ya ?
+     Fiber: Sekarang 2012-02-29 22:45:08 +0700
+</pre>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">
     <h2>
       Scale MongoDB dengan Sharding
@@ -53,7 +161,7 @@
   Proses <em>Horizontal Partitioning</em> pada MongoDB melibatkan suatu konsep <em>Chunk</em> dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
   <em>shard key</em>. Artikel ini membahas bagaimana melakukan sharding pada mongodb
 </div>
-<h2 id="introduksi-">Introduksi</h2>
+<h2 id="introduksi">Introduksi</h2>
 <p>MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format
 BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database,
 kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis</p>
@@ -73,11 +181,11 @@ kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan loa
     <h5>Skema Sharding - MongoDB Sharding Introduction</h5>
   </a>
 </div>
-<h3 id="mongod-">mongod</h3>
+<h3 id="mongod">mongod</h3>
 <p>mongod adalah core dari mongoDB. mongod adalah satu instance server mongo. Saya sendiri tidak tau kepanjangan dari mongod tapi kalau menebak,
 mungkin yang dimaksud adalah mongo daemon. Kalau di analogikan, 1 mongod adalah 1 server database (misalkan sama dengan 1 server mysql). Sehingga
 satu aplikasi sedehana cukup dibuat dengan 1 application server yang berkomunikasi dengan 1 mongod</p>
-<h3 id="replica-">Replica</h3>
+<h3 id="replica">Replica</h3>
 <p>Replica set adalah suatu bentuk Master/slave database. 1 replika terdiri dari 2 atau lebih proses mongod yang memiliki data yang sama.
 Replica bertujuan untuk <em>failover</em>, <em>reducancy</em> juga sebagai <em>distribution read load</em>
 . Artinya apabila terdapat beberapa request read terhadap data yang sama, maka request tersebut bisa di handle oleh lebih dari satu server</p>
@@ -122,7 +230,7 @@ center jakarta, bandung ke bandung dan lainya ke surabaya. Apabila terdapat requ
 data tersebut.</p>
 <p>Shard dalam mongoDB teridiri dari beberapa server (mongod). Beberapa server tersebut dalam shard membentuk replika set. sehingga dapat kita katakan
 suatu replika set berada pada suatu sharding.</p>
-<h3 id="shard-key-">shard key</h3>
+<h3 id="shard-key">shard key</h3>
 <p>Untuk membagi-bagi suatu data, maka dibutuhkan suatu <em>key</em> yang menentukan data tersebut akan masuk ke shard yang mana. Key tersebut disebut dengan
 <strong>shard key</strong>. untuk contoh diatas <em>shard key</em> adalah lokasi. Pada contoh lain kita dapat membuat email sebagai <em>shard key</em>. sehingga data suatu
 user akan dikelompokkan pada suatu shard yang sama.</p>
@@ -130,7 +238,7 @@ user akan dikelompokkan pada suatu shard yang sama.</p>
 mempengaruhi performa dari sistem. Pemilihan <em>shard key</em> yang salah dapat menyebabkan database beroperasi lebih lambat dari <em>single instance</em>
 database.</p>
 <p>Untuk kriteria pemilihan <em>shard key</em> dapat dilihat pada artikel <a href="http://www.mongodb.org/display/DOCS/Choosing+a+Shard+Key"><em>Choosing a shard key</em></a></p>
-<h3 id="chunks-">Chunks</h3>
+<h3 id="chunks">Chunks</h3>
 <p><em>Chunk</em> adalah <em>continuous range of data for a particular collection</em>. Misalkan kita melakukan partisi data berdasarkan ID. dan ID tersebut
 merupakan bilangan integer antara 1..1000. Kita dapat membagi data tersebut dalam beberapa bagian (chunk) dengan ukuran yang sama. Secara
 default ukuran 1 <em>chunk</em> dalam mongoDB adalah 64MB (meskipun bisa dikonfigurasi). Untuk contoh kasus data tersebut bisa dibagi menjadi 10 chunk.
@@ -146,20 +254,20 @@ dari suatu shard ke shard yang lain.</p>
 <p>Misalkan contoh diatas, 3 shard. Pada shard pertama terdapat 10 chunk. MongoDB akan melakukan balancing dengan melakukan transfer ke 2 shard
 yang lain sampai ukuran chunk pada tiap shard menjadi seimbang. Hal ini dilakukan secara automatis, meskipun kita juga dapat melakukannya secara
 manual.</p>
-<h3 id="config-db-process-config-server-">Config DB Process (Config server)</h3>
+<h3 id="config-db-process-config-server">Config DB Process (Config server)</h3>
 <p>Selain mongod, dalam proses sharding dibutuhkan suatu prosess (program) yang bertugas untuk menyimpan informasi mengenai shard-server dan chunk
 didalam shard tersebut. informasi tersebut dikenal dengan meta-data. Kita dapat menjalankan 1 atau 3 <em>Config Server</em>. Tentu pada production
 dibutuhkan 3 config server. Ketika satu mati maka masih tersisa 2 cadangan <em>Config server</em>.</p>
 <p>Tidak seperti mongod, <em>Config Server</em> tidak berkomunikasi antara satu dengan yang lain. Ketika satu proses mati, biasanya dihidupkan dengan
 melakukan restore terhadap dump dari server yang lain. Ketika server ini mati.</p>
-<h3 id="routing-process-mongos-">Routing Process (mongos)</h3>
+<h3 id="routing-process-mongos">Routing Process (mongos)</h3>
 <p>Selain mongod dan <em>config server</em>, element lain yang penting adalah <strong>mongos</strong>. Fungsi utama dari mongos adalah melakukan routing terhadap
 request ke shard yang memiliki data tersebut. Pada saat aplikasi ini dijalankan. ia akan mengambil data dari <em>config server</em>. Aplikasi yang
 kita miliki berkomunikasi layaknya dengan server database biasa. Misalkan sebelumnya aplikasi kita setup ke url mongod, sekarang setelah
 kita melakukan konfigurasi pada sharding, kita cukup mengarahkan url ke proses mongos.</p>
 <p>Proses mongos ini relativ lebih kecil. Kadang kita dapat menjalankan mongos pada server aplikasi kita. Ada juga yang menjalankan proses mongos
 di mesin yang sama dengan mongod.</p>
-<h2 id="implementasi-">Implementasi</h2>
+<h2 id="implementasi">Implementasi</h2>
 <p>Ok, setelah kita mengerti beberapa konsep mengenai sharding, mari kita membuat suatu contoh kasus bagaimana melakukan implementasi terhadap
 sharding berikut. Untuk kemudahan, maka semua <em>instance</em> server ktia letakkan pada server yang sama (localhost). Hal ini berlaku untuk
 mongod, Config Server, mongos dan server aplikasi.</p>
@@ -169,7 +277,7 @@ mongod, Config Server, mongos dan server aplikasi.</p>
 <li>1 Config Server. port 20000</li>
 <li>1 Mongos</li>
 </ul>
-<h3 id="mongod--1">Mongod</h3>
+<h3 id="mongod-1">Mongod</h3>
 <p>Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo server. Untuk menjalankan 2 proses mongod, jalankan perintah berikut</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -191,7 +299,7 @@ mongod, Config Server, mongos dan server aplikasi.</p>
   $ cat /tmp/shardb.log <span class="c1"># pastikan process tersebut berjalan</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="configuration-server--mongos-">Configuration Server &amp; Mongos</h3>
+</div><h3 id="configuration-server--mongos">Configuration Server &amp; Mongos</h3>
 <p>Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos dengan perintah berikut</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -217,10 +325,10 @@ mongod, Config Server, mongos dan server aplikasi.</p>
 akan menjalankan mongos pada port default (sama serperti port default mongod) yaitu 27017</p>
 <p><code>--chinkSize 1</code> merupakan opsi untuk menentukan ukuran chunk 1MB (defaultnya 64MB). Hal ini bertujuan untuk explorasi saja. sehingga kita tidak
 perlu memassukkan data berukuran 64MB untuk membuat satu chuck baru.</p>
-<h2 id="setup-cluster-">Setup Cluster</h2>
+<h2 id="setup-cluster">Setup Cluster</h2>
 <p>Sampai tahap ini yang telah kita lakukan adalah mejalankan 2 <em>process</em> mongod, 1 <em>process config server</em> dan 1 <em>process</em> mongos. Berikutnya
 yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berkomunikasi.</p>
-<h3 id="konfigurasi-shard-server-pada-mongos-">Konfigurasi Shard Server pada mongos</h3>
+<h3 id="konfigurasi-shard-server-pada-mongos">Konfigurasi Shard Server pada mongos</h3>
 <p>Berikutnya yang kita lakukan adalah setup mongos agar menambahkan 2 shard server yang berjalan pada port 10000 &amp; 10001.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -320,9 +428,9 @@ switched to db admin
 </div>
 </div><p>Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.</p>
 <p>Ok, sampai tahap ini kita telah selesai melakukan shard terhadap server tersebut</p>
-<h2 id="lets-play-">Let&rsquo;s Play</h2>
+<h2 id="lets-play">Let&rsquo;s Play</h2>
 <p>Sekarang saatnya kita melakukan percobaan dengan shard dan chunk.</p>
-<h3 id="tambahkan-data-pada-collection-">Tambahkan data pada collection</h3>
+<h3 id="tambahkan-data-pada-collection">Tambahkan data pada collection</h3>
 <p>Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collection tersebut.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -378,7 +486,7 @@ data menjadi 3 chuck</p>
   &gt;
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="melihat-informasi-jumlah-shard-">Melihat informasi jumlah shard</h3>
+</div><h3 id="melihat-informasi-jumlah-shard">Melihat informasi jumlah shard</h3>
 <p>untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -418,7 +526,7 @@ data menjadi 3 chuck</p>
   <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="melihat-informasi-chunk-">Melihat informasi Chunk</h3>
+</div><h3 id="melihat-informasi-chunk">Melihat informasi Chunk</h3>
 <p>Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -533,7 +641,7 @@ data menjadi 3 chuck</p>
 <li>test.people-email_&quot;email-9@foo.com&quot; berada pada shard0000</li>
 </ul>
 <p>MongoDB ternyata melakukan partisi terhadap <em>shard key</em> dengan memperlakukan key tersebut sebagai string.</p>
-<h3 id="memindahkan-chunk-ke-shard-lain-">Memindahkan Chunk ke shard lain</h3>
+<h3 id="memindahkan-chunk-ke-shard-lain">Memindahkan Chunk ke shard lain</h3>
 <p>Misalkan pada contoh diatas kita ingin memindahkan chunk <code>test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000</code> dari shard0000 je shard0001. Hal tersebut
 dapat dilakukan dengan perintah berikut</p>
 <div class="highlight"><div class="chroma">
@@ -745,111 +853,37 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
 
 
 
-
 <ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item">
+  <li class="page-item">
+    <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
     <a href="/page/7/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/page/8/">8</a></li>
-    
-    
-    <li class="page-item disabled">
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/">1</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/3/">3</a>
+  </li>
+  <li class="page-item disabled">
+    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/7/">7</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/page/8/">8</a>
+  </li>
+  <li class="page-item disabled">
     <a  class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
+  </li>
+  <li class="page-item">
+    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
 </ul>
 
 
@@ -928,6 +962,10 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
             </li>
           
@@ -961,10 +999,6 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
             </li>
           
           </ul>

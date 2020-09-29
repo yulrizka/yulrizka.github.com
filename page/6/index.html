@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.68.3" />
+	<meta name="generator" content="Hugo 0.75.1" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,27 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/grep-print-only-matched/">
+    <h2>
+      grep - print only matched
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-03-16 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>you can use the <code>-o</code> flag to only print matched value. Example</p>
+<pre><code>$ echo &quot;Hello fellow unix fan&quot; | grep --color -o nix
+nix
+$ echo &quot;Hello fellow unix fan&quot; | grep --color -o nux 
+$ echo $?
+1
+</code></pre>
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/unix/send-slack-message-from-command-line/">
@@ -163,7 +184,7 @@ synchronization, especially when you have only single go routine.</p>
 This could be caused by too many kernel installed on the machine.</p>
 <p>Command to remove old kernel from <a href="http://askubuntu.com/questions/2793/how-do-i-remove-old-kernel-versions-to-clean-up-the-boot-menu">here</a></p>
 <pre><code>dpkg --list | grep linux-image | awk '{ print $2 }' | sort -V | sed -n '/'`uname -r`'/q;p' | xargs sudo apt-get -y purge
-</code></pre><p>dpkg &ndash;list | grep linux-image | awk &lsquo;{ print $2 }&rsquo; | sort -V | sed -n &lsquo;/&lsquo;<code>uname -r</code>&rsquo;/q;p&rsquo; | xargs sudo apt-get -y purgenation (remember, <code>|</code> uses the output of the previous command as the input to the next)</p>
+</code></pre><p>dpkg &ndash;list | grep linux-image | awk &lsquo;{ print $2 }&rsquo; | sort -V | sed -n &lsquo;/'<code>uname -r</code>'/q;p&rsquo; | xargs sudo apt-get -y purgenation (remember, <code>|</code> uses the output of the previous command as the input to the next)</p>
 <ul>
 <li><code>dpkg --list</code> lists all installed packages</li>
 <li><code>grep linux-image</code> looks for the installed linux images</li>
@@ -967,176 +988,45 @@ translucent mic icon. If you hold down the <strong>Right Options</strong> key, i
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/process-pipe-operator/">
-    <h2>
-      process pipe operator
-    </h2>
-  </a>
-  <div class="posted_at">
-    2015-02-12 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p><code>&lt;( )</code> operator executes command inside the parenthesis and output the file descriptor</p>
-<p>example</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span><span class="o">)</span> &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;world&#39;</span><span class="o">)</span>
-hello
-world
-
-<span class="c1"># is practically the same with</span>
-
-$ <span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span> &gt; 1.txt
-$ <span class="nb">echo</span> <span class="s1">&#39;world&#39;</span> &gt; 2.txt
-$ cat 1.txt 2.txt
-
-<span class="c1"># replace cat with ls</span>
-$ ls &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;hello&#39;</span><span class="o">)</span> &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&#39;world&#39;</span><span class="o">)</span>
-/proc/self/fd/11  /proc/self/fd/12
-</code></pre></td></tr></table>
-</div>
-</div><p>you can use this command for example to compare 2 directory and find only uniq file</p>
-<p>example:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ comm -3 &lt;<span class="o">(</span>ls -1 dir1<span class="o">)</span> &lt;<span class="o">(</span>ls -1 dir2<span class="o">)</span>
-</code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
-
 
 
 <ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item">
+  <li class="page-item">
+    <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
     <a href="/page/5/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/5/">5</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/page/6/">6</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/8/">8</a></li>
-    
-    
-    <li class="page-item">
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/">1</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/3/">3</a>
+  </li>
+  <li class="page-item disabled">
+    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/5/">5</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/page/6/">6</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/7/">7</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/8/">8</a>
+  </li>
+  <li class="page-item">
     <a href="/page/7/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
+  </li>
+  <li class="page-item">
+    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
 </ul>
 
 
@@ -1215,6 +1105,10 @@ $ ls &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
             </li>
           
@@ -1248,10 +1142,6 @@ $ ls &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s1">&
           
             <li>
               <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
             </li>
           
           </ul>

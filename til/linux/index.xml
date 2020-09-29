@@ -5,11 +5,7 @@
     <link>https://labs.yulrizka.com/til/linux/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 24 Oct 2018 00:00:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://labs.yulrizka.com/til/linux/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 24 Oct 2018 00:00:00 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/til/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>zfs external backup drive with snapshot and encryption</title>
       <link>https://labs.yulrizka.com/til/linux/zfs-external-backup-drive-with-snapshot-and-encryption/</link>
@@ -91,7 +87,7 @@ When you delete a file it removes one link to the underlying inode. The inode is
       <guid>https://labs.yulrizka.com/til/linux/removing-old-kernel/</guid>
       <description>When upgrading ubuntu, sometimes it failed because of insufficient disk on boot. This could be caused by too many kernel installed on the machine.
 Command to remove old kernel from here
-dpkg --list | grep linux-image | awk &#39;{ print $2 }&#39; | sort -V | sed -n &#39;/&#39;`uname -r`&#39;/q;p&#39; | xargs sudo apt-get -y purge dpkg &amp;ndash;list | grep linux-image | awk &amp;lsquo;{ print $2 }&amp;rsquo; | sort -V | sed -n &amp;lsquo;/&amp;lsquo;uname -r&amp;rsquo;/q;p&amp;rsquo; | xargs sudo apt-get -y purgenation (remember, | uses the output of the previous command as the input to the next)</description>
+dpkg --list | grep linux-image | awk &#39;{ print $2 }&#39; | sort -V | sed -n &#39;/&#39;`uname -r`&#39;/q;p&#39; | xargs sudo apt-get -y purge dpkg &amp;ndash;list | grep linux-image | awk &amp;lsquo;{ print $2 }&amp;rsquo; | sort -V | sed -n &amp;lsquo;/&#39;uname -r&#39;/q;p&amp;rsquo; | xargs sudo apt-get -y purgenation (remember, | uses the output of the previous command as the input to the next)</description>
     </item>
     
   </channel>

@@ -5,10 +5,16 @@
     <link>https://labs.yulrizka.com/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 17 Sep 2020 13:58:03 +0200</lastBuildDate>
-    
-	<atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 29 Sep 2020 09:37:31 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Global Gitignore File</title>
+      <link>https://labs.yulrizka.com/til/git/global-gitignore-file/</link>
+      <pubDate>Tue, 29 Sep 2020 09:37:31 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/git/global-gitignore-file/</guid>
+      <description>To create a global git ignore that apply across all git repository
+$ echo `.DS_Store` &amp;gt; ~/.gitignore $ git config --global core.excludesfile ~/.gitignore </description>
+    </item>
     
     <item>
       <title>View kubernetes secret</title>
@@ -617,7 +623,7 @@ we can use the pacakge&amp;rsquo;s method to have thread safe random number gene
       <guid>https://labs.yulrizka.com/til/linux/removing-old-kernel/</guid>
       <description>When upgrading ubuntu, sometimes it failed because of insufficient disk on boot. This could be caused by too many kernel installed on the machine.
 Command to remove old kernel from here
-dpkg --list | grep linux-image | awk &#39;{ print $2 }&#39; | sort -V | sed -n &#39;/&#39;`uname -r`&#39;/q;p&#39; | xargs sudo apt-get -y purge dpkg &amp;ndash;list | grep linux-image | awk &amp;lsquo;{ print $2 }&amp;rsquo; | sort -V | sed -n &amp;lsquo;/&amp;lsquo;uname -r&amp;rsquo;/q;p&amp;rsquo; | xargs sudo apt-get -y purgenation (remember, | uses the output of the previous command as the input to the next)</description>
+dpkg --list | grep linux-image | awk &#39;{ print $2 }&#39; | sort -V | sed -n &#39;/&#39;`uname -r`&#39;/q;p&#39; | xargs sudo apt-get -y purge dpkg &amp;ndash;list | grep linux-image | awk &amp;lsquo;{ print $2 }&amp;rsquo; | sort -V | sed -n &amp;lsquo;/&#39;uname -r&#39;/q;p&amp;rsquo; | xargs sudo apt-get -y purgenation (remember, | uses the output of the previous command as the input to the next)</description>
     </item>
     
     <item>

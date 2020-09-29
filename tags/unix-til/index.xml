@@ -5,11 +5,7 @@
     <link>https://labs.yulrizka.com/tags/unix-til/</link>
     <description>Recent content in unix til on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 08 Mar 2020 13:23:49 +0100</lastBuildDate>
-    
-	<atom:link href="https://labs.yulrizka.com/tags/unix-til/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 08 Mar 2020 13:23:49 +0100</lastBuildDate><atom:link href="https://labs.yulrizka.com/tags/unix-til/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Replacing Last Command and Execute It</title>
       <link>https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/</link>

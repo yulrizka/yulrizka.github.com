@@ -5,11 +5,7 @@
     <link>https://labs.yulrizka.com/til/analytics/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 07 Jun 2016 00:00:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://labs.yulrizka.com/til/analytics/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 07 Jun 2016 00:00:00 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/til/analytics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>convert json perline to panads data frame</title>
       <link>https://labs.yulrizka.com/til/analytics/convert-json-perline-to-panads-data-frame/</link>

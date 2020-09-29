@@ -5,11 +5,7 @@
     <link>https://labs.yulrizka.com/tags/linux-web/</link>
     <description>Recent content in linux, web on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 08 Jul 2013 16:24:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://labs.yulrizka.com/tags/linux-web/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 08 Jul 2013 16:24:00 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/tags/linux-web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Safely sharing credentials with PGP</title>
       <link>https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/</link>

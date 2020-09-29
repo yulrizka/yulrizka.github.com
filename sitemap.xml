@@ -4,7 +4,32 @@
   
   <url>
     <loc>https://labs.yulrizka.com/</loc>
-    <lastmod>2020-09-17T13:58:03+02:00</lastmod>
+    <lastmod>2020-09-29T09:37:31+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/git/</loc>
+    <lastmod>2020-09-29T09:37:31+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/git/global-gitignore-file/</loc>
+    <lastmod>2020-09-29T09:37:31+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/</loc>
+    <lastmod>2020-09-29T09:37:31+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/tilgit/</loc>
+    <lastmod>2020-09-29T09:37:31+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/til/</loc>
+    <lastmod>2020-09-29T09:37:31+02:00</lastmod>
   </url>
   
   <url>
@@ -18,23 +43,8 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/</loc>
-    <lastmod>2020-09-17T13:58:03+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/til/</loc>
-    <lastmod>2020-09-17T13:58:03+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://labs.yulrizka.com/til/k8s/view-secret/</loc>
     <lastmod>2020-09-17T13:58:03+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/til/git/</loc>
-    <lastmod>2020-09-17T13:28:16+02:00</lastmod>
   </url>
   
   <url>
@@ -103,11 +113,6 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/go/</loc>
-    <lastmod>2020-04-25T15:47:49+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://labs.yulrizka.com/tags/golang/</loc>
     <lastmod>2020-04-25T15:47:49+02:00</lastmod>
   </url>
@@ -154,11 +159,6 @@
   
   <url>
     <loc>https://labs.yulrizka.com/til/osx/show-hidden-file/</loc>
-    <lastmod>2019-09-22T16:20:01+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://labs.yulrizka.com/tags/til-osx/</loc>
     <lastmod>2019-09-22T16:20:01+02:00</lastmod>
   </url>
   
@@ -294,6 +294,11 @@
   
   <url>
     <loc>https://labs.yulrizka.com/til/osx/list-open-port/</loc>
+    <lastmod>2017-03-16T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/til-osx/</loc>
     <lastmod>2017-03-16T00:00:00+02:00</lastmod>
   </url>
   
@@ -483,6 +488,11 @@
   </url>
   
   <url>
+    <loc>https://labs.yulrizka.com/tags/go/</loc>
+    <lastmod>2015-08-29T17:28:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/</loc>
     <lastmod>2015-08-29T17:28:00+02:00</lastmod>
   </url>
@@ -533,11 +543,6 @@
   </url>
   
   <url>
-    <loc>https://labs.yulrizka.com/tags/ruby/</loc>
-    <lastmod>2013-07-21T23:26:00+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://labs.yulrizka.com/tags/ruby-web/</loc>
     <lastmod>2013-07-21T23:26:00+02:00</lastmod>
   </url>
@@ -569,6 +574,11 @@
   
   <url>
     <loc>https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/</loc>
+    <lastmod>2012-01-14T17:32:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://labs.yulrizka.com/tags/ruby/</loc>
     <lastmod>2012-01-14T17:32:00+02:00</lastmod>
   </url>
   

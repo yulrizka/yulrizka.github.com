@@ -5,11 +5,7 @@
     <link>https://labs.yulrizka.com/tags/til-unix-jq/</link>
     <description>Recent content in til unix jq on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 09 Oct 2017 00:00:00 +0200</lastBuildDate>
-    
-	<atom:link href="https://labs.yulrizka.com/tags/til-unix-jq/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 09 Oct 2017 00:00:00 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/tags/til-unix-jq/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>jq extracting properties to arrays from JSON row line</title>
       <link>https://labs.yulrizka.com/til/unix/jq-extracting-properties-to-arrays-from-json-row-line/</link>

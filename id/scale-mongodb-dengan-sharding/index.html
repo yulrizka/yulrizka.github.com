@@ -43,7 +43,7 @@
   Proses <em>Horizontal Partitioning</em> pada MongoDB melibatkan suatu konsep <em>Chunk</em> dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
   <em>shard key</em>. Artikel ini membahas bagaimana melakukan sharding pada mongodb
 </div>
-<h2 id="introduksi-">Introduksi</h2>
+<h2 id="introduksi">Introduksi</h2>
 <p>MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format
 BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database,
 kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis</p>
@@ -63,11 +63,11 @@ kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan loa
     <h5>Skema Sharding - MongoDB Sharding Introduction</h5>
   </a>
 </div>
-<h3 id="mongod-">mongod</h3>
+<h3 id="mongod">mongod</h3>
 <p>mongod adalah core dari mongoDB. mongod adalah satu instance server mongo. Saya sendiri tidak tau kepanjangan dari mongod tapi kalau menebak,
 mungkin yang dimaksud adalah mongo daemon. Kalau di analogikan, 1 mongod adalah 1 server database (misalkan sama dengan 1 server mysql). Sehingga
 satu aplikasi sedehana cukup dibuat dengan 1 application server yang berkomunikasi dengan 1 mongod</p>
-<h3 id="replica-">Replica</h3>
+<h3 id="replica">Replica</h3>
 <p>Replica set adalah suatu bentuk Master/slave database. 1 replika terdiri dari 2 atau lebih proses mongod yang memiliki data yang sama.
 Replica bertujuan untuk <em>failover</em>, <em>reducancy</em> juga sebagai <em>distribution read load</em>
 . Artinya apabila terdapat beberapa request read terhadap data yang sama, maka request tersebut bisa di handle oleh lebih dari satu server</p>
@@ -112,7 +112,7 @@ center jakarta, bandung ke bandung dan lainya ke surabaya. Apabila terdapat requ
 data tersebut.</p>
 <p>Shard dalam mongoDB teridiri dari beberapa server (mongod). Beberapa server tersebut dalam shard membentuk replika set. sehingga dapat kita katakan
 suatu replika set berada pada suatu sharding.</p>
-<h3 id="shard-key-">shard key</h3>
+<h3 id="shard-key">shard key</h3>
 <p>Untuk membagi-bagi suatu data, maka dibutuhkan suatu <em>key</em> yang menentukan data tersebut akan masuk ke shard yang mana. Key tersebut disebut dengan
 <strong>shard key</strong>. untuk contoh diatas <em>shard key</em> adalah lokasi. Pada contoh lain kita dapat membuat email sebagai <em>shard key</em>. sehingga data suatu
 user akan dikelompokkan pada suatu shard yang sama.</p>
@@ -120,7 +120,7 @@ user akan dikelompokkan pada suatu shard yang sama.</p>
 mempengaruhi performa dari sistem. Pemilihan <em>shard key</em> yang salah dapat menyebabkan database beroperasi lebih lambat dari <em>single instance</em>
 database.</p>
 <p>Untuk kriteria pemilihan <em>shard key</em> dapat dilihat pada artikel <a href="http://www.mongodb.org/display/DOCS/Choosing+a+Shard+Key"><em>Choosing a shard key</em></a></p>
-<h3 id="chunks-">Chunks</h3>
+<h3 id="chunks">Chunks</h3>
 <p><em>Chunk</em> adalah <em>continuous range of data for a particular collection</em>. Misalkan kita melakukan partisi data berdasarkan ID. dan ID tersebut
 merupakan bilangan integer antara 1..1000. Kita dapat membagi data tersebut dalam beberapa bagian (chunk) dengan ukuran yang sama. Secara
 default ukuran 1 <em>chunk</em> dalam mongoDB adalah 64MB (meskipun bisa dikonfigurasi). Untuk contoh kasus data tersebut bisa dibagi menjadi 10 chunk.
@@ -136,20 +136,20 @@ dari suatu shard ke shard yang lain.</p>
 <p>Misalkan contoh diatas, 3 shard. Pada shard pertama terdapat 10 chunk. MongoDB akan melakukan balancing dengan melakukan transfer ke 2 shard
 yang lain sampai ukuran chunk pada tiap shard menjadi seimbang. Hal ini dilakukan secara automatis, meskipun kita juga dapat melakukannya secara
 manual.</p>
-<h3 id="config-db-process-config-server-">Config DB Process (Config server)</h3>
+<h3 id="config-db-process-config-server">Config DB Process (Config server)</h3>
 <p>Selain mongod, dalam proses sharding dibutuhkan suatu prosess (program) yang bertugas untuk menyimpan informasi mengenai shard-server dan chunk
 didalam shard tersebut. informasi tersebut dikenal dengan meta-data. Kita dapat menjalankan 1 atau 3 <em>Config Server</em>. Tentu pada production
 dibutuhkan 3 config server. Ketika satu mati maka masih tersisa 2 cadangan <em>Config server</em>.</p>
 <p>Tidak seperti mongod, <em>Config Server</em> tidak berkomunikasi antara satu dengan yang lain. Ketika satu proses mati, biasanya dihidupkan dengan
 melakukan restore terhadap dump dari server yang lain. Ketika server ini mati.</p>
-<h3 id="routing-process-mongos-">Routing Process (mongos)</h3>
+<h3 id="routing-process-mongos">Routing Process (mongos)</h3>
 <p>Selain mongod dan <em>config server</em>, element lain yang penting adalah <strong>mongos</strong>. Fungsi utama dari mongos adalah melakukan routing terhadap
 request ke shard yang memiliki data tersebut. Pada saat aplikasi ini dijalankan. ia akan mengambil data dari <em>config server</em>. Aplikasi yang
 kita miliki berkomunikasi layaknya dengan server database biasa. Misalkan sebelumnya aplikasi kita setup ke url mongod, sekarang setelah
 kita melakukan konfigurasi pada sharding, kita cukup mengarahkan url ke proses mongos.</p>
 <p>Proses mongos ini relativ lebih kecil. Kadang kita dapat menjalankan mongos pada server aplikasi kita. Ada juga yang menjalankan proses mongos
 di mesin yang sama dengan mongod.</p>
-<h2 id="implementasi-">Implementasi</h2>
+<h2 id="implementasi">Implementasi</h2>
 <p>Ok, setelah kita mengerti beberapa konsep mengenai sharding, mari kita membuat suatu contoh kasus bagaimana melakukan implementasi terhadap
 sharding berikut. Untuk kemudahan, maka semua <em>instance</em> server ktia letakkan pada server yang sama (localhost). Hal ini berlaku untuk
 mongod, Config Server, mongos dan server aplikasi.</p>
@@ -159,7 +159,7 @@ mongod, Config Server, mongos dan server aplikasi.</p>
 <li>1 Config Server. port 20000</li>
 <li>1 Mongos</li>
 </ul>
-<h3 id="mongod--1">Mongod</h3>
+<h3 id="mongod-1">Mongod</h3>
 <p>Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo server. Untuk menjalankan 2 proses mongod, jalankan perintah berikut</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -181,7 +181,7 @@ mongod, Config Server, mongos dan server aplikasi.</p>
   $ cat /tmp/shardb.log <span class="c1"># pastikan process tersebut berjalan</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="configuration-server--mongos-">Configuration Server &amp; Mongos</h3>
+</div><h3 id="configuration-server--mongos">Configuration Server &amp; Mongos</h3>
 <p>Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos dengan perintah berikut</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -207,10 +207,10 @@ mongod, Config Server, mongos dan server aplikasi.</p>
 akan menjalankan mongos pada port default (sama serperti port default mongod) yaitu 27017</p>
 <p><code>--chinkSize 1</code> merupakan opsi untuk menentukan ukuran chunk 1MB (defaultnya 64MB). Hal ini bertujuan untuk explorasi saja. sehingga kita tidak
 perlu memassukkan data berukuran 64MB untuk membuat satu chuck baru.</p>
-<h2 id="setup-cluster-">Setup Cluster</h2>
+<h2 id="setup-cluster">Setup Cluster</h2>
 <p>Sampai tahap ini yang telah kita lakukan adalah mejalankan 2 <em>process</em> mongod, 1 <em>process config server</em> dan 1 <em>process</em> mongos. Berikutnya
 yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berkomunikasi.</p>
-<h3 id="konfigurasi-shard-server-pada-mongos-">Konfigurasi Shard Server pada mongos</h3>
+<h3 id="konfigurasi-shard-server-pada-mongos">Konfigurasi Shard Server pada mongos</h3>
 <p>Berikutnya yang kita lakukan adalah setup mongos agar menambahkan 2 shard server yang berjalan pada port 10000 &amp; 10001.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -310,9 +310,9 @@ switched to db admin
 </div>
 </div><p>Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.</p>
 <p>Ok, sampai tahap ini kita telah selesai melakukan shard terhadap server tersebut</p>
-<h2 id="lets-play-">Let&rsquo;s Play</h2>
+<h2 id="lets-play">Let&rsquo;s Play</h2>
 <p>Sekarang saatnya kita melakukan percobaan dengan shard dan chunk.</p>
-<h3 id="tambahkan-data-pada-collection-">Tambahkan data pada collection</h3>
+<h3 id="tambahkan-data-pada-collection">Tambahkan data pada collection</h3>
 <p>Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collection tersebut.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -368,7 +368,7 @@ data menjadi 3 chuck</p>
   &gt;
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="melihat-informasi-jumlah-shard-">Melihat informasi jumlah shard</h3>
+</div><h3 id="melihat-informasi-jumlah-shard">Melihat informasi jumlah shard</h3>
 <p>untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -408,7 +408,7 @@ data menjadi 3 chuck</p>
   <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="melihat-informasi-chunk-">Melihat informasi Chunk</h3>
+</div><h3 id="melihat-informasi-chunk">Melihat informasi Chunk</h3>
 <p>Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -523,7 +523,7 @@ data menjadi 3 chuck</p>
 <li>test.people-email_&quot;email-9@foo.com&quot; berada pada shard0000</li>
 </ul>
 <p>MongoDB ternyata melakukan partisi terhadap <em>shard key</em> dengan memperlakukan key tersebut sebagai string.</p>
-<h3 id="memindahkan-chunk-ke-shard-lain-">Memindahkan Chunk ke shard lain</h3>
+<h3 id="memindahkan-chunk-ke-shard-lain">Memindahkan Chunk ke shard lain</h3>
 <p>Misalkan pada contoh diatas kita ingin memindahkan chunk <code>test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000</code> dari shard0000 je shard0001. Hal tersebut
 dapat dilakukan dengan perintah berikut</p>
 <div class="highlight"><div class="chroma">
@@ -727,6 +727,10 @@ dapat dilakukan dengan perintah berikut</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
             </li>
           
@@ -760,10 +764,6 @@ dapat dilakukan dengan perintah berikut</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
             </li>
           
           </ul>

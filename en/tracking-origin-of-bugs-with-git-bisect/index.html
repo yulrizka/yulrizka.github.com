@@ -46,7 +46,7 @@
 One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
 The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
 <p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
-bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>'. Then every time you mark a commit as good / bad,
+bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>&rsquo;. Then every time you mark a commit as good / bad,
 it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
 whether the bugs exist or not.</p>
 <p>Here is an example</p>
@@ -156,7 +156,7 @@ Bisecting: <span class="m">2</span> revisions left to <span class="nb">test</spa
 Bisecting: <span class="m">0</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">0</span> steps<span class="o">)</span>
 <span class="o">[</span>e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1<span class="o">]</span> Updated functionality and tests of getting <span class="nb">local</span> data
 
-<span class="c1"># ....</span> 
+<span class="c1"># .... </span>
 <span class="c1"># and we keep doing this until we find the first commit when it was introduced.</span>
 
 <span class="c1"># Now let&#39;s check our progress using log</span>
@@ -292,6 +292,10 @@ The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
             </li>
           
@@ -325,10 +329,6 @@ The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</
           
             <li>
               <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
             </li>
           
           </ul>

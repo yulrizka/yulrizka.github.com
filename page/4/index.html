@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.68.3" />
+	<meta name="generator" content="Hugo 0.75.1" />
 
 <title>Dev Blogs of Ahmy Yulrizka - labs.yulrizka.com</title>
 <meta name="description" content="Blog of Ahmy Yulrizka and stuff that I learned everyday">
@@ -36,6 +36,30 @@
       <div id="content-wrapper" class="span9 ">
         <div class="content">
 
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/repeat-content-of-text-x-time/">
+    <h2>
+      repeat content of text x time
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-08-15 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>I have a use-case where 1 have single file that contain 20K line. I need to have another file with 1 million line with just content of the first file repeated 50 time.</p>
+<p>Solution: form <a href="http://askubuntu.com/questions/521465/how-can-i-repeat-the-content-of-a-file-n-times">stack overflow</a></p>
+<pre><code>$ perl -0777pe '$_=$_ x 50' input_file.txt &gt; output_file.txt
+</code></pre><p>arguments:</p>
+<ul>
+<li>0777 : -0 sets sets the input record separator (perl special variable $/ which is a newline by default). Setting this to a value greater than 0400 will cause Perl to slurp the entire input file into memory.</li>
+<li>pe : the -p means &ldquo;print each input line after applying the script given by -e to it&rdquo;.</li>
+<li>$<em>=$</em> x 50 : $_ is the current input line. Since we&rsquo;re reading the entire file at once because of -0700, this means the entire file. The x 50 will result in 50 copies of the entire file being printed.</li>
+</ul>
+
+</article>
+<hr/>
 
 <article>
   <a href="https://labs.yulrizka.com/til/vim/paste-yanked-text-on-command-buffer/">
@@ -318,141 +342,42 @@ $ echo $json | jq .
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/keep-n-recent-item-in-folder/">
-    <h2>
-      keep N recent item in folder
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-05-26 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Sometimes you create a script that generate something
-but you wanted to only keep N last item. There is couple way to achive this.
-This version works both on OSX and Linux.</p>
-<pre><code>$ (ls -t|head -n 5;ls)|sort|uniq -u|xargs rm
-</code></pre><p>Basically it the <code>(..)</code> will capture together the output</p>
-<ol>
-<li><code>ls -t | head -n 5</code> will list files sort by time and get first 5 items</li>
-<li>The second <code>ls</code> will list all file. Now it contains duplicate items for items we want to keep</li>
-<li><code>sort|uniq -u</code> will sort it, and remove those duplicate file in step 1. At this point it will contains only files that we want to delete (everything except files from step 1)</li>
-<li><code>xargs rm</code> will change the resulst into space separated value which is argument for <code>rm</code></li>
-</ol>
-
-</article>
-<hr/>
-
-
 
 
 <ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item">
+  <li class="page-item">
+    <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
+  </li>
+  <li class="page-item">
     <a href="/page/3/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/page/4/">4</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/5/">5</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/8/">8</a></li>
-    
-    
-    <li class="page-item">
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/">1</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/2/">2</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/3/">3</a>
+  </li>
+  <li class="page-item active">
+    <a class="page-link" href="/page/4/">4</a>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/5/">5</a>
+  </li>
+  <li class="page-item disabled">
+    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
+  </li>
+  <li class="page-item">
+    <a class="page-link" href="/page/8/">8</a>
+  </li>
+  <li class="page-item">
     <a href="/page/5/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
+  </li>
+  <li class="page-item">
+    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+  </li>
 </ul>
 
 
@@ -531,6 +456,10 @@ This version works both on OSX and Linux.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
             </li>
           
@@ -564,10 +493,6 @@ This version works both on OSX and Linux.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/bash-forloop/">Bash Forloop</a>
             </li>
           
           </ul>
