@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
 
-<title>find out what is using swap - labs.yulrizka.com</title>
-<meta name="description" content="find out what is using swap">
+<title>Checksum a File From a URL - labs.yulrizka.com</title>
+<meta name="description" content="Generating checksum form URL">
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="keywords" content="unix swap">
+<meta name="keywords" content="osx, checksum file">
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/unix/find-out-what-is-using-swap/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">
 
 
 
@@ -34,54 +34,18 @@
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
         <div class="content">
-<h1>find out what is using swap</h1>
+<h1>Checksum a File From a URL</h1>
 <div class="posted_at">
-	2016-05-24 ::
+	2020-10-17 ::
 	( 1 minutes reading )
-</div><p>from <a href="http://northernmost.org/blog/find-out-what-is-using-your-swap/">http://northernmost.org/blog/find-out-what-is-using-your-swap/</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
-</span><span class="cp"></span><span class="c1"># Get current swap usage for all running processes</span>
-<span class="c1"># Erik Ljungstrom 27/05/2011</span>
-<span class="nv">SUM</span><span class="o">=</span><span class="m">0</span>
-<span class="nv">OVERALL</span><span class="o">=</span><span class="m">0</span>
-<span class="k">for</span> DIR in <span class="sb">`</span>find /proc/ -maxdepth <span class="m">1</span> -type d <span class="p">|</span> egrep <span class="s2">&#34;^/proc/[0-9]&#34;</span><span class="sb">`</span> <span class="p">;</span> <span class="k">do</span>
-        <span class="nv">PID</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$DIR</span> <span class="p">|</span> cut -d / -f 3<span class="sb">`</span>
-        <span class="nv">PROGNAME</span><span class="o">=</span><span class="sb">`</span>ps -p <span class="nv">$PID</span> -o comm --no-headers<span class="sb">`</span>
-        <span class="k">for</span> SWAP in <span class="sb">`</span>grep Swap <span class="nv">$DIR</span>/smaps 2&gt;/dev/null<span class="p">|</span> awk <span class="s1">&#39;{ print $2 }&#39;</span><span class="sb">`</span>
-        <span class="k">do</span>
-                <span class="nb">let</span> <span class="nv">SUM</span><span class="o">=</span><span class="nv">$SUM</span>+<span class="nv">$SWAP</span>
-        <span class="k">done</span>
-        <span class="nb">echo</span> <span class="s2">&#34;PID=</span><span class="nv">$PID</span><span class="s2"> - Swap used: </span><span class="nv">$SUM</span><span class="s2"> - (</span><span class="nv">$PROGNAME</span><span class="s2"> )&#34;</span>
-        <span class="nb">let</span> <span class="nv">OVERALL</span><span class="o">=</span><span class="nv">$OVERALL</span>+<span class="nv">$SUM</span>
-        <span class="nv">SUM</span><span class="o">=</span><span class="m">0</span>
-
-<span class="k">done</span>
-<span class="nb">echo</span> <span class="s2">&#34;Overall swap used: </span><span class="nv">$OVERALL</span><span class="s2">&#34;</span>
-</code></pre></td></tr></table>
-</div>
-</div><div id="disqus_thread"></div>
+</div><pre><code>$ wget -qO- https://github.com/yulrizka/osx-push-to-talk/archive/v0.1.5.tar.gz | sha256sum
+</code></pre><ul>
+<li>q : quiet, disable output log</li>
+<li>O : output to a file</li>
+<li><code>-</code> : stdout</li>
+</ul>
+<p>flag is the same as <code>-q -O /dev/stdout</code></p>
+<div id="disqus_thread"></div>
 <script type="application/javascript">
     var disqus_config = function () {
     

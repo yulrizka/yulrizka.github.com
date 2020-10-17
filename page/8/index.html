@@ -38,6 +38,69 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/en/testing-ruby-code-with-benchmark-suite/">
+    <h2>
+      Testing ruby code with benchmark_suite
+    </h2>
+  </a>
+  <div class="posted_at">
+    2012-01-14 ::
+    ( 2 minutes reading )
+  </div>
+
+  <p>Just a couple days ago I found out <a href="http://www.therubygame.com" title="The Ruby Game">therubygame.com</a> which challenge us to
+solve a problem with ruby. The result were measured by the <strong>fastest</strong>, <strong>slowest</strong>, <strong>shortest</strong>, <strong>longest</strong>,
+<strong>cheaters</strong> (yup there are also some rule).</p>
+<p>And also I was listening to an episode of ruby rouge on <a href="http://rubyrogues.com/034-rr-benchmarking-and-profiling/" title="034 RR Benchmarking and Profiling">Benchmarking</a>. And there is one tools called <a href="http://rubygems.org/gems/benchmark_suite" title="benchmark_suite">benchmark_suite</a>.</p>
+<p>So there is this <a href="http://www.therubygame.com/challenges/3/submissions" title="Challenge #3">challenge</a> to capitalize first letter of every word. I want to compare my code to the fastest solution there.
+so i installed the gem, also the <a href="http://rubygems.org/gems/ffi" title="ffi gem">ruby-ffi</a> gem that somewhat fix an error while I tried to run the benchmark.</p>
+<p>so this is the code to benchmark it</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="nb">require</span> <span class="s1">&#39;benchmark/ips&#39;</span>
+
+  <span class="n">string</span> <span class="o">=</span> <span class="s2">&#34;The small brown &amp; ginger fox JUMPED OVER the gate&#34;</span>
+
+  <span class="no">Benchmark</span><span class="o">.</span><span class="n">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&#34;first&#34;</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">string</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/\w+/</span><span class="p">){</span><span class="o">|</span><span class="n">w</span><span class="o">|</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">}</span>
+    <span class="k">end</span>
+
+    <span class="n">x</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="s2">&#34;second&#34;</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:capitalize</span><span class="p">)</span><span class="o">.</span><span class="n">join</span> <span class="s1">&#39; &#39;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>And here are the result</p>
+<div class="well">
+  <p>first 55609.3 (±10.7%) i/s - 277202 in 5.048175s (cycle=4471) </p>
+  <p>second 77996.4 (±10.2%) i/s - 389844 in 5.055319s (cycle=6188)</p>
+</div>
+<p>The first code run <strong>55.609,3</strong> times per second and the latter is <strong>77.996,4</strong> times per second.
+So the second code run more than the first code in one second. Which mean the second code is faster.</p>
+<p>Also the first code run <strong>277.202</strong> times in <strong>5.048175</strong> sec while the second code run <strong>389.844</strong> times in <strong>5.05</strong> sec</p>
+<p>So this mean, that <strong>regex is more slower</strong> then calling capitalized on each element on array</p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">
     <h2>
       Ruby Fiber apaan sih ?
@@ -962,6 +1025,10 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">Checksum a File From a URL</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
             </li>
           
@@ -995,10 +1062,6 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
             </li>
           
           </ul>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>til osx checksum on </title>
+    <link>https://labs.yulrizka.com/tags/til-osx-checksum/</link>
+    <description>Recent content in til osx checksum on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 17 Oct 2020 23:44:34 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/tags/til-osx-checksum/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Checksum a File From a URL</title>
+      <link>https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/</link>
+      <pubDate>Sat, 17 Oct 2020 23:44:34 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/</guid>
+      <description>$ wget -qO- https://github.com/yulrizka/osx-push-to-talk/archive/v0.1.5.tar.gz | sha256sum  q : quiet, disable output log O : output to a file - : stdout  flag is the same as -q -O /dev/stdout</description>
+    </item>
+    
+  </channel>
+</rss>

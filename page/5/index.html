@@ -38,6 +38,50 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/unix/filtering-json-with-jq/">
+    <h2>
+      filtering json with jq
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-05-31 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p><a href="https://stedolan.github.io/jq/">jq</a> is a fantastic command line tools to parse and filter json in command line.
+It works for linux, osx and maybe windows.</p>
+<p>example, to format json</p>
+<pre><code>$ json='[{&quot;genre&quot;:&quot;deep house&quot;}, {&quot;genre&quot;: &quot;progressive house&quot;}, {&quot;genre&quot;: &quot;dubstep&quot;}]'
+$ echo $json
+[{&quot;genre&quot;:&quot;deep house&quot;}, {&quot;genre&quot;: &quot;progressive house&quot;}, {&quot;genre&quot;: &quot;dubstep&quot;}]
+
+$ echo $json | jq .
+[
+  {
+    &quot;genre&quot;: &quot;deep house&quot;
+  },
+  {
+    &quot;genre&quot;: &quot;progressive house&quot;
+  },
+  {
+    &quot;genre&quot;: &quot;dubstep&quot;
+  }
+]
+</code></pre><p>To output a particular field</p>
+<pre><code>$ echo $json | jq '.[].genre'
+&quot;deep house&quot;
+&quot;progressive house&quot;
+&quot;dubstep&quot;
+</code></pre><p>To filter based on a key</p>
+<pre><code>$ echo &quot;$json&quot; | jq -c '.[] | select(.genre | contains(&quot;house&quot;))'
+{&quot;genre&quot;:&quot;deep house&quot;}
+{&quot;genre&quot;:&quot;progressive house&quot;}
+</code></pre><p>more example could be found on <a href="https://github.com/stedolan/jq/wiki/Cookbook">here</a></p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/keep-n-recent-item-in-folder/">
     <h2>
       keep N recent item in folder
@@ -349,34 +393,6 @@ that receive an input and send it to all other windows. I like  i2cssh approach 
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/formatting-or-parse-json-in-command-line/">
-    <h2>
-      Format or parse json in command line
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-03-17 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>To easily format json or command line there <a href="https://stedolan.github.io/jq/">jq</a></p>
-<p>example</p>
-<pre><code>$ echo '{&quot;user&quot;:&quot;stedolan&quot;,&quot;titles&quot;:[&quot;JQ Primer&quot;, &quot;More JQ&quot;]}' | jq .
-{
-    &quot;user&quot;: &quot;stedolan&quot;,
-      &quot;titles&quot;: [
-          &quot;JQ Primer&quot;,
-              &quot;More JQ&quot;
-                ]
-}
-</code></pre><p>or just print specific value</p>
-<pre><code>$ echo '{&quot;user&quot;:&quot;stedolan&quot;,&quot;titles&quot;:[&quot;JQ Primer&quot;, &quot;More JQ&quot;]}' | jq .titles[0]
-&quot;JQ Primer&quot;
-</code></pre>
-</article>
-<hr/>
-
 
 
 <ul class="pagination">
@@ -494,6 +510,10 @@ that receive an input and send it to all other windows. I like  i2cssh approach 
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">Checksum a File From a URL</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
             </li>
           
@@ -527,10 +547,6 @@ that receive an input and send it to all other windows. I like  i2cssh approach 
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/osx/show-hidden-file/">Show Hidden File</a>
             </li>
           
           </ul>

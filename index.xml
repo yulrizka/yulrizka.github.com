@@ -5,7 +5,16 @@
     <link>https://labs.yulrizka.com/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Sep 2020 09:37:31 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 17 Oct 2020 23:44:34 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Checksum a File From a URL</title>
+      <link>https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/</link>
+      <pubDate>Sat, 17 Oct 2020 23:44:34 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/</guid>
+      <description>$ wget -qO- https://github.com/yulrizka/osx-push-to-talk/archive/v0.1.5.tar.gz | sha256sum  q : quiet, disable output log O : output to a file - : stdout  flag is the same as -q -O /dev/stdout</description>
+    </item>
+    
     <item>
       <title>Global Gitignore File</title>
       <link>https://labs.yulrizka.com/til/git/global-gitignore-file/</link>
