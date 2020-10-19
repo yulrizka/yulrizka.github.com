@@ -38,6 +38,63 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">
+    <h2>
+      Intellij as git diff and mergetool
+    </h2>
+  </a>
+  <div class="posted_at">
+    2020-10-19 ::
+    ( 1 minutes reading )
+  </div>
+
+  <h2 id="setup-idea-script">Setup idea script</h2>
+<p>First, you need to set up <code>idea</code> script by following the instruction <a href="https://www.jetbrains.com/help/idea/working-with-the-ide-features-from-command-line.html#toolbox">here</a></p>
+<p>If you are using mac, make sure you add <code>-W</code> on the open script as follows (see <a href="https://youtrack.jetbrains.com/issue/IDEA-253240">this issue</a>)</p>
+<pre><code>open -Wna &quot;IntelliJ IDEA.app&quot; --args &quot;$@&quot;
+</code></pre><h2 id="setup-git-difftool--mergetool">setup git difftool &amp; mergetool</h2>
+<p>Taken from <a href="https://gist.github.com/rambabusaravanan/1d1902e599c9c680319678b0f7650898#gistcomment-2132894">https://gist.github.com/rambabusaravanan/1d1902e599c9c680319678b0f7650898#gistcomment-2132894</a></p>
+<p>open <code>.git/config</code> (or your global <code>gitconfig</code> file)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>merge<span class="o">]</span>
+    <span class="nv">tool</span> <span class="o">=</span> intellij
+<span class="o">[</span>mergetool <span class="s2">&#34;intellij&#34;</span><span class="o">]</span>
+    <span class="nv">cmd</span> <span class="o">=</span> idea merge <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$LOCAL</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$LOCAL</span><span class="s2">&#34;</span><span class="k">)</span> <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$REMOTE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$REMOTE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$BASE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$BASE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$MERGED</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$MERGED</span><span class="s2">&#34;</span><span class="k">)</span>
+    <span class="nv">trustExitCode</span> <span class="o">=</span> <span class="nb">true</span>
+<span class="o">[</span>diff<span class="o">]</span>
+    <span class="nv">tool</span> <span class="o">=</span> intellij
+<span class="o">[</span>difftool <span class="s2">&#34;intellij&#34;</span><span class="o">]</span>
+    <span class="nv">cmd</span> <span class="o">=</span> idea diff <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$LOCAL</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$LOCAL</span><span class="s2">&#34;</span><span class="k">)</span> <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$REMOTE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$REMOTE</span><span class="s2">&#34;</span><span class="k">)</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Explanation about LOCAL, REMOTE, BASE from <a href="https://stackoverflow.com/questions/20381677/in-a-git-merge-conflict-what-are-the-backup-base-local-and-remote-files-that">stackoverflow</a></p>
+<ul>
+<li>foo.LOCAL: the &ldquo;ours&rdquo; side of the conflict - ie, your branch (HEAD) that will contain the results of the merge</li>
+<li>foo.REMOTE: the &ldquo;theirs&rdquo; side of the conflict - the branch you are merging into HEAD</li>
+<li>foo.BASE: the common ancestor. useful for feeding into a three-way merge tool</li>
+<li>foo.BACKUP: the contents of file before invoking the merge tool, will be kept on the filesystem if mergetool.keepBackup = true.</li>
+</ul>
+<p><code>idea merge</code> <a href="https://www.jetbrains.com/help/idea/command-line-merge-tool.html">syntax</a></p>
+<pre><code>idea merge &lt;path1&gt; &lt;path2&gt; [&lt;base&gt;] &lt;output&gt;
+</code></pre>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">
     <h2>
       Checksum a File From a URL
@@ -956,38 +1013,6 @@ Your branch is up to date with <span class="s1">&#39;origin/master&#39;</span>.
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">
-    <h2>
-      Replacing Last Command and Execute It
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-03-08 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>For example</p>
-<pre><code>$ echo &quot;hello world world world&quot;                   
-hello world world world
-</code></pre><p>If you want to replace <code>world</code> with <code>universe</code> you can do</p>
-<pre><code># If you use ZSH you can press `tab` at the end of the line and it will replace
-# the whole line with the actuall command
-$ ^world^universe
-$ echo &quot;hello universe world world&quot;
-</code></pre><p>As you can see, it only replace the first matching word.</p>
-<p>If you want it to replace the whole match:</p>
-<pre><code># zsh
-$ ^world^universe^:G
-
-# bash
-$^world^universe^&amp;
-</code></pre><p><strong>Don&rsquo;t use it in production</strong><br>
-I tend to use <code>fc</code> command which allow me to edit the command in my editor first</p>
-
-</article>
-<hr/>
-
 
 
 <ul class="pagination">
@@ -1096,6 +1121,10 @@ I tend to use <code>fc</code> command which allow me to edit the command in my e
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">Checksum a File From a URL</a>
             </li>
           
@@ -1129,10 +1158,6 @@ I tend to use <code>fc</code> command which allow me to edit the command in my e
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
             </li>
           
           </ul>

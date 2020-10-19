@@ -38,6 +38,74 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/git/reset-email-multiple-commit/">
+    <h2>
+      reset email multiple git commit
+    </h2>
+  </a>
+  <div class="posted_at">
+    2019-01-13 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>I started not to use my real email for git commit. Instead i uses the one that is provided by <a href="https://help.github.com/articles/about-commit-email-addresses/">github</a></p>
+<p>After enabling <strong>Block command line pushes that expose my email</strong> on <a href="https://github.com/settings/emails">Block command line pushes that expose my email</a>, it will reject
+all email that exposes public email adress.</p>
+<p>So in order to rewrite git history and change the author email, I found this <a href="https://help.github.com/articles/changing-author-info/">github help</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/sh
+</span><span class="cp"></span>
+git filter-branch --env-filter <span class="s1">&#39;
+</span><span class="s1">OLD_EMAIL=&#34;your-old-email@example.com&#34;
+</span><span class="s1">CORRECT_NAME=&#34;Your Correct Name&#34;
+</span><span class="s1">CORRECT_EMAIL=&#34;your-correct-email@example.com&#34;
+</span><span class="s1">if [ &#34;$GIT_COMMITTER_EMAIL&#34; = &#34;$OLD_EMAIL&#34; ]
+</span><span class="s1">then
+</span><span class="s1">    export GIT_COMMITTER_NAME=&#34;$CORRECT_NAME&#34;
+</span><span class="s1">    export GIT_COMMITTER_EMAIL=&#34;$CORRECT_EMAIL&#34;
+</span><span class="s1">fi
+</span><span class="s1">if [ &#34;$GIT_AUTHOR_EMAIL&#34; = &#34;$OLD_EMAIL&#34; ]
+</span><span class="s1">then
+</span><span class="s1">    export GIT_AUTHOR_NAME=&#34;$CORRECT_NAME&#34;
+</span><span class="s1">    export GIT_AUTHOR_EMAIL=&#34;$CORRECT_EMAIL&#34;
+</span><span class="s1">fi
+</span><span class="s1">&#39;</span> --tag-name-filter cat -- --branches --tags
+</code></pre></td></tr></table>
+</div>
+</div><p>Another neat way (after you change your email with git config), you can also do this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git rebase -i -p --exec <span class="s1">&#39;git commit --amend --reset-author --no-edit&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/encription-with-gpg/">
     <h2>
       encription with gpg
@@ -387,25 +455,6 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/osx/list-open-port/">
-    <h2>
-      list open port
-    </h2>
-  </a>
-  <div class="posted_at">
-    2017-03-16 ::
-    ( 1 minutes reading )
-  </div>
-
-  <h1 id="list-open-port">list open port</h1>
-<pre><code>$ sudo netstat -atp tcp| grep -i listen
-</code></pre><p>or</p>
-<pre><code>$ sudo lsof -i -P | grep -i listen
-</code></pre>
-</article>
-<hr/>
-
 
 
 <ul class="pagination">
@@ -517,6 +566,10 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">Checksum a File From a URL</a>
             </li>
           
@@ -550,10 +603,6 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
             </li>
           
           </ul>

@@ -5,7 +5,20 @@
     <link>https://labs.yulrizka.com/til/git/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 29 Sep 2020 09:37:31 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/til/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Oct 2020 11:16:55 +0200</lastBuildDate><atom:link href="https://labs.yulrizka.com/til/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Intellij as git diff and mergetool</title>
+      <link>https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/</link>
+      <pubDate>Mon, 19 Oct 2020 11:16:55 +0200</pubDate>
+      
+      <guid>https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/</guid>
+      <description>Setup idea script First, you need to set up idea script by following the instruction here
+If you are using mac, make sure you add -W on the open script as follows (see this issue)
+open -Wna &amp;quot;IntelliJ IDEA.app&amp;quot; --args &amp;quot;$@&amp;quot; setup git difftool &amp;amp; mergetool Taken from https://gist.github.com/rambabusaravanan/1d1902e599c9c680319678b0f7650898#gistcomment-2132894
+open .git/config (or your global gitconfig file)
+1 2 3 4 5 6 7 8 9 10  [merge] tool = intellij [mergetool &amp;#34;intellij&amp;#34;] cmd = idea merge $(cd $(dirname &amp;#34;$LOCAL&amp;#34;) &amp;amp;&amp;amp; pwd)/$(basename &amp;#34;$LOCAL&amp;#34;) $(cd $(dirname &amp;#34;$REMOTE&amp;#34;) &amp;amp;&amp;amp; pwd)/$(basename &amp;#34;$REMOTE&amp;#34;) $(cd $(dirname &amp;#34;$BASE&amp;#34;) &amp;amp;&amp;amp; pwd)/$(basename &amp;#34;$BASE&amp;#34;) $(cd $(dirname &amp;#34;$MERGED&amp;#34;) &amp;amp;&amp;amp; pwd)/$(basename &amp;#34;$MERGED&amp;#34;) trustExitCode = true [diff] tool = intellij [difftool &amp;#34;intellij&amp;#34;] cmd = idea diff $(cd $(dirname &amp;#34;$LOCAL&amp;#34;) &amp;amp;&amp;amp; pwd)/$(basename &amp;#34;$LOCAL&amp;#34;) $(cd $(dirname &amp;#34;$REMOTE&amp;#34;) &amp;amp;&amp;amp; pwd)/$(basename &amp;#34;$REMOTE&amp;#34;)   Explanation about LOCAL, REMOTE, BASE from stackoverflow</description>
+    </item>
+    
     <item>
       <title>Global Gitignore File</title>
       <link>https://labs.yulrizka.com/til/git/global-gitignore-file/</link>

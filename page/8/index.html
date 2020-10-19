@@ -38,6 +38,37 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/en/jekyll-error-utf-8-caracter/">
+    <h2>
+      Jekyll error utf-8 caracter
+    </h2>
+  </a>
+  <div class="posted_at">
+    2012-01-14 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>If you having a problem in jekyll when it didn&rsquo;t generate a post and there is no error in the log file.
+you might want to check the content if there is any UTF-8 character encoding such as this <strong>±</strong></p>
+<p>The problem arise if you use ruby 1.9. It rejecting a file that contain non-ASCII character.
+it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
+<p>to solve this. I added this line to <code>.bashrc</code> or <code>zshrc</code> if you are using zsh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  <span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span>en_US.UTF-8
+  <span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US.UTF-8
+</code></pre></td></tr></table>
+</div>
+</div><p>It should fix the problem now.</p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/en/testing-ruby-code-with-benchmark-suite/">
     <h2>
       Testing ruby code with benchmark_suite
@@ -1025,6 +1056,10 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">Checksum a File From a URL</a>
             </li>
           
@@ -1058,10 +1093,6 @@ banyak aplikasi dan tutorial yang cukup mudah.</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
             </li>
           
           </ul>

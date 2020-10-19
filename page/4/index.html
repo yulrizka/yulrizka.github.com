@@ -38,6 +38,25 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/osx/list-open-port/">
+    <h2>
+      list open port
+    </h2>
+  </a>
+  <div class="posted_at">
+    2017-03-16 ::
+    ( 1 minutes reading )
+  </div>
+
+  <h1 id="list-open-port">list open port</h1>
+<pre><code>$ sudo netstat -atp tcp| grep -i listen
+</code></pre><p>or</p>
+<pre><code>$ sudo lsof -i -P | grep -i listen
+</code></pre>
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/parsing-epoch-timestamp-to-date/">
     <h2>
       parsing epoch timestamp to date
@@ -295,33 +314,6 @@ For example log file in json format</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/linux/symbolic-vs-hard-link/">
-    <h2>
-      symbolic vs hard link
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-06-01 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>from <a href="http://stackoverflow.com/a/185903/546750">http://stackoverflow.com/a/185903/546750</a></p>
-<blockquote>
-<p>Underneath the file system files are represented by inodes (or is it multiple inodes not sure)</p>
-<p>A file in the file system is basically a link to an inode.
-A hard link then just creates another file with a link to the same underlying inode.</p>
-<p>When you delete a file it removes one link to the underlying inode. The inode is only deleted (or deletable/over-writable) when all links to the inode have been deleted.</p>
-<p>A symbolic link is a link to another name in the file system.</p>
-<p>Once a hard link has been made the link is to the inode. deleting renaming or moving the original file will not affect the hard link as it links to the underlying inode. Any changes to the data on the inode is reflected in all files that refer to that inode.</p>
-</blockquote>
-<blockquote>
-<p>Note: Hard links are only valid within the same File System. Symbolic links can span file systems as they are simply the name of another file.</p>
-</blockquote>
-
-</article>
-<hr/>
-
 
 
 <ul class="pagination">
@@ -436,6 +428,10 @@ A hard link then just creates another file with a link to the same underlying in
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">Checksum a File From a URL</a>
             </li>
           
@@ -469,10 +465,6 @@ A hard link then just creates another file with a link to the same underlying in
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/sort-file-inline/">Sort file inline</a>
             </li>
           
           </ul>
