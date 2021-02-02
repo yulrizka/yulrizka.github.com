@@ -38,6 +38,422 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">
+    <h2>
+      Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)
+    </h2>
+  </a>
+  <div class="posted_at">
+    2020-04-25 ::
+    ( 8 minutes reading )
+  </div>
+
+  <p>It&rsquo;s all started when my colleague asked this question.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;testing&#34;</span>
+
+<span class="kd">const</span> <span class="nx">size</span> <span class="p">=</span> <span class="mi">1000000</span>
+
+<span class="kd">type</span> <span class="nx">SomeStruct</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ID0</span> <span class="kt">int64</span>
+	<span class="nx">ID1</span> <span class="kt">int64</span>
+	<span class="nx">ID2</span> <span class="kt">int64</span>
+	<span class="nx">ID3</span> <span class="kt">int64</span>
+	<span class="nx">ID4</span> <span class="kt">int64</span>
+	<span class="nx">ID5</span> <span class="kt">int64</span>
+	<span class="nx">ID6</span> <span class="kt">int64</span>
+	<span class="nx">ID7</span> <span class="kt">int64</span>
+	<span class="nx">ID8</span> <span class="kt">int64</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkForVar</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">SomeStruct</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nf">ReportAllocs</span><span class="p">()</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">slice</span> <span class="p">{</span> <span class="c1">// index and value
+</span><span class="c1"></span>            <span class="nx">_</span> <span class="p">=</span> <span class="nx">s</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">BenchmarkForCounter</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">SomeStruct</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nf">ReportAllocs</span><span class="p">()</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">slice</span> <span class="p">{</span> <span class="c1">// only use the index
+</span><span class="c1"></span>            <span class="nx">s</span> <span class="o">:=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">_</span> <span class="p">=</span> <span class="nx">s</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Which one do you think is faster?</p>
+<pre><code>$ go test -bench .
+goos: linux
+goarch: amd64
+BenchmarkForVar-4       	    4363	    269711 ns/op	       0 B/op	       0 allocs/op
+BenchmarkForCounter-4   	    4195	    285952 ns/op	       0 B/op	       0 allocs/op
+PASS
+ok  	_/test1	2.685s
+</code></pre><p>It&rsquo;s pretty much the same. However, if we increase the size of the struct by adding another field <code>ID9 int64</code>
+The result becomes significantly different.</p>
+<pre><code>$ go test -bench .
+goos: linux
+goarch: amd64
+BenchmarkForVar-4       	     282	   4264872 ns/op	       0 B/op	       0 allocs/op
+BenchmarkForCounter-4   	    4363	    269761 ns/op	       0 B/op	       0 allocs/op
+PASS
+ok  	_/test1	3.255s
+</code></pre><p><br />
+This problem become intriguing, so I dig a little deeper. I would like to point out that the code is a contrived example.
+It would probably not applied in a production code. I am <strong>not</strong> going to focus on the benchmark or which for-range works
+better but rather exploring how Go compiles and demonstrating useful Go tools in the process.</p>
+<p>The code below also contains some assembly code. I am not going into too much detail, so I would not worry if you are not familiar with it.
+My intention is to show how the generated code differs and what could be the reason for it.</p>
+<p>I am going to focus on <code>for _, s = range slice</code> loop (ForVar). To make it simpler I create a <code>main.go</code> and <code>struct.go</code></p>
+<p><strong>main.go</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">const</span> <span class="nx">size</span> <span class="p">=</span> <span class="mi">1000000</span>
+
+	<span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">SomeStruct</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">slice</span> <span class="p">{</span>
+		<span class="nx">_</span> <span class="p">=</span> <span class="nx">s</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>I&rsquo;ll skip the <code>struct.go</code> here since it&rsquo;s pretty trivial.</p>
+<h2 id="generating-assembly-code">Generating Assembly Code</h2>
+<p>To look into what instructions are generated, we can use <code>go tool compile -S</code>. This will print out the generated
+assembly code to stdout. I also Skipped some lines that are not directly related to our code.</p>
+<p>according to <a href="https://golang.org/doc/asm">asm package doc</a></p>
+<blockquote>
+<p>The FUNCDATA and PCDATA directives contain information for use by the garbage collector; they are introduced by the compiler.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$  go tool compile -S main.go type.go <span class="p">|</span> grep -v FUNCDATA <span class="p">|</span> grep -v PCDATA
+</code></pre></td></tr></table>
+</div>
+</div><p>Here are the generated assembly code for both version.</p>
+<p><strong>version with 9 int64</strong></p>
+<p>This struct contains 9 int64 and has the size 72 bytes</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-asm" data-lang="asm"><span class="err">&#34;&#34;</span><span class="na">.main</span> <span class="no">STEXT</span> <span class="no">size</span><span class="err">=</span><span class="mi">93</span> <span class="no">args</span><span class="err">=</span><span class="mi">0x0</span> <span class="no">locals</span><span class="err">=</span><span class="mi">0x28</span>
+    <span class="na">...</span>
+	<span class="err">0</span><span class="nf">x0024</span> <span class="mi">00036</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">MOVQ</span>	<span class="no">AX</span><span class="p">,</span> <span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+	<span class="err">0</span><span class="nf">x0028</span> <span class="mi">00040</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">MOVQ</span>	<span class="no">$1000000</span><span class="p">,</span> <span class="mi">8</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+	<span class="err">0</span><span class="nf">x0031</span> <span class="mi">00049</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">MOVQ</span>	<span class="no">$1000000</span><span class="p">,</span> <span class="mi">16</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+	<span class="err">0</span><span class="nf">x003a</span> <span class="mi">00058</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">CALL</span>	<span class="no">runtime.makeslice</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+	<span class="err">0</span><span class="nf">x003f</span> <span class="mi">00063</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">XORL</span>	<span class="no">AX</span><span class="p">,</span> <span class="no">AX</span>       <span class="c"># set AX = 0
+</span><span class="c"></span>	<span class="mi">0x0041</span> <span class="mi">00065</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">INCQ</span>	<span class="no">AX</span>           <span class="c"># AX++
+</span><span class="c"></span>	<span class="mi">0x0044</span> <span class="mi">00068</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">CMPQ</span>	<span class="no">AX</span><span class="p">,</span> <span class="no">$1000000</span> <span class="c"># AX &lt; 1000000
+</span><span class="c"></span>	<span class="mi">0x004a</span> <span class="mi">00074</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">JLT</span>	<span class="mi">65</span>               <span class="c"># JUMP to 00065 (next iteration)
+</span><span class="c"></span>    <span class="no">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Here you can see that at line <code>00065</code>, the loop does nothing except increasing the counter. Let&rsquo;s compare it with the
+larger struct.</p>
+<br/>
+**version with 10 int64**
+<p>The struct now contains 10 int64 and has the size 80 bytes</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-asm" data-lang="asm"><span class="err">0</span><span class="nf">x0000</span> <span class="mi">00000</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>	<span class="no">TEXT</span>	<span class="err">&#34;&#34;</span><span class="no">.main</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">ABIInternal</span><span class="p">,</span> <span class="no">$120-0</span>
+    <span class="na">...</span>
+	<span class="err">0</span><span class="nf">x0044</span> <span class="mi">00068</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">XORL</span>	<span class="no">CX</span><span class="p">,</span> <span class="no">CX</span> <span class="c"># CX = 0
+</span><span class="c"></span>	<span class="mi">0x0046</span> <span class="mi">00070</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">JMP</span>	<span class="mi">76</span>
+	<span class="err">0</span><span class="nf">x0048</span> <span class="mi">00072</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">ADDQ</span>	<span class="no">$80</span><span class="p">,</span> <span class="no">AX</span>
+	<span class="err">0</span><span class="nf">x004c</span> <span class="mi">00076</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">PCDATA</span>	<span class="no">$0</span><span class="p">,</span> <span class="no">$2</span> <span class="c"># setup temporary variable autotmp_7
+</span><span class="c"></span>	<span class="mi">0x004c</span> <span class="mi">00076</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">LEAQ</span>	<span class="err">&#34;&#34;</span><span class="no">..autotmp_7</span><span class="err">+</span><span class="mi">32</span><span class="p">(</span><span class="no">SP</span><span class="p">),</span> <span class="no">DI</span>
+	<span class="err">0</span><span class="nf">x0051</span> <span class="mi">00081</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">PCDATA</span>	<span class="no">$0</span><span class="p">,</span> <span class="no">$3</span>
+	<span class="err">0</span><span class="nf">x0051</span> <span class="mi">00081</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">MOVQ</span>	<span class="no">AX</span><span class="p">,</span> <span class="no">SI</span>
+	<span class="err">0</span><span class="nf">x0054</span> <span class="mi">00084</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">PCDATA</span>	<span class="no">$0</span><span class="p">,</span> <span class="no">$1</span>
+	<span class="err">0</span><span class="nf">x0054</span> <span class="mi">00084</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">DUFFCOPY</span>	<span class="no">$826</span> <span class="c"># copy content of the struct
+</span><span class="c"></span>	<span class="mi">0x0067</span> <span class="mi">00103</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">INCQ</span>	<span class="no">CX</span>           <span class="c"># CX++
+</span><span class="c"></span>	<span class="mi">0x006a</span> <span class="mi">00106</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">CMPQ</span>	<span class="no">CX</span><span class="p">,</span> <span class="no">$1000000</span> <span class="c"># CX &lt; 1000000
+</span><span class="c"></span>	<span class="mi">0x0071</span> <span class="mi">00113</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">JLT</span>	<span class="mi">72</span>               <span class="c"># JUMP to 0072 (next iteration)
+</span><span class="c"></span>    <span class="no">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The conclusion is that with 80 bytes struct, every iteration copies the value of the element.</p>
+<h2 id="ssa-optimization">SSA Optimization</h2>
+<p>To understand how this code is generated, we first need to understand how GO compile a source code.</p>
+<p><em>Stream</em> wrote a very good introduction to the topic on
+<a href="https://getstream.io/blog/how-a-go-program-compiles-down-to-machine-code/">How a Go Program Compiles down to Machine Code</a>.<br>
+The short version is the compiler does:</p>
+<ol>
+<li>break up the source code content into tokens (Scanning)</li>
+<li>Construct Abstract Syntax Tree using the tokens (Parsing)</li>
+<li>Generate Intermediate Representation (IR) with <a href="https://en.wikipedia.org/wiki/Static_single_assignment_form">Static Single Assignment (SSA) form</a></li>
+<li>Iteratively optimize the IR with <a href="https://github.com/golang/go/blob/go1.14.1/src/cmd/compile/internal/ssa/compile.go#L398-L451">multiple pass</a></li>
+</ol>
+<br/>
+Fortunately GO provides amazing tool that helps us getting more insight into the optimization process.
+We can generate the SSA output for each stage of transformation with:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nv">GOSSAFUNC</span><span class="o">=</span>main go tool compile -S main_var.go type_small.go
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+The command will generate `ssa.html` in the same folder.
+<p>Each column represents the optimization pass, and the result of the IR code.
+When we click on a block, variable, or line. It will colorize the associated element, so we can track changes easily.</p>
+<a href="forVar_small_ssa.png">
+![Generated SSA HTML](forVar_small_ssa.png)
+</a>
+<br/>
+<p>After comparing each step, I found out that the generated code was identical until the <code>writebarrier</code> pass.
+let&rsquo;s focus on block <code>b6</code></p>
+<p><strong><code>writebarrier</code></strong> (identical on both versions)</p>
+<pre><code>b6: ← b3 b4
+    v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
+    v28 (7) = Phi &lt;int&gt; v16 v37
+    v23 (7) = Phi &lt;mem&gt; v12 v27
+    v37 (+7) = Add64 &lt;int&gt; v28 v36
+    v39 (7) = Less64 &lt;bool&gt; v37 v8
+    v25 (7) = VarDef &lt;mem&gt; {.autotmp_7} v23
+    v26 (7) = LocalAddr &lt;*SomeStruct&gt; {.autotmp_7} v2 v25
+    v27 (+7) = Move &lt;mem&gt; {SomeStruct} [72] v26 v22 v25
+</code></pre><p>If you see on <code>v26 &amp; v27</code>, it does <code>Move</code> (or Copy) the content of the struct to local variable <code>autotmp_7</code>.</p>
+<p>The <code>lower</code> pass basically convert the IR code into specific architecture low level code. Let&rsquo;s have a look at the generated output.
+Don&rsquo;t be afraid if you don&rsquo;t really understand the assembly. What I wanted to show is the different code that was generated during
+the <code>lower</code> pass.</p>
+<p><strong><code>lower</code> with 9 int64</strong></p>
+<pre><code>b6: ← b3 b4
+
+    v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
+    v28 (7) = Phi &lt;int&gt; v16 v37
+    v23 (7) = Phi &lt;mem&gt; v12 v27
+    v37 (+7) = ADDQconst &lt;int&gt; [1] v28
+    v25 (7) = VarDef &lt;mem&gt; {.autotmp_7} v23
+    v26 (7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} v2
+    v44 (7) = CMPQconst &lt;flags&gt; [1000000] v37 
+    v32 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [8] v2
+    v31 (+7) = ADDQconst &lt;*SomeStruct&gt; [8] v22
+    v29 (+7) = MOVQload &lt;uint64&gt; v22 v25
+    v24 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [40] v2
+    v15 (+7) = ADDQconst &lt;*SomeStruct&gt; [40] v22
+    v46 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [56] v2
+    v35 (+7) = ADDQconst &lt;*SomeStruct&gt; [56] v22
+    v21 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [24] v2
+    v17 (+7) = ADDQconst &lt;*SomeStruct&gt; [24] v22
+    v39 (7) = SETL &lt;bool&gt; v44
+    v42 (7) = TESTB &lt;flags&gt; v39 v39
+    v30 (+7) = MOVQstore &lt;mem&gt; {.autotmp_7} v2 v29 v25  # &lt;-- start translated Move instruction
+    v41 (+7) = MOVOload &lt;int128&gt; [8] v22 v30
+    v20 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [8] v2 v41 v30
+    v34 (+7) = MOVOload &lt;int128&gt; [24] v22 v20
+    v19 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [24] v2 v34 v20
+    v33 (+7) = MOVOload &lt;int128&gt; [40] v22 v19
+    v38 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [40] v2 v33 v19
+    v47 (+7) = MOVOload &lt;int128&gt; [56] v22 v38
+    v27 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [56] v2 v47 v38
+</code></pre><br/>
+**`lower` with 10 int64**
+<pre><code>b6: ← b3 b4
+
+    v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
+    v28 (7) = Phi &lt;int&gt; v16 v37
+    v23 (7) = Phi &lt;mem&gt; v12 v27
+    v37 (+7) = ADDQconst &lt;int&gt; [1] v28
+    v25 (7) = VarDef &lt;mem&gt; {.autotmp_7} v23
+    v26 (7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} v2
+    v44 (7) = CMPQconst &lt;flags&gt; [1000000] v37
+    v32 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [8] v2
+    v31 (+7) = ADDQconst &lt;*SomeStruct&gt; [8] v22
+    v29 (+7) = MOVQload &lt;uint64&gt; v22 v25
+    v39 (7) = SETL &lt;bool&gt; v44
+    v42 (7) = TESTB &lt;flags&gt; v39 v39
+    v30 (+7) = MOVQstore &lt;mem&gt; {.autotmp_7} v2 v29 v25 # &lt;-- start translated Move instruction
+    v27 (+7) = DUFFCOPY &lt;mem&gt; [826] v32 v31 v30
+
+LT v44 → b4 b2 (likely) (7)
+</code></pre><br/>
+<p>The later version uses <code>DUFFCOPY</code> to perform the Move operation. This logic I believe is due to a rewrite rule
+<a href="https://golang.org/src/cmd/compile/internal/ssa/rewriteAMD64.go#L54445">rewriteAMD64.go</a>. It&rsquo;s an optimization
+to Move a large byte on memory.</p>
+<pre><code>// match: (Move [s] dst src mem)
+// cond: s &gt; 64 &amp;&amp; s &lt;= 16*64 &amp;&amp; s%16 == 0 &amp;&amp; !config.noDuffDevice
+// result: (DUFFCOPY [14*(64-s/16)] dst src mem)
+</code></pre><br/>
+<p>At a later SSA pass (<code>elim unread autos</code>) the compiler can detect that there are unused temporary
+variable for the first version (9 int64 struct). Thus, the <code>Move</code> instruction can be removed.
+This is not the case with for the `DUFFCOPY' version.
+That&rsquo;s why the generated machine code is less optimized than the previous.</p>
+<p>Note:
+A <a href="https://en.wikipedia.org/wiki/Duff%27s_device">Duff Device</a> is a loop optimization by splitting the task
+and reduce the number of loop.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p><code>for-range</code> behaves differently depending on the struct size is due to Compiler SSA optimization. The compiler generated
+a different machine code for the larger struct where at a later pass it did not detect unused variable. The opposite happen
+for the smaller struct. At a later pass, it detected that some variables are un used. It removes the copy of element
+instruction on each iteration.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">
+    <h2>
+      Checkout Last Branch
+    </h2>
+  </a>
+  <div class="posted_at">
+    2020-03-16 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Sometimes you are checking out mutltiple different git branches and want to navigate back to previous branch.</p>
+<p>You can use <code>git checkout -</code> to do it</p>
+<p>example :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git checkout ay/convert-errors-lib
+Updating files: 100% <span class="o">(</span>2480/2480<span class="o">)</span>, <span class="k">done</span>.
+Switched to branch <span class="s1">&#39;ay/convert-errors-lib&#39;</span>
+
+$ git checkout -
+Updating files: 100% <span class="o">(</span>2480/2480<span class="o">)</span>, <span class="k">done</span>.
+Switched to branch <span class="s1">&#39;master&#39;</span>
+Your branch is up to date with <span class="s1">&#39;origin/master&#39;</span>.
+</code></pre></td></tr></table>
+</div>
+</div><p>If you want to checkout 2 branches a go. you can do</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ git checkout @<span class="o">{</span>-2<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Basically <code>git checkout -</code> is equql to <code>git checkout @{-1}</code></p>
+<p>If you want to list all of the checked out branch (history) you can use this script</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="k">for</span> i in <span class="o">{</span>1..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> -n <span class="s2">&#34;[</span><span class="nv">$i</span><span class="s2">] &#34;</span><span class="p">;</span> git rev-parse --symbolic-full-name @<span class="o">{</span>-<span class="nv">$i</span><span class="o">}</span><span class="p">;</span> <span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>I added this as a git command on my zsh. have a look at <a href="https://github.com/yulrizka/oh-my-zsh/commit/2b730e3bf2777f83e6a215da4a03e51e67145ff3">this commit</a></p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">
     <h2>
       Replacing Last Command and Execute It
@@ -313,44 +729,6 @@ bindkey &quot;^N&quot; down-line-or-beginning-search
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/rename-tmux-window/">
-    <h2>
-      rename tmux window
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-01-17 ::
-    ( 1 minutes reading )
-  </div>
-
-  <pre><code>C-a A
-</code></pre><p>That&rsquo;s Control-a A</p>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/net/dnssec/">
-    <h2>
-      DNSSEC
-    </h2>
-  </a>
-  <div class="posted_at">
-    2019-01-13 ::
-    ( 1 minutes reading )
-  </div>
-
-  <h1 id="dnssec">DNSSEC</h1>
-<blockquote>
-<p>DNSSEC is a technology that was developed to, among other things, protect against such attacks by digitally &lsquo;signing&rsquo; data so you can be assured it is valid. However, in order to eliminate the vulnerability from the Internet, it must be deployed at each step in the lookup from root zone to final domain name (e.g., <a href="http://www.icann.org">www.icann.org</a>). Signing the root (deploying DNSSEC on the root zone) is a necessary step in this overall processii. Importantly it does not encrypt data. It just attests to the validity of the address of the site you visit.</p>
-</blockquote>
-<p>It&rsquo;s basically backward compatible addition to the protocol where DNS server can verify the authenticity of the record using asymetric key certificate</p>
-<p>There is also as concept of KSK (Key Signing key) a long term key and ZSK (Zone Signing Key) a short term key. They rotate the ZSK using KSK so that it&rsquo;s harder to bruteforce to key</p>
-
-</article>
-<hr/>
-
 
 
 <ul class="pagination">
@@ -459,6 +837,14 @@ bindkey &quot;^N&quot; down-line-or-beginning-search
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/db/postgres-naming-trigger/">Postgres Naming Trigger</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/db/postgres-audit-log-trigger/">Postgres Audit Log Trigger</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
             </li>
           
@@ -488,14 +874,6 @@ bindkey &quot;^N&quot; down-line-or-beginning-search
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">Replacing Last Command and Execute It</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/">Open Last Command in the Editor With Fc</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
             </li>
           
           </ul>

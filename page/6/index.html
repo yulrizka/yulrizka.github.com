@@ -38,6 +38,86 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/git/git-mergetool-and-diff-with-p4merge/">
+    <h2>
+      git mergetool and diff with p4merge
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-04-03 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Some time you want visually merge conflict in git. To use p4merge
+<a href="https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge">https://www.perforce.com/products/helix-core-apps/merge-diff-tool-p4merge</a></p>
+<h2 id="git-mergetool">git mergetool</h2>
+<h3 id="linux">Linux</h3>
+<pre><code>$ git config --global merge.tool p4mergetool
+$ git config --global mergetool.p4mergetool.cmd \
+$ &quot;/opt/p4v/bin/p4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
+$ git config --global mergetool.p4mergetool.trustExitCode false
+$ git config --global mergetool.keepBackup false
+</code></pre><h3 id="mac">Mac</h3>
+<pre><code>$ git config --global merge.tool p4mergetool
+$ git config --global mergetool.p4mergetool.cmd \
+&quot;/Applications/p4merge.app/Contents/Resources/launchp4merge \$PWD/\$BASE \$PWD/\$REMOTE \$PWD/\$LOCAL \$PWD/\$MERGED&quot;
+$ git config --global mergetool.p4mergetool.trustExitCode false
+$ git config --global mergetool.keepBackup false
+</code></pre><h2 id="set-as-diff-tool">Set as diff tool</h2>
+<h3 id="linux-1">Linux</h3>
+<p>$ git config &ndash;global merge.tool p4mergetool
+$ git config &ndash;global mergetool.p4mergetool.cmd<br>
+&ldquo;/opt/p4v/bin/p4merge $LOCAL $REMOTE&rdquo;</p>
+<h3 id="mac-1">Mac</h3>
+<p>$ git config &ndash;global diff.tool p4mergetool
+$ git config &ndash;global difftool.p4mergetool.cmd<br>
+&ldquo;/Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE&rdquo;</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/git/worktree-switching-branch-without-stash/">
+    <h2>
+      worktree - switching branch without stash
+    </h2>
+  </a>
+  <div class="posted_at">
+    2016-04-03 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>Some times you are working on some feature but then you need to check or fix something on some other branch.
+The normal way to do it is that we do:</p>
+<ol>
+<li>git stash</li>
+<li>switch to other branch</li>
+<li>commit changes</li>
+<li>swith to previous branch</li>
+<li>git stash pop</li>
+</ol>
+<p>This can be complicated especially you have multiple stash. You can&rsquo;t easily understand which stash belongs where.</p>
+<p>After version 2.5.2 there is new command called <code>git worktree</code></p>
+<p>Basically it can create new directory which checkout different branch</p>
+<p>example</p>
+<pre><code>$ git worktree add ../branch-temp some-branch
+$ cd ../branch-temp
+
+// hack
+// finish
+
+$ cd ../original-path
+$ rm -rf ../branch-temp
+
+// cleanup
+
+$ git worktree prune
+</code></pre><p>more detail about the command are available at <a href="https://git-scm.com/docs/git-worktree">https://git-scm.com/docs/git-worktree</a></p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/osx/cluster-ssh-in-iterm2-with-i2cssh/">
     <h2>
       cluster ssh in iterm2 with i2cssh
@@ -340,57 +420,6 @@ $ echo !:-3 # -&gt; echo echo 1 2 3
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/osx/manage-clipboard-easily-with-jumpcut/">
-    <h2>
-      manage clipboard easily with jumpcut
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-02-11 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p><a href="http://jumpcut.sourceforge.net/">Jumpcut</a> is clipboard manager that allows you to select your copy history.</p>
-<p>Let say you copy fil the contents of A, B, C, D. After you copy file D you want to paste the file B.
-Usually you have to go back to copy the content of file, but now you don&rsquo;t have too.</p>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/osx/pipe-output-to-clipboard-with-pbcopy-and-pbpaste/">
-    <h2>
-      pipe output to clipboard with pbcopy and pbpaste
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-02-10 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Using terminal and needs to copy the result of command to clipboard ? use pbcopy</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ cat somefile.txt <span class="p">|</span> pbcopy
-</code></pre></td></tr></table>
-</div>
-</div><p>Or the other way around, paste from clipboard and pipe it to other program</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ pbpaste <span class="p">|</span> grep foo
-</code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
 
 
 <ul class="pagination">
@@ -508,6 +537,14 @@ Usually you have to go back to copy the content of file, but now you don&rsquo;t
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/db/postgres-naming-trigger/">Postgres Naming Trigger</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/db/postgres-audit-log-trigger/">Postgres Audit Log Trigger</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
             </li>
           
@@ -537,14 +574,6 @@ Usually you have to go back to copy the content of file, but now you don&rsquo;t
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">Replacing Last Command and Execute It</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/">Open Last Command in the Editor With Fc</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
             </li>
           
           </ul>

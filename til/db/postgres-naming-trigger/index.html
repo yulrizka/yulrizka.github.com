@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<title> - labs.yulrizka.com</title>
+<title>Postgres Naming Trigger - labs.yulrizka.com</title>
 <meta name="description" content="">
 
 
@@ -11,7 +11,7 @@
 
 
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/unix/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/db/postgres-naming-trigger/">
 
 
 
@@ -33,17 +33,66 @@
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content"><p>UNIX index</p>
-<h1>
-		
-		
-		Today I Learned
-	</h1>
+        <div class="content">
+<h1>Postgres Naming Trigger</h1>
+<div class="posted_at">
+	2021-02-02 ::
+	( 1 minutes reading )
+</div><p>Taken From <a href="https://severalnines.com/database-blog/postgresql-triggers-and-stored-function-basics">https://severalnines.com/database-blog/postgresql-triggers-and-stored-function-basics</a></p>
+<p>Pattern <code>[TBALE_NAME]_[FUNCITON NAME]_[WHEN][1 or more WHY][t]</code></p>
+<p>When:</p>
+<ul>
+<li>b - Before</li>
+<li>a - After</li>
+<li>i - Instead of</li>
+</ul>
+<p>WHY:</p>
+<ul>
+<li>i - Insert</li>
+<li>u - Update</li>
+<li>d - Delete</li>
+<li>t - Truncate</li>
+</ul>
+<p>t = &lsquo;trigger&rsquo;</p>
+<p>eg: <code>my_table_update_ts_biut</code> means it&rsquo;s a trigger on my_table, triggers update_ts before insert &amp; update</p>
+<p>Reasoning: Just by looking at the trigger name, you know which table, and when it is triggered</p>
+<p>example</p>
+<pre><code>-- function to update updated_at column during insert or update
+CREATE OR REPLACE FUNCTION update_timestamp()
+	RETURNS trigger AS
+$$
+BEGIN
+	NEW.updated_at := NOW();
+	RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
 
-	
-		
-	
 
+CREATE TRIGGER users_update_timestamp_biut
+	BEFORE INSERT OR UPDATE
+	ON users
+	FOR EACH ROW
+EXECUTE PROCEDURE update_timestamp();
+</code></pre><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
         </div>
       </div>

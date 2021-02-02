@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-<title> - labs.yulrizka.com</title>
+<title>Postgres Audit Log Trigger - labs.yulrizka.com</title>
 <meta name="description" content="">
 
 
@@ -11,7 +11,7 @@
 
 
 <meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/til/unix/">
+<link rel="canonical" href="https://labs.yulrizka.com/til/db/postgres-audit-log-trigger/">
 
 
 
@@ -33,17 +33,120 @@
   <div class="container-fluid" id="main">
     <div class="row-fluid">
       <div id="content-wrapper" class="span9 ">
-        <div class="content"><p>UNIX index</p>
-<h1>
-		
-		
-		Today I Learned
-	</h1>
+        <div class="content">
+<h1>Postgres Audit Log Trigger</h1>
+<div class="posted_at">
+	2021-02-02 ::
+	( 1 minutes reading )
+</div><p>This triggers will log before and after fields for a table in JSON format.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">changelog</span>
+<span class="p">(</span>
+	<span class="n">id</span>         <span class="nb">serial</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+	<span class="n">ts</span>         <span class="k">timestamp</span> <span class="k">DEFAULT</span> <span class="n">NOW</span><span class="p">(),</span>
+	<span class="k">table_name</span> <span class="nb">text</span><span class="p">,</span>
+	<span class="k">operation</span>  <span class="nb">text</span><span class="p">,</span>
+	<span class="n">new_val</span>    <span class="n">json</span><span class="p">,</span>
+	<span class="n">old_val</span>    <span class="n">json</span>
+<span class="p">);</span>
 
-	
-		
-	
+<span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">changelog_ts_table_name_index</span>
+	<span class="k">ON</span> <span class="n">changelog</span> <span class="p">(</span><span class="n">ts</span> <span class="k">DESC</span><span class="p">,</span> <span class="k">table_name</span> <span class="k">ASC</span><span class="p">);</span>
 
+<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">logchange</span><span class="p">()</span> <span class="k">RETURNS</span> <span class="k">trigger</span> <span class="k">AS</span>
+<span class="err">$$</span>
+<span class="k">BEGIN</span>
+	<span class="k">IF</span> <span class="n">TG_OP</span> <span class="o">=</span> <span class="s1">&#39;INSERT&#39;</span>
+	<span class="k">THEN</span>
+		<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">changelog</span> <span class="p">(</span><span class="k">table_name</span><span class="p">,</span> <span class="k">operation</span><span class="p">,</span> <span class="n">new_val</span><span class="p">)</span>
+		<span class="k">VALUES</span> <span class="p">(</span><span class="n">TG_RELNAME</span><span class="p">,</span> <span class="n">TG_OP</span><span class="p">,</span> <span class="n">ROW_TO_JSON</span><span class="p">(</span><span class="k">NEW</span><span class="p">));</span>
+		<span class="k">RETURN</span> <span class="k">NEW</span><span class="p">;</span>
+	<span class="k">ELSIF</span> <span class="n">TG_OP</span> <span class="o">=</span> <span class="s1">&#39;UPDATE&#39;</span>
+	<span class="k">THEN</span>
+		<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">changelog</span> <span class="p">(</span><span class="k">table_name</span><span class="p">,</span> <span class="k">operation</span><span class="p">,</span> <span class="n">new_val</span><span class="p">,</span> <span class="n">old_val</span><span class="p">)</span>
+		<span class="k">VALUES</span> <span class="p">(</span><span class="n">TG_RELNAME</span><span class="p">,</span> <span class="n">TG_OP</span><span class="p">,</span> <span class="n">ROW_TO_JSON</span><span class="p">(</span><span class="k">NEW</span><span class="p">),</span> <span class="n">ROW_TO_JSON</span><span class="p">(</span><span class="k">OLD</span><span class="p">));</span>
+		<span class="k">RETURN</span> <span class="k">NEW</span><span class="p">;</span>
+	<span class="k">ELSIF</span> <span class="n">TG_OP</span> <span class="o">=</span> <span class="s1">&#39;DELETE&#39;</span>
+	<span class="k">THEN</span>
+		<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">changelog</span>
+			<span class="p">(</span><span class="k">table_name</span><span class="p">,</span> <span class="k">operation</span><span class="p">,</span> <span class="n">old_val</span><span class="p">)</span>
+		<span class="k">VALUES</span> <span class="p">(</span><span class="n">TG_RELNAME</span><span class="p">,</span> <span class="n">TG_OP</span><span class="p">,</span> <span class="n">ROW_TO_JSON</span><span class="p">(</span><span class="k">OLD</span><span class="p">));</span>
+		<span class="k">RETURN</span> <span class="k">OLD</span><span class="p">;</span>
+	<span class="k">END</span> <span class="k">IF</span><span class="p">;</span>
+<span class="k">END</span><span class="p">;</span>
+<span class="err">$$</span> <span class="k">LANGUAGE</span> <span class="s1">&#39;plpgsql&#39;</span> <span class="k">SECURITY</span> <span class="k">DEFINER</span><span class="p">;</span>
+
+<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">users_changelog_biudt</span>
+	<span class="k">BEFORE</span> <span class="k">INSERT</span> <span class="k">OR</span> <span class="k">UPDATE</span> <span class="k">OR</span> <span class="k">DELETE</span>
+	<span class="k">ON</span> <span class="n">users</span>
+	<span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span>
+<span class="k">EXECUTE</span> <span class="k">PROCEDURE</span> <span class="n">logchange</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "labs-yulrizka" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
         </div>
       </div>

@@ -38,6 +38,57 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/unix/sending-curl-post-with-file/">
+    <h2>
+      sending curl POST with file
+    </h2>
+  </a>
+  <div class="posted_at">
+    2017-10-15 ::
+    ( 1 minutes reading )
+  </div>
+
+  <pre><code>curl -X POST -d @myfilename http://www.url.com
+``
+
+or
+
+``
+curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
+{
+  &quot;query&quot;: { &quot;match_phrase&quot;: { &quot;address&quot;: &quot;mill lane&quot; } }
+}'
+</code></pre>
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/unix/jq-extracting-properties-to-arrays-from-json-row-line/">
+    <h2>
+      jq extracting properties to arrays from JSON row line
+    </h2>
+  </a>
+  <div class="posted_at">
+    2017-10-09 ::
+    ( 1 minutes reading )
+  </div>
+
+  <p>For example if we have a file that contains JSON object like</p>
+<pre><code>{&quot;a&quot;: 1, &quot;b&quot;:{&quot;c&quot;: 11}
+{&quot;a&quot;: 2, &quot;b&quot;:{&quot;c&quot;: 22}}
+{&quot;a&quot;: 3, &quot;b&quot;:{&quot;c&quot;: 33}}
+</code></pre><p>And you want to construct something like</p>
+<pre><code>[&quot;1&quot;, &quot;11&quot;]
+[&quot;2&quot;, &quot;22&quot;]
+[&quot;3&quot;, &quot;33&quot;]
+</code></pre><p>You can do that with jq</p>
+<pre><code>$ cat filename.json | jq -c '[.a, .b.c]'
+</code></pre><p>this is particularly usefull to grep something from JSON log</p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/osx/list-open-port/">
     <h2>
       list open port
@@ -260,60 +311,6 @@ For example log file in json format</p>
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/analytics/pandas-format-custom-date-in-data-frame/">
-    <h2>
-      pandas - format custom date in data frame
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-06-07 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>say you have a data frame like this</p>
-<pre><code>[
-  {foo: 1, created_date:&quot;2016-06-04 03:00:01.727&quot;},
-  ...
-]
-</code></pre><p>the timestamp doesn&rsquo;t recognize immediately. To make this field as timestamp and as index we could do</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># assuming df contains the data frame</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">be</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S.</span><span class="si">%f</span><span class="s2">&#34;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/file-size-older-than-x-days/">
-    <h2>
-      file size older than x days
-    </h2>
-  </a>
-  <div class="posted_at">
-    2016-06-06 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>from <a href="http://stackoverflow.com/a/17419690/546750">http://stackoverflow.com/a/17419690/546750</a></p>
-<p>to list all file that modified more than more than X days, we can use</p>
-<pre><code>$ find . -mtime +[number of days]
-</code></pre><p>if you use <code>-</code> sign than it became file is modified since X days</p>
-<p>Combine it with akw, we can get total file size</p>
-<pre><code>$ find . -mtime +180 -exec du -ks {} \; | cut -f1 | awk '{total=total+$1}END{print total/1024}'
-</code></pre>
-</article>
-<hr/>
-
 
 
 <ul class="pagination">
@@ -428,6 +425,14 @@ For example log file in json format</p>
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/db/postgres-naming-trigger/">Postgres Naming Trigger</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/db/postgres-audit-log-trigger/">Postgres Audit Log Trigger</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
             </li>
           
@@ -457,14 +462,6 @@ For example log file in json format</p>
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">Replacing Last Command and Execute It</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/">Open Last Command in the Editor With Fc</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
             </li>
           
           </ul>

@@ -38,6 +38,44 @@
 
 
 <article>
+  <a href="https://labs.yulrizka.com/til/unix/rename-tmux-window/">
+    <h2>
+      rename tmux window
+    </h2>
+  </a>
+  <div class="posted_at">
+    2019-01-17 ::
+    ( 1 minutes reading )
+  </div>
+
+  <pre><code>C-a A
+</code></pre><p>That&rsquo;s Control-a A</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/til/net/dnssec/">
+    <h2>
+      DNSSEC
+    </h2>
+  </a>
+  <div class="posted_at">
+    2019-01-13 ::
+    ( 1 minutes reading )
+  </div>
+
+  <h1 id="dnssec">DNSSEC</h1>
+<blockquote>
+<p>DNSSEC is a technology that was developed to, among other things, protect against such attacks by digitally &lsquo;signing&rsquo; data so you can be assured it is valid. However, in order to eliminate the vulnerability from the Internet, it must be deployed at each step in the lookup from root zone to final domain name (e.g., <a href="http://www.icann.org">www.icann.org</a>). Signing the root (deploying DNSSEC on the root zone) is a necessary step in this overall processii. Importantly it does not encrypt data. It just attests to the validity of the address of the site you visit.</p>
+</blockquote>
+<p>It&rsquo;s basically backward compatible addition to the protocol where DNS server can verify the authenticity of the record using asymetric key certificate</p>
+<p>There is also as concept of KSK (Key Signing key) a long term key and ZSK (Zone Signing Key) a short term key. They rotate the ZSK using KSK so that it&rsquo;s harder to bruteforce to key</p>
+
+</article>
+<hr/>
+
+<article>
   <a href="https://labs.yulrizka.com/til/git/reset-email-multiple-commit/">
     <h2>
       reset email multiple git commit
@@ -404,57 +442,6 @@ cassand+ 24615 40.5 41.9 12064088 5033964 ?    SLl  14:28   5:15 java -ea -javaa
 </article>
 <hr/>
 
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/sending-curl-post-with-file/">
-    <h2>
-      sending curl POST with file
-    </h2>
-  </a>
-  <div class="posted_at">
-    2017-10-15 ::
-    ( 1 minutes reading )
-  </div>
-
-  <pre><code>curl -X POST -d @myfilename http://www.url.com
-``
-
-or
-
-``
-curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
-{
-  &quot;query&quot;: { &quot;match_phrase&quot;: { &quot;address&quot;: &quot;mill lane&quot; } }
-}'
-</code></pre>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/unix/jq-extracting-properties-to-arrays-from-json-row-line/">
-    <h2>
-      jq extracting properties to arrays from JSON row line
-    </h2>
-  </a>
-  <div class="posted_at">
-    2017-10-09 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>For example if we have a file that contains JSON object like</p>
-<pre><code>{&quot;a&quot;: 1, &quot;b&quot;:{&quot;c&quot;: 11}
-{&quot;a&quot;: 2, &quot;b&quot;:{&quot;c&quot;: 22}}
-{&quot;a&quot;: 3, &quot;b&quot;:{&quot;c&quot;: 33}}
-</code></pre><p>And you want to construct something like</p>
-<pre><code>[&quot;1&quot;, &quot;11&quot;]
-[&quot;2&quot;, &quot;22&quot;]
-[&quot;3&quot;, &quot;33&quot;]
-</code></pre><p>You can do that with jq</p>
-<pre><code>$ cat filename.json | jq -c '[.a, .b.c]'
-</code></pre><p>this is particularly usefull to grep something from JSON log</p>
-
-</article>
-<hr/>
-
 
 
 <ul class="pagination">
@@ -566,6 +553,14 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
           <ul>
           
             <li>
+              <a href="https://labs.yulrizka.com/til/db/postgres-naming-trigger/">Postgres Naming Trigger</a>
+            </li>
+          
+            <li>
+              <a href="https://labs.yulrizka.com/til/db/postgres-audit-log-trigger/">Postgres Audit Log Trigger</a>
+            </li>
+          
+            <li>
               <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
             </li>
           
@@ -595,14 +590,6 @@ curl -XPOST 'localhost:9200/bank/_search?pretty' -d '
           
             <li>
               <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">Replacing Last Command and Execute It</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/open-last-command-in-the-editor-with-fc/">Open Last Command in the Editor With Fc</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/regex-for-validating-password/">Regex for Validating Password</a>
             </li>
           
           </ul>
