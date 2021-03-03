@@ -4,23 +4,8 @@
 	<h1>
 		{{ if eq .Section "en" }}English{{ end }}
 		{{ if eq .Section "id" }}Indonesia{{ end }}
-		{{ if eq .Section "til" }}Today I Learned{{ end }}
 	</h1>
 
-	{{ if eq .Section "til" }}
-		{{ range sort .Sections "CurrentSection.File.Dir" }}
-
-		{{ $tilPath := path.Base .CurrentSection.File.Dir }}
-		<h2>{{ $tilPath | upper }}</h2>
-			<ul>
-			{{ range .Pages }}
-			<li>
-				<a href="{{ .Permalink }}">{{ dateFormat "2006-01-02" .PublishDate }} - {{ .Title }}</a>
-			</li>
-			{{ end }}
-			</ul>
-		{{ end }}
-	{{ else }}
 	<ul>
 		{{ range where .Site.RegularPages "Section" .Section }}
 		<li>
@@ -28,6 +13,5 @@
 		</li>
 		{{ end }}
 	</ul>
-	{{ end }}
 
 {{ end }}
