@@ -38,349 +38,6 @@
 
 
 <article>
-  <a href="https://labs.yulrizka.com/til/db/postgres-naming-trigger/">
-    <h2>
-      Postgres Naming Trigger
-    </h2>
-  </a>
-  <div class="posted_at">
-    2021-02-02 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>Taken From <a href="https://severalnines.com/database-blog/postgresql-triggers-and-stored-function-basics">https://severalnines.com/database-blog/postgresql-triggers-and-stored-function-basics</a></p>
-<p>Pattern <code>[TBALE_NAME]_[FUNCITON NAME]_[WHEN][1 or more WHY][t]</code></p>
-<p>When:</p>
-<ul>
-<li>b - Before</li>
-<li>a - After</li>
-<li>i - Instead of</li>
-</ul>
-<p>WHY:</p>
-<ul>
-<li>i - Insert</li>
-<li>u - Update</li>
-<li>d - Delete</li>
-<li>t - Truncate</li>
-</ul>
-<p>t = &lsquo;trigger&rsquo;</p>
-<p>eg: <code>my_table_update_ts_biut</code> means it&rsquo;s a trigger on my_table, triggers update_ts before insert &amp; update</p>
-<p>Reasoning: Just by looking at the trigger name, you know which table, and when it is triggered</p>
-<p>example</p>
-<pre><code>-- function to update updated_at column during insert or update
-CREATE OR REPLACE FUNCTION update_timestamp()
-	RETURNS trigger AS
-$$
-BEGIN
-	NEW.updated_at := NOW();
-	RETURN NEW;
-END;
-$$ LANGUAGE 'plpgsql';
-
-
-CREATE TRIGGER users_update_timestamp_biut
-	BEFORE INSERT OR UPDATE
-	ON users
-	FOR EACH ROW
-EXECUTE PROCEDURE update_timestamp();
-</code></pre>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/db/postgres-audit-log-trigger/">
-    <h2>
-      Postgres Audit Log Trigger
-    </h2>
-  </a>
-  <div class="posted_at">
-    2021-02-02 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>This triggers will log before and after fields for a table in JSON format.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">changelog</span>
-<span class="p">(</span>
-	<span class="n">id</span>         <span class="nb">serial</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
-	<span class="n">ts</span>         <span class="k">timestamp</span> <span class="k">DEFAULT</span> <span class="n">NOW</span><span class="p">(),</span>
-	<span class="k">table_name</span> <span class="nb">text</span><span class="p">,</span>
-	<span class="k">operation</span>  <span class="nb">text</span><span class="p">,</span>
-	<span class="n">new_val</span>    <span class="n">json</span><span class="p">,</span>
-	<span class="n">old_val</span>    <span class="n">json</span>
-<span class="p">);</span>
-
-<span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">changelog_ts_table_name_index</span>
-	<span class="k">ON</span> <span class="n">changelog</span> <span class="p">(</span><span class="n">ts</span> <span class="k">DESC</span><span class="p">,</span> <span class="k">table_name</span> <span class="k">ASC</span><span class="p">);</span>
-
-<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">logchange</span><span class="p">()</span> <span class="k">RETURNS</span> <span class="k">trigger</span> <span class="k">AS</span>
-<span class="err">$$</span>
-<span class="k">BEGIN</span>
-	<span class="k">IF</span> <span class="n">TG_OP</span> <span class="o">=</span> <span class="s1">&#39;INSERT&#39;</span>
-	<span class="k">THEN</span>
-		<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">changelog</span> <span class="p">(</span><span class="k">table_name</span><span class="p">,</span> <span class="k">operation</span><span class="p">,</span> <span class="n">new_val</span><span class="p">)</span>
-		<span class="k">VALUES</span> <span class="p">(</span><span class="n">TG_RELNAME</span><span class="p">,</span> <span class="n">TG_OP</span><span class="p">,</span> <span class="n">ROW_TO_JSON</span><span class="p">(</span><span class="k">NEW</span><span class="p">));</span>
-		<span class="k">RETURN</span> <span class="k">NEW</span><span class="p">;</span>
-	<span class="k">ELSIF</span> <span class="n">TG_OP</span> <span class="o">=</span> <span class="s1">&#39;UPDATE&#39;</span>
-	<span class="k">THEN</span>
-		<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">changelog</span> <span class="p">(</span><span class="k">table_name</span><span class="p">,</span> <span class="k">operation</span><span class="p">,</span> <span class="n">new_val</span><span class="p">,</span> <span class="n">old_val</span><span class="p">)</span>
-		<span class="k">VALUES</span> <span class="p">(</span><span class="n">TG_RELNAME</span><span class="p">,</span> <span class="n">TG_OP</span><span class="p">,</span> <span class="n">ROW_TO_JSON</span><span class="p">(</span><span class="k">NEW</span><span class="p">),</span> <span class="n">ROW_TO_JSON</span><span class="p">(</span><span class="k">OLD</span><span class="p">));</span>
-		<span class="k">RETURN</span> <span class="k">NEW</span><span class="p">;</span>
-	<span class="k">ELSIF</span> <span class="n">TG_OP</span> <span class="o">=</span> <span class="s1">&#39;DELETE&#39;</span>
-	<span class="k">THEN</span>
-		<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">changelog</span>
-			<span class="p">(</span><span class="k">table_name</span><span class="p">,</span> <span class="k">operation</span><span class="p">,</span> <span class="n">old_val</span><span class="p">)</span>
-		<span class="k">VALUES</span> <span class="p">(</span><span class="n">TG_RELNAME</span><span class="p">,</span> <span class="n">TG_OP</span><span class="p">,</span> <span class="n">ROW_TO_JSON</span><span class="p">(</span><span class="k">OLD</span><span class="p">));</span>
-		<span class="k">RETURN</span> <span class="k">OLD</span><span class="p">;</span>
-	<span class="k">END</span> <span class="k">IF</span><span class="p">;</span>
-<span class="k">END</span><span class="p">;</span>
-<span class="err">$$</span> <span class="k">LANGUAGE</span> <span class="s1">&#39;plpgsql&#39;</span> <span class="k">SECURITY</span> <span class="k">DEFINER</span><span class="p">;</span>
-
-<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">users_changelog_biudt</span>
-	<span class="k">BEFORE</span> <span class="k">INSERT</span> <span class="k">OR</span> <span class="k">UPDATE</span> <span class="k">OR</span> <span class="k">DELETE</span>
-	<span class="k">ON</span> <span class="n">users</span>
-	<span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span>
-<span class="k">EXECUTE</span> <span class="k">PROCEDURE</span> <span class="n">logchange</span><span class="p">();</span>
-</code></pre></td></tr></table>
-</div>
-</div>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">
-    <h2>
-      Intellij as git diff and mergetool
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-10-19 ::
-    ( 1 minutes reading )
-  </div>
-
-  <h2 id="setup-idea-script">Setup idea script</h2>
-<p>First, you need to set up <code>idea</code> script by following the instruction <a href="https://www.jetbrains.com/help/idea/working-with-the-ide-features-from-command-line.html#toolbox">here</a></p>
-<p>If you are using mac, make sure you add <code>-W</code> on the open script as follows (see <a href="https://youtrack.jetbrains.com/issue/IDEA-253240">this issue</a>)</p>
-<pre><code>open -Wna &quot;IntelliJ IDEA.app&quot; --args &quot;$@&quot;
-</code></pre><h2 id="setup-git-difftool--mergetool">setup git difftool &amp; mergetool</h2>
-<p>Taken from <a href="https://gist.github.com/rambabusaravanan/1d1902e599c9c680319678b0f7650898#gistcomment-2132894">https://gist.github.com/rambabusaravanan/1d1902e599c9c680319678b0f7650898#gistcomment-2132894</a></p>
-<p>open <code>.git/config</code> (or your global <code>gitconfig</code> file)</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>merge<span class="o">]</span>
-    <span class="nv">tool</span> <span class="o">=</span> intellij
-<span class="o">[</span>mergetool <span class="s2">&#34;intellij&#34;</span><span class="o">]</span>
-    <span class="nv">cmd</span> <span class="o">=</span> idea merge <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$LOCAL</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$LOCAL</span><span class="s2">&#34;</span><span class="k">)</span> <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$REMOTE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$REMOTE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$BASE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$BASE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$MERGED</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$MERGED</span><span class="s2">&#34;</span><span class="k">)</span>
-    <span class="nv">trustExitCode</span> <span class="o">=</span> <span class="nb">true</span>
-<span class="o">[</span>diff<span class="o">]</span>
-    <span class="nv">tool</span> <span class="o">=</span> intellij
-<span class="o">[</span>difftool <span class="s2">&#34;intellij&#34;</span><span class="o">]</span>
-    <span class="nv">cmd</span> <span class="o">=</span> idea diff <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$LOCAL</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$LOCAL</span><span class="s2">&#34;</span><span class="k">)</span> <span class="k">$(</span><span class="nb">cd</span> <span class="k">$(</span>dirname <span class="s2">&#34;</span><span class="nv">$REMOTE</span><span class="s2">&#34;</span><span class="k">)</span> <span class="o">&amp;&amp;</span> <span class="nb">pwd</span><span class="k">)</span>/<span class="k">$(</span>basename <span class="s2">&#34;</span><span class="nv">$REMOTE</span><span class="s2">&#34;</span><span class="k">)</span>
-
-</code></pre></td></tr></table>
-</div>
-</div><p>Explanation about LOCAL, REMOTE, BASE from <a href="https://stackoverflow.com/questions/20381677/in-a-git-merge-conflict-what-are-the-backup-base-local-and-remote-files-that">stackoverflow</a></p>
-<ul>
-<li>foo.LOCAL: the &ldquo;ours&rdquo; side of the conflict - ie, your branch (HEAD) that will contain the results of the merge</li>
-<li>foo.REMOTE: the &ldquo;theirs&rdquo; side of the conflict - the branch you are merging into HEAD</li>
-<li>foo.BASE: the common ancestor. useful for feeding into a three-way merge tool</li>
-<li>foo.BACKUP: the contents of file before invoking the merge tool, will be kept on the filesystem if mergetool.keepBackup = true.</li>
-</ul>
-<p><code>idea merge</code> <a href="https://www.jetbrains.com/help/idea/command-line-merge-tool.html">syntax</a></p>
-<pre><code>idea merge &lt;path1&gt; &lt;path2&gt; [&lt;base&gt;] &lt;output&gt;
-</code></pre>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">
-    <h2>
-      Checksum a File From a URL
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-10-17 ::
-    ( 1 minutes reading )
-  </div>
-
-  <pre><code>$ wget -qO- https://github.com/yulrizka/osx-push-to-talk/archive/v0.1.5.tar.gz | sha256sum
-</code></pre><ul>
-<li>q : quiet, disable output log</li>
-<li>O : output to a file</li>
-<li><code>-</code> : stdout</li>
-</ul>
-<p>flag is the same as <code>-q -O /dev/stdout</code></p>
-
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">
-    <h2>
-      Global Gitignore File
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-09-29 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>To create a global git ignore that apply across all git repository</p>
-<pre><code>$ echo `.DS_Store` &gt; ~/.gitignore
-$ git config --global core.excludesfile ~/.gitignore
-</code></pre>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/k8s/view-secret/">
-    <h2>
-      View kubernetes secret
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-09-17 ::
-    ( 1 minutes reading )
-  </div>
-
-  <p>List secrets</p>
-<pre><code>$ kubecetl get secrets
-</code></pre><p>View particular secret</p>
-<pre><code>$ kubectl describe secret foo
-
-Name:         foo
-Namespace:    foonamespac
-Labels:       &lt;none&gt;
-Annotations:  
-Type:         Opaque
-
-Data
-====
-DB_PASSWORD:  25 bytes
-</code></pre><p>to view the content of a secret</p>
-<pre><code>kubectl get secret foo -o jsonpath=&quot;{.data.DB_PASSWORD}&quot; | base64 --decode
-someSecurePassword
-</code></pre>
-</article>
-<hr/>
-
-<article>
-  <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">
-    <h2>
-      Push Only Current Branch
-    </h2>
-  </a>
-  <div class="posted_at">
-    2020-09-17 ::
-    ( 3 minutes reading )
-  </div>
-
-  <p>Git has multiple strategy whey you do <code>git push</code></p>
-<p>Before git 2.0, it was <code>matching</code> meaning that it will push all the
-local branch that has the same name as remote. I don&rsquo;t like this because most
-of the time i just want to push my current branch and avoid mistakenly local
-branches that is not ready to be push yet.</p>
-<p>After 2.0 it changes to <code>simple</code> it will push the current branch to upstream
-with added safety so that it will refuse to push if the upstream branch name is
-different from the local one. This is ok but when you created a new branch,
-it will ask you to explicitly set the upstream branch first.</p>
-<p>My workflow is my local branch is going to be always the same name as the
-remote, and if not exist it should be created automatically. this is why
-i like the <code>current</code> strategy. To change this use</p>
-<pre><code>git config --global push.default current
-</code></pre><p>from the git documentation</p>
-<p>push.default</p>
-<p>Defines the action git push should take if no refspec is given (whether from the command-line, config, or elsewhere). Different values are well-suited for specific workflows; for instance, in a purely central workflow
-(i.e. the fetch source is equal to the push destination), upstream is probably what you want. Possible values are:</p>
-<ul>
-<li>
-<p><strong>nothing</strong> - do not push anything (error out) unless a refspec is given. This is primarily meant for people who want to avoid mistakes by always being explicit.</p>
-</li>
-<li>
-<p><strong>current</strong> - push the current branch to update a branch with the same name on the receiving end. Works in both central and non-central workflows.</p>
-</li>
-<li>
-<p><strong>upstream</strong> - push the current branch back to the branch whose changes are usually integrated into the current branch (which is called @{upstream}). This mode only makes sense if you are pushing to the same repository
-you would normally pull from (i.e. central workflow).</p>
-</li>
-<li>
-<p><strong>tracking</strong> - This is a deprecated synonym for upstream.</p>
-</li>
-<li>
-<p><strong>simple</strong> - in centralized workflow, work like upstream with an added safety to refuse to push if the upstream branch’s name is different from the local one.</p>
-<p>When pushing to a remote that is different from the remote you normally pull from, work as current. This is the safest option and is suited for beginners.</p>
-<p>This mode has become the default in Git 2.0.</p>
-</li>
-<li>
-<p><strong>matching</strong> - push all branches having the same name on both ends. This makes the repository you are pushing to remember the set of branches that will be pushed out (e.g. if you always push maint and master there and no
-other branches, the repository you push to will have these two branches, and your local maint and master will be pushed there).</p>
-<p>To use this mode effectively, you have to make sure all the branches you would push out are ready to be pushed out before running git push, as the whole point of this mode is to allow you to push all of the branches
-in one go. If you usually finish work on only one branch and push out the result, while other branches are unfinished, this mode is not for you. Also this mode is not suitable for pushing into a shared central
-repository, as other people may add new branches there, or update the tip of existing branches outside your control.</p>
-<p>This used to be the default, but not since Git 2.0 (simple is the new default).</p>
-</li>
-</ul>
-
-</article>
-<hr/>
-
-<article>
   <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">
     <h2>
       My Desktop With i3, polybar, conky, and rofi
@@ -725,29 +382,2068 @@ to locate it.</p>
 <hr/>
 
 <article>
-  <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">
+  <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">
     <h2>
-      Convert PDF to Text Using OCR
+      Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)
     </h2>
   </a>
   <div class="posted_at">
-    2020-05-05 ::
+    2020-04-25 ::
+    ( 8 minutes reading )
+  </div>
+
+  <p>It&rsquo;s all started when my colleague asked this question.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;testing&#34;</span>
+
+<span class="kd">const</span> <span class="nx">size</span> <span class="p">=</span> <span class="mi">1000000</span>
+
+<span class="kd">type</span> <span class="nx">SomeStruct</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">ID0</span> <span class="kt">int64</span>
+	<span class="nx">ID1</span> <span class="kt">int64</span>
+	<span class="nx">ID2</span> <span class="kt">int64</span>
+	<span class="nx">ID3</span> <span class="kt">int64</span>
+	<span class="nx">ID4</span> <span class="kt">int64</span>
+	<span class="nx">ID5</span> <span class="kt">int64</span>
+	<span class="nx">ID6</span> <span class="kt">int64</span>
+	<span class="nx">ID7</span> <span class="kt">int64</span>
+	<span class="nx">ID8</span> <span class="kt">int64</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkForVar</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">SomeStruct</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nf">ReportAllocs</span><span class="p">()</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">slice</span> <span class="p">{</span> <span class="c1">// index and value
+</span><span class="c1"></span>            <span class="nx">_</span> <span class="p">=</span> <span class="nx">s</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">BenchmarkForCounter</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">SomeStruct</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nf">ReportAllocs</span><span class="p">()</span>
+    <span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">slice</span> <span class="p">{</span> <span class="c1">// only use the index
+</span><span class="c1"></span>            <span class="nx">s</span> <span class="o">:=</span> <span class="nx">slice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
+            <span class="nx">_</span> <span class="p">=</span> <span class="nx">s</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Which one do you think is faster?</p>
+<pre><code>$ go test -bench .
+goos: linux
+goarch: amd64
+BenchmarkForVar-4       	    4363	    269711 ns/op	       0 B/op	       0 allocs/op
+BenchmarkForCounter-4   	    4195	    285952 ns/op	       0 B/op	       0 allocs/op
+PASS
+ok  	_/test1	2.685s
+</code></pre><p>It&rsquo;s pretty much the same. However, if we increase the size of the struct by adding another field <code>ID9 int64</code>
+The result becomes significantly different.</p>
+<pre><code>$ go test -bench .
+goos: linux
+goarch: amd64
+BenchmarkForVar-4       	     282	   4264872 ns/op	       0 B/op	       0 allocs/op
+BenchmarkForCounter-4   	    4363	    269761 ns/op	       0 B/op	       0 allocs/op
+PASS
+ok  	_/test1	3.255s
+</code></pre><p><br />
+This problem become intriguing, so I dig a little deeper. I would like to point out that the code is a contrived example.
+It would probably not applied in a production code. I am <strong>not</strong> going to focus on the benchmark or which for-range works
+better but rather exploring how Go compiles and demonstrating useful Go tools in the process.</p>
+<p>The code below also contains some assembly code. I am not going into too much detail, so I would not worry if you are not familiar with it.
+My intention is to show how the generated code differs and what could be the reason for it.</p>
+<p>I am going to focus on <code>for _, s = range slice</code> loop (ForVar). To make it simpler I create a <code>main.go</code> and <code>struct.go</code></p>
+<p><strong>main.go</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">const</span> <span class="nx">size</span> <span class="p">=</span> <span class="mi">1000000</span>
+
+	<span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="nx">SomeStruct</span><span class="p">,</span> <span class="nx">size</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">s</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">slice</span> <span class="p">{</span>
+		<span class="nx">_</span> <span class="p">=</span> <span class="nx">s</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>I&rsquo;ll skip the <code>struct.go</code> here since it&rsquo;s pretty trivial.</p>
+<h2 id="generating-assembly-code">Generating Assembly Code</h2>
+<p>To look into what instructions are generated, we can use <code>go tool compile -S</code>. This will print out the generated
+assembly code to stdout. I also Skipped some lines that are not directly related to our code.</p>
+<p>according to <a href="https://golang.org/doc/asm">asm package doc</a></p>
+<blockquote>
+<p>The FUNCDATA and PCDATA directives contain information for use by the garbage collector; they are introduced by the compiler.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$  go tool compile -S main.go type.go <span class="p">|</span> grep -v FUNCDATA <span class="p">|</span> grep -v PCDATA
+</code></pre></td></tr></table>
+</div>
+</div><p>Here are the generated assembly code for both version.</p>
+<p><strong>version with 9 int64</strong></p>
+<p>This struct contains 9 int64 and has the size 72 bytes</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-asm" data-lang="asm"><span class="err">&#34;&#34;</span><span class="na">.main</span> <span class="no">STEXT</span> <span class="no">size</span><span class="err">=</span><span class="mi">93</span> <span class="no">args</span><span class="err">=</span><span class="mi">0x0</span> <span class="no">locals</span><span class="err">=</span><span class="mi">0x28</span>
+    <span class="na">...</span>
+	<span class="err">0</span><span class="nf">x0024</span> <span class="mi">00036</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">MOVQ</span>	<span class="no">AX</span><span class="p">,</span> <span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+	<span class="err">0</span><span class="nf">x0028</span> <span class="mi">00040</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">MOVQ</span>	<span class="no">$1000000</span><span class="p">,</span> <span class="mi">8</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+	<span class="err">0</span><span class="nf">x0031</span> <span class="mi">00049</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">MOVQ</span>	<span class="no">$1000000</span><span class="p">,</span> <span class="mi">16</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+	<span class="err">0</span><span class="nf">x003a</span> <span class="mi">00058</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">CALL</span>	<span class="no">runtime.makeslice</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+	<span class="err">0</span><span class="nf">x003f</span> <span class="mi">00063</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">XORL</span>	<span class="no">AX</span><span class="p">,</span> <span class="no">AX</span>       <span class="c"># set AX = 0
+</span><span class="c"></span>	<span class="mi">0x0041</span> <span class="mi">00065</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">INCQ</span>	<span class="no">AX</span>           <span class="c"># AX++
+</span><span class="c"></span>	<span class="mi">0x0044</span> <span class="mi">00068</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">CMPQ</span>	<span class="no">AX</span><span class="p">,</span> <span class="no">$1000000</span> <span class="c"># AX &lt; 1000000
+</span><span class="c"></span>	<span class="mi">0x004a</span> <span class="mi">00074</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">JLT</span>	<span class="mi">65</span>               <span class="c"># JUMP to 00065 (next iteration)
+</span><span class="c"></span>    <span class="no">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Here you can see that at line <code>00065</code>, the loop does nothing except increasing the counter. Let&rsquo;s compare it with the
+larger struct.</p>
+<br/>
+**version with 10 int64**
+<p>The struct now contains 10 int64 and has the size 80 bytes</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-asm" data-lang="asm"><span class="err">0</span><span class="nf">x0000</span> <span class="mi">00000</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>	<span class="no">TEXT</span>	<span class="err">&#34;&#34;</span><span class="no">.main</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">ABIInternal</span><span class="p">,</span> <span class="no">$120-0</span>
+    <span class="na">...</span>
+	<span class="err">0</span><span class="nf">x0044</span> <span class="mi">00068</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">6</span><span class="p">)</span>	<span class="no">XORL</span>	<span class="no">CX</span><span class="p">,</span> <span class="no">CX</span> <span class="c"># CX = 0
+</span><span class="c"></span>	<span class="mi">0x0046</span> <span class="mi">00070</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">JMP</span>	<span class="mi">76</span>
+	<span class="err">0</span><span class="nf">x0048</span> <span class="mi">00072</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">ADDQ</span>	<span class="no">$80</span><span class="p">,</span> <span class="no">AX</span>
+	<span class="err">0</span><span class="nf">x004c</span> <span class="mi">00076</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">PCDATA</span>	<span class="no">$0</span><span class="p">,</span> <span class="no">$2</span> <span class="c"># setup temporary variable autotmp_7
+</span><span class="c"></span>	<span class="mi">0x004c</span> <span class="mi">00076</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">LEAQ</span>	<span class="err">&#34;&#34;</span><span class="no">..autotmp_7</span><span class="err">+</span><span class="mi">32</span><span class="p">(</span><span class="no">SP</span><span class="p">),</span> <span class="no">DI</span>
+	<span class="err">0</span><span class="nf">x0051</span> <span class="mi">00081</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">PCDATA</span>	<span class="no">$0</span><span class="p">,</span> <span class="no">$3</span>
+	<span class="err">0</span><span class="nf">x0051</span> <span class="mi">00081</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">MOVQ</span>	<span class="no">AX</span><span class="p">,</span> <span class="no">SI</span>
+	<span class="err">0</span><span class="nf">x0054</span> <span class="mi">00084</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">PCDATA</span>	<span class="no">$0</span><span class="p">,</span> <span class="no">$1</span>
+	<span class="err">0</span><span class="nf">x0054</span> <span class="mi">00084</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">DUFFCOPY</span>	<span class="no">$826</span> <span class="c"># copy content of the struct
+</span><span class="c"></span>	<span class="mi">0x0067</span> <span class="mi">00103</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">INCQ</span>	<span class="no">CX</span>           <span class="c"># CX++
+</span><span class="c"></span>	<span class="mi">0x006a</span> <span class="mi">00106</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">CMPQ</span>	<span class="no">CX</span><span class="p">,</span> <span class="no">$1000000</span> <span class="c"># CX &lt; 1000000
+</span><span class="c"></span>	<span class="mi">0x0071</span> <span class="mi">00113</span> <span class="p">(</span><span class="no">main_var.go</span><span class="p">:</span><span class="mi">7</span><span class="p">)</span>	<span class="no">JLT</span>	<span class="mi">72</span>               <span class="c"># JUMP to 0072 (next iteration)
+</span><span class="c"></span>    <span class="no">...</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The conclusion is that with 80 bytes struct, every iteration copies the value of the element.</p>
+<h2 id="ssa-optimization">SSA Optimization</h2>
+<p>To understand how this code is generated, we first need to understand how GO compile a source code.</p>
+<p><em>Stream</em> wrote a very good introduction to the topic on
+<a href="https://getstream.io/blog/how-a-go-program-compiles-down-to-machine-code/">How a Go Program Compiles down to Machine Code</a>.<br>
+The short version is the compiler does:</p>
+<ol>
+<li>break up the source code content into tokens (Scanning)</li>
+<li>Construct Abstract Syntax Tree using the tokens (Parsing)</li>
+<li>Generate Intermediate Representation (IR) with <a href="https://en.wikipedia.org/wiki/Static_single_assignment_form">Static Single Assignment (SSA) form</a></li>
+<li>Iteratively optimize the IR with <a href="https://github.com/golang/go/blob/go1.14.1/src/cmd/compile/internal/ssa/compile.go#L398-L451">multiple pass</a></li>
+</ol>
+<br/>
+Fortunately GO provides amazing tool that helps us getting more insight into the optimization process.
+We can generate the SSA output for each stage of transformation with:
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nv">GOSSAFUNC</span><span class="o">=</span>main go tool compile -S main_var.go type_small.go
+</code></pre></td></tr></table>
+</div>
+</div><br/>
+The command will generate `ssa.html` in the same folder.
+<p>Each column represents the optimization pass, and the result of the IR code.
+When we click on a block, variable, or line. It will colorize the associated element, so we can track changes easily.</p>
+<a href="forVar_small_ssa.png">
+![Generated SSA HTML](forVar_small_ssa.png)
+</a>
+<br/>
+<p>After comparing each step, I found out that the generated code was identical until the <code>writebarrier</code> pass.
+let&rsquo;s focus on block <code>b6</code></p>
+<p><strong><code>writebarrier</code></strong> (identical on both versions)</p>
+<pre><code>b6: ← b3 b4
+    v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
+    v28 (7) = Phi &lt;int&gt; v16 v37
+    v23 (7) = Phi &lt;mem&gt; v12 v27
+    v37 (+7) = Add64 &lt;int&gt; v28 v36
+    v39 (7) = Less64 &lt;bool&gt; v37 v8
+    v25 (7) = VarDef &lt;mem&gt; {.autotmp_7} v23
+    v26 (7) = LocalAddr &lt;*SomeStruct&gt; {.autotmp_7} v2 v25
+    v27 (+7) = Move &lt;mem&gt; {SomeStruct} [72] v26 v22 v25
+</code></pre><p>If you see on <code>v26 &amp; v27</code>, it does <code>Move</code> (or Copy) the content of the struct to local variable <code>autotmp_7</code>.</p>
+<p>The <code>lower</code> pass basically convert the IR code into specific architecture low level code. Let&rsquo;s have a look at the generated output.
+Don&rsquo;t be afraid if you don&rsquo;t really understand the assembly. What I wanted to show is the different code that was generated during
+the <code>lower</code> pass.</p>
+<p><strong><code>lower</code> with 9 int64</strong></p>
+<pre><code>b6: ← b3 b4
+
+    v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
+    v28 (7) = Phi &lt;int&gt; v16 v37
+    v23 (7) = Phi &lt;mem&gt; v12 v27
+    v37 (+7) = ADDQconst &lt;int&gt; [1] v28
+    v25 (7) = VarDef &lt;mem&gt; {.autotmp_7} v23
+    v26 (7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} v2
+    v44 (7) = CMPQconst &lt;flags&gt; [1000000] v37 
+    v32 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [8] v2
+    v31 (+7) = ADDQconst &lt;*SomeStruct&gt; [8] v22
+    v29 (+7) = MOVQload &lt;uint64&gt; v22 v25
+    v24 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [40] v2
+    v15 (+7) = ADDQconst &lt;*SomeStruct&gt; [40] v22
+    v46 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [56] v2
+    v35 (+7) = ADDQconst &lt;*SomeStruct&gt; [56] v22
+    v21 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [24] v2
+    v17 (+7) = ADDQconst &lt;*SomeStruct&gt; [24] v22
+    v39 (7) = SETL &lt;bool&gt; v44
+    v42 (7) = TESTB &lt;flags&gt; v39 v39
+    v30 (+7) = MOVQstore &lt;mem&gt; {.autotmp_7} v2 v29 v25  # &lt;-- start translated Move instruction
+    v41 (+7) = MOVOload &lt;int128&gt; [8] v22 v30
+    v20 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [8] v2 v41 v30
+    v34 (+7) = MOVOload &lt;int128&gt; [24] v22 v20
+    v19 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [24] v2 v34 v20
+    v33 (+7) = MOVOload &lt;int128&gt; [40] v22 v19
+    v38 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [40] v2 v33 v19
+    v47 (+7) = MOVOload &lt;int128&gt; [56] v22 v38
+    v27 (+7) = MOVOstore &lt;mem&gt; {.autotmp_7} [56] v2 v47 v38
+</code></pre><br/>
+**`lower` with 10 int64**
+<pre><code>b6: ← b3 b4
+
+    v22 (7) = Phi &lt;*SomeStruct&gt; v14 v45
+    v28 (7) = Phi &lt;int&gt; v16 v37
+    v23 (7) = Phi &lt;mem&gt; v12 v27
+    v37 (+7) = ADDQconst &lt;int&gt; [1] v28
+    v25 (7) = VarDef &lt;mem&gt; {.autotmp_7} v23
+    v26 (7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} v2
+    v44 (7) = CMPQconst &lt;flags&gt; [1000000] v37
+    v32 (+7) = LEAQ &lt;*SomeStruct&gt; {.autotmp_7} [8] v2
+    v31 (+7) = ADDQconst &lt;*SomeStruct&gt; [8] v22
+    v29 (+7) = MOVQload &lt;uint64&gt; v22 v25
+    v39 (7) = SETL &lt;bool&gt; v44
+    v42 (7) = TESTB &lt;flags&gt; v39 v39
+    v30 (+7) = MOVQstore &lt;mem&gt; {.autotmp_7} v2 v29 v25 # &lt;-- start translated Move instruction
+    v27 (+7) = DUFFCOPY &lt;mem&gt; [826] v32 v31 v30
+
+LT v44 → b4 b2 (likely) (7)
+</code></pre><br/>
+<p>The later version uses <code>DUFFCOPY</code> to perform the Move operation. This logic I believe is due to a rewrite rule
+<a href="https://golang.org/src/cmd/compile/internal/ssa/rewriteAMD64.go#L54445">rewriteAMD64.go</a>. It&rsquo;s an optimization
+to Move a large byte on memory.</p>
+<pre><code>// match: (Move [s] dst src mem)
+// cond: s &gt; 64 &amp;&amp; s &lt;= 16*64 &amp;&amp; s%16 == 0 &amp;&amp; !config.noDuffDevice
+// result: (DUFFCOPY [14*(64-s/16)] dst src mem)
+</code></pre><br/>
+<p>At a later SSA pass (<code>elim unread autos</code>) the compiler can detect that there are unused temporary
+variable for the first version (9 int64 struct). Thus, the <code>Move</code> instruction can be removed.
+This is not the case with for the `DUFFCOPY' version.
+That&rsquo;s why the generated machine code is less optimized than the previous.</p>
+<p>Note:
+A <a href="https://en.wikipedia.org/wiki/Duff%27s_device">Duff Device</a> is a loop optimization by splitting the task
+and reduce the number of loop.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p><code>for-range</code> behaves differently depending on the struct size is due to Compiler SSA optimization. The compiler generated
+a different machine code for the larger struct where at a later pass it did not detect unused variable. The opposite happen
+for the smaller struct. At a later pass, it detected that some variables are un used. It removes the copy of element
+instruction on each iteration.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">
+    <h2>
+      Testing go 1.5 cross compilation on raspberry pi
+    </h2>
+  </a>
+  <div class="posted_at">
+    2015-08-29 ::
+    ( 6 minutes reading )
+  </div>
+
+  <p>I&rsquo;m so excited with the new release of golang. One particular feature
+is now very easy to build for multiple architecture. If you seen my other posts,
+I also like to tinker with my raspberry-pi. On my previous project I use either ruby
+or python for building some stuff. One annoying thing is dependency, setup and compilation
+is usually quite slow. Would be cool if I could just create some stuff in desktop and just
+<em>scp</em> the binary to pi and everything should work!</p>
+<p>There is <a href="http://dave.cheney.net/2015/03/03/cross-compilation-just-got-a-whole-lot-better-in-go-1-5">this nice</a> article that explain the process. Let&rsquo;s start there and create simple application</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;runtime&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Hello. I&#39;m running %s on %s architecture\n&#34;</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOOS</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOARCH</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Let&rsquo;s try to build it</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># create binary called &#39;main&#39; for raspberry-pi (1gen)</span>
+$ env <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>arm <span class="nv">GOARM</span><span class="o">=</span><span class="m">6</span> go build main.go
+
+<span class="c1"># transfer the binary to pi</span>
+$ scp main pi:
+</code></pre></td></tr></table>
+</div>
+</div><p>Now, crossing my finger, and run it on my pi</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ ssh pi
+
+pi@raspbmc:~$ ./main 
+Hello. I<span class="err">&#39;</span>m running linux on arm architecture
+pi@raspbmc:~$ 
+</code></pre></td></tr></table>
+</div>
+</div><p>Holy crap, it&rsquo;s that easy. I&rsquo;m excited. Let&rsquo;s see if go routine works</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;sync&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+	<span class="nx">nWorker</span> <span class="o">:=</span> <span class="mi">2</span>
+	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">string</span><span class="p">)</span>
+
+	<span class="c1">// write 10 message to channel c
+</span><span class="c1"></span>	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">defer</span> <span class="nb">close</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+		<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nx">c</span> <span class="o">&lt;-</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;item sequence %d&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+
+	<span class="c1">// create n worker to read from channel c
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">nWorker</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">worker</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">for</span> <span class="nx">msg</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+				<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;worker %d: msg %s\n&#34;</span><span class="p">,</span> <span class="nx">worker</span><span class="p">,</span> <span class="nx">msg</span><span class="p">)</span>
+			<span class="p">}</span>
+			<span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+		<span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;That&#39;s super awesome!!, cee ya!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Again, build and <em>scp</em>, and cross some more fingers</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">
+@raspbmc:~$ ls -alh main
+-rwxr-xr-- <span class="m">1</span> pi pi 1.9M Aug <span class="m">29</span> 18:08 main
+pi@raspbmc:~$ ./main 
+worker 1: msg item sequence <span class="m">0</span>
+worker 0: msg item sequence <span class="m">1</span>
+worker 1: msg item sequence <span class="m">2</span>
+worker 0: msg item sequence <span class="m">3</span>
+worker 0: msg item sequence <span class="m">4</span>
+worker 0: msg item sequence <span class="m">5</span>
+worker 0: msg item sequence <span class="m">6</span>
+worker 0: msg item sequence <span class="m">7</span>
+worker 0: msg item sequence <span class="m">8</span>
+worker 1: msg item sequence <span class="m">9</span>
+That<span class="err">&#39;</span>s super awesome!!, cee ya!
+</code></pre></td></tr></table>
+</div>
+</div><p>Super awesome indeed, it just works!. Oh and the binary is not that big <em>1.9M</em>
+considering it statically include the library.</p>
+<p>Hmm let&rsquo;s try something fun that fiddle with the <em>gpio</em> pin. Let&rsquo;s create something that
+what raspberry-pi made for.. blinking led :p</p>
+<p>There is already <a href="https://github.com/davecheney/gpio">library</a>. Let&rsquo;s starts there.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+	<span class="s">&#34;os/signal&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+
+	<span class="s">&#34;github.com/davecheney/gpio&#34;</span>
+	<span class="s">&#34;github.com/davecheney/gpio/rpi&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// set GPIO25 to output mode
+</span><span class="c1"></span>	<span class="nx">pin</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gpio</span><span class="p">.</span><span class="nf">OpenPin</span><span class="p">(</span><span class="nx">rpi</span><span class="p">.</span><span class="nx">GPIO25</span><span class="p">,</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">ModeOutput</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Error opening pin! %s\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// turn the led off on exit
+</span><span class="c1"></span>	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span>
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">_</span> <span class="p">=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\nClearing and unexporting the pin.\n&#34;</span><span class="p">)</span>
+			<span class="nx">pin</span><span class="p">.</span><span class="nf">Clear</span><span class="p">()</span>
+			<span class="nx">pin</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+			<span class="nx">os</span><span class="p">.</span><span class="nf">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+
+	<span class="nf">dance</span><span class="p">(</span><span class="nx">pin</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">dance</span><span class="p">(</span><span class="nx">pin</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">Pin</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="nx">pin</span><span class="p">.</span><span class="nf">Set</span><span class="p">()</span>
+		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+		<span class="nx">pin</span><span class="p">.</span><span class="nf">Clear</span><span class="p">()</span>
+		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Dayuumm.. It&rsquo;s that easy. No more pip install or bundle install on pi. Just <em>scp</em> the binary!</p>
+<p>Of course we&rsquo;ve got this far, we must try to control it remotely via HTTP.</p>
+<div class="row">
+  <div class="span8 offset1">
+<iframe width="628" height="400" src="https://www.youtube.com/embed/QkHu2-cgauU" frameborder="0" allowfullscreen></iframe align="center">
+  </div>
+</div><br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;net/http&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+	<span class="s">&#34;os/signal&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+
+	<span class="s">&#34;github.com/davecheney/gpio&#34;</span>
+	<span class="s">&#34;github.com/davecheney/gpio/rpi&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">// channel to control start blinking or not
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">ctrlChan</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// set GPIO25 to output mode
+</span><span class="c1"></span>	<span class="nx">pin</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gpio</span><span class="p">.</span><span class="nf">OpenPin</span><span class="p">(</span><span class="nx">rpi</span><span class="p">.</span><span class="nx">GPIO25</span><span class="p">,</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">ModeOutput</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Error opening pin! %s\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// turn the led off on exit
+</span><span class="c1"></span>	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span>
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">_</span> <span class="p">=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\nClearing and unexporting the pin.\n&#34;</span><span class="p">)</span>
+			<span class="nx">pin</span><span class="p">.</span><span class="nf">Clear</span><span class="p">()</span>
+			<span class="nx">pin</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+			<span class="nx">os</span><span class="p">.</span><span class="nf">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+
+	<span class="k">go</span> <span class="nf">dance</span><span class="p">(</span><span class="nx">pin</span><span class="p">,</span> <span class="nx">ctrlChan</span><span class="p">)</span>
+	<span class="nx">ctrlChan</span> <span class="o">&lt;-</span> <span class="kc">true</span>
+
+	<span class="c1">// http listen
+</span><span class="c1"></span>	<span class="nx">http</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/dance&#34;</span><span class="p">,</span> <span class="nx">danceHandler</span><span class="p">)</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">dance</span><span class="p">(</span><span class="nx">pin</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">Pin</span><span class="p">,</span> <span class="nx">ctrlChan</span> <span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">enabled</span> <span class="o">:=</span> <span class="kc">false</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">select</span> <span class="p">{</span>
+		<span class="k">case</span> <span class="nx">val</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ctrlChan</span><span class="p">:</span>
+      <span class="c1">// got value from danceHandler via the channel
+</span><span class="c1"></span>			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;dancing? %+v\n&#34;</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
+			<span class="nx">enabled</span> <span class="p">=</span> <span class="nx">val</span>
+		<span class="k">default</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nx">enabled</span> <span class="p">{</span>
+				<span class="nx">pin</span><span class="p">.</span><span class="nf">Set</span><span class="p">()</span>
+				<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+				<span class="nx">pin</span><span class="p">.</span><span class="nf">Clear</span><span class="p">()</span>
+				<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">danceHandler</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Received request&#34;</span><span class="p">)</span>
+	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">URL</span><span class="p">.</span><span class="nf">Query</span><span class="p">().</span><span class="nf">Get</span><span class="p">(</span><span class="s">&#34;s&#34;</span><span class="p">)</span>
+	<span class="nx">ctrlChan</span> <span class="o">&lt;-</span> <span class="nx">s</span> <span class="o">==</span> <span class="s">&#34;1&#34;</span> <span class="c1">// tell dance to enable or not
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Look at that. All it takes to do that is just 67 lines of code. The main
+logic just about 31 lines. That&rsquo;s including the fancy dancing blinking.
+No framework, only <em>gpio</em> dependency. Everything else is go <em>stdlib</em>.</p>
+<p>Ok, let&rsquo;s do one other thing. The reverse!
+Trigger something when button is pressed. For this let&rsquo;s just use
+<em>websocket</em>, and see how hard it is to implement this. What this mean that
+if you have websocket client (web browser) you could listen to event and stream it
+directly from your raspberry-pi to your computer.</p>
+<div class="row">
+  <div class="span8 offset1">
+<iframe width="628" height="400" src="https://www.youtube.com/embed/w1IrlUdEgPk" frameborder="0" allowfullscreen></iframe align="center">
+  </div>
+</div><br/>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;bufio&#34;</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;net/http&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+	<span class="s">&#34;os/signal&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+
+	<span class="s">&#34;github.com/davecheney/gpio&#34;</span>
+	<span class="s">&#34;github.com/davecheney/gpio/rpi&#34;</span>
+	<span class="s">&#34;golang.org/x/net/websocket&#34;</span>
+<span class="p">)</span>
+
+<span class="c1">// channel to control start blinking or not
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">ctrlChan</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">bool</span><span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// set GPIO25 to output mode
+</span><span class="c1"></span>	<span class="nx">pin</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">gpio</span><span class="p">.</span><span class="nf">OpenPin</span><span class="p">(</span><span class="nx">rpi</span><span class="p">.</span><span class="nx">GPIO25</span><span class="p">,</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">ModeOutput</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Error opening pin! %s\n&#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// turn the led off on exit
+</span><span class="c1"></span>	<span class="nx">c</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="nx">signal</span><span class="p">.</span><span class="nf">Notify</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span>
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">_</span> <span class="p">=</span> <span class="k">range</span> <span class="nx">c</span> <span class="p">{</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;\nClearing and unexporting the pin.\n&#34;</span><span class="p">)</span>
+			<span class="nx">pin</span><span class="p">.</span><span class="nf">Clear</span><span class="p">()</span>
+			<span class="nx">pin</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+			<span class="nx">os</span><span class="p">.</span><span class="nf">Exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+
+	<span class="k">go</span> <span class="nf">buttonHandler</span><span class="p">(</span><span class="nx">pin</span><span class="p">)</span>
+
+	<span class="c1">// http listen
+</span><span class="c1"></span>	<span class="nx">http</span><span class="p">.</span><span class="nf">Handle</span><span class="p">(</span><span class="s">&#34;/&#34;</span><span class="p">,</span> <span class="nx">websocket</span><span class="p">.</span><span class="nf">Handler</span><span class="p">(</span><span class="nx">EchoServer</span><span class="p">))</span>
+	<span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:8080&#34;</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// handle websocket connection
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">EchoServer</span><span class="p">(</span><span class="nx">ws</span> <span class="o">*</span><span class="nx">websocket</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">w</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nf">NewWriter</span><span class="p">(</span><span class="nx">ws</span><span class="p">)</span>
+	<span class="nx">w</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34;Hello, i will tell you if button is pressed\n\n&#34;</span><span class="p">)</span>
+	<span class="nx">w</span><span class="p">.</span><span class="nf">Flush</span><span class="p">()</span>
+
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="o">&lt;-</span><span class="nx">ctrlChan</span>
+		<span class="nx">w</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="s">&#34;Kachhinggg... somebody pressed the button\n&#34;</span><span class="p">)</span>
+		<span class="nx">w</span><span class="p">.</span><span class="nf">Flush</span><span class="p">()</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// check if button is pressed
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">buttonHandler</span><span class="p">(</span><span class="nx">p</span> <span class="nx">gpio</span><span class="p">.</span><span class="nx">Pin</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">p</span><span class="p">.</span><span class="nf">Get</span><span class="p">()</span> <span class="p">{</span>
+			<span class="nx">ctrlChan</span> <span class="o">&lt;-</span> <span class="kc">true</span>
+		<span class="p">}</span>
+		<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">150</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>You see there I connect 2 client. One browser and the other one is <em>cli app</em> that I created.
+Notice that they got their messages alternately between each other. This is because
+they are sharing the same channel. I will leave it to you my kind reader as an exercise
+to make it broadcast the message instead of distributing them :)</p>
+<p>all source are available at <a href="https://github.com/yulrizka/go-pi-experiments">https://github.com/yulrizka/go-pi-experiments</a></p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/osx-push-to-talk-app/">
+    <h2>
+      osx-push-to-talk App
+    </h2>
+  </a>
+  <div class="posted_at">
+    2015-03-22 ::
+    ( 2 minutes reading )
+  </div>
+
+  <p>Push To Talk app for OSX</p>
+<div class="thumbnail" align="center">
+  <img src="/images/post/ptt/ptt-installer.png" alt="PushToTalk App">
+  <div class="caption">PushToTalk App installer</div>
+</div>
+<br/>
+<p>As a part of scrum teams, every day I need to give updates to my team via Google Hangout.
+We have a team here in the Netherlands and also in Indonesia.
+Some times I am in the same room as a colleague of mine. This sometimes quite annoying
+because I can hear my self (with a delay) from his mic. This somehow messed up my brain.
+Google Hangout already has a &lsquo;auto adjust mic volume&rsquo; that is really great which cancel the noise.
+But we still have a problem and end-up muting each other when we want to talk.</p>
+<p>There are currently an App that does this already on Apple store, and pretty cheap too.
+Nevertheless I could not find the one that is suitable for my needs. And I would like to develop an OSX app
+since I never done it before. Even though i have a hate-love relationship with XCode,
+I have to give credits to XCode. It&rsquo;s quite easy to create an app like this.</p>
+<div class="" align="center">
+  <img src="/images/post/ptt/ptt-off.png" alt="PushToTalk Off state">
+  <br>
+  <img src="/images/post/ptt/ptt-on.png" alt="PushToTalk on State">
+  <div class="caption">Status bar indicator</div>
+</div>
+<p>The app sits on status-bar (tray icon ?). By default it muted the microphone and show
+translucent mic icon. If you hold down the <strong>Right Options</strong> key, it will un-mute the microphone as long as you pressed it.  when you release the key, it will mute the microphone until you press the key again or quit the application.</p>
+<p>Everything is at <a href="https://github.com/yulrizka/osx-push-to-talk">github.com/yulrizka/osx-push-to-talk</a>:</p>
+<ul>
+<li><a href="https://github.com/yulrizka/osx-push-to-talk/releases">DMG Installer</a></li>
+<li><a href="https://github.com/yulrizka/osx-push-to-talk">Source</a></li>
+</ul>
+<p>I&rsquo;ve only tested this app on my MacBook running Yosemite.</p>
+<p>If you are on Linux, there is also a phython GTK <a href="https://github.com/coddingtonbear/linux-push-to-talk">app</a> that does this really nicely.</p>
+<p>If you are on windows, well Godspeed my friend :)</p>
+<p>veel succes!</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">
+    <h2>
+      Tracking origin of bugs with git bisect
+    </h2>
+  </a>
+  <div class="posted_at">
+    2015-01-16 ::
+    ( 4 minutes reading )
+  </div>
+
+  <div class="thumbnail" align="center">
+  <img src="https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg" width="500" height="328" alt="Disect"></a>
+  <div class="caption">Disect the rocket, image by <a href="https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF">ProudloveNathan Proudlove</a></div>
+</div>
+<p>I&rsquo;ve been involved with a iOS project this past week. I&rsquo;m adding functionalities to the <a href="https://github.com/senseobservationsystems/sense-ios-library">CommonSense iOS library</a>.
+One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.
+The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.</p>
+<p>Now this is a good example where <code>git bisect</code> is very useful. It will perform a binary search through commit history until the first
+bad commit found. So you start with a commit and you marked is as a &lsquo;<em>good</em>&rsquo; or &lsquo;<em>bad</em>&rsquo;. Then every time you mark a commit as good / bad,
+it will then checkout another commit half way in the middle point between previous history. In each checkout then you test the code and see
+whether the bugs exist or not.</p>
+<p>Here is an example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># let&#39;s start  bisecting, Im in unstable branch,</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect start
+
+</code></pre></td></tr></table>
+</div>
+</div><p>the prompt <code>sense-ios-library</code> shows the current folder, and <code>git:(unstable)</code> show current commit. it&rsquo;s part of <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> plugin</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># I open the xcode, and it took quite a long time. so let&#39;s marks current revision as bad</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect bad
+
+<span class="c1"># I know the master branch don&#39;t have this problem, so let&#39;s mark it as good</span>
+➜ sense-ios-library git:<span class="o">(</span>unstable<span class="o">)</span> $ git bisect good master 
+
+Bisecting: <span class="m">9</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">3</span> steps<span class="o">)</span>
+<span class="o">[</span>c1841c0f99a4fa788c14c7437fac7c9547c768c9<span class="o">]</span> Merge pull request <span class="c1">#45 from senseobservationsystems/feature-KeepDataLocally</span>
+
+<span class="c1"># now I&#39;m in c1841 commit, I tested again with xcode, and found no problem, mark it as good</span>
+
+➜  sense2 git:<span class="o">(</span>c1841c0<span class="o">)</span> $ git bisect good
+
+Bisecting: <span class="m">4</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">2</span> steps<span class="o">)</span>
+<span class="o">[</span>06bbd23c4af8f7008abfb814e1375b271e0b23e9<span class="o">]</span> Update interface and write tests lsit<span class="o">(</span> APPEND CMAKE_CXX_FLAGS <span class="s2">&#34;-std=c++0x&#34;</span><span class="o">)</span>
+
+<span class="c1"># tested again, it&#39;s good</span>
+➜  sense2 git:<span class="o">(</span>06bbd23<span class="o">)</span> $ git bisect good
+
+Bisecting: <span class="m">2</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">1</span> step<span class="o">)</span>
+<span class="o">[</span>71517b7923143a8cf1ce205341dd6942c9468198<span class="o">]</span> Added threshold <span class="k">for</span> checking to remove old data from <span class="nb">local</span> storage to save battery life
+
+<span class="c1"># Tested again, Now I&#39;m beginning to see the problem. Let&#39;s mark this bad</span>
+➜  sense2 git:<span class="o">(</span>71517b7<span class="o">)</span> $ git bisect bad
+
+Bisecting: <span class="m">0</span> revisions left to <span class="nb">test</span> after this <span class="o">(</span>roughly <span class="m">0</span> steps<span class="o">)</span>
+<span class="o">[</span>e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1<span class="o">]</span> Updated functionality and tests of getting <span class="nb">local</span> data
+
+<span class="c1"># .... </span>
+<span class="c1"># and we keep doing this until we find the first commit when it was introduced.</span>
+
+<span class="c1"># Now let&#39;s check our progress using log</span>
+
+➜  sense-ios-library git:<span class="o">(</span>71517b7<span class="o">)</span> $ git bisect log
+
+git bisect start
+<span class="c1"># bad: [af42213324297e1234767f9224ec1af326514292] Merge pull request #48 from senseobservationsystems/feature-LocalStorageInterface</span>
+git bisect bad af42213324297e1234767f9224ec1af326514292
+<span class="c1"># good: [19f751627d152b89d3f2ecadb144507fcf9293fc] Merge pull request #43 from senseobservationsystems/unstable</span>
+git bisect good 19f751627d152b89d3f2ecadb144507fcf9293fc
+<span class="c1"># good: [c1841c0f99a4fa788c14c7437fac7c9547c768c9] Merge pull request #45 from senseobservationsystems/feature-KeepDataLocally</span>
+git bisect good c1841c0f99a4fa788c14c7437fac7c9547c768c9
+<span class="c1"># good: [06bbd23c4af8f7008abfb814e1375b271e0b23e9] Update interface and write tests lsit( APPEND CMAKE_CXX_FLAGS &#34;-std=c++0x&#34;)</span>
+git bisect good 06bbd23c4af8f7008abfb814e1375b271e0b23e9
+
+<span class="c1"># when you reach the final commit, you will be shown the commit log and modified file</span>
+
+➜  sense2 git:<span class="o">(</span>e5c40d4<span class="o">)</span> $ git bisect bad
+
+e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1 is the first bad commit
+commit e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1
+Author: Jhon Doe &lt;jhon-doe@sense-os.nl&gt;
+Date:   Thu Jan <span class="m">8</span> 14:38:07 <span class="m">2015</span> +0100
+
+    Updated functionality and tests of getting <span class="nb">local</span> data
+
+:040000 <span class="m">040000</span> 0a82ee52c68bae4dacc1fec603ce0747b1df426c cd55743c27d2ba7554dfc3d021616b62957c4bba M  Sense Library Tests
+:040000 <span class="m">040000</span> 8a01944a75e80534124a7a657254e38002518f62 5d14fb11caa352acc7352c85e6a1c08794ae9e65 M  SensePlatform.xcodeproj
+:040000 <span class="m">040000</span> a5e3eb78c4c352e7c010b8a4e90c12248f0ec9b0 2174d7ad531a7d989d313c826445434a073b433c M  SensePlatformTestAppTests
+:040000 <span class="m">040000</span> 4a40764a31981c172a089cd834eb9666b081f3f5 0713beb3c64f1b6f1d2a7811f59be4a82ec30d66 M  sense platform
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Now that you know when was the bugs introduced. you can now start looking at the problem.</p>
+<p>I found out there is something that doesn&rsquo;t feel right here <a href="https://github.com/senseobservationsystems/sense-ios-library/commit/e5c40d450193ac14fc2faa8c1f4dba2c7c2646f1?diff=unified#diff-13dddd16767af84fe2be0e8f0f0c8946R469">github:commit/e5c40</a>.
+There is a reference to <code>Xcode.app</code> in one of the folder. So every time I open the project,
+or switch branch, it will try to look into things inside <code>Xcode.app</code>.
+So removing the reference indeed solve the problem.</p>
+<p>The <em>bisect</em> function is very versatile tool to track down when a bug was introduced.
+You can even automate the test so you don&rsquo;t have to check each bisect commit your self.
+The <a href="http://git-scm.com/docs/git-bisect"><em>bisect</em> documentation</a> provide a good explanation about the command and also an example on how to automate the test.</p>
+<p>Now go on catch and squash those annoying bug!</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">
+    <h2>
+      Stubbing Time.Now() in golang
+    </h2>
+  </a>
+  <div class="posted_at">
+    2014-10-27 ::
+    ( 6 minutes reading )
+  </div>
+
+  <p>Sometimes it&rsquo;s really hard to test functionality that involve with system time.
+Especially when we want to test the function with a specific time. For example testing
+whether today is end of month or test 2 different behavior at a different time</p>
+<p>Below we look into different ways we can mock or stub the time. Each with it&rsquo;s own
+advantages and disadvantages.</p>
+<h2 id="passing-the-time-instance">Passing the time instance</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// business process
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="c1">// for test
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>This way you can either pass <code>time.Now()</code> in your main pacakge
+or call it with something like <code>time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.UTC)</code> in your test.</p>
+<p>Advantages:</p>
+<ul>
+<li>Simple, no extra generator necessary</li>
+<li>Easy to test, no need to wire mock function or struct</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Caller need to pass instance of everywhere</li>
+</ul>
+<h2 id="passing-a-function-that-generate-time">Passing a function that generate time</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">now</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span> <span class="c1">// runs at this moment, not at the caller time
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">)</span> <span class="c1">// instead of time.Now()
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// for test
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">loc</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span> <span class="c1">// closure can be used if necessary
+</span><span class="c1"></span>	<span class="nx">timeFn</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">loc</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">timeFn</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
+<ul>
+<li>This method allows you to have more control over how and when the time is generated.
+For example the time is generated inside the <code>CheckEndOfMonth</code> not at the <em>caller</em>.</li>
+<li>Allows the mock function to use closure inside the function</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Caller needs to pass function</li>
+</ul>
+<h2 id="abstract-the-time-generator-as-an-interface">Abstract the time generator as an interface</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Clock</span> <span class="kd">interface</span> <span class="p">{</span>
+	<span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">realClock</span> <span class="kd">struct</span> <span class="p">{}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">realClock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">clock</span> <span class="nx">Clock</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">clock</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">realClock</span><span class="p">{})</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>on the test code</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">mockClock</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="nf">NewMockClock</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="nx">mockClock</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">mocktime</span><span class="p">{</span><span class="nx">t</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="nx">mockClock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">m</span><span class="p">.</span><span class="nx">t</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">mc</span> <span class="o">:=</span> <span class="nf">NewMockClock</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">))</span>
+	<span class="nf">CheckEndOfMonth</span><span class="p">(</span><span class="nx">mc</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
+<ul>
+<li>Control the generator method</li>
+<li>Interface can be defined small with only needed functions</li>
+<li>Easily switch to different implementation</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Caller need to pass instance that implements the interface</li>
+</ul>
+<h2 id="package-level-time-generator">Package level time generator</h2>
+<p>Previous examples require you to pass in either concrete instance or a function on the caller.</p>
+<p>Another approach you can use is to create a package level function to generate current time.
+You can change the implementation during test.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;time&#34;</span>
+
+<span class="kd">type</span> <span class="nx">nowFuncT</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+
+<span class="kd">var</span> <span class="nx">nowFunc</span> <span class="nx">nowFuncT</span>
+
+<span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">resetClockImplementation</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">resetClockImplementation</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// function to return current time stamp in UTC
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">nowFunc</span><span class="p">().</span><span class="nf">UTC</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// ...
+</span><span class="c1"></span>	<span class="nx">x</span> <span class="o">:=</span> <span class="nf">now</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>now in your test you could do something like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// change implementation of clock in the beginning of the test
+</span><span class="c1"></span>    <span class="nx">nowFunc</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1">// after finish with the test, reset the time implementation
+</span><span class="c1"></span>    <span class="k">defer</span> <span class="nf">resetClockImplementation</span><span class="p">()</span>
+    
+    <span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+    <span class="c1">//...
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
+<ul>
+<li>No need to pass instance of time or generator</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>Caller need to pass instance</li>
+<li>Global variable</li>
+<li>Not thread safe</li>
+<li>Need to remember to call <code>resetClockImplementation</code></li>
+</ul>
+<h2 id="embed-time-generator-in-struct">Embed time generator in struct</h2>
+<p>If you are lucky enough to work in a <em>struct</em>, you can do this</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// TimeValidator contains business logic to CheckEndOfMonth
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeValidator</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="c1">// .. your fields
+</span><span class="c1"></span>	<span class="nx">clock</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="c1">// now is time generator that by default fall back to standard library
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">clock</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="c1">// default implementation which fall back to standard library
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">clock</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>And the test can be</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{</span>
+		<span class="nx">clock</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>
+	<span class="p">}}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>I like this method because you don&rsquo;t have to pass instance of time or function all over the place
+but still have it easily create an arbitrary time mock/stub</p>
+<p><strong>Make this pattern reusable</strong><br>
+If you do this more often, you can also easily reuse the functionality into other struct
+by creating embeddable</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// TimeMock embeddable structure that provides ability to inject time to the parent struct
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeMock</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">NowFn</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+
+	<span class="c1">// can be extended to mock other time function
+</span><span class="c1"></span>	<span class="nx">AfterFn</span> <span class="kd">func</span><span class="p">()</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeMock</span><span class="p">)</span> <span class="nf">Now</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>  <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">t</span><span class="p">.</span><span class="nx">NowFn</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span> <span class="c1">// default implementation
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">t</span><span class="p">.</span><span class="nf">NowFn</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="c1">// Use in the business logic
+</span><span class="c1"></span>
+<span class="c1">// TimeValidator contains business logic that uses time.Now
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">TimeValidator</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">clock</span> <span class="nx">TimeMock</span> 
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="nx">TimeValidator</span><span class="p">)</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">clock</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	<span class="c1">// ...
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{}</span> <span class="c1">// empty clock field gives implementation with standard lib
+</span><span class="c1"></span>    <span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>in test</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">TestCheckEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">tv</span> <span class="o">:=</span> <span class="nx">TimeValidator</span><span class="p">{</span>
+		<span class="nx">clock</span><span class="p">:</span> <span class="nx">TimeMock</span><span class="p">{</span>
+			<span class="nx">NowFn</span><span class="p">:</span> <span class="kd">func</span><span class="p">()</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Date</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mo">00</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nx">UTC</span><span class="p">)</span>	
+		<span class="p">},</span>
+	<span class="p">}}</span>
+	<span class="nx">tv</span><span class="p">.</span><span class="nf">CheckEndOfMonth</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Advantages:</p>
+<ul>
+<li>No need to pass instance of time or generator</li>
+<li>Fall back to default standard library time implementation</li>
+<li>Easily extend <code>TimeMock</code> by adding more function that is needed</li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>The caller needs to be a struct</li>
+</ul>
+<h2 id="better-way-to-write-test-function-with-time">Better way to write test function with time</h2>
+<p>Function with time is usually hard to test because it dependency with  on <em>time</em> package.</p>
+<p>A different way to test is to separate the function that generate the time with the function
+that process the time value. For example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">now</span> <span class="o">:=</span>  <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+	
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nf">endOfMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">now</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
+		<span class="c1">// do some business logic
+</span><span class="c1"></span>	<span class="p">}</span> 
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Instead of testing that function, extract the logic of processing time</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CheckEndOfMonth</span><span class="p">()</span>  <span class="p">{</span>
+	<span class="nx">now</span> <span class="o">:=</span>  <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+
+	<span class="nf">processEndOfMonth</span><span class="p">(</span><span class="nx">now</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">processEndOfMonth</span><span class="p">(</span><span class="nx">t</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">d</span> <span class="o">:=</span> <span class="nf">endOfMonth</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">t</span> <span class="o">==</span> <span class="nx">d</span> <span class="p">{</span>
+		<span class="c1">// do some business logic
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>this way you don&rsquo;t test the <code>CheckEndOfMonth()</code> but <code>processEndOfMonth</code>. This way you can easily
+mock time without the need to do some wiring.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">
+    <h2>
+      My account just got hacked by Romanian (Possibly)
+    </h2>
+  </a>
+  <div class="posted_at">
+    2013-07-27 ::
+    ( 3 minutes reading )
+  </div>
+
+  <div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/1.jpg" align="center">
+</div>
+<p>You are probably familiar with above images. Some random friend sent you an email which you can instantly
+recognize as a spam because it only contains one link.
+Couple days ago I receive this email which is not the first time for me. But this time it was different.
+It actually came from my own Yahoo! account which I never use since more that one year ago.</p>
+<p>My first instinct is to check whether the mail really got sent from my account or it just spoofing my email address. I kinda guess already that it is using my main account because the list of recipient is looks like it came out of my address book. So I went to my account and check the <em>sent mail</em> folder and there it is.
+One email message containing a spam that I actually sent to my friends and family.</p>
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/2.jpg" align="center">
+</div>
+<p>Did some digging to my authentication history and found out that somebody from Romania has access my account.
+How could this be. I&rsquo;ve never use the account since one or more year ago, I&rsquo;m an IT guy so I know a little bit
+about security. I don&rsquo;t click some random suspicious link. I don&rsquo;t install any annoying-spyware-browser-toolbar.
+The password is 12 character long with apla-numeric and random symbol. Thank god that I don&rsquo;t use the same
+password for all of my account.</p>
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/3.jpg" align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/4.jpg" align="center">
+</div>
+<p>I did again some digging to the given IP address and found out that the IP address came from a location in Rumania. But again this would not be his/her real IP. If i was to send a spam, I will route my email through
+bunch of proxy all over the world to cover my track. Or probably they don&rsquo;t even bother because they just
+using it for spam.</p>
+<div align="center">
+  <img class="well" width="90%" style="max-width: 800px" src="/images/post/2013/07/spam/5.jpg" align="center">
+</div>
+<p>Interesting part is I stumble upon this article saying about Romania has became a <a href="http://www.worldcrunch.com/tech-science/in-romania-a-quiet-city-has-become-the-global-hub-for-hackers-and-online-crooks/hacking-hacker-romania-pirate-scam-internet-website/c4s10532/">Global Hub for hackers and online crooks</a>.
+According to the article that it&rsquo;s became a commonplace for some hacker to harness people personal information
+and use it for illegal activity.</p>
+<p>Luckily I don&rsquo;t store any sensitive information on my email. It would have some serious impact if I store password
+or bank account information.</p>
+<p>Also something that I notice is most of this spam email came from my friends account which also uses Yahoo! mail.
+Or probably I just never notice.</p>
+<h2 id="what-can-you-do-when-this-happened-to-you">What can you do when this happened to you</h2>
+<p>If you ever received / sent this email. I would suggest you to:</p>
+<ol>
+<li>Tell the person to reset their account password</li>
+<li>Don&rsquo;t store or send sensitive information unencrypted with email like: password, keys, bank account info</li>
+<li>If you need to send sensitive information, try encrypting it first. I go into details of doing that in <a href="/en/2013/07/safely-sharing-credentials-with-pgp.html">Safely sharing credentials with PGP</a>. I&rsquo;m start doing this from now on.</li>
+<li>Use some secure password, and don&rsquo;t use the same password for all of your account.</li>
+<li>If you can, try to change the password on a regular basis. or use service like <a href="https://lastpass.com/">LastPass</a></li>
+<li>When this is your work email that sometimes contain private information. Use service that offer <em>two factor authentication</em> like gmail does <a href="http://www.google.com/landing/2step/">you need to enable it</a>.</li>
+<li>Stay safe friends, internet is a dangerous place</li>
+</ol>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">
+    <h2>
+      berks upload core dump
+    </h2>
+  </a>
+  <div class="posted_at">
+    2013-07-21 ::
     ( 1 minutes reading )
   </div>
 
-  <p>make sure you have imagemagick and tesseract are installed</p>
-<pre><code>$ sudo apt install imagemagick tesseract-ocr
-</code></pre><p>It&rsquo;s a 2 step process:</p>
-<ol>
-<li>Convert PDF to .tiff using <code>convert</code> from imagemagick</li>
-</ol>
-<pre><code>$ convert -density 300 input.pdf -depth 8 output.tiff
-</code></pre><ol start="2">
-<li>convert .tiff to text using <code>tesseract</code><br>
-generate <code>out.txt</code></li>
-</ol>
-<pre><code>$  tesseract output.tiff out 
-</code></pre>
+  <p>Berksfhel is cookbook dependency for chef. If you are familiar with ruby / python,
+think of it as a <em>Bundler</em> or <em>virtual environment</em> for chef</p>
+<p>I faced this core dump error while doing <code>berks upload</code>. That command will actualy
+push some cookbook to a chef server.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ berks upload
+/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47: <span class="o">[</span>BUG<span class="o">]</span> Segmentation fault
+ruby 1.9.3p362 <span class="o">(</span>2012-12-25 revision 38607<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
+
+-- Control frame information -----------------------------------------------
+c:0004 p:0112 s:0009 b:0007 l:002040 d:000006 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47
+c:0003 p:0031 s:0005 b:0005 l:002108 d:000004 BLOCK  /home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11
+c:0002 p:---- s:0003 b:0003 l:000002 d:000002 FINISH
+c:0001 p:---- s:0001 b:-001 l:000000 d:000000 ------
+
+-- Ruby level backtrace information ----------------------------------------
+/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks/task_fiber.rb:11:in <span class="sb">`</span>block in create<span class="s1">&#39;
+</span><span class="s1">/home/user/.rbenv/versions/1.9.3-p362/lib/ruby/gems/1.9.1/gems/celluloid-0.14.1/lib/celluloid/tasks.rb:47:in `block in initialize&#39;</span>
+
+....
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>upgrading</strong> the ruby verison to 2.0 seems to resolve my issue.</p>
+
+</article>
+<hr/>
+
+<article>
+  <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">
+    <h2>
+      Safely sharing credentials with PGP
+    </h2>
+  </a>
+  <div class="posted_at">
+    2013-07-08 ::
+    ( 6 minutes reading )
+  </div>
+
+  <p>When working in teams, we are sometimes required to share some password / keys with our team.
+The most common way for me is probably through email or some chat client. But even though its convenience it&rsquo;s not
+actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.</p>
+<p>Some simple approach would we communicating the password directly with a person through secure medium.
+One way to do it is both party ssh through a server and use talk client like <a href="http://linux.die.net/man/1/write">write</a>.
+But for some cases it&rsquo;s quite impractical.</p>
+<h2 id="pgp">PGP</h2>
+<p>Enter <a href="http://en.wikipedia.org/wiki/Pretty_Good_Privacy">PGP</a>. It&rsquo;s basically a software that do a Public-key cryptography.
+Public-key cryptography is basically encryption process which require 2 keys, one for encrypting and the other one
+for decrypting. Usually the <strong>public key</strong> is used for encrypting and <strong>private key</strong> is use for decrypting.
+I would not dive into the details about it since I&rsquo;ve only have basic understanding about it.
+But for those people that is interested, you would read the nice article on <a href="http://en.wikipedia.org/wiki/Public-key_cryptography">wikipedia</a></p>
+<p>There is a open source project called GPG (GNU Privacy Guard) and in this article I would like to show you how we could
+share some password / key file with it.</p>
+<h3 id="instalation">Instalation</h3>
+<p>If you don&rsquo;t already have it on your system, you could installed it with:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ sudo apt-get install gpg
+</code></pre></td></tr></table>
+</div>
+</div><p>After installing we would start by creating a pair of keys</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ gpg --gen-key
+</code></pre></td></tr></table>
+</div>
+</div><p>You will be asked with bunch of questions. Most of the answer you could leave it as a default but most important is fill in your <strong>email</strong>
+address and also provide a <strong>Passphrase</strong> to protect your key with password. When it finish gathering information, it will start
+creating a key pair by using system entropy. You can help the system to generate the entropy by clicking or moving your mouse randomly
+or doing some random IO disk by triggering for example <code>find /</code></p>
+<h3 id="listing-keys">Listing keys</h3>
+<p>After installing, you can see list of keys by using this command</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$  gpg --list-keys
+/home/user/.gnupg/pubring.gpg
+--------------------------------
+pub   2048R/70280895 2013-07-09
+uid                  Ahmy Yulrizka <span class="o">(</span>ahmy135@mail.com<span class="o">)</span> &lt;ahmy135@mail.com&gt;
+sub   2048R/F7B2D44C 2013-07-09
+
+</code></pre></td></tr></table>
+</div>
+</div><p>In above output you could see that we have created public key with id of <code>70280895</code>. Note this one because we are going to use it later
+when submitting the key to a key server</p>
+<h3 id="exporting-keys">Exporting keys</h3>
+<p>To share your public key, so other people could send you encrypted message.</p>
+<p><strong>Note</strong> that further in this article I will discus ways to easily distribute your public key.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.11 <span class="o">(</span>GNU/Linux<span class="o">)</span>
+
+mQENBFHcRTEBCAC056qG97iJAtb604x5Hr+3lIi3UXVOnGauoHSo5S8S3bSCD0Ib
+DzgSjWj8a6Xd1BY+5+HV0amp+i1sTknnd/C2WR7O1h9DIasPlWktPr2T+j4IGnYF
+...
+-----END PGP PUBLIC KEY BLOCK-----
+
+$ gpg --armor --export <span class="s1">&#39;ahmy135@mail.com&#39;</span> --output pubkey.txt <span class="c1"># to output it to a file</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="encrypting-and-decrypting">Encrypting and decrypting</h3>
+<p>With those generated keys, we could now do a personal encryption. That is if you want to encrypt a file and you are the only one
+who are able to decrypt it.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">  $ <span class="nb">echo</span> <span class="s2">&#34;this message is secret&#34;</span> &gt; message.txt
+  $ gpg --encrypt --recipient <span class="s1">&#39;ahmy135@gmail.com&#39;</span> message.txt
+</code></pre></td></tr></table>
+</div>
+</div><p>Those code will create a file name <code>message.txt.gpg</code> which is encrypted message of <code>message.txt</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --decrypt message.txt.gpg
+
+You need a passphrase to unlock the secret key <span class="k">for</span>
+user: <span class="s2">&#34;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&#34;</span>
+2048-bit RSA key, ID F7B2D44C, created 2013-07-09 <span class="o">(</span>main key ID 70280895<span class="o">)</span>
+
+gpg: gpg-agent is not available in this session
+gpg: encrypted with 2048-bit RSA key, ID F7B2D44C, created 2013-07-09
+      <span class="s2">&#34;Ahmy Yulrizka (ahmy135@mail.com) &lt;ahmy135@mail.com&gt;&#34;</span>
+this message is secret
+
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see that we are successfully decrypted the message. This example you encrypt the message
+using your own public key. So this method only work if you want to archive or backup the file securely.
+In order to send someone else an encrypted message, you need to encrypt the message using the other
+person <strong>public key</strong></p>
+<h3 id="distributing-the-key">Distributing the key</h3>
+<p>In order for any body to send you a encrypted message, you need to give your <strong>public key</strong>.
+Since <strong>public key</strong> only used for encryption, It&rsquo;s OK to publicly share your <strong>public key</strong>.
+But never share your <strong>private key</strong>. Once the other party have your <strong>public key</strong> they could
+start send you an encrypted message using the command above.</p>
+<p>You could share your public key manually to some one (through usb / email etc) by exporting it first just like I mention before.
+But there are an easy way to distribute the key. There are some public GPG server that store your public key so that
+other people could easily find it and import it into their local machine. There are <a href="http://pgp.mit.edu">http://pgp.mit.edu</a>
+and also ubuntu key server <a href="http://keyserver.ubuntu.com">http://keyserver.ubuntu.com</a> that we can use.</p>
+<p>To send our key to MIT server we could do</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --send-key --keyserver pgp.mit.edu <span class="m">70280895</span>
+gpg: sending key <span class="m">70280895</span> to hkp server pgp.mit.edu
+</code></pre></td></tr></table>
+</div>
+</div><p>the last number <code>70280895</code> was the key id of the public file. You could find it with the output of <code>gpg --list-keys</code> command.
+Now we have successfully send our public key any body could get your public key through that keyserver. You could test this
+by searching a name or email or a person in the key server web interface. for example try searching my name on <a href="http://pgp.mit.edu/">http://pgp.mit.edu/</a></p>
+<h3 id="importing-keys">Importing Keys</h3>
+<p>Now to import other people public key, we could also do that in two way.</p>
+<p>if the person give you a file which contain their public key (say <code>ahmy-pub.key</code>). you could import it with</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --import ahmy-pub.key
+</code></pre></td></tr></table>
+</div>
+</div><p>Or if the person already publish his public key to a keyserver, we can search it with</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ gpg --search-keys <span class="s1">&#39;Ahmy Yulrizka&#39;</span>
+
+<span class="c1"># or</span>
+$ gpg --search-keys <span class="s1">&#39;ahmy135@mail.com&#39;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>It will generate a list of keys that found on the keyserver. Enter the number of the keys and it will be imported to your local machine.</p>
+<p>after importing you can send an encrypted message to the person for example</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">echo</span> <span class="s2">&#34;This is also a secret&#34;</span> <span class="p">|</span> gpg --encrypt --armor --recipient <span class="s1">&#39;Ahmy Yulrizka&#39;</span> &gt; output.txt.gpg
+</code></pre></td></tr></table>
+</div>
+</div><p>You could provide a name or an email address as a recipient.
+THis command will encrypt the message using public key of a person name <code>Ahmy Yulrizka</code></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>At this point you are able to generate, export, distribute and import keys. More over you can already encrypt
+and decrypt file / message to a designated recipient. The the part two of this article I will share some idea
+how we could share some password / password key to other member of the team.</p>
+
 </article>
 <hr/>
 
@@ -767,19 +2463,10 @@ generate <code>out.txt</code></li>
     <a class="page-link" href="/page/2/">2</a>
   </li>
   <li class="page-item">
-    <a class="page-link" href="/page/3/">3</a>
-  </li>
-  <li class="page-item disabled">
-    <span aria-hidden="true">&nbsp;&hellip;&nbsp;</span>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/8/">8</a>
-  </li>
-  <li class="page-item">
     <a href="/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
   </li>
   <li class="page-item">
-    <a href="/page/8/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+    <a href="/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
   </li>
 </ul>
 
@@ -854,51 +2541,6 @@ generate <code>out.txt</code></li>
             </li>
           
           </ul>
-
-          <h3>Today I Learned</h3>
-          <ul>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/db/postgres-naming-trigger/">Postgres Naming Trigger</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/db/postgres-audit-log-trigger/">Postgres Audit Log Trigger</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/git/intellij-as-diff-and-mergetool/">Intellij as git diff and mergetool</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/osx/checksum-a-file-from-a-url/">Checksum a File From a URL</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/git/global-gitignore-file/">Global Gitignore File</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/k8s/view-secret/">View kubernetes secret</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/git/push-only-current-branch/">Push Only Current Branch</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/convert-pdf-to-text-using-ocr/">Convert PDF to Text Using OCR</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/git/checkout-last-branch/">Checkout Last Branch</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/til/unix/replacing-last-command-and-execute-it/">Replacing Last Command and Execute It</a>
-            </li>
-          
-          </ul>
           </aside>
         </div>
       </div>
@@ -947,7 +2589,7 @@ generate <code>out.txt</code></li>
               <li class="active banner"><a href="/">Home</a></li>
               <li class=""><a href="/en/">EN</a></li>
               <li class=""><a href="/id/">ID</a></li>
-              <li class=""><a href="/til/">Today I Learned</a></li>
+              <li class=""><a href="https://til.yulrizka.com/">Today I Learned</a></li>
               
             </ul>
           </div>
