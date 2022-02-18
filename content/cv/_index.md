@@ -53,8 +53,22 @@ var user = 'yulrizka',
 
 ## Employment History
 
+### Senior Backend Engineer at Shell (AgileHub), Rotterdam, The Netherlands
+April 2020 - present
+
+The Agile Hub is an organization within Shell where we implement agile methodologies to help build applications to support shell business process. I work as part of small team to build an information system for business entities in shell.
+**Key technologies**: Go, GRPC, Postgres, Kafka, Azure, k8s, CircleCI, Github Action
+
+Responsibilities:
+* As a senior backend developer, implement solutions to support the product.
+* Integrating with shell legacy systems.
+* K8s migrations
+* Implement and maintain CI & CD pipeline testing and deploy the solution to Azure K8s
+* Exploration on monitoring solutions, business dashboard, and best practices
+
+
 ### Lead Software Engineer at eBay Classified Group (Marktplaats)
-Aug 2015 - Present (4.5 years)  
+Aug 2015 - April 2020 (4.5 years)  
 Amsterdam, The Netherlands
 
 Initially, I started working as a software developer with a role to design and implement multiple micro-services to support high-throughput systems. Currently, I am leading the platform sub-team which focuses on closing gaps between developers and operations with automation.
