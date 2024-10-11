@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>I3 on </title>
-    <link>http://localhost:1313/en/tags/i3/</link>
+    <link>https://labs.yulrizka.com/en/tags/i3/</link>
     <description>Recent content in I3 on </description>
     <generator>Hugo</generator>
     <language>en-US</language>
     <lastBuildDate>Sun, 07 Jun 2020 17:09:57 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/en/tags/i3/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://labs.yulrizka.com/en/tags/i3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My Desktop With i3, polybar, conky, and rofi</title>
-      <link>http://localhost:1313/en/my-desktop-with-i3-polybar-conky-rofi/</link>
+      <link>https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/</link>
       <pubDate>Sun, 07 Jun 2020 17:09:57 +0200</pubDate>
-      <guid>http://localhost:1313/en/my-desktop-with-i3-polybar-conky-rofi/</guid>
-      <description>&lt;p&gt;This weekend i&amp;rsquo;ve been playing with my i3 desktop settings. Here are the result&#xA;&lt;a href=&#34;http://localhost:1313/en/my-desktop-with-i3-polybar-conky-rofi/desktop0.png&#34;&gt;&lt;img alt=&#34;screenshot plain&#34; src=&#34;http://localhost:1313/en/my-desktop-with-i3-polybar-conky-rofi/desktop0.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://localhost:1313/en/my-desktop-with-i3-polybar-conky-rofi/desktop1.png&#34;&gt;&lt;img alt=&#34;screenshot plain&#34; src=&#34;http://localhost:1313/en/my-desktop-with-i3-polybar-conky-rofi/desktop1.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Made with:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Window Manager: &lt;a href=&#34;https://i3wm.org/&#34;&gt;i3&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Background: &lt;a href=&#34;https://hdqwalls.com/ori-and-the-blind-forest-spirit-tree-wallpaperd&#34;&gt;Ori&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Color Scheme: &lt;a href=&#34;https://hdqwalls.com/ori-and-the-blind-forest-spirit-tree-wallpaperd&#34;&gt;Nord&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Polybar: &lt;a href=&#34;https://github.com/adi1090x/polybar-themes/tree/master/polybar-8&#34;&gt;adi1090x/polybar-themes-8&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Conky: &lt;a href=&#34;https://github.com/brndnmtthws/conky&#34;&gt;conky&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+      <guid>https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/</guid>
+      <description>&lt;p&gt;This weekend i&amp;rsquo;ve been playing with my i3 desktop settings. Here are the result&#xA;&lt;a href=&#34;https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/desktop0.png&#34;&gt;&lt;img alt=&#34;screenshot plain&#34; src=&#34;https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/desktop0.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/desktop1.png&#34;&gt;&lt;img alt=&#34;screenshot plain&#34; src=&#34;https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/desktop1.jpg&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Made with:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Window Manager: &lt;a href=&#34;https://i3wm.org/&#34;&gt;i3&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Background: &lt;a href=&#34;https://hdqwalls.com/ori-and-the-blind-forest-spirit-tree-wallpaperd&#34;&gt;Ori&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Color Scheme: &lt;a href=&#34;https://hdqwalls.com/ori-and-the-blind-forest-spirit-tree-wallpaperd&#34;&gt;Nord&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Polybar: &lt;a href=&#34;https://github.com/adi1090x/polybar-themes/tree/master/polybar-8&#34;&gt;adi1090x/polybar-themes-8&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;Conky: &lt;a href=&#34;https://github.com/brndnmtthws/conky&#34;&gt;conky&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>
 </rss>

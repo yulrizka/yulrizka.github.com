@@ -2,14 +2,14 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
-    <loc>http://localhost:1313/en/sitemap.xml</loc>
+    <loc>https://labs.yulrizka.com/en/sitemap.xml</loc>
     
       <lastmod>2020-06-07T17:09:57+02:00</lastmod>
     
   </sitemap>
   
   <sitemap>
-    <loc>http://localhost:1313/id/sitemap.xml</loc>
+    <loc>https://labs.yulrizka.com/id/sitemap.xml</loc>
     
   </sitemap>
   

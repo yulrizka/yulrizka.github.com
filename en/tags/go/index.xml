@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Go on </title>
-    <link>http://localhost:1313/en/tags/go/</link>
+    <link>https://labs.yulrizka.com/en/tags/go/</link>
     <description>Recent content in Go on </description>
     <generator>Hugo</generator>
     <language>en-US</language>
     <lastBuildDate>Sat, 29 Aug 2015 17:28:00 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/en/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://labs.yulrizka.com/en/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Testing go 1.5 cross compilation on raspberry pi</title>
-      <link>http://localhost:1313/en/testing-go-1-dot-5-cross-compilation/</link>
+      <link>https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/</link>
       <pubDate>Sat, 29 Aug 2015 17:28:00 +0200</pubDate>
-      <guid>http://localhost:1313/en/testing-go-1-dot-5-cross-compilation/</guid>
+      <guid>https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/</guid>
       <description>&lt;p&gt;I&amp;rsquo;m so excited with the new release of golang. One particular feature&#xA;is now very easy to build for multiple architecture. If you seen my other posts,&#xA;I also like to tinker with my raspberry-pi. On my previous project I use either ruby&#xA;or python for building some stuff. One annoying thing is dependency, setup and compilation&#xA;is usually quite slow. Would be cool if I could just create some stuff in desktop and just&#xA;&lt;em&gt;scp&lt;/em&gt; the binary to pi and everything should work!&lt;/p&gt;</description>
     </item>
   </channel>

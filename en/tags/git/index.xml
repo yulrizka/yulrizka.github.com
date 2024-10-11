@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on </title>
-    <link>http://localhost:1313/en/tags/git/</link>
+    <link>https://labs.yulrizka.com/en/tags/git/</link>
     <description>Recent content in Git on </description>
     <generator>Hugo</generator>
     <language>en-US</language>
     <lastBuildDate>Fri, 16 Jan 2015 23:35:00 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/en/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://labs.yulrizka.com/en/tags/git/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Tracking origin of bugs with git bisect</title>
-      <link>http://localhost:1313/en/tracking-origin-of-bugs-with-git-bisect/</link>
+      <link>https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/</link>
       <pubDate>Fri, 16 Jan 2015 23:35:00 +0200</pubDate>
-      <guid>http://localhost:1313/en/tracking-origin-of-bugs-with-git-bisect/</guid>
+      <guid>https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/</guid>
       <description>&lt;div class=&#34;thumbnail&#34; align=&#34;center&#34;&gt;&#xA;  &lt;img src=&#34;https://c1.staticflickr.com/7/6117/6342791406_599137f28d_n.jpg&#34; width=&#34;500&#34; height=&#34;328&#34; alt=&#34;Disect&#34;&gt;&lt;/a&gt;&#xA;  &lt;div class=&#34;caption&#34;&gt;Disect the rocket, image by &lt;a href=&#34;https://www.flickr.com/photos/proudlove/6342791406/in/photolist-aEusUw-fMT4UA-4mPmFs-zVfQK-4gfRK3-4gg1BC-dopM92-5zQHdK-eP8wta-6aQiE-da7WW5-L7fpN-aWzyh-27sZV-6aQes-4ofRQM-3Szag-fHd5n-bn2juW-q9DEK-CqpV6-8uiAu1-DxAh-5CfTu7-5H7Trn-24h5o-5CbB5H-5CbB9v-5nu4sT-5DKzEZ-5CbAWz-9QghGk-5CbAQR-5CbAZP-fkfbk-bnDX2V-3gst8Z-483285-boVvSK-boVwtp-crKHxQ-fgchqD-boW4uM-boVV5H-boW4Yv-boVVmX-boVUNF-boW4JB-o8v6b7-5s9DiF&#34;&gt;ProudloveNathan Proudlove&lt;/a&gt;&lt;/div&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been involved with a iOS project this past week. I&amp;rsquo;m adding functionalities to the &lt;a href=&#34;https://github.com/senseobservationsystems/sense-ios-library&#34;&gt;CommonSense iOS library&lt;/a&gt;.&#xA;One of the most annoying thing is that it took about 2 minute to load the project. This is only happened in the unstable branch.&#xA;The master branch seems to be working fine. So I knew that somewhere there is a commit when this starts happening.&lt;/p&gt;</description>
     </item>
   </channel>

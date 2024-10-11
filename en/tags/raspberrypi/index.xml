@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Raspberrypi on </title>
-    <link>http://localhost:1313/en/tags/raspberrypi/</link>
+    <link>https://labs.yulrizka.com/en/tags/raspberrypi/</link>
     <description>Recent content in Raspberrypi on </description>
     <generator>Hugo</generator>
     <language>en-US</language>
     <lastBuildDate>Tue, 26 Feb 2013 20:33:00 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/en/tags/raspberrypi/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://labs.yulrizka.com/en/tags/raspberrypi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Homeward light indicator with RaspberryPi and CommonSense</title>
-      <link>http://localhost:1313/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</link>
+      <link>https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</link>
       <pubDate>Tue, 26 Feb 2013 20:33:00 +0200</pubDate>
-      <guid>http://localhost:1313/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</guid>
+      <guid>https://labs.yulrizka.com/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</guid>
       <description>&lt;div class=&#34;row&#34;&gt;&#xA;  &lt;div class=&#34;span8 offset1&#34;&gt;&#xA;    &lt;iframe align=&#34;center&#34; width=&#34;628&#34; height=&#34;400&#34; src=&#34;https://www.youtube.com/embed/35ylS4IX_mc&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;&#xA;  &lt;/div&gt;&#xA;&lt;/div&gt;&lt;br/&gt;&#xA;I&#39;ve been tinkering with my [raspberry-pi][raspberry-pi] for quite some time now. What I like about it because it is cheap ($25),&#xA;it&#39;s run Linux (especially debian based) and most of all it&#39;s have General Purpose Input Output pin. Since I was a kid, I always&#xA;wanted to control electronic appliance remotely. Luckily my friend [@pimnijdam][pimnijdam] thought me how to control a relay board.&#xA;Basically it&#39;s just like an electric switch that connect/disconnect current when you supply a low voltage.&#xA;&lt;p&gt;So I connect one of the GPIO pin to the relay board and from the relay board to the lamp. Now I can control the desk lamp through&#xA;my raspberry-pi by issuing a linux command. Had been successfully doing this, I wanted to the lamp not only from the raspberry pi&#xA;but anywhere. The easiest way that I could think of is running a web server inside the raspberry-pi. The debian repository is&#xA;quite awesome. So I could install a ruby/python and it only took a single command.&lt;/p&gt;</description>
     </item>
   </channel>
