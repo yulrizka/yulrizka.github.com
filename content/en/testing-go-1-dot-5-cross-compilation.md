@@ -5,7 +5,7 @@ date: 2015-08-29T17:28:00+02:00
 language: en
 comments: true
 tags: 
-  - go
+  - golang
 description: testing cross compilation in go 1.5
 keywords: go, golang, cross compilation
 ---
