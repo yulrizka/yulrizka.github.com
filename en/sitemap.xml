@@ -2,170 +2,146 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://labs.yulrizka.com/en/</loc>
+    <loc>http://localhost:1313/en/</loc>
     <lastmod>2020-06-07T17:09:57+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/"
+                href="http://localhost:1313/id/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/"
+                href="http://localhost:1313/en/"
                 />
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/</loc>
+    <loc>http://localhost:1313/en/tags/i3/</loc>
     <lastmod>2020-06-07T17:09:57+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/i3/</loc>
+    <loc>http://localhost:1313/en/my-desktop-with-i3-polybar-conky-rofi/</loc>
     <lastmod>2020-06-07T17:09:57+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/my-desktop-with-i3-polybar-conky-rofi/</loc>
-    <lastmod>2020-06-07T17:09:57+02:00</lastmod>
-  </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/</loc>
+    <loc>http://localhost:1313/en/tags/</loc>
     <lastmod>2020-06-07T17:09:57+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/tags/"
+                href="http://localhost:1313/id/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/tags/"
+                href="http://localhost:1313/en/tags/"
                 />
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/unixporn/</loc>
+    <loc>http://localhost:1313/en/tags/unixporn/</loc>
     <lastmod>2020-06-07T17:09:57+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/convert-intellij-live-template-to-vscode/</loc>
+    <loc>http://localhost:1313/en/convert-intellij-live-template-to-vscode/</loc>
     <lastmod>2020-05-21T19:31:50+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/intellij/</loc>
+    <loc>http://localhost:1313/en/tags/intellij/</loc>
     <lastmod>2020-05-21T19:31:50+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/template/</loc>
+    <loc>http://localhost:1313/en/tags/template/</loc>
     <lastmod>2020-05-21T19:31:50+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/vscode/</loc>
+    <loc>http://localhost:1313/en/tags/vscode/</loc>
     <lastmod>2020-05-21T19:31:50+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/golang/</loc>
+    <loc>http://localhost:1313/en/tags/golang/</loc>
     <lastmod>2020-04-25T15:47:49+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/</loc>
+    <loc>http://localhost:1313/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/</loc>
     <lastmod>2020-04-25T15:47:49+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/cv/</loc>
+    <loc>http://localhost:1313/en/cv/</loc>
     <lastmod>2019-01-01T00:00:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/cv/</loc>
-    <lastmod>2019-01-01T00:00:00+02:00</lastmod>
-  </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/go/</loc>
+    <loc>http://localhost:1313/en/tags/go/</loc>
     <lastmod>2015-08-29T17:28:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/testing-go-1-dot-5-cross-compilation/</loc>
+    <loc>http://localhost:1313/en/testing-go-1-dot-5-cross-compilation/</loc>
     <lastmod>2015-08-29T17:28:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/osx-push-to-talk-app/</loc>
+    <loc>http://localhost:1313/en/osx-push-to-talk-app/</loc>
     <lastmod>2015-03-22T00:26:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/web/</loc>
+    <loc>http://localhost:1313/en/tags/web/</loc>
     <lastmod>2015-03-22T00:26:00+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/tags/web/"
+                href="http://localhost:1313/id/tags/web/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/tags/web/"
+                href="http://localhost:1313/en/tags/web/"
                 />
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/git/</loc>
+    <loc>http://localhost:1313/en/tags/git/</loc>
     <lastmod>2015-01-16T23:35:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/tracking-origin-of-bugs-with-git-bisect/</loc>
+    <loc>http://localhost:1313/en/tracking-origin-of-bugs-with-git-bisect/</loc>
     <lastmod>2015-01-16T23:35:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/stubbing-time-dot-now-in-golang/</loc>
+    <loc>http://localhost:1313/en/stubbing-time-dot-now-in-golang/</loc>
     <lastmod>2014-10-27T16:42:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/testing/</loc>
+    <loc>http://localhost:1313/en/tags/testing/</loc>
     <lastmod>2014-10-27T16:42:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/my-account-just-got-hacked-by-romanian-possibly/</loc>
+    <loc>http://localhost:1313/en/my-account-just-got-hacked-by-romanian-possibly/</loc>
     <lastmod>2013-07-27T11:58:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/berks-upload-ruby-core-dump/</loc>
+    <loc>http://localhost:1313/en/berks-upload-ruby-core-dump/</loc>
     <lastmod>2013-07-21T23:26:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/ruby/</loc>
+    <loc>http://localhost:1313/en/tags/ruby/</loc>
     <lastmod>2013-07-21T23:26:00+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/tags/ruby/"
+                href="http://localhost:1313/id/tags/ruby/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/tags/ruby/"
+                href="http://localhost:1313/en/tags/ruby/"
                 />
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/linux/</loc>
+    <loc>http://localhost:1313/en/tags/linux/</loc>
     <lastmod>2013-07-08T16:24:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/safely-sharing-credentials-with-pgp/</loc>
+    <loc>http://localhost:1313/en/safely-sharing-credentials-with-pgp/</loc>
     <lastmod>2013-07-08T16:24:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</loc>
+    <loc>http://localhost:1313/en/homeward-light-indicator-with-raspberrypi-and-commonsense/</loc>
     <lastmod>2013-02-26T20:33:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/tags/raspberrypi/</loc>
+    <loc>http://localhost:1313/en/tags/raspberrypi/</loc>
     <lastmod>2013-02-26T20:33:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/responsive-design/</loc>
+    <loc>http://localhost:1313/en/responsive-design/</loc>
     <lastmod>2012-02-24T01:48:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/jekyll-error-utf-8-caracter/</loc>
+    <loc>http://localhost:1313/en/jekyll-error-utf-8-caracter/</loc>
     <lastmod>2012-01-14T17:32:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/en/testing-ruby-code-with-benchmark-suite/</loc>
+    <loc>http://localhost:1313/en/testing-ruby-code-with-benchmark-suite/</loc>
     <lastmod>2012-01-14T12:05:00+02:00</lastmod>
   </url><url>
-    <loc>https://labs.yulrizka.com/en/id/</loc>
+    <loc>http://localhost:1313/en/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/id/"
+                href="http://localhost:1313/id/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/id/"
+                href="http://localhost:1313/en/categories/"
                 />
-  </url><url>
-    <loc>https://labs.yulrizka.com/en/categories/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="id"
-                href="https://labs.yulrizka.com/id/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://labs.yulrizka.com/en/categories/"
-                />
-  </url><url>
-    <loc>https://labs.yulrizka.com/en/id/ruby-fiber-apaan-sih/</loc>
-  </url><url>
-    <loc>https://labs.yulrizka.com/en/id/scale-mongodb-dengan-sharding/</loc>
-  </url><url>
-    <loc>https://labs.yulrizka.com/en/id/telepon-murah-ke-indonesia-dengan-voip/</loc>
   </url>
 </urlset>

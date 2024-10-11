@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Web on </title>
-    <link>https://labs.yulrizka.com/id/tags/web/</link>
+    <link>http://localhost:1313/id/tags/web/</link>
     <description>Recent content in Web on </description>
     <generator>Hugo</generator>
     <language>id</language>
-    <atom:link href="https://labs.yulrizka.com/id/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/id/tags/web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Scale MongoDB dengan Sharding</title>
-      <link>https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/</link>
+      <link>http://localhost:1313/id/scale-mongodb-dengan-sharding/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/</guid>
+      <guid>http://localhost:1313/id/scale-mongodb-dengan-sharding/</guid>
       <description>&lt;div class=&#34;alert alert-success&#34;&gt;&#xA;  &lt;span class=&#34;label label-success&#34; &gt;TL;DR&lt;/span&gt;&#xA;  Proses &lt;em&gt;Horizontal Partitioning&lt;/em&gt; pada MongoDB melibatkan suatu konsep &lt;em&gt;Chunk&lt;/em&gt; dimana data dibagi menjadi beberapa chunk sesuai dengan suatu&#xA;  &lt;em&gt;shard key&lt;/em&gt;. Artikel ini membahas bagaimana melakukan sharding pada mongodb&#xA;&lt;/div&gt;&#xA;&lt;h2 id=&#34;introduksi&#34;&gt;Introduksi&lt;/h2&gt;&#xA;&lt;p&gt;MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format&#xA;BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database,&#xA;kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis&lt;/p&gt;</description>
     </item>
     <item>
       <title>Telepon murah ke Indonesia dengan voip</title>
-      <link>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</link>
+      <link>http://localhost:1313/id/telepon-murah-ke-indonesia-dengan-voip/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</guid>
+      <guid>http://localhost:1313/id/telepon-murah-ke-indonesia-dengan-voip/</guid>
       <description>&lt;blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;Disclaimer: Tulias ini berisi pengalaman penulis menggunakan VoIP dari belanda. Hasilnya mungkin berbeda&#xA;dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang ditimbulkan apabila pembaca&#xA;memutuskan untuk menggunakan VoIP&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;div class=&#34;thumbnail&#34; align=&#34;center&#34;&gt;&#xA;  &lt;img src=&#34;https://blog.allstream.com/wp-content/uploads/2013/05/3822639-xsmall.jpg&#34;/&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra.&#xA;Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia dengan mudah&lt;/p&gt;</description>
     </item>
   </channel>

@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link>https://labs.yulrizka.com/id/</link>
+    <link>http://localhost:1313/id/</link>
     <description>Recent content on </description>
     <generator>Hugo</generator>
     <language>id</language>
-    <atom:link href="https://labs.yulrizka.com/id/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/id/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ruby Fiber apaan sih ?</title>
-      <link>https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/</link>
+      <link>http://localhost:1313/id/ruby-fiber-apaan-sih/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/</guid>
+      <guid>http://localhost:1313/id/ruby-fiber-apaan-sih/</guid>
       <description>&lt;blockquote&gt;&#xA;  &lt;p&gt;&#xA;    Fibers are light-weight (green) &lt;a href=&#34;https://en.wikipedia.org/wiki/Thread_(computing)&#34; alt=&#34;wiki Thread (Computing)&#34;&gt;&#xA;      threads&lt;/a&gt; with manual, cooperative scheduling, rather than the preemptive scheduling&#xA;    of Ruby 1.8&#39;s threads. Since Ruby 1.9&#39;s threads exist at the system level, fibers are, in a way,&#xA;    Ruby 1.9&#39;s answer to Ruby 1.8&#39;s green threads, but lacking the pre-emptive scheduling&#xA;  &lt;/p&gt;</description>
     </item>
     <item>
       <title>Scale MongoDB dengan Sharding</title>
-      <link>https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/</link>
+      <link>http://localhost:1313/id/scale-mongodb-dengan-sharding/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/</guid>
+      <guid>http://localhost:1313/id/scale-mongodb-dengan-sharding/</guid>
       <description>&lt;div class=&#34;alert alert-success&#34;&gt;&#xA;  &lt;span class=&#34;label label-success&#34; &gt;TL;DR&lt;/span&gt;&#xA;  Proses &lt;em&gt;Horizontal Partitioning&lt;/em&gt; pada MongoDB melibatkan suatu konsep &lt;em&gt;Chunk&lt;/em&gt; dimana data dibagi menjadi beberapa chunk sesuai dengan suatu&#xA;  &lt;em&gt;shard key&lt;/em&gt;. Artikel ini membahas bagaimana melakukan sharding pada mongodb&#xA;&lt;/div&gt;&#xA;&lt;h2 id=&#34;introduksi&#34;&gt;Introduksi&lt;/h2&gt;&#xA;&lt;p&gt;MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format&#xA;BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database,&#xA;kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis&lt;/p&gt;</description>
     </item>
     <item>
       <title>Telepon murah ke Indonesia dengan voip</title>
-      <link>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</link>
+      <link>http://localhost:1313/id/telepon-murah-ke-indonesia-dengan-voip/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</guid>
+      <guid>http://localhost:1313/id/telepon-murah-ke-indonesia-dengan-voip/</guid>
       <description>&lt;blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;Disclaimer: Tulias ini berisi pengalaman penulis menggunakan VoIP dari belanda. Hasilnya mungkin berbeda&#xA;dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang ditimbulkan apabila pembaca&#xA;memutuskan untuk menggunakan VoIP&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;div class=&#34;thumbnail&#34; align=&#34;center&#34;&gt;&#xA;  &lt;img src=&#34;https://blog.allstream.com/wp-content/uploads/2013/05/3822639-xsmall.jpg&#34;/&gt;&#xA;&lt;/div&gt;&#xA;&lt;p&gt;Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra.&#xA;Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia dengan mudah&lt;/p&gt;</description>
     </item>
   </channel>

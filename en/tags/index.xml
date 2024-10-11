@@ -2,101 +2,101 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on </title>
-    <link>https://labs.yulrizka.com/en/tags/</link>
+    <link>http://localhost:1313/en/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo</generator>
     <language>en-US</language>
     <lastBuildDate>Sun, 07 Jun 2020 17:09:57 +0200</lastBuildDate>
-    <atom:link href="https://labs.yulrizka.com/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/en/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>I3</title>
-      <link>https://labs.yulrizka.com/en/tags/i3/</link>
+      <link>http://localhost:1313/en/tags/i3/</link>
       <pubDate>Sun, 07 Jun 2020 17:09:57 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/i3/</guid>
+      <guid>http://localhost:1313/en/tags/i3/</guid>
       <description></description>
     </item>
     <item>
       <title>Unixporn</title>
-      <link>https://labs.yulrizka.com/en/tags/unixporn/</link>
+      <link>http://localhost:1313/en/tags/unixporn/</link>
       <pubDate>Sun, 07 Jun 2020 17:09:57 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/unixporn/</guid>
+      <guid>http://localhost:1313/en/tags/unixporn/</guid>
       <description></description>
     </item>
     <item>
       <title>Intellij</title>
-      <link>https://labs.yulrizka.com/en/tags/intellij/</link>
+      <link>http://localhost:1313/en/tags/intellij/</link>
       <pubDate>Thu, 21 May 2020 19:31:50 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/intellij/</guid>
+      <guid>http://localhost:1313/en/tags/intellij/</guid>
       <description></description>
     </item>
     <item>
       <title>Template</title>
-      <link>https://labs.yulrizka.com/en/tags/template/</link>
+      <link>http://localhost:1313/en/tags/template/</link>
       <pubDate>Thu, 21 May 2020 19:31:50 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/template/</guid>
+      <guid>http://localhost:1313/en/tags/template/</guid>
       <description></description>
     </item>
     <item>
       <title>Vscode</title>
-      <link>https://labs.yulrizka.com/en/tags/vscode/</link>
+      <link>http://localhost:1313/en/tags/vscode/</link>
       <pubDate>Thu, 21 May 2020 19:31:50 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/vscode/</guid>
+      <guid>http://localhost:1313/en/tags/vscode/</guid>
       <description></description>
     </item>
     <item>
       <title>Golang</title>
-      <link>https://labs.yulrizka.com/en/tags/golang/</link>
+      <link>http://localhost:1313/en/tags/golang/</link>
       <pubDate>Sat, 25 Apr 2020 15:47:49 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/golang/</guid>
+      <guid>http://localhost:1313/en/tags/golang/</guid>
       <description></description>
     </item>
     <item>
       <title>Go</title>
-      <link>https://labs.yulrizka.com/en/tags/go/</link>
+      <link>http://localhost:1313/en/tags/go/</link>
       <pubDate>Sat, 29 Aug 2015 17:28:00 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/go/</guid>
+      <guid>http://localhost:1313/en/tags/go/</guid>
       <description></description>
     </item>
     <item>
       <title>Web</title>
-      <link>https://labs.yulrizka.com/en/tags/web/</link>
+      <link>http://localhost:1313/en/tags/web/</link>
       <pubDate>Sun, 22 Mar 2015 00:26:00 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/web/</guid>
+      <guid>http://localhost:1313/en/tags/web/</guid>
       <description></description>
     </item>
     <item>
       <title>Git</title>
-      <link>https://labs.yulrizka.com/en/tags/git/</link>
+      <link>http://localhost:1313/en/tags/git/</link>
       <pubDate>Fri, 16 Jan 2015 23:35:00 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/git/</guid>
+      <guid>http://localhost:1313/en/tags/git/</guid>
       <description></description>
     </item>
     <item>
       <title>Testing</title>
-      <link>https://labs.yulrizka.com/en/tags/testing/</link>
+      <link>http://localhost:1313/en/tags/testing/</link>
       <pubDate>Mon, 27 Oct 2014 16:42:00 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/testing/</guid>
+      <guid>http://localhost:1313/en/tags/testing/</guid>
       <description></description>
     </item>
     <item>
       <title>Ruby</title>
-      <link>https://labs.yulrizka.com/en/tags/ruby/</link>
+      <link>http://localhost:1313/en/tags/ruby/</link>
       <pubDate>Sun, 21 Jul 2013 23:26:00 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/ruby/</guid>
+      <guid>http://localhost:1313/en/tags/ruby/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>https://labs.yulrizka.com/en/tags/linux/</link>
+      <link>http://localhost:1313/en/tags/linux/</link>
       <pubDate>Mon, 08 Jul 2013 16:24:00 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/linux/</guid>
+      <guid>http://localhost:1313/en/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>Raspberrypi</title>
-      <link>https://labs.yulrizka.com/en/tags/raspberrypi/</link>
+      <link>http://localhost:1313/en/tags/raspberrypi/</link>
       <pubDate>Tue, 26 Feb 2013 20:33:00 +0200</pubDate>
-      <guid>https://labs.yulrizka.com/en/tags/raspberrypi/</guid>
+      <guid>http://localhost:1313/en/tags/raspberrypi/</guid>
       <description></description>
     </item>
   </channel>

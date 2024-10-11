@@ -2,82 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://labs.yulrizka.com/id/</loc>
+    <loc>http://localhost:1313/id/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/"
+                href="http://localhost:1313/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/"
+                href="http://localhost:1313/id/"
                 />
   </url><url>
-    <loc>https://labs.yulrizka.com/id/categories/</loc>
+    <loc>http://localhost:1313/id/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/categories/"
+                href="http://localhost:1313/en/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/categories/"
+                href="http://localhost:1313/id/categories/"
                 />
   </url><url>
-    <loc>https://labs.yulrizka.com/id/id/</loc>
+    <loc>http://localhost:1313/id/tags/ruby/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/id/"
+                href="http://localhost:1313/en/tags/ruby/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/id/"
+                href="http://localhost:1313/id/tags/ruby/"
                 />
   </url><url>
-    <loc>https://labs.yulrizka.com/id/tags/ruby/</loc>
+    <loc>http://localhost:1313/id/ruby-fiber-apaan-sih/</loc>
+  </url><url>
+    <loc>http://localhost:1313/id/scale-mongodb-dengan-sharding/</loc>
+  </url><url>
+    <loc>http://localhost:1313/id/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/tags/ruby/"
+                href="http://localhost:1313/en/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/tags/ruby/"
+                href="http://localhost:1313/id/tags/"
                 />
   </url><url>
-    <loc>https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/</loc>
+    <loc>http://localhost:1313/id/telepon-murah-ke-indonesia-dengan-voip/</loc>
   </url><url>
-    <loc>https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/</loc>
-  </url><url>
-    <loc>https://labs.yulrizka.com/id/tags/</loc>
+    <loc>http://localhost:1313/id/tags/web/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://labs.yulrizka.com/en/tags/"
+                href="http://localhost:1313/en/tags/web/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="id"
-                href="https://labs.yulrizka.com/id/tags/"
-                />
-  </url><url>
-    <loc>https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/</loc>
-  </url><url>
-    <loc>https://labs.yulrizka.com/id/tags/web/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://labs.yulrizka.com/en/tags/web/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="id"
-                href="https://labs.yulrizka.com/id/tags/web/"
+                href="http://localhost:1313/id/tags/web/"
                 />
   </url>
 </urlset>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Web - </title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:url" content="https://labs.yulrizka.com/en/tags/web/">
+		<meta property="og:url" content="http://localhost:1313/en/tags/web/">
   <meta property="og:title" content="Web">
   <meta property="og:description" content="Ahmy&#39;s personal blog">
   <meta property="og:locale" content="en_US">
@@ -33,7 +33,6 @@
 
 	<link rel="shortcut icon" href="/favicon.ico">
 		
-		
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -57,7 +56,7 @@
 	</button>
 	<ul class="menu__list">
 		<li class="menu__item">
-			<a class="menu__link" href="/en/en/cv/">
+			<a class="menu__link" href="/en/cv/">
 				
 				<span class="menu__text">Curriculum vitae</span>
 				
@@ -78,7 +77,7 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/en/en/osx-push-to-talk-app/" rel="bookmark">
+			<a href="/en/osx-push-to-talk-app/" rel="bookmark">
 			osx-push-to-talk App
 			</a>
 		</h2>
@@ -106,7 +105,7 @@ But we still have a problem and end-up muting each other when we want to talk.</
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/en/en/my-account-just-got-hacked-by-romanian-possibly/" rel="bookmark">
+			<a href="/en/my-account-just-got-hacked-by-romanian-possibly/" rel="bookmark">
 			My account just got hacked by Romanian (Possibly)
 			</a>
 		</h2>
@@ -129,7 +128,7 @@ It actually came from my own Yahoo! account which I never use since more that on
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/en/en/berks-upload-ruby-core-dump/" rel="bookmark">
+			<a href="/en/berks-upload-ruby-core-dump/" rel="bookmark">
 			berks upload core dump
 			</a>
 		</h2>
@@ -165,7 +164,7 @@ push some cookbook to a chef server.</p>
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/en/en/safely-sharing-credentials-with-pgp/" rel="bookmark">
+			<a href="/en/safely-sharing-credentials-with-pgp/" rel="bookmark">
 			Safely sharing credentials with PGP
 			</a>
 		</h2>
@@ -187,7 +186,7 @@ But for some cases it&rsquo;s quite impractical.</p>
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/en/en/homeward-light-indicator-with-raspberrypi-and-commonsense/" rel="bookmark">
+			<a href="/en/homeward-light-indicator-with-raspberrypi-and-commonsense/" rel="bookmark">
 			Homeward light indicator with RaspberryPi and CommonSense
 			</a>
 		</h2>
@@ -216,7 +215,7 @@ quite awesome. So I could install a ruby/python and it only took a single comman
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/en/en/responsive-design/" rel="bookmark">
+			<a href="/en/responsive-design/" rel="bookmark">
 			Responsive Design
 			</a>
 		</h2>
@@ -237,7 +236,7 @@ The new version offer a lot of functionalities, one the feature that I play a lo
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
-			<a href="/en/en/jekyll-error-utf-8-caracter/" rel="bookmark">
+			<a href="/en/jekyll-error-utf-8-caracter/" rel="bookmark">
 			Jekyll error utf-8 caracter
 			</a>
 		</h2>
@@ -254,55 +253,6 @@ you might want to check the content if there is any UTF-8 character encoding suc
 it actually got <code>invalid multibyte char (US-ASCII) error message</code></p>
 <p>to solve this. I added this line to <code>.bashrc</code> or <code>zshrc</code> if you are using zsh</p>
 	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/en/id/scale-mongodb-dengan-sharding/" rel="bookmark">
-			Scale MongoDB dengan Sharding
-			</a>
-		</h2>
-		<div class="list__meta meta"><div class="meta__item-author meta__item">
-	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1c2 0 3.5 2 3.5 4.5S10 9 10 9c3 1 4 2 4 6H2c0-4 1-5 4-6 0 0-1.5-1-1.5-3.5S6 1 8 1"/></svg><span class="meta__text">Ahmy Yulrizka</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<div class="alert alert-success">
-  <span class="label label-success" >TL;DR</span>
-  Proses <em>Horizontal Partitioning</em> pada MongoDB melibatkan suatu konsep <em>Chunk</em> dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
-  <em>shard key</em>. Artikel ini membahas bagaimana melakukan sharding pada mongodb
-</div>
-<h2 id="introduksi">Introduksi</h2>
-<p>MongoDB adalah salah satu NoSQL database yang cukup populer. MongoDB merupakan document store database, dimana data disimpan dalam format
-BSON atau mirip dengan JSON. Keunggulan mongoDB antara lain adalah automatic sharding. Artinya apabila kita memiliki beberapa server database,
-kita dapat melakukan partisi terhadap data tersebut dan mongo akan melakukan load balancing terhadap data tersebut secara automatis</p>
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/en/id/telepon-murah-ke-indonesia-dengan-voip/" rel="bookmark">
-			Telepon murah ke Indonesia dengan voip
-			</a>
-		</h2>
-		<div class="list__meta meta"><div class="meta__item-author meta__item">
-	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1c2 0 3.5 2 3.5 4.5S10 9 10 9c3 1 4 2 4 6H2c0-4 1-5 4-6 0 0-1.5-1-1.5-3.5S6 1 8 1"/></svg><span class="meta__text">Ahmy Yulrizka</span>
-</div></div>
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<blockquote>
-<blockquote>
-<p><em>Disclaimer: Tulias ini berisi pengalaman penulis menggunakan VoIP dari belanda. Hasilnya mungkin berbeda
-dengan yang anda peroleh. Penulis tidak bertanggung jawab atas kerugian yang ditimbulkan apabila pembaca
-memutuskan untuk menggunakan VoIP</em></p>
-</blockquote>
-</blockquote>
-<div class="thumbnail" align="center">
-  <img src="https://blog.allstream.com/wp-content/uploads/2013/05/3822639-xsmall.jpg"/>
-</div>
-<p>Buat rekan-rekan yang sedang belajar atau bekerja di Belanda, terkadang kita rindu sanak saudra.
-Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia dengan mudah</p>
-	</div>
 </article>
 </main>
 
@@ -313,20 +263,8 @@ Sebenarnya banyak cara untuk dapat berbincang dengan keluarga di Indonesia denga
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
 		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
 		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://labs.yulrizka.com/">
+		<input type="hidden" name="sitesearch" value="http://localhost:1313/">
 	</form>
-</div>
-<div class="widget-recent widget">
-	<h4 class="widget__title">Recent Posts</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/en/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a></li>
-			<li class="widget__item"><a class="widget__link" href="/en/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a></li>
-			<li class="widget__item"><a class="widget__link" href="/en/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a></li>
-			<li class="widget__item"><a class="widget__link" href="/en/en/cv/">Curriculum vitae</a></li>
-			<li class="widget__item"><a class="widget__link" href="/en/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a></li>
-		</ul>
-	</div>
 </div>
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
