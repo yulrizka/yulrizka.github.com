@@ -1,22 +1,25 @@
 theme = "mainroad"
 titile = "Ahmy'- blog"
-pygmentsCodeFences = true
-pygmentsOptions = "linenos=table"
-pygmentsUseClasses = true
+#pygmentsCodeFences = true
+#pygmentsOptions = "linenos=table"
+#pygmentsUseClasses = true
 disqusShortname = "labs-yulrizka"
 baseURL = "https://labs.yulrizka.com/"
 
 
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = true
 
 [languages]
     [languages.en]
-        contentDir = 'content/en'
+        disabled = false
         languageName = 'English'
-        weight = 10
+        languageCode = 'en-US'
+        weight = 1
     [languages.id]
         contentDir = 'content/id'
         languageName = 'Bahasa Indonesia'
-        weight = 20
+        weight = 2
 
 [markup.goldmark.renderer]
     unsafe = true
@@ -29,14 +32,30 @@ baseURL = "https://labs.yulrizka.com/"
     disqusShortname = "" # DEPRECATED! Use .Services.Disqus.Shortname
     googleAnalytics = "" # DEPRECATED! Use .Services.googleAnalytics.ID
 
-#[Author] # Used in authorbox
-#name = "John Doe"
-#bio = "John Doe's true identity is unknown. Maybe he is a successful blogger or writer. Nobody knows it."
-#avatar = "img/avatar.png"
+
+
+[markup]
+[markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = false
+    tabWidth = 4
+    noClasses = true
+    style = "monokai"
+
+
+
+[Author] # Used in authorbox
+    name = "Ahmy Yulrizka"
+    bio = "Software Engineer, Sports Enthusiast, and like to write about random things"
+    avatar = "img/ahmy.jpg"
 
 [Params]
-    description = "John Doe's Personal blog about everything" # Site description. Used in meta description
-    copyright = "John Doe" # Footer copyright holder, otherwise will use site title
+    description = "Ahmy's personal blog" # Site description. Used in meta description
+    copyright = "Ahmy Yulrizka" # Footer copyright holder, otherwise will use site title
     opengraph = true # Enable OpenGraph if true
     schema = true # Enable Schema
     twitter_cards = true # Enable Twitter Cards if true
@@ -45,7 +64,7 @@ baseURL = "https://labs.yulrizka.com/"
     toc = true # Enable Table of Contents
     pager = true # Show pager navigation (prev/next links) at the bottom of pages if true
     post_meta = ["author", "date", "categories", "translations"] # Order of post meta information
-    mainSections = ["id", "en"] # Specify section pages to show on home page and the "Recent articles" widget
+    mainSections = ['en', 'id', 'cv'] # Specify section pages to show on home page and the "Recent articles" widget
     dateformat = "2006-01-02" # Change the format of dates
     mathjax = true # Enable MathJax
     mathjaxPath = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js" # Specify MathJax path
@@ -56,7 +75,7 @@ baseURL = "https://labs.yulrizka.com/"
 
 
 [Params.style.vars]
-    highlightColor = "#e22d30" # Override highlight color
+    highlightColor = "#fdb11f" # Override highlight color
 
     # Override font-family sets
     # Take care of different quotes OR escaping symbols in these params if necessary
@@ -65,9 +84,9 @@ baseURL = "https://labs.yulrizka.com/"
     fontFamilySecondary = "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
 
 [Params.logo]
-    image = "img/placeholder.png" # Logo image. Path relative to "static"
-    title = "Mainroad" # Logo title, otherwise will use site title
-    subtitle = "Just another site" # Logo subtitle
+    image = "img/ahmy.jpg" # Logo image. Path relative to "static"
+    title = "Ahmy's Laboratory" # Logo title, otherwise will use site title
+    subtitle = "Random thoughts and rumblings. All opinions are my own." # Logo subtitle
 
 [Params.thumbnail]
     visibility = ["list", "post"] # Control thumbnail visibility
@@ -98,9 +117,9 @@ baseURL = "https://labs.yulrizka.com/"
 #icon = "youtube.svg" # Optional. Path relative to "layouts/partials"
 #rel = "noopener noreferrer" # Set to false to remove the rel attribute
 
-[[Params.widgets.social.custom]]
-    title = "My Home Page"
-    url = "https://example.com"
+#[[Params.widgets.social.custom]]
+#    title = "My Home Page"
+#    url = "https://example.com"
 
 [Params.widgets.search]
     cached = false # activate cache if true

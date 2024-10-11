@@ -2,7 +2,7 @@
 layout: post
 title: "Benchmark cramp, node.js dan rails"
 date: 2012-03-01 15:02
-language: id
+lang: id
 comments: true
 tags : 
   - ruby
