@@ -4,7 +4,9 @@ title: "Sharing credentials with teams"
 date: 2013-07-30T18:33:00+02:00
 language: en
 comments: true
-tags: web, security
+tags: 
+  - web
+  - security
 description: Ways to share password, keys or other account credentials with team mate
 keywords: sharing password, sharing credentials, pgp, gpg, yulrizka
 published: false

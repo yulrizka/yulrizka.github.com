@@ -4,7 +4,9 @@ title: "Stubbing Time.Now() in golang"
 date: 2014-10-27T16:42:00+02:00
 language: en
 comments: true
-tags: golang testing
+tags:
+  - golang
+  - testing
 description: Stubbing or mokcing Time.Now() in go for testing
 keywords: golang test, time stubbing, golang stub time, golang test time, mocking
 aliases:

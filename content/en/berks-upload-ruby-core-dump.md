@@ -4,7 +4,9 @@ title: "berks upload core dump"
 date: 2013-07-21T23:26:00+02:00
 language: en
 comments: true
-tags: ruby, web
+tags:
+  - ruby
+  - web
 description: Berks ruby core dump while doing berks upload
 keywords: berks upload ruby coredump
 ---

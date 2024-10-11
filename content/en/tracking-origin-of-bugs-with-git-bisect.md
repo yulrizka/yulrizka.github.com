@@ -4,7 +4,8 @@ title: "Tracking origin of bugs with git bisect"
 date: 2015-01-16T23:35:00+02:00
 language: en
 comments: true
-tags: git
+tags: 
+  - git
 description: Determine which commit was the bug introduced 
 keywords: git, bisect, bug tracking
 ---

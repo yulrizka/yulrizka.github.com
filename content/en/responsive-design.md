@@ -4,7 +4,8 @@ title: "Responsive Design"
 date: 2012-02-24T01:48:00+02:00
 language: en
 comments: true
-tags: [web]
+tags: 
+  - web
 description: Responsive website design with twitter bootstrap
 keywords: responsive design, twitter bootstrap
 ---

@@ -4,7 +4,8 @@ title: "Telepon murah ke Indonesia dengan voip"
 date: 2015-05-03 13:08
 language: id
 comments: true
-tags: web
+tags: 
+  - web
 description: Telepon murah ke indonesia melalui internet
 keywords: voip indonesia, voip, telepon murah
 ---

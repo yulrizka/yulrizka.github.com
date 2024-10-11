@@ -4,7 +4,8 @@ date: 2020-04-25T15:47:49+02:00
 draft: false
 language: en
 comments: true
-tags: golang
+tags: 
+  - golang
 description: Understanding the go SSA optimization using for-range example
 keywords: golang, ssa, optimization
 

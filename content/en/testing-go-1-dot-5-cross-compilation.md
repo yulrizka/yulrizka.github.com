@@ -4,7 +4,8 @@ title: "Testing go 1.5 cross compilation on raspberry pi"
 date: 2015-08-29T17:28:00+02:00
 language: en
 comments: true
-tags: go
+tags: 
+  - go
 description: testing cross compilation in go 1.5
 keywords: go, golang, cross compilation
 ---

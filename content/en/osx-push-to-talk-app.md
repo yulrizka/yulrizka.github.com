@@ -4,7 +4,8 @@ title: "osx-push-to-talk App"
 date: 2015-03-22T00:26:00+02:00
 language: en
 comments: true
-tags: [web]
+tags: 
+  - web
 description: Push to Talk app mute microphone with keyboard 
 keywords: push-to-talk, ptt, push to talk, osx push to talk
 ---

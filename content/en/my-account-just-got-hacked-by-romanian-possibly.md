@@ -4,7 +4,8 @@ title: "My account just got hacked by Romanian (Possibly)"
 date: 2013-07-27T11:58:00+02:00
 language: en
 comments: true
-tags: web
+tags: 
+  - web
 description: My Account just got hack by Romanian to send SPAM
 keywords: hacked, security, spam
 ---

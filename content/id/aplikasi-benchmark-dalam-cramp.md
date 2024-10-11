@@ -4,7 +4,8 @@ title: "Aplikasi Benchmark dalam Cramp"
 date: 2012-03-05 19:56
 language: id
 comments: true
-tags: ruby
+tags: 
+  - ruby
 description: Pengembangan aplikasi benchmark dengan cramp
 keywords: benchmark, cramp
 published: false

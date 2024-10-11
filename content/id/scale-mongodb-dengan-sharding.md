@@ -4,7 +4,9 @@ title: "Scale MongoDB dengan Sharding"
 date: 2012-03-07 12:16
 language: id
 comments: true
-tags: ruby, web
+tags:
+  - ruby
+  - web
 description: Introduksi, pengertian dan explorasi s-0t5caling MongoDB instance dengan melakukan partisi secara horizontal atau yang lebih dikenal dengan sharding.
 keywords: mongodb, sharding, horizontal partitioning
 ---

@@ -4,7 +4,8 @@ title: "Ruby Fiber apaan sih ?"
 date: 2012-02-29 15:17
 language: id
 comments: true
-tags: [ruby]
+tags: 
+  - ruby
 description: Artikel ini membahas penjelasan mengenai ruby fiber dan ruby thread. Fiber yang digunakan pada ruby 1.9
 keywords: fiber, ruby, thread, green thread
 ---

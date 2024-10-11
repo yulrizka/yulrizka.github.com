@@ -4,7 +4,8 @@ title: "Testing ruby code with benchmark_suite"
 date: 2012-01-14T12:05:00+02:00
 language: en
 comments: true
-tags: [ruby]
+tags: 
+  - ruby
 keywords: ruby, benchmark, benchmark suite
 ---
 

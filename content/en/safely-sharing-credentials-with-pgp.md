@@ -4,7 +4,9 @@ title: "Safely sharing credentials with PGP"
 date: 2013-07-08T16:24:00+02:00
 language: en
 comments: true
-tags: linux, web
+tags: 
+  - linux
+  - web
 description: Safe way to send message or share credentials with teams
 keywords: linux, GPG, PGP, authentication share, share password
 ---

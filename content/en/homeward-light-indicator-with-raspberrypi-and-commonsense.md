@@ -4,7 +4,9 @@ title: "Homeward light indicator with RaspberryPi and CommonSense"
 date: 2013-02-26T20:33:00+02:00
 language: en
 comments: true
-tags: [web, raspberrypi]
+tags: 
+  - web
+  - raspberrypi
 description: Creating Light that turn on when you return from office with raspberry pi and CommonSense
 keywords: raspberrypi, raspberry, light, commonsense, sensor,
 published: true
