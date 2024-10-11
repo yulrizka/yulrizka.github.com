@@ -1,11 +1,7 @@
 theme = "mainroad"
 titile = "Ahmy'- blog"
-#pygmentsCodeFences = true
-#pygmentsOptions = "linenos=table"
-#pygmentsUseClasses = true
 disqusShortname = "labs-yulrizka"
 baseURL = "https://labs.yulrizka.com/"
-
 
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
@@ -13,6 +9,7 @@ defaultContentLanguageInSubdir = true
 [languages]
     [languages.en]
         disabled = false
+        contentDir = 'content/en'
         languageName = 'English'
         languageCode = 'en-US'
         weight = 1
@@ -23,7 +20,6 @@ defaultContentLanguageInSubdir = true
 
 [markup.goldmark.renderer]
     unsafe = true
-
     baseurl = "/"
     title = "Mainroad"
     languageCode = "en-us"
@@ -45,8 +41,6 @@ defaultContentLanguageInSubdir = true
     tabWidth = 4
     noClasses = true
     style = "monokai"
-
-
 
 [Author] # Used in authorbox
     name = "Ahmy Yulrizka"

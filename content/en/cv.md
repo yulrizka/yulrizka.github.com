@@ -7,8 +7,10 @@ comments: false
 menu: main
 description: Resume Curriculum vitae of Ahmy Yulrizka
 keywords: CV Resume Ahmy Yulrizka
+toc: false
 aliases:
   - /cv/index.html
+
 ---
 
 # Ahmy yulrizka - Senior Software Engineer
