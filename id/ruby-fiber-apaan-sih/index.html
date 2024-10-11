@@ -1,44 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="id">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ruby Fiber apaan sih ? - </title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="Artikel ini membahas penjelasan mengenai ruby fiber dan ruby thread. Fiber yang digunakan pada ruby 1.9">
+		<meta property="og:url" content="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">
+  <meta property="og:title" content="Ruby Fiber apaan sih ?">
+  <meta property="og:description" content="Artikel ini membahas penjelasan mengenai ruby fiber dan ruby thread. Fiber yang digunakan pada ruby 1.9">
+  <meta property="og:locale" content="id">
+  <meta property="og:type" content="article">
+    <meta property="article:tag" content="Ruby">
 
-<title>Ruby Fiber apaan sih ? - labs.yulrizka.com</title>
-<meta name="description" content="Artikel ini membahas penjelasan mengenai ruby fiber dan ruby thread. Fiber yang digunakan pada ruby 1.9">
+		
+  <meta itemprop="name" content="Ruby Fiber apaan sih ?">
+  <meta itemprop="description" content="Artikel ini membahas penjelasan mengenai ruby fiber dan ruby thread. Fiber yang digunakan pada ruby 1.9">
+  <meta itemprop="wordCount" content="540">
+  <meta itemprop="keywords" content="fiber,,ruby,,thread,,green,thread">
+		
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ruby Fiber apaan sih ?">
+  <meta name="twitter:description" content="Artikel ini membahas penjelasan mengenai ruby fiber dan ruby thread. Fiber yang digunakan pada ruby 1.9">
 
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/style.css">
+	
 
-<meta name="keywords" content="fiber, ruby, thread, green thread">
-<meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">
-
-
-
-
-
- 
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
-
-
-
-
-<link href='https://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-
-
-
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+		
 </head>
-<body>
-<div id="container" class="sidebar-right">
-  <div class="container-fluid" id="main">
-    <div class="row-fluid">
-      <div id="content-wrapper" class="span9 ">
-        <div class="content">
-<h1>Ruby Fiber apaan sih ?</h1>
-<div class="posted_at">
-	0001-01-01 ::
-	( 3 minutes reading )
-</div><blockquote>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/id/" title="Ahmy&#39;s Laboratory" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/ahmy.jpg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">Ahmy&#39;s Laboratory</div>
+					<div class="logo__tagline">Random thoughts and rumblings. All opinions are my own.</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Ruby Fiber apaan sih ?</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1c2 0 3.5 2 3.5 4.5S10 9 10 9c3 1 4 2 4 6H2c0-4 1-5 4-6 0 0-1.5-1-1.5-3.5S6 1 8 1"/></svg><span class="meta__text">Ahmy Yulrizka</span>
+</div></div>
+		</header>
+		<div class="content post__content clearfix">
+			<blockquote>
   <p>
     Fibers are light-weight (green) <a href="https://en.wikipedia.org/wiki/Thread_(computing)" alt="wiki Thread (Computing)">
       threads</a> with manual, cooperative scheduling, rather than the preemptive scheduling
@@ -89,41 +116,21 @@ pada <em>EventMachine</em> di ruby</p>
 <h2>Cara Menggunakan Fiber</h2>
 Untuk dapat memahami fiber, kita ambil contoh seperti berikut. Program ini sebenarnya tidak berguna, tapi cukup untuk
 mendemonstrasikan alur penggunaan fiber
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-ruby" data-lang="ruby">  <span class="n">fiber</span> <span class="o">=</span> <span class="no">Fiber</span><span class="o">.</span><span class="n">new</span> <span class="k">do</span>
-    <span class="nb">puts</span> <span class="s2">&#34;Fiber: Beginning of fiber&#34;</span>
-    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 11)</span>
-    <span class="nb">puts</span> <span class="s2">&#34;Fiber: Halo main, saya fiber&#34;</span>
-    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="c1"># kembalikan eksekusi ke main (line 13)</span>
-    <span class="no">Fiber</span><span class="o">.</span><span class="n">yield</span> <span class="s2">&#34;Fiber: Sekarang </span><span class="si">#{</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span><span class="si">}</span><span class="s2">&#34;</span>
-  <span class="k">end</span>
-
-  <span class="nb">puts</span> <span class="s2">&#34;Main: Beginning main&#34;</span>
-  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 2)</span>
-  <span class="nb">puts</span> <span class="s2">&#34;Main: Hello saya main thread&#34;</span>
-  <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 4)</span>
-  <span class="nb">puts</span> <span class="s2">&#34;Main: Sekarang jam berapa ya ?&#34;</span>
-  <span class="nb">puts</span> <span class="n">fiber</span><span class="o">.</span><span class="n">resume</span> <span class="c1"># jalankan fiber (line 6) dan output hasil</span>
-</code></pre></td></tr></table>
-</div>
-</div><pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>  fiber <span style="color:#f92672">=</span> <span style="color:#66d9ef">Fiber</span><span style="color:#f92672">.</span>new <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>    puts <span style="color:#e6db74">&#34;Fiber: Beginning of fiber&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>    <span style="color:#66d9ef">Fiber</span><span style="color:#f92672">.</span>yield <span style="color:#75715e"># kembalikan eksekusi ke main (line 11)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>    puts <span style="color:#e6db74">&#34;Fiber: Halo main, saya fiber&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>    <span style="color:#66d9ef">Fiber</span><span style="color:#f92672">.</span>yield <span style="color:#75715e"># kembalikan eksekusi ke main (line 13)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>    <span style="color:#66d9ef">Fiber</span><span style="color:#f92672">.</span>yield <span style="color:#e6db74">&#34;Fiber: Sekarang </span><span style="color:#e6db74">#{</span><span style="color:#66d9ef">Time</span><span style="color:#f92672">.</span>now<span style="color:#f92672">.</span>to_s<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>  <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>  puts <span style="color:#e6db74">&#34;Main: Beginning main&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>  fiber<span style="color:#f92672">.</span>resume <span style="color:#75715e"># jalankan fiber (line 2)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>  puts <span style="color:#e6db74">&#34;Main: Hello saya main thread&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>  fiber<span style="color:#f92672">.</span>resume <span style="color:#75715e"># jalankan fiber (line 4)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>  puts <span style="color:#e6db74">&#34;Main: Sekarang jam berapa ya ?&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>  puts fiber<span style="color:#f92672">.</span>resume <span style="color:#75715e"># jalankan fiber (line 6) dan output hasil</span>
+</span></span></code></pre></div><pre>
      Main: Beginning main
      Fiber: Beginning of fiber
      Main: Hello saya main thread
@@ -131,9 +138,47 @@ mendemonstrasikan alur penggunaan fiber
      Main: Sekarang jam berapa ya ?
      Fiber: Sekarang 2012-02-29 22:45:08 +0700
 </pre>
-<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/id/tags/ruby/" rel="tag">ruby</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Ahmy Yulrizka avatar" src="/img/ahmy.jpg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">Tentang Ahmy Yulrizka</span>
+	</div>
+	<div class="authorbox__description">
+		Software Engineer, Sports Enthusiast, and like to write about random things
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/id/scale-mongodb-dengan-sharding/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Sebelumnya</span>
+			<p class="pager__title">Scale MongoDB dengan Sharding</p>
+		</a>
+	</div>
+</nav>
+
+<section class="comments">
+	<div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
     
     
     
@@ -151,166 +196,23 @@ mendemonstrasikan alur penggunaan fiber
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
 
-        </div>
-      </div>
-      <div id="sidebar-wrapper" class="span3">
-        <div class="sidebar">
-          <aside>
-          <h2>Archives</h2>
-          <h3>English</h3>
-          <ul>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
-            </li>
-          
-          </ul>
-          <h3>Indonesia</h3>
-          <ul>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">Ruby Fiber apaan sih ?</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">Scale MongoDB dengan Sharding</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/">Telepon murah ke Indonesia dengan voip</a>
-            </li>
-          
-          </ul>
-          </aside>
-        </div>
-      </div>
-    </div>
-  </div><header>
-  <div id="banner">
-    <div id="carousel-banner" class="wrapper carousel">
-      <div class="carousel-inner excerpt">
-      </div>
-    </div> 
-  </div>
-  
-  <div class="navbar navbar-fixed-top relative">  
-    <div class="navbar-inner">    
-      <div class="fill">
-        <div class="container">
-          <a href="/"><span class="brand">Labs.Yulrizka.com</span></a>
-          <div id="social-icon" class="pull-right">
-            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
-            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
-            <a href="https://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
-          </div>
-          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <div id="page-view">
-            <ul class="nav pull-right">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
-                data-original-title="Sidebar position" data-placement="left">
-                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
-                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
-                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>            
-          <div class="nav-link nav-collapse">
-            <ul class="nav">
-
-              <li class=""><a href="/">Home</a></li>
-              <li class=""><a href="/en/">EN</a></li>
-              <li class="active banner"><a href="/id/">ID</a></li>
-              <li class=""><a href="https://til.yulrizka.com/">Today I Learned</a></li>
-              
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-<footer>
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
-        <div class="footer">
-          <p>
-            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
-            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
-          </p>
-        </div>
-      </div>
-    </div>
- </div>
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 Ahmy Yulrizka.
+			<span class="footer__copyright-credits">Dibuat dengan <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> dan Tema <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>.</span>
+		</div>
+	</div>
 </footer>
-</div> 
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
-
-
-<script src="https://labs.yulrizka.com/javascript/global.js"></script>
-
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-22308054-2']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
 </body>
 </html>

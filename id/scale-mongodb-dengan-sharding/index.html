@@ -1,44 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="id">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Scale MongoDB dengan Sharding - </title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="Introduksi, pengertian dan explorasi s-0t5caling MongoDB instance dengan melakukan partisi secara horizontal atau yang lebih dikenal dengan sharding.">
+		<meta property="og:url" content="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">
+  <meta property="og:title" content="Scale MongoDB dengan Sharding">
+  <meta property="og:description" content="Introduksi, pengertian dan explorasi s-0t5caling MongoDB instance dengan melakukan partisi secara horizontal atau yang lebih dikenal dengan sharding.">
+  <meta property="og:locale" content="id">
+  <meta property="og:type" content="article">
+    <meta property="article:tag" content="Ruby">
+    <meta property="article:tag" content="Web">
 
-<title>Scale MongoDB dengan Sharding - labs.yulrizka.com</title>
-<meta name="description" content="Introduksi, pengertian dan explorasi s-0t5caling MongoDB instance dengan melakukan partisi secara horizontal atau yang lebih dikenal dengan sharding.">
+		
+  <meta itemprop="name" content="Scale MongoDB dengan Sharding">
+  <meta itemprop="description" content="Introduksi, pengertian dan explorasi s-0t5caling MongoDB instance dengan melakukan partisi secara horizontal atau yang lebih dikenal dengan sharding.">
+  <meta itemprop="wordCount" content="1948">
+  <meta itemprop="keywords" content="mongodb,,sharding,,horizontal,partitioning">
+		
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Scale MongoDB dengan Sharding">
+  <meta name="twitter:description" content="Introduksi, pengertian dan explorasi s-0t5caling MongoDB instance dengan melakukan partisi secara horizontal atau yang lebih dikenal dengan sharding.">
 
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/style.css">
+	
 
-<meta name="keywords" content="mongodb, sharding, horizontal partitioning">
-<meta name="author" content="Ahmy Yulrizka">
-<link rel="canonical" href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">
-
-
-
-
-
- 
-<link rel="stylesheet" href="https://labs.yulrizka.com/css/default.min.dc2e649e33be45986ac30a89c008a6a194e1b0dc19451a314c324ff26a500dcb.css" media="screen, projection" type="text/css">
-
-
-
-
-<link href='https://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-
-
-
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+		
 </head>
-<body>
-<div id="container" class="sidebar-right">
-  <div class="container-fluid" id="main">
-    <div class="row-fluid">
-      <div id="content-wrapper" class="span9 ">
-        <div class="content">
-<h1>Scale MongoDB dengan Sharding</h1>
-<div class="posted_at">
-	0001-01-01 ::
-	( 10 minutes reading )
-</div><div class="alert alert-success">
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/id/" title="Ahmy&#39;s Laboratory" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/ahmy.jpg">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">Ahmy&#39;s Laboratory</div>
+					<div class="logo__tagline">Random thoughts and rumblings. All opinions are my own.</div>
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Scale MongoDB dengan Sharding</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1c2 0 3.5 2 3.5 4.5S10 9 10 9c3 1 4 2 4 6H2c0-4 1-5 4-6 0 0-1.5-1-1.5-3.5S6 1 8 1"/></svg><span class="meta__text">Ahmy Yulrizka</span>
+</div></div>
+		</header>
+		
+<div class="post__toc toc">
+	<div class="toc__title">Konten Halaman</div>
+	<div class="toc__menu">
+		<nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduksi">Introduksi</a>
+      <ul>
+        <li><a href="#mongod">mongod</a></li>
+        <li><a href="#replica">Replica</a></li>
+        <li><a href="#shard-key">shard key</a></li>
+        <li><a href="#chunks">Chunks</a></li>
+        <li><a href="#config-db-process-config-server">Config DB Process (Config server)</a></li>
+        <li><a href="#routing-process-mongos">Routing Process (mongos)</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementasi">Implementasi</a>
+      <ul>
+        <li><a href="#mongod-1">Mongod</a></li>
+        <li><a href="#configuration-server--mongos">Configuration Server &amp; Mongos</a></li>
+      </ul>
+    </li>
+    <li><a href="#setup-cluster">Setup Cluster</a>
+      <ul>
+        <li><a href="#konfigurasi-shard-server-pada-mongos">Konfigurasi Shard Server pada mongos</a></li>
+      </ul>
+    </li>
+    <li><a href="#lets-play">Let&rsquo;s Play</a>
+      <ul>
+        <li><a href="#tambahkan-data-pada-collection">Tambahkan data pada collection</a></li>
+        <li><a href="#melihat-informasi-jumlah-shard">Melihat informasi jumlah shard</a></li>
+        <li><a href="#melihat-informasi-chunk">Melihat informasi Chunk</a></li>
+        <li><a href="#memindahkan-chunk-ke-shard-lain">Memindahkan Chunk ke shard lain</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+	</div>
+</div><div class="content post__content clearfix">
+			<div class="alert alert-success">
   <span class="label label-success" >TL;DR</span>
   Proses <em>Horizontal Partitioning</em> pada MongoDB melibatkan suatu konsep <em>Chunk</em> dimana data dibagi menjadi beberapa chunk sesuai dengan suatu
   <em>shard key</em>. Artikel ini membahas bagaimana melakukan sharding pada mongodb
@@ -161,49 +227,23 @@ mongod, Config Server, mongos dan server aplikasi.</p>
 </ul>
 <h3 id="mongod-1">Mongod</h3>
 <p>Dalam kasus ini, saya berasumsi anda telah melakukan instalasi terhadap mongo server. Untuk menjalankan 2 proses mongod, jalankan perintah berikut</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  $ mkdir a b
-  <span class="c1"># jalankan instance pertama</span>
-  $ mongod --shardsvr --dbpath <span class="nv">$PWD</span>/a --port <span class="m">10000</span> &gt; /tmp/sharda.log <span class="p">&amp;</span>
-  $ cat /tmp/sharda.log <span class="c1"># pastikan process tersebut berjalan</span>
-  <span class="c1"># jalankan instance kedua</span>
-  $ mongod --shardsvr --dbpath <span class="nv">$PWD</span>/b --port <span class="m">10001</span> &gt; /tmp/shardb.log <span class="p">&amp;</span>
-  $ cat /tmp/shardb.log <span class="c1"># pastikan process tersebut berjalan</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="configuration-server--mongos">Configuration Server &amp; Mongos</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>  $ mkdir a b
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>  <span style="color:#75715e"># jalankan instance pertama</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>  $ mongod --shardsvr --dbpath $PWD/a --port <span style="color:#ae81ff">10000</span> &gt; /tmp/sharda.log &amp;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>  $ cat /tmp/sharda.log <span style="color:#75715e"># pastikan process tersebut berjalan</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>  <span style="color:#75715e"># jalankan instance kedua</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>  $ mongod --shardsvr --dbpath $PWD/b --port <span style="color:#ae81ff">10001</span> &gt; /tmp/shardb.log &amp;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>  $ cat /tmp/shardb.log <span style="color:#75715e"># pastikan process tersebut berjalan</span>
+</span></span></code></pre></div><h3 id="configuration-server--mongos">Configuration Server &amp; Mongos</h3>
 <p>Berikutnya yang kita lakukan adalah menjalankan Configuration server dan Mongos dengan perintah berikut</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  $ mkdir config
-  <span class="c1"># start config server</span>
-  $ mongod --configsvr --dbpath <span class="nv">$PWD</span>/config --port <span class="m">20000</span> &gt; /tmp/configdb.log <span class="p">&amp;</span>
-  $ cat /tmp/configdb.log <span class="c1"># pastikan server berjalan</span>
-  <span class="c1"># start mongos</span>
-  $ mongos --configdb localhost:20000 --chunkSize <span class="m">1</span> &gt; /tmp/mongos.log <span class="p">&amp;</span>
-  $ cat /tmp/mongos.log <span class="c1"># pastikan server tersebut berjalan</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>pada contoh diatas, mongos tidak membutuhkan <code>--dbpath</code>, karena mongo tidak memerlukan <em>persistance</em> (penyimpanan data). Perintah <code>mongos</code> diatas
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>  $ mkdir config
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>  <span style="color:#75715e"># start config server</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>  $ mongod --configsvr --dbpath $PWD/config --port <span style="color:#ae81ff">20000</span> &gt; /tmp/configdb.log &amp;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>  $ cat /tmp/configdb.log <span style="color:#75715e"># pastikan server berjalan</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>  <span style="color:#75715e"># start mongos</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>  $ mongos --configdb localhost:20000 --chunkSize <span style="color:#ae81ff">1</span> &gt; /tmp/mongos.log &amp;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>  $ cat /tmp/mongos.log <span style="color:#75715e"># pastikan server tersebut berjalan</span>
+</span></span></code></pre></div><p>pada contoh diatas, mongos tidak membutuhkan <code>--dbpath</code>, karena mongo tidak memerlukan <em>persistance</em> (penyimpanan data). Perintah <code>mongos</code> diatas
 akan menjalankan mongos pada port default (sama serperti port default mongod) yaitu 27017</p>
 <p><code>--chinkSize 1</code> merupakan opsi untuk menentukan ukuran chunk 1MB (defaultnya 64MB). Hal ini bertujuan untuk explorasi saja. sehingga kita tidak
 perlu memassukkan data berukuran 64MB untuk membuat satu chuck baru.</p>
@@ -212,311 +252,148 @@ perlu memassukkan data berukuran 64MB untuk membuat satu chuck baru.</p>
 yang kita lakukan adalah melakukan setup agar server tersebut dapat saling berkomunikasi.</p>
 <h3 id="konfigurasi-shard-server-pada-mongos">Konfigurasi Shard Server pada mongos</h3>
 <p>Berikutnya yang kita lakukan adalah setup mongos agar menambahkan 2 shard server yang berjalan pada port 10000 &amp; 10001.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">$ mongo
-MongoDB shell version: 1.8.2
-connecting to: <span class="nb">test</span>
-&gt; use admin
-switched to db admin
-&gt; db.runCommand<span class="o">(</span> <span class="o">{</span> addshard: <span class="s2">&#34;localhost:10000&#34;</span><span class="o">}</span> <span class="o">)</span>
-<span class="o">{</span> <span class="s2">&#34;shardAdded&#34;</span> : <span class="s2">&#34;shard0000&#34;</span>, <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-&gt; db.runCommand<span class="o">(</span> <span class="o">{</span> addshard: <span class="s2">&#34;localhost:10001&#34;</span><span class="o">}</span> <span class="o">)</span>
-<span class="o">{</span> <span class="s2">&#34;shardAdded&#34;</span> : <span class="s2">&#34;shard0001&#34;</span>, <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-&gt;
-</code></pre></td></tr></table>
-</div>
-</div><p>Berikutnya, kita set agar server tersebut dalam mode sharding pada database test. Setelah itu kita akan menambahkan sharding pada <em>collection</em> <em>people</em> dengan
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>$ mongo
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>MongoDB shell version: 1.8.2
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>connecting to: test
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>&gt; use admin
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>switched to db admin
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>&gt; db.runCommand<span style="color:#f92672">(</span> <span style="color:#f92672">{</span> addshard: <span style="color:#e6db74">&#34;localhost:10000&#34;</span><span style="color:#f92672">}</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;shardAdded&#34;</span> : <span style="color:#e6db74">&#34;shard0000&#34;</span>, <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>&gt; db.runCommand<span style="color:#f92672">(</span> <span style="color:#f92672">{</span> addshard: <span style="color:#e6db74">&#34;localhost:10001&#34;</span><span style="color:#f92672">}</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span><span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;shardAdded&#34;</span> : <span style="color:#e6db74">&#34;shard0001&#34;</span>, <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>&gt;
+</span></span></code></pre></div><p>Berikutnya, kita set agar server tersebut dalam mode sharding pada database test. Setelah itu kita akan menambahkan sharding pada <em>collection</em> <em>people</em> dengan
 <em>shard key</em> <em>email</em>. Meskipun pada tahap ini kita belum memiliki <em>people Collection</em></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; db.runCommand<span class="o">(</span> <span class="o">{</span> enablesharding: <span class="s2">&#34;test&#34;</span> <span class="o">}</span> <span class="o">)</span>
-  <span class="o">{</span> <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-  &gt; db.runCommand<span class="o">(</span> <span class="o">{</span> shardcollection: <span class="s2">&#34;test.people&#34;</span>, key: <span class="o">{</span>email: 1<span class="o">}</span> <span class="o">}</span> <span class="o">)</span>
-  <span class="o">{</span> <span class="s2">&#34;collectionsharded&#34;</span> : <span class="s2">&#34;test.people&#34;</span>, <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-  &gt; use <span class="nb">test</span>
-  &gt; show collections
-</code></pre></td></tr></table>
-</div>
-</div><p>Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjadi 1 MB</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>  &gt; db.runCommand<span style="color:#f92672">(</span> <span style="color:#f92672">{</span> enablesharding: <span style="color:#e6db74">&#34;test&#34;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>  <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>  &gt; db.runCommand<span style="color:#f92672">(</span> <span style="color:#f92672">{</span> shardcollection: <span style="color:#e6db74">&#34;test.people&#34;</span>, key: <span style="color:#f92672">{</span>email: 1<span style="color:#f92672">}</span> <span style="color:#f92672">}</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>  <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;collectionsharded&#34;</span> : <span style="color:#e6db74">&#34;test.people&#34;</span>, <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>  &gt; use test
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>  &gt; show collections
+</span></span></code></pre></div><p>Oke kita cek dulu apakah ukuran chuck sudah 1 MB, apabila belum kita ubah menjadi 1 MB</p>
 <div class="alert alert-info">
   Entah mengapa parameter --chunkSize 1 tidak mengubah ukuran chunk, oleh karena itu kita ubah dari database
 </div>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; use config
-  switched to db config
-  &gt; show collections
-  changelog
-  chunks
-  collections
-  databases
-  lockpings
-  locks
-  mongos
-  settings
-  shards
-  system.indexes
-  version
-  &gt; db.settings.find<span class="o">()</span>
-  <span class="o">{</span> <span class="s2">&#34;_id&#34;</span> : <span class="s2">&#34;chunksize&#34;</span>, <span class="s2">&#34;value&#34;</span> : <span class="m">64</span> <span class="o">}</span>
-  &gt; db.settings.save<span class="o">({</span>_id:<span class="s2">&#34;chunksize&#34;</span>, value: 1<span class="o">})</span>
-  &gt; db.settings.find<span class="o">()</span>
-  <span class="o">{</span> <span class="s2">&#34;_id&#34;</span> : <span class="s2">&#34;chunksize&#34;</span>, <span class="s2">&#34;value&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-  &gt;
-</code></pre></td></tr></table>
-</div>
-</div><p>Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>  &gt; use config
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>  switched to db config
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>  &gt; show collections
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>  changelog
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>  chunks
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>  collections
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>  databases
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>  lockpings
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>  locks
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>  mongos
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>  settings
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>  shards
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>  system.indexes
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>  version
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>  &gt; db.settings.find<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>  <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;_id&#34;</span> : <span style="color:#e6db74">&#34;chunksize&#34;</span>, <span style="color:#e6db74">&#34;value&#34;</span> : <span style="color:#ae81ff">64</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>  &gt; db.settings.save<span style="color:#f92672">({</span>_id:<span style="color:#e6db74">&#34;chunksize&#34;</span>, value: 1<span style="color:#f92672">})</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>  &gt; db.settings.find<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>  <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;_id&#34;</span> : <span style="color:#e6db74">&#34;chunksize&#34;</span>, <span style="color:#e6db74">&#34;value&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>  &gt;
+</span></span></code></pre></div><p>Perhatikan bahwa perintah terakhir tidak menghasilkan apa-apa karena kita memang belum memiliki collection.</p>
 <p>Ok, sampai tahap ini kita telah selesai melakukan shard terhadap server tersebut</p>
 <h2 id="lets-play">Let&rsquo;s Play</h2>
 <p>Sekarang saatnya kita melakukan percobaan dengan shard dan chunk.</p>
 <h3 id="tambahkan-data-pada-collection">Tambahkan data pada collection</h3>
 <p>Pertama-tama kita coba untuk menambahkan 1 collection dan melihat ukuran collection tersebut.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; use <span class="nb">test</span>
-  switched to db <span class="nb">test</span>
-  &gt; db.people.save<span class="o">(</span> <span class="o">{</span> name: <span class="s2">&#34;Person test&#34;</span>, email: <span class="s2">&#34;test@foo.com&#34;</span> <span class="o">}</span> <span class="o">)</span>
-  &gt; db.people.find<span class="o">()</span>
-  <span class="o">{</span> <span class="s2">&#34;_id&#34;</span> : ObjectId<span class="o">(</span><span class="s2">&#34;4f5742cc580bd77a9d9ec6d6&#34;</span><span class="o">)</span>, <span class="s2">&#34;email&#34;</span> : <span class="s2">&#34;test@foo.com&#34;</span>, <span class="s2">&#34;name&#34;</span> : <span class="s2">&#34;Person test&#34;</span> <span class="o">}</span>
-  &gt; db.people.dataSize<span class="o">()</span>
-  <span class="m">68</span>
-  &gt; db.people.totalSize<span class="o">()</span>
-  <span class="m">24576</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>Dapat dilihat pada hasil diatas bahwa kita telah memasukkan 1 dokumen pada <em>collection</em> people dan untuk 1 dokumen kita memerlukan 68 byte.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span>  &gt; use test
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span><span>  switched to db test
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span>  &gt; db.people.save<span style="color:#f92672">(</span> <span style="color:#f92672">{</span> name: <span style="color:#e6db74">&#34;Person test&#34;</span>, email: <span style="color:#e6db74">&#34;test@foo.com&#34;</span> <span style="color:#f92672">}</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span><span>  &gt; db.people.find<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span>  <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;_id&#34;</span> : ObjectId<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;4f5742cc580bd77a9d9ec6d6&#34;</span><span style="color:#f92672">)</span>, <span style="color:#e6db74">&#34;email&#34;</span> : <span style="color:#e6db74">&#34;test@foo.com&#34;</span>, <span style="color:#e6db74">&#34;name&#34;</span> : <span style="color:#e6db74">&#34;Person test&#34;</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span>  &gt; db.people.dataSize<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span><span>  <span style="color:#ae81ff">68</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span><span>  &gt; db.people.totalSize<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9</span><span>  <span style="color:#ae81ff">24576</span>
+</span></span></code></pre></div><p>Dapat dilihat pada hasil diatas bahwa kita telah memasukkan 1 dokumen pada <em>collection</em> people dan untuk 1 dokumen kita memerlukan 68 byte.
 Ingat bahwa pada contoh diatas, kita menetapkan ukuran 1 chunk adalah 1MB (1024 byte). Skarang kita coba untuk memasukan data sehingga ukuran
 data menjadi 3 chuck</p>
 <p>Mari kita tambahkan record (dokumen) sebanyak 20000.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; <span class="k">for</span> <span class="o">(</span>var <span class="nv">i</span> <span class="o">=</span> 1<span class="p">;</span> i &lt;<span class="o">=</span> 20000<span class="p">;</span> i++<span class="o">)</span> <span class="o">{</span>
-  ...   var <span class="nv">person_name</span> <span class="o">=</span> <span class="s2">&#34;Person #&#34;</span> + i<span class="p">;</span>
-  ...   var <span class="nv">person_email</span> <span class="o">=</span> <span class="s2">&#34;email-&#34;</span> + i + <span class="s2">&#34;@foo.com&#34;</span><span class="p">;</span>
-  ...   db.people.save <span class="o">({</span> name: person_name, email: person_email <span class="o">})</span><span class="p">;</span>
-  ... <span class="o">}</span>
-  &gt; db.people.totalSize<span class="o">()</span>
-  <span class="m">6776064</span>
-  &gt; db.people.dataSize<span class="o">()</span>
-  <span class="m">1559608</span>
-  &gt;
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="melihat-informasi-jumlah-shard">Melihat informasi jumlah shard</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>  &gt; <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>var i <span style="color:#f92672">=</span> 1; i &lt;<span style="color:#f92672">=</span> 20000; i++<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>  ...   var person_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Person #&#34;</span> + i;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>  ...   var person_email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;email-&#34;</span> + i + <span style="color:#e6db74">&#34;@foo.com&#34;</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>  ...   db.people.save <span style="color:#f92672">({</span> name: person_name, email: person_email <span style="color:#f92672">})</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>  ... <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>  &gt; db.people.totalSize<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>  <span style="color:#ae81ff">6776064</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>  &gt; db.people.dataSize<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>  <span style="color:#ae81ff">1559608</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>  &gt;
+</span></span></code></pre></div><h3 id="melihat-informasi-jumlah-shard">Melihat informasi jumlah shard</h3>
 <p>untuk melihat informasi shard dapat kita lakukan dalam perintah berikut.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; use admin
-  switched to db admin
-  &gt; db.runCommand<span class="o">({</span> listshards: 1<span class="o">})</span>
-  <span class="o">{</span>
-  	<span class="s2">&#34;shards&#34;</span> : <span class="o">[</span>
-  		<span class="o">{</span>
-  			<span class="s2">&#34;_id&#34;</span> : <span class="s2">&#34;shard0000&#34;</span>,
-  			<span class="s2">&#34;host&#34;</span> : <span class="s2">&#34;localhost:10000&#34;</span>
-  		<span class="o">}</span>,
-  		<span class="o">{</span>
-  			<span class="s2">&#34;_id&#34;</span> : <span class="s2">&#34;shard0001&#34;</span>,
-  			<span class="s2">&#34;host&#34;</span> : <span class="s2">&#34;localhost:10001&#34;</span>
-  		<span class="o">}</span>
-  	<span class="o">]</span>,
-  	<span class="s2">&#34;ok&#34;</span> : <span class="m">1</span>
-  <span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="melihat-informasi-chunk">Melihat informasi Chunk</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>  &gt; use admin
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>  switched to db admin
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>  &gt; db.runCommand<span style="color:#f92672">({</span> listshards: 1<span style="color:#f92672">})</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>  <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>  	<span style="color:#e6db74">&#34;shards&#34;</span> : <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>  		<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>  			<span style="color:#e6db74">&#34;_id&#34;</span> : <span style="color:#e6db74">&#34;shard0000&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>  			<span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;localhost:10000&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>  		<span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>  		<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>  			<span style="color:#e6db74">&#34;_id&#34;</span> : <span style="color:#e6db74">&#34;shard0001&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>  			<span style="color:#e6db74">&#34;host&#34;</span> : <span style="color:#e6db74">&#34;localhost:10001&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>  		<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>  	<span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>  	<span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>  <span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="melihat-informasi-chunk">Melihat informasi Chunk</h3>
 <p>Untuk melihat informasi chunk, dan di shard mana chunk itu disimpan, lakukan perintah berikut</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; use config
-  switched to db config
-  &gt; db.chunks.find<span class="o">()</span>
-  <span class="o">{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_MinKey&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:2000,
-        <span class="s2">&#34;i&#34;</span>:0
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="o">{</span>
-           <span class="nv">$minKey</span>:1
-        <span class="o">}</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-10000@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0001&#34;</span>
-  <span class="o">}{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_\&#34;email-10000@foo.com\&#34;&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:2000,
-        <span class="s2">&#34;i&#34;</span>:2
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-10000@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-9@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0000&#34;</span>
-  <span class="o">}{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_\&#34;email-9@foo.com\&#34;&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:2000,
-        <span class="s2">&#34;i&#34;</span>:3
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-9@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="o">{</span>
-           <span class="nv">$maxKey</span>:1
-        <span class="o">}</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0000&#34;</span>
-  <span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>dari data diatas kita dapat melihat bahwa terdapat 3 chunk:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>  &gt; use config
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>  switched to db config
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>  &gt; db.chunks.find<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>  <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>     <span style="color:#e6db74">&#34;_id&#34;</span>:<span style="color:#e6db74">&#34;test.people-email_MinKey&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>     <span style="color:#e6db74">&#34;lastmod&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>        <span style="color:#e6db74">&#34;t&#34;</span>:2000,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>        <span style="color:#e6db74">&#34;i&#34;</span>:0
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>     <span style="color:#e6db74">&#34;ns&#34;</span>:<span style="color:#e6db74">&#34;test.people&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>     <span style="color:#e6db74">&#34;min&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>           $minKey:1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>     <span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;email-10000@foo.com&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>     <span style="color:#e6db74">&#34;shard&#34;</span>:<span style="color:#e6db74">&#34;shard0001&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>  <span style="color:#f92672">}{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>     <span style="color:#e6db74">&#34;_id&#34;</span>:<span style="color:#e6db74">&#34;test.people-email_\&#34;email-10000@foo.com\&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>     <span style="color:#e6db74">&#34;lastmod&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span>        <span style="color:#e6db74">&#34;t&#34;</span>:2000,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span><span>        <span style="color:#e6db74">&#34;i&#34;</span>:2
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span><span>     <span style="color:#e6db74">&#34;ns&#34;</span>:<span style="color:#e6db74">&#34;test.people&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span><span>     <span style="color:#e6db74">&#34;min&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;email-10000@foo.com&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span><span>     <span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;email-9@foo.com&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33</span><span>     <span style="color:#e6db74">&#34;shard&#34;</span>:<span style="color:#e6db74">&#34;shard0000&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34</span><span>  <span style="color:#f92672">}{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35</span><span>     <span style="color:#e6db74">&#34;_id&#34;</span>:<span style="color:#e6db74">&#34;test.people-email_\&#34;email-9@foo.com\&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36</span><span>     <span style="color:#e6db74">&#34;lastmod&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37</span><span>        <span style="color:#e6db74">&#34;t&#34;</span>:2000,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38</span><span>        <span style="color:#e6db74">&#34;i&#34;</span>:3
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40</span><span>     <span style="color:#e6db74">&#34;ns&#34;</span>:<span style="color:#e6db74">&#34;test.people&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41</span><span>     <span style="color:#e6db74">&#34;min&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;email-9@foo.com&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44</span><span>     <span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46</span><span>           $maxKey:1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47</span><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49</span><span>     <span style="color:#e6db74">&#34;shard&#34;</span>:<span style="color:#e6db74">&#34;shard0000&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50</span><span>  <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>dari data diatas kita dapat melihat bahwa terdapat 3 chunk:</p>
 <ul>
 <li>test.people-email_MinKey berada pada shard0001</li>
 <li>test.people-email_&quot;email-10000@foo.com&quot; berada pada shard0000</li>
@@ -526,118 +403,108 @@ data menjadi 3 chuck</p>
 <h3 id="memindahkan-chunk-ke-shard-lain">Memindahkan Chunk ke shard lain</h3>
 <p>Misalkan pada contoh diatas kita ingin memindahkan chunk <code>test.people-email_\&quot;email-9@foo.com\&quot; berada pada shard0000</code> dari shard0000 je shard0001. Hal tersebut
 dapat dilakukan dengan perintah berikut</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">  &gt; db.adminCommand<span class="o">({</span> moveChunk: <span class="s2">&#34;test.people&#34;</span>, find: <span class="o">{</span>email: <span class="s2">&#34;email-9@foo.com&#34;</span><span class="o">}</span>, to: <span class="s1">&#39;shard0001&#39;</span><span class="o">})</span>
-  <span class="o">{</span> <span class="s2">&#34;millis&#34;</span> : 1038, <span class="s2">&#34;ok&#34;</span> : <span class="m">1</span> <span class="o">}</span>
-  &gt; db.chunks.find<span class="o">()</span>
-  <span class="o">{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_MinKey&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:2000,
-        <span class="s2">&#34;i&#34;</span>:0
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="o">{</span>
-           <span class="nv">$minKey</span>:1
-        <span class="o">}</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-10000@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0001&#34;</span>
-  <span class="o">}{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_\&#34;email-10000@foo.com\&#34;&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:3000,
-        <span class="s2">&#34;i&#34;</span>:1
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-10000@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-9@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0000&#34;</span>
-  <span class="o">}{</span>
-     <span class="s2">&#34;_id&#34;</span>:<span class="s2">&#34;test.people-email_\&#34;email-9@foo.com\&#34;&#34;</span>,
-     <span class="s2">&#34;lastmod&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;t&#34;</span>:3000,
-        <span class="s2">&#34;i&#34;</span>:0
-     <span class="o">}</span>,
-     <span class="s2">&#34;ns&#34;</span>:<span class="s2">&#34;test.people&#34;</span>,
-     <span class="s2">&#34;min&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="s2">&#34;email-9@foo.com&#34;</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;max&#34;</span>:<span class="o">{</span>
-        <span class="s2">&#34;email&#34;</span>:<span class="o">{</span>
-           <span class="nv">$maxKey</span>:1
-        <span class="o">}</span>
-     <span class="o">}</span>,
-     <span class="s2">&#34;shard&#34;</span>:<span class="s2">&#34;shard0001&#34;</span>
-  <span class="o">}</span>
-  &gt;
-</code></pre></td></tr></table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span>  &gt; db.adminCommand<span style="color:#f92672">({</span> moveChunk: <span style="color:#e6db74">&#34;test.people&#34;</span>, find: <span style="color:#f92672">{</span>email: <span style="color:#e6db74">&#34;email-9@foo.com&#34;</span><span style="color:#f92672">}</span>, to: <span style="color:#e6db74">&#39;shard0001&#39;</span><span style="color:#f92672">})</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span><span>  <span style="color:#f92672">{</span> <span style="color:#e6db74">&#34;millis&#34;</span> : 1038, <span style="color:#e6db74">&#34;ok&#34;</span> : <span style="color:#ae81ff">1</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span>  &gt; db.chunks.find<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span>  <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span>     <span style="color:#e6db74">&#34;_id&#34;</span>:<span style="color:#e6db74">&#34;test.people-email_MinKey&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span><span>     <span style="color:#e6db74">&#34;lastmod&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span><span>        <span style="color:#e6db74">&#34;t&#34;</span>:2000,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span>        <span style="color:#e6db74">&#34;i&#34;</span>:0
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span><span>     <span style="color:#e6db74">&#34;ns&#34;</span>:<span style="color:#e6db74">&#34;test.people&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span><span>     <span style="color:#e6db74">&#34;min&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span>           $minKey:1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span><span>     <span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;email-10000@foo.com&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19</span><span>     <span style="color:#e6db74">&#34;shard&#34;</span>:<span style="color:#e6db74">&#34;shard0001&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20</span><span>  <span style="color:#f92672">}{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21</span><span>     <span style="color:#e6db74">&#34;_id&#34;</span>:<span style="color:#e6db74">&#34;test.people-email_\&#34;email-10000@foo.com\&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22</span><span>     <span style="color:#e6db74">&#34;lastmod&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23</span><span>        <span style="color:#e6db74">&#34;t&#34;</span>:3000,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24</span><span>        <span style="color:#e6db74">&#34;i&#34;</span>:1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26</span><span>     <span style="color:#e6db74">&#34;ns&#34;</span>:<span style="color:#e6db74">&#34;test.people&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27</span><span>     <span style="color:#e6db74">&#34;min&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;email-10000@foo.com&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30</span><span>     <span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;email-9@foo.com&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33</span><span>     <span style="color:#e6db74">&#34;shard&#34;</span>:<span style="color:#e6db74">&#34;shard0000&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34</span><span>  <span style="color:#f92672">}{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35</span><span>     <span style="color:#e6db74">&#34;_id&#34;</span>:<span style="color:#e6db74">&#34;test.people-email_\&#34;email-9@foo.com\&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36</span><span>     <span style="color:#e6db74">&#34;lastmod&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37</span><span>        <span style="color:#e6db74">&#34;t&#34;</span>:3000,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38</span><span>        <span style="color:#e6db74">&#34;i&#34;</span>:0
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40</span><span>     <span style="color:#e6db74">&#34;ns&#34;</span>:<span style="color:#e6db74">&#34;test.people&#34;</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41</span><span>     <span style="color:#e6db74">&#34;min&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#e6db74">&#34;email-9@foo.com&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44</span><span>     <span style="color:#e6db74">&#34;max&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45</span><span>        <span style="color:#e6db74">&#34;email&#34;</span>:<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46</span><span>           $maxKey:1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47</span><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48</span><span>     <span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49</span><span>     <span style="color:#e6db74">&#34;shard&#34;</span>:<span style="color:#e6db74">&#34;shard0001&#34;</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50</span><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51</span><span>  &gt;
+</span></span></code></pre></div><p>Dari data diatas kita bisa melihat bahwa chunk tersebut sudah pindah dari shard0000 ke sahrd00001</p>
+
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/id/tags/ruby/" rel="tag">ruby</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/id/tags/web/" rel="tag">web</a>
+		</li>
+	</ul>
 </div>
-</div><p>Dari data diatas kita bisa melihat bahwa chunk tersebut sudah pindah dari shard0000 ke sahrd00001</p>
-<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+		</footer>
+	</article>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Ahmy Yulrizka avatar" src="/img/ahmy.jpg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">Tentang Ahmy Yulrizka</span>
+	</div>
+	<div class="authorbox__description">
+		Software Engineer, Sports Enthusiast, and like to write about random things
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/id/telepon-murah-ke-indonesia-dengan-voip/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Sebelumnya</span>
+			<p class="pager__title">Telepon murah ke Indonesia dengan voip</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/id/ruby-fiber-apaan-sih/" rel="next">
+			<span class="pager__subtitle">Selanjutnya&thinsp;»</span>
+			<p class="pager__title">Ruby Fiber apaan sih ?</p>
+		</a>
+	</div>
+</nav>
+
+<section class="comments">
+	<div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
     
     
     
@@ -655,166 +522,23 @@ dapat dilakukan dengan perintah berikut</p>
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
 
-        </div>
-      </div>
-      <div id="sidebar-wrapper" class="span3">
-        <div class="sidebar">
-          <aside>
-          <h2>Archives</h2>
-          <h3>English</h3>
-          <ul>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/my-desktop-with-i3-polybar-conky-rofi/">My Desktop With i3, polybar, conky, and rofi</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/convert-intellij-live-template-to-vscode/">Convert Intellij Live Template to vscode Snippet</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/why-for-range-behave-differently-depending-on-the-size-of-the-element/">Why for-range behaves differently depending on the size of the element (A peek into go compiler optimization)</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/testing-go-1-dot-5-cross-compilation/">Testing go 1.5 cross compilation on raspberry pi</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/osx-push-to-talk-app/">osx-push-to-talk App</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/tracking-origin-of-bugs-with-git-bisect/">Tracking origin of bugs with git bisect</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/stubbing-time-dot-now-in-golang/">Stubbing Time.Now() in golang</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/my-account-just-got-hacked-by-romanian-possibly/">My account just got hacked by Romanian (Possibly)</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/berks-upload-ruby-core-dump/">berks upload core dump</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/en/safely-sharing-credentials-with-pgp/">Safely sharing credentials with PGP</a>
-            </li>
-          
-          </ul>
-          <h3>Indonesia</h3>
-          <ul>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/id/ruby-fiber-apaan-sih/">Ruby Fiber apaan sih ?</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/id/scale-mongodb-dengan-sharding/">Scale MongoDB dengan Sharding</a>
-            </li>
-          
-            <li>
-              <a href="https://labs.yulrizka.com/id/telepon-murah-ke-indonesia-dengan-voip/">Telepon murah ke Indonesia dengan voip</a>
-            </li>
-          
-          </ul>
-          </aside>
-        </div>
-      </div>
-    </div>
-  </div><header>
-  <div id="banner">
-    <div id="carousel-banner" class="wrapper carousel">
-      <div class="carousel-inner excerpt">
-      </div>
-    </div> 
-  </div>
-  
-  <div class="navbar navbar-fixed-top relative">  
-    <div class="navbar-inner">    
-      <div class="fill">
-        <div class="container">
-          <a href="/"><span class="brand">Labs.Yulrizka.com</span></a>
-          <div id="social-icon" class="pull-right">
-            <a href="https://twitter.com/#!/yulrizka" target="twitter" rel="popover" data-content="Follow me on twitter" data-original-title="@yulrizka" data-placement="left"><img src="/images/icon/twitter.png" alt="twitter"></a>  
-            <a href="https://github.com/yulrizka" target="github" rel="popover" data-content="Github is source code repository that encourage social coding. Fork my projects from github." data-original-title="Fork me on Github" data-placement="left"><img src="/images/icon/github.png" alt="github"></a>  
-            <a href="https://feeds.feedburner.com/yulrizka/labs" target="feed" rel="popover" data-content="Suscribe this blog feed on feed burner" data-original-title="RSS feed" data-placement="left"><img src="/images/icon/feed.png" alt="feed"></a>  
-          </div>
-          <a class="btn btn-navbar" href="#" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <div id="page-view">
-            <ul class="nav pull-right">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" rel="popover" data-content="Arrange the sidebar position Left / Right / None" 
-                data-original-title="Sidebar position" data-placement="left">
-                  <i id="icon-panel" class="icon-right-panel icon-white"></i><b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" id="sidebar-left-link"><i class="icon-left-panel"></i> Left Panel</a></li>
-                  <li><a href="#" id="sidebar-none-link"><i class="icon-no-panel"></i> No Panel</a></li>
-                  <li><a href="#" id="sidebar-right-link"><i class="icon-right-panel"></i> Right Panel</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>            
-          <div class="nav-link nav-collapse">
-            <ul class="nav">
-
-              <li class=""><a href="/">Home</a></li>
-              <li class=""><a href="/en/">EN</a></li>
-              <li class="active banner"><a href="/id/">ID</a></li>
-              <li class=""><a href="https://til.yulrizka.com/">Today I Learned</a></li>
-              
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-<footer>
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div id="footer-wrapper" class="span9 <!-- sidebar-right -->">
-        <div class="footer">
-          <p>
-            &copy; Ahmy Yulrizka 2019. Made with <a href="https://gohugo.io/">hugo</a>
-            <a href="https://github.com/yulrizka/yulrizka.github.com/tree/source">source</a>
-          </p>
-        </div>
-      </div>
-    </div>
- </div>
+			</div>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2024 Ahmy Yulrizka.
+			<span class="footer__copyright-credits">Dibuat dengan <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> dan Tema <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a>.</span>
+		</div>
+	</div>
 </footer>
-</div> 
+	</div>
+<script async defer src="/js/menu.js"></script>
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/javascripts/jquery-1.7.1.min.js"><\/script>')</script>
-
-
-<script src="https://labs.yulrizka.com/javascript/global.js"></script>
-
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-22308054-2']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async></script>
 </body>
 </html>

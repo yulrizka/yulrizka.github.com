@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on </title>
+    <link>https://labs.yulrizka.com/en/tags/linux/</link>
+    <description>Recent content in Linux on </description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <lastBuildDate>Mon, 08 Jul 2013 16:24:00 +0200</lastBuildDate>
+    <atom:link href="https://labs.yulrizka.com/en/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Safely sharing credentials with PGP</title>
+      <link>https://labs.yulrizka.com/en/en/safely-sharing-credentials-with-pgp/</link>
+      <pubDate>Mon, 08 Jul 2013 16:24:00 +0200</pubDate>
+      <guid>https://labs.yulrizka.com/en/en/safely-sharing-credentials-with-pgp/</guid>
+      <description>&lt;p&gt;When working in teams, we are sometimes required to share some password / keys with our team.&#xA;The most common way for me is probably through email or some chat client. But even though its convenience it&amp;rsquo;s not&#xA;actually a secure and a good practice. Especially if you are providing a service that deal with sensitive information.&lt;/p&gt;&#xA;&lt;p&gt;Some simple approach would we communicating the password directly with a person through secure medium.&#xA;One way to do it is both party ssh through a server and use talk client like &lt;a href=&#34;http://linux.die.net/man/1/write&#34;&gt;write&lt;/a&gt;.&#xA;But for some cases it&amp;rsquo;s quite impractical.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
